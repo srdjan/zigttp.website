@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>zigttp - A JavaScript Runtime Built in Zig</title>
+  <meta name="description" content="A JavaScript runtime built from scratch in Zig for serverless workloads. One binary, zero dependencies, instant cold starts.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-zig">zig</span><span class="logo-ttp">ttp</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#code">Code</a>
+        <a href="#performance">Performance</a>
+        <a href="#modules">Modules</a>
+        <a href="https://github.com/srdjan/zigttp" class="nav-gh" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-badge">Experimental - under active development</p>
+      <h1 class="hero-title">A JavaScript runtime<br>built for <span class="accent">speed</span></h1>
+      <p class="hero-sub">
+        Built from scratch in Zig for serverless workloads.
+        One binary, zero dependencies, instant cold starts.
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">3ms</span>
+          <span class="stat-label">runtime init</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">1.2MB</span>
+          <span class="stat-label">binary size</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">4MB</span>
+          <span class="stat-label">memory baseline</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">80K</span>
+          <span class="stat-label">req/s</span>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">terminal</span>
+        </div>
+        <div class="terminal-body">
+<pre><code><span class="t-prompt">$</span> zig build -Doptimize=ReleaseFast
+
+<span class="t-prompt">$</span> ./zig-out/bin/zigttp-server -e <span class="t-string">"function handler(r) { return Response.json({hello:'world'}) }"</span>
+<span class="t-output">listening on http://127.0.0.1:8080</span>
+
+<span class="t-prompt">$</span> curl http://localhost:8080/
+<span class="t-output">{"hello":"world"}</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 class="section-title">What makes it different</h2>
+      <p class="section-sub">
+        Where Node.js and Deno optimize for generality, zigttp optimizes for a single use case:
+        running a request handler as fast as possible, then getting out of the way.
+      </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Opinionated subset</h3>
+          <p>
+            TypeScript with the footguns removed. No classes, no <code>this</code>,
+            no <code>var</code>, no <code>while</code> loops. Unsupported features fail
+            at parse time with a suggested alternative, not at runtime with a cryptic stack trace.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>JSX as a first-class primitive</h3>
+          <p>
+            The parser handles JSX and TSX directly. No Babel, no build step, no transpilation.
+            Write server-rendered HTML with components and get back a string.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Compile-time evaluation</h3>
+          <p>
+            <code>comptime()</code> folds expressions at load time, modeled after Zig's comptime.
+            Hash a version string, uppercase a constant, precompute a config value -
+            all before the handler runs.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </div>
+          <h3>Native modules over polyfills</h3>
+          <p>
+            Common FaaS needs - JWT auth, JSON Schema validation, caching, crypto -
+            are implemented in Zig and exposed as <code>zigttp:*</code> virtual modules
+            with zero interpretation overhead.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+  <section id="code" class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">Clean, predictable code</h2>
+      <p class="section-sub">
+        Functions in, responses out. No middleware chains, no decorator magic, no hidden state.
+      </p>
+      <div class="code-tabs">
+        <div class="tabs-header">
+          <button class="tab active" data-tab="hello">Hello World</button>
+          <button class="tab" data-tab="jsx">JSX</button>
+          <button class="tab" data-tab="routing">Routing</button>
+          <button class="tab" data-tab="auth">Auth</button>
+          <button class="tab" data-tab="htmx">HTMX</button>
+        </div>
+        <div class="tabs-body">
+
+          <div class="tab-panel active" id="tab-hello">
+<pre><code><span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">request</span>) {
+    <span class="c-keyword">if</span> (request.url === <span class="c-string">"/api/health"</span>) {
+        <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({
+            status: <span class="c-string">"ok"</span>,
+            runtime: <span class="c-string">"zts"</span>,
+            timestamp: Date.<span class="c-fn">now</span>(),
+        });
+    }
+
+    <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+        { error: <span class="c-string">"Not Found"</span> },
+        { status: <span class="c-number">404</span> }
+    );
+}</code></pre>
+          </div>
+
+          <div class="tab-panel" id="tab-jsx">
+<pre><code><span class="c-keyword">function</span> <span class="c-fn">HomePage</span>() {
+    <span class="c-keyword">return</span> (
+        <span class="c-tag">&lt;html&gt;</span>
+            <span class="c-tag">&lt;head&gt;</span>
+                <span class="c-tag">&lt;title&gt;</span>Hello World<span class="c-tag">&lt;/title&gt;</span>
+            <span class="c-tag">&lt;/head&gt;</span>
+            <span class="c-tag">&lt;body&gt;</span>
+                <span class="c-tag">&lt;h1&gt;</span>Hello World<span class="c-tag">&lt;/h1&gt;</span>
+                <span class="c-tag">&lt;p&gt;</span>Welcome to zigttp!<span class="c-tag">&lt;/p&gt;</span>
+            <span class="c-tag">&lt;/body&gt;</span>
+        <span class="c-tag">&lt;/html&gt;</span>
+    );
+}
+
+<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">request</span>) {
+    <span class="c-keyword">if</span> (request.url === <span class="c-string">"/"</span>) {
+        <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(<span class="c-fn">renderToString</span>(<span class="c-tag">&lt;HomePage /&gt;</span>));
+    }
+    <span class="c-keyword">return</span> Response.<span class="c-fn">text</span>(<span class="c-string">"Not Found"</span>, { status: <span class="c-number">404</span> });
+}</code></pre>
+          </div>
+
+          <div class="tab-panel" id="tab-routing">
+<pre><code><span class="c-keyword">import</span> { routerMatch } <span class="c-keyword">from</span> <span class="c-string">"zigttp:router"</span>;
+
+<span class="c-keyword">const</span> routes = {
+    <span class="c-string">"GET /"</span>:            getHome,
+    <span class="c-string">"GET /health"</span>:      getHealth,
+    <span class="c-string">"GET /users/:id"</span>:   getUser,
+    <span class="c-string">"POST /echo"</span>:       postEcho,
+};
+
+<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>) {
+    <span class="c-keyword">const</span> match = <span class="c-fn">routerMatch</span>(routes, req);
+    <span class="c-keyword">if</span> (match) {
+        req.params = match.params;
+        <span class="c-keyword">return</span> match.<span class="c-fn">handler</span>(req);
+    }
+    <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+        { error: <span class="c-string">"Not Found"</span> },
+        { status: <span class="c-number">404</span> }
+    );
+}</code></pre>
+          </div>
+
+          <div class="tab-panel" id="tab-auth">
+<pre><code><span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
+<span class="c-keyword">import</span> { schemaCompile, validateJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
+
+<span class="c-fn">schemaCompile</span>(<span class="c-string">"user"</span>, JSON.<span class="c-fn">stringify</span>({
+    type: <span class="c-string">"object"</span>,
+    required: [<span class="c-string">"name"</span>, <span class="c-string">"email"</span>],
+    properties: {
+        name:  { type: <span class="c-string">"string"</span>, minLength: <span class="c-number">1</span> },
+        email: { type: <span class="c-string">"string"</span>, minLength: <span class="c-number">5</span> },
+    }
+}));
+
+<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>) {
+    <span class="c-keyword">const</span> token = <span class="c-fn">parseBearer</span>(req.headers[<span class="c-string">"authorization"</span>]);
+    <span class="c-keyword">if</span> (!token) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+        { error: <span class="c-string">"unauthorized"</span> }, { status: <span class="c-number">401</span> }
+    );
+
+    <span class="c-keyword">const</span> auth = <span class="c-fn">jwtVerify</span>(token, <span class="c-string">"my-secret"</span>);
+    <span class="c-keyword">if</span> (!auth.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+        { error: auth.error }, { status: <span class="c-number">401</span> }
+    );
+
+    <span class="c-keyword">if</span> (req.method === <span class="c-string">"POST"</span>) {
+        <span class="c-keyword">const</span> result = <span class="c-fn">validateJson</span>(<span class="c-string">"user"</span>, req.body);
+        <span class="c-keyword">if</span> (!result.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+            { errors: result.errors }, { status: <span class="c-number">400</span> }
+        );
+        <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ user: result.value }, { status: <span class="c-number">201</span> });
+    }
+
+    <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ user: auth.value });
+}</code></pre>
+          </div>
+
+          <div class="tab-panel" id="tab-htmx">
+<pre><code><span class="c-keyword">function</span> <span class="c-fn">TodoForm</span>() {
+    <span class="c-keyword">return</span> (
+        <span class="c-tag">&lt;form</span>
+            <span class="c-attr">hx-post</span>=<span class="c-string">"/todos"</span>
+            <span class="c-attr">hx-target</span>=<span class="c-string">"#todo-list"</span>
+            <span class="c-attr">hx-swap</span>=<span class="c-string">"beforeend"</span><span class="c-tag">&gt;</span>
+            <span class="c-tag">&lt;input</span> <span class="c-attr">type</span>=<span class="c-string">"text"</span> <span class="c-attr">name</span>=<span class="c-string">"text"</span> <span class="c-attr">required</span> <span class="c-tag">/&gt;</span>
+            <span class="c-tag">&lt;button</span> <span class="c-attr">type</span>=<span class="c-string">"submit"</span><span class="c-tag">&gt;</span>Add Todo<span class="c-tag">&lt;/button&gt;</span>
+        <span class="c-tag">&lt;/form&gt;</span>
+    );
+}
+
+<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">request</span>) {
+    <span class="c-keyword">if</span> (request.url === <span class="c-string">"/"</span> && request.method === <span class="c-string">"GET"</span>) {
+        <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(
+            <span class="c-fn">renderToString</span>(<span class="c-tag">&lt;TodoForm /&gt;</span>)
+        );
+    }
+
+    <span class="c-keyword">if</span> (request.url === <span class="c-string">"/todos"</span> && request.method === <span class="c-string">"POST"</span>) {
+        <span class="c-keyword">const</span> html = <span class="c-fn">renderToString</span>(
+            <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-string">"todo-item"</span><span class="c-tag">&gt;</span>New todo<span class="c-tag">&lt;/div&gt;</span>
+        );
+        <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(html);
+    }
+
+    <span class="c-keyword">return</span> Response.<span class="c-fn">text</span>(<span class="c-string">"Not Found"</span>, { status: <span class="c-number">404</span> });
+}</code></pre>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance -->
+  <section id="performance" class="section">
+    <div class="container">
+      <h2 class="section-title">Performance</h2>
+      <p class="section-sub">
+        Powered by <strong>zts</strong> - a pure Zig JavaScript engine with a JIT compiler,
+        NaN-boxed values, and hidden classes. It skips everything a FaaS handler doesn't need.
+      </p>
+
+      <h3 class="perf-heading">JS Engine Performance (vs QuickJS)</h3>
+      <div class="bench-grid">
+        <div class="bench-row">
+          <span class="bench-label">String Operations</span>
+          <div class="bench-bar-wrap">
+            <div class="bench-bar" style="--pct: 100%" data-animate>
+              <span class="bench-value">63x faster</span>
+            </div>
+          </div>
+          <span class="bench-ops">16.3M ops/s</span>
+        </div>
+        <div class="bench-row">
+          <span class="bench-label">Object Create</span>
+          <div class="bench-bar-wrap">
+            <div class="bench-bar" style="--pct: 76%" data-animate>
+              <span class="bench-value">4.8x</span>
+            </div>
+          </div>
+          <span class="bench-ops">8.1M ops/s</span>
+        </div>
+        <div class="bench-row">
+          <span class="bench-label">Property Access</span>
+          <div class="bench-bar-wrap">
+            <div class="bench-bar" style="--pct: 62%" data-animate>
+              <span class="bench-value">3.9x</span>
+            </div>
+          </div>
+          <span class="bench-ops">13.2M ops/s</span>
+        </div>
+        <div class="bench-row">
+          <span class="bench-label">HTTP Handler</span>
+          <div class="bench-bar-wrap">
+            <div class="bench-bar" style="--pct: 49%" data-animate>
+              <span class="bench-value">3.1x</span>
+            </div>
+          </div>
+          <span class="bench-ops">1.0M ops/s</span>
+        </div>
+        <div class="bench-row">
+          <span class="bench-label">Function Calls</span>
+          <div class="bench-bar-wrap">
+            <div class="bench-bar" style="--pct: 38%" data-animate>
+              <span class="bench-value">2.4x</span>
+            </div>
+          </div>
+          <span class="bench-ops">12.4M ops/s</span>
+        </div>
+        <div class="bench-row">
+          <span class="bench-label">String Concat</span>
+          <div class="bench-bar-wrap">
+            <div class="bench-bar" style="--pct: 21%" data-animate>
+              <span class="bench-value">1.3x</span>
+            </div>
+          </div>
+          <span class="bench-ops">8.3M ops/s</span>
+        </div>
+        <div class="bench-row">
+          <span class="bench-label">Array Operations</span>
+          <div class="bench-bar-wrap">
+            <div class="bench-bar" style="--pct: 21%" data-animate>
+              <span class="bench-value">1.3x</span>
+            </div>
+          </div>
+          <span class="bench-ops">8.7M ops/s</span>
+        </div>
+      </div>
+
+      <h3 class="perf-heading">Cold Start Comparison</h3>
+      <div class="cold-start-grid">
+        <div class="cold-card">
+          <span class="cold-runtime">zigttp</span>
+          <span class="cold-time accent">~71ms</span>
+          <span class="cold-note">embedded bytecode</span>
+        </div>
+        <div class="cold-card">
+          <span class="cold-runtime">zigttp</span>
+          <span class="cold-time">~83ms</span>
+          <span class="cold-note">runtime parsing</span>
+        </div>
+        <div class="cold-card">
+          <span class="cold-runtime">Deno</span>
+          <span class="cold-time cold-slower">~150-200ms</span>
+          <span class="cold-note">V8 snapshot</span>
+        </div>
+      </div>
+      <p class="perf-footnote">
+        Runtime initialization is only 3ms. macOS dynamic linker accounts for 80-90ms.
+        Linux static builds target 18-33ms total cold start.
+      </p>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">Two-layer architecture</h2>
+      <p class="section-sub">
+        zigttp is a server. zts is the engine. Both are written in Zig. Together they form
+        a purpose-built runtime for handling HTTP requests with JavaScript.
+      </p>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h3 class="arch-name">zigttp <span class="arch-label">server</span></h3>
+          <ul class="arch-list">
+            <li>HTTP/1.1 listener and parser</li>
+            <li>HandlerPool with lock-free slot acquisition</li>
+            <li>Static file serving with LRU cache</li>
+            <li>CLI with inline eval, CORS, memory limits</li>
+            <li>Build-time handler precompilation</li>
+            <li>Native outbound HTTP bridge</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3 class="arch-name">zts <span class="arch-label">engine</span></h3>
+          <ul class="arch-list">
+            <li>Two-pass compiler (parse to IR, then bytecode)</li>
+            <li>Stack-based VM with baseline JIT (x86-64, ARM64)</li>
+            <li>NaN-boxed values with hidden classes</li>
+            <li>Polymorphic inline cache (8-entry PIC)</li>
+            <li>Generational GC with hybrid arena allocation</li>
+            <li>Native TypeScript/TSX stripping</li>
+          </ul>
+        </div>
+      </div>
+      <div class="arch-flow">
+        <div class="flow-step">
+          <span class="flow-num">1</span>
+          <span>HTTP request arrives</span>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <span class="flow-num">2</span>
+          <span>Pool acquires isolated runtime</span>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <span class="flow-num">3</span>
+          <span>Handler invoked with Request</span>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <span class="flow-num">4</span>
+          <span>Response sent, runtime released</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Virtual Modules -->
+  <section id="modules" class="section">
+    <div class="container">
+      <h2 class="section-title">Virtual modules</h2>
+      <p class="section-sub">
+        Import native Zig implementations with zero JS interpretation overhead.
+        Common FaaS functionality, none of the npm baggage.
+      </p>
+      <div class="modules-grid">
+        <div class="module-card">
+          <code class="module-import">zigttp:auth</code>
+          <p>JWT signing and verification (HS256), bearer token parsing, webhook signature verification, timing-safe comparison.</p>
+          <code class="module-exports">parseBearer, jwtVerify, jwtSign, verifyWebhookSignature</code>
+        </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:validate</code>
+          <p>JSON Schema validation with compile-once-validate-many pattern. Supports type, required, properties, min/max, enum.</p>
+          <code class="module-exports">schemaCompile, validateJson, validateObject, coerceJson</code>
+        </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:cache</code>
+          <p>In-memory key-value store with namespace isolation, TTL expiry, LRU eviction. Persists across requests in the same pool slot.</p>
+          <code class="module-exports">cacheGet, cacheSet, cacheDelete, cacheIncr, cacheStats</code>
+        </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:crypto</code>
+          <p>SHA-256 hashing, HMAC-SHA256, base64 encoding and decoding. All implemented in Zig with no OpenSSL dependency.</p>
+          <code class="module-exports">sha256, hmacSha256, base64Encode, base64Decode</code>
+        </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:router</code>
+          <p>Pattern-matching HTTP router with path parameter extraction. Declare routes as an object, match with a single call.</p>
+          <code class="module-exports">routerMatch</code>
+        </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:env</code>
+          <p>Environment variable access for configuration. Simple key-value interface for deployment secrets and config.</p>
+          <code class="module-exports">env</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Started -->
+  <section class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">Get started</h2>
+      <p class="section-sub">
+        Requires Zig 0.16.0 or later.
+      </p>
+      <div class="start-grid">
+        <div class="start-step">
+          <h3><span class="step-num">1</span> Build</h3>
+          <div class="terminal terminal-sm">
+            <div class="terminal-body">
+<pre><code><span class="t-prompt">$</span> git clone https://github.com/srdjan/zigttp
+<span class="t-prompt">$</span> cd zigttp
+<span class="t-prompt">$</span> zig build -Doptimize=ReleaseFast</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="start-step">
+          <h3><span class="step-num">2</span> Run</h3>
+          <div class="terminal terminal-sm">
+            <div class="terminal-body">
+<pre><code><span class="t-comment"># Inline handler</span>
+<span class="t-prompt">$</span> ./zig-out/bin/zigttp-server -e <span class="t-string">"function handler(r) { return Response.json({ok:true}) }"</span>
+
+<span class="t-comment"># Or with a file</span>
+<span class="t-prompt">$</span> ./zig-out/bin/zigttp-server examples/handler.jsx</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="start-step">
+          <h3><span class="step-num">3</span> Deploy</h3>
+          <div class="terminal terminal-sm">
+            <div class="terminal-body">
+<pre><code><span class="t-comment"># Production build with embedded handler</span>
+<span class="t-prompt">$</span> zig build -Doptimize=ReleaseFast -Dhandler=handler.js
+
+<span class="t-comment"># Container: scratch base, 1.2MB total</span>
+<span class="t-prompt">$</span> docker build -t myapp .</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subset -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">The language subset</h2>
+      <p class="section-sub">
+        zts implements ES5 with select ES6+ extensions. Every unsupported feature
+        is detected at parse time with a helpful error message suggesting an alternative.
+      </p>
+      <div class="subset-grid">
+        <div class="subset-card subset-yes">
+          <h3>Supported</h3>
+          <ul>
+            <li>Strict mode, let/const</li>
+            <li>Arrow functions</li>
+            <li>Template literals</li>
+            <li>Destructuring, spread</li>
+            <li>for...of (arrays)</li>
+            <li>Optional chaining, nullish coalescing</li>
+            <li>Typed arrays</li>
+            <li>JSX/TSX (native parsing)</li>
+            <li>TypeScript type stripping</li>
+            <li>comptime() evaluation</li>
+            <li>range(start, end, step)</li>
+          </ul>
+        </div>
+        <div class="subset-card subset-no">
+          <h3>Intentionally excluded</h3>
+          <ul>
+            <li><code>class</code> - use functions and objects</li>
+            <li><code>this</code> / <code>new</code> - use closures</li>
+            <li><code>var</code> - use let/const</li>
+            <li><code>while</code> - use for...of with range()</li>
+            <li><code>try/catch</code> - use Result types</li>
+            <li><code>async/await</code> - sequential by design</li>
+            <li><code>Promises</code> - one request at a time</li>
+            <li>Regular expressions</li>
+            <li>Event loop</li>
+            <li><code>require</code> / dynamic import</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <span class="logo-zig">zig</span><span class="logo-ttp">ttp</span>
+      </div>
+      <p class="footer-text">
+        A JavaScript runtime for serverless workloads, built in Zig.
+        MIT licensed.
+      </p>
+      <div class="footer-links">
+        <a href="https://github.com/srdjan/zigttp" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/srdjan/zigttp/tree/main/docs" target="_blank" rel="noopener">Docs</a>
+        <a href="https://ziglang.org" target="_blank" rel="noopener">Zig</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>
