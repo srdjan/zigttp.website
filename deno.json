@@ -1,7 +1,11 @@
 {
+  "name": "@zigttp/website",
+  "version": "0.1.0",
+  "exports": "./main.ts",
   "tasks": {
     "dev": "deno run --allow-net --allow-read --watch main.ts",
-    "start": "deno run --allow-net --allow-read main.ts"
+    "start": "deno run --allow-net --allow-read main.ts",
+    "deploy": "deployctl deploy --prod"
   },
   "compilerOptions": {
     "strict": true
