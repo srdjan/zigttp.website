@@ -12,10 +12,10 @@
 }
 
 :root {
-  --bg:           #09090b;
-  --bg-elevated:  #18181b;
-  --bg-card:      #1c1c20;
-  --bg-code:      #131316;
+  --bg:           #161619;
+  --bg-elevated:  #242428;
+  --bg-card:      #2a2a2f;
+  --bg-code:      #1e1e22;
   --border:       #27272a;
   --border-light: #3f3f46;
   --text:         #fafafa;
