@@ -1653,6 +1653,13 @@ code {
   }
 }
 
+/* Tablet enhancements */
+@media (min-width: 481px) {
+  .deck-modules-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Desktop enhancements */
 @media (min-width: 769px) {
   .nav-links {
@@ -1672,7 +1679,7 @@ code {
   }
 
   .deck-modules-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .deck-command-bar {

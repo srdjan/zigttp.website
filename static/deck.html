@@ -152,6 +152,7 @@ Sandbox</span></div>
               <div class="deck-subset-item deck-subset-kept">&#10003;  destructuring</div>
               <div class="deck-subset-item deck-subset-kept">&#10003;  for...of</div>
               <div class="deck-subset-item deck-subset-kept">&#10003;  match expressions</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  pipe operator (|&gt;)</div>
               <div class="deck-subset-item deck-subset-kept">&#10003;  JSX (first-class)</div>
             </div>
           </div>
@@ -222,6 +223,10 @@ Sandbox</span></div>
   "egress": ["api.stripe.com"],
   "cache": ["sessions"],
   "sql": ["getUserById"],
+  "properties": {
+    "read_only": true,
+    "retry_safe": true
+  },
   "proof": "complete"
 }</pre>
             </div>
@@ -240,11 +245,11 @@ Sandbox</span></div>
               </div>
               <div class="deck-shield-item">
                 <span class="deck-shield-icon">&#128737;</span>
-                <span class="deck-shield-text">Non-literal args report dynamic: true</span>
+                <span class="deck-shield-text">Effect classification per handler</span>
               </div>
               <div class="deck-shield-item">
                 <span class="deck-shield-icon">&#128737;</span>
-                <span class="deck-shield-text">-Dpolicy=policy.json for overrides</span>
+                <span class="deck-shield-text">OpenAPI spec from -Dopenapi</span>
               </div>
             </div>
           </div>
@@ -324,28 +329,36 @@ Sandbox</span></div>
             </div>
             <div class="deck-modules-grid">
               <div class="deck-module-item">
-                <code class="deck-module-name">zigttp:jwt</code>
-                <span class="deck-module-desc">JWT auth</span>
+                <code class="deck-module-name">zigttp:auth</code>
+                <span class="deck-module-desc">JWT + webhooks</span>
               </div>
               <div class="deck-module-item">
-                <code class="deck-module-name">zigttp:schema</code>
+                <code class="deck-module-name">zigttp:validate</code>
                 <span class="deck-module-desc">JSON Schema</span>
               </div>
               <div class="deck-module-item">
                 <code class="deck-module-name">zigttp:cache</code>
-                <span class="deck-module-desc">Caching</span>
+                <span class="deck-module-desc">KV store</span>
               </div>
               <div class="deck-module-item">
                 <code class="deck-module-name">zigttp:crypto</code>
-                <span class="deck-module-desc">Crypto</span>
+                <span class="deck-module-desc">SHA/HMAC/B64</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:sql</code>
+                <span class="deck-module-desc">SQLite</span>
               </div>
               <div class="deck-module-item">
                 <code class="deck-module-name">zigttp:io</code>
                 <span class="deck-module-desc">Parallel I/O</span>
               </div>
               <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:compose</code>
+                <span class="deck-module-desc">Guards + pipe</span>
+              </div>
+              <div class="deck-module-item">
                 <code class="deck-module-name">zigttp:durable</code>
-                <span class="deck-module-desc">Durability</span>
+                <span class="deck-module-desc">Crash recovery</span>
               </div>
             </div>
           </div>
@@ -387,6 +400,14 @@ Sandbox</span></div>
             <div class="deck-summary-row">
               <code class="deck-summary-label">Proven evolution</code>
               <span class="deck-summary-value">Diff contracts, classify changes</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Effect classification</code>
+              <span class="deck-summary-value">Handler properties proven at build time</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">OpenAPI generation</code>
+              <span class="deck-summary-value">Response schemas from type inference</span>
             </div>
             <div class="deck-summary-row">
               <code class="deck-summary-label">Native performance</code>

@@ -165,9 +165,31 @@
           </div>
           <h3>Native modules over polyfills</h3>
           <p>
-            Common FaaS needs - JWT auth, JSON Schema validation, caching, crypto -
+            Common FaaS needs - JWT auth, JSON Schema validation, caching, crypto, SQL -
             are implemented in Zig and exposed as <code>zigttp:*</code> virtual modules
             with zero interpretation overhead.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>OpenAPI from type inference</h3>
+          <p>
+            <code>-Dopenapi</code> generates an OpenAPI 3.0 spec directly from handler
+            type analysis. Response schemas, path parameters, and effect metadata -
+            no annotations needed.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>Handler effect classification</h3>
+          <p>
+            Each virtual module call carries a proven effect annotation. The compiler
+            aggregates them into handler properties: <code>read_only</code>,
+            <code>retry_safe</code>, <code>deterministic</code> - all in the contract.
           </p>
         </div>
       </div>
@@ -522,6 +544,26 @@
           <p>Environment variable access for configuration. Simple key-value interface for deployment secrets and config.</p>
           <code class="module-exports">env</code>
         </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:sql</code>
+          <p>SQLite query execution with build-time schema validation via <code>-Dsql-schema</code>. Named parameters, contract-tracked queries.</p>
+          <code class="module-exports">sql, sqlOne, sqlMany, sqlExec</code>
+        </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:compose</code>
+          <p>Guard-based handler composition with the pipe operator (<code>|></code>). Desugared to flat sequential checks at compile time.</p>
+          <code class="module-exports">guard</code>
+        </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:io</code>
+          <p>Structured concurrent I/O without async/await. Overlaps multiple fetchSync calls on OS threads (max 8 concurrent).</p>
+          <code class="module-exports">parallel, race</code>
+        </div>
+        <div class="module-card">
+          <code class="module-import">zigttp:durable</code>
+          <p>Write-ahead oplog for crash recovery. Idempotent run/step API with timer and signal-based workflow suspension.</p>
+          <code class="module-exports">run, step, sleep, sleepUntil, waitSignal</code>
+        </div>
       </div>
     </div>
   </section>
@@ -590,6 +632,9 @@
             <li>Destructuring, spread</li>
             <li>for...of (arrays)</li>
             <li>Optional chaining, nullish coalescing</li>
+            <li>Pipe operator (<code>|></code>)</li>
+            <li>Array methods (map, filter, reduce, find)</li>
+            <li>Object.keys/values/entries</li>
             <li>Typed arrays</li>
             <li>JSX/TSX (native parsing)</li>
             <li>TypeScript type stripping</li>
