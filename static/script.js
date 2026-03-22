@@ -46,3 +46,65 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     }
   });
 });
+
+// Slide deck navigation
+const deck = document.getElementById("deck");
+if (deck) {
+  const viewport = deck.querySelector(".deck-viewport");
+  const slides = deck.querySelectorAll(".deck-slide");
+  const dots = deck.querySelectorAll(".deck-dot");
+  const counter = deck.querySelector(".deck-counter");
+  const prevBtn = deck.querySelector(".deck-prev");
+  const nextBtn = deck.querySelector(".deck-next");
+  const total = slides.length;
+  let currentSlide = 0;
+  let animating = false;
+
+  function updateButtons() {
+    prevBtn.disabled = currentSlide === 0;
+    nextBtn.disabled = currentSlide === total - 1;
+  }
+
+  function go(next) {
+    if (next < 0 || next >= total || next === currentSlide || animating) return;
+    viewport.style.setProperty("--slide-dir", next > currentSlide ? 1 : -1);
+
+    slides[currentSlide].classList.remove("active");
+    dots[currentSlide].classList.remove("active");
+
+    currentSlide = next;
+    const slide = slides[currentSlide];
+    slide.classList.add("active");
+    dots[currentSlide].classList.add("active");
+    counter.textContent = (currentSlide + 1) + " / " + total;
+    updateButtons();
+
+    animating = true;
+    slide.addEventListener("animationend", () => { animating = false; }, { once: true });
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => go(i));
+  });
+
+  prevBtn.addEventListener("click", () => go(currentSlide - 1));
+  nextBtn.addEventListener("click", () => go(currentSlide + 1));
+
+  document.addEventListener("keydown", (e) => {
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (e.key === " " && (tag === "BUTTON" || tag === "INPUT" || tag === "TEXTAREA")) return;
+    if (e.key === "ArrowRight" || e.key === " ") {
+      e.preventDefault();
+      go(currentSlide + 1);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      go(currentSlide - 1);
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      go(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      go(total - 1);
+    }
+  });
+}

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>zigttp - Slide Deck</title>
+  <meta name="description" content="zigttp slide deck: the JavaScript runtime that proves your code. Compile-time verification, automatic sandboxing, deterministic replay.">
+  <meta name="theme-color" content="#f7a41d">
+  <link rel="icon" type="image/jpeg" href="/logo-circle.jpeg">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="deck-page">
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/logo-circle.jpeg" alt="zigttp logo" class="nav-logo-img">
+        <span class="logo-zig">zigttp</span>
+      </a>
+      <div class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="/#code">Code</a>
+        <a href="/#performance">Performance</a>
+        <a href="/#modules">Modules</a>
+        <a href="/deck.html">Deck</a>
+        <a href="https://github.com/srdjan/zigttp" class="nav-gh" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="deck" id="deck">
+    <div class="deck-viewport">
+
+      <!-- Slide 0: Title -->
+      <div class="deck-slide active" data-slide="0">
+        <div class="deck-accent-bar"></div>
+        <div class="deck-title-content">
+          <h1 class="deck-hero-title">zigttp</h1>
+          <p class="deck-hero-subtitle">The JavaScript runtime that proves your code</p>
+          <p class="deck-hero-caption">Compile-time verification - Automatic sandboxing - Deterministic replay</p>
+        </div>
+        <div class="deck-stats-bar">
+          <div>
+            <span class="deck-stat-value">3ms</span>
+            <span class="deck-stat-label">cold start</span>
+          </div>
+          <div>
+            <span class="deck-stat-value">1.2MB</span>
+            <span class="deck-stat-label">binary size</span>
+          </div>
+          <div>
+            <span class="deck-stat-value">4MB</span>
+            <span class="deck-stat-label">memory baseline</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 1: The Problem -->
+      <div class="deck-slide" data-slide="1">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">The Problem</span>
+          <h2 class="deck-slide-title">FaaS handlers are black boxes</h2>
+          <p class="deck-slide-subtitle">You write a handler. You ship it. You pray.</p>
+          <div class="deck-warning-list">
+            <div class="deck-warning-item">
+              <span class="deck-warning-icon">&#9888;</span>
+              <div class="deck-item-row">
+                <span class="deck-warning-title">Runtime surprises</span>
+                <span class="deck-warning-desc">Truthy/falsy bugs, missing env vars, unreachable code paths - all discovered at 3am in production.</span>
+              </div>
+            </div>
+            <div class="deck-warning-item">
+              <span class="deck-warning-icon">&#9888;</span>
+              <div class="deck-item-row">
+                <span class="deck-warning-title">Config drift</span>
+                <span class="deck-warning-desc">IAM policies, env vars, egress rules drift from what the code actually needs. Manual YAML &#8800; intent.</span>
+              </div>
+            </div>
+            <div class="deck-warning-item">
+              <span class="deck-warning-icon">&#9888;</span>
+              <div class="deck-item-row">
+                <span class="deck-warning-title">Invisible blast radius</span>
+                <span class="deck-warning-desc">Change a handler - what breaks? No way to know without shipping and watching dashboards.</span>
+              </div>
+            </div>
+            <div class="deck-warning-item">
+              <span class="deck-warning-icon">&#9888;</span>
+              <div class="deck-item-row">
+                <span class="deck-warning-title">Async spaghetti</span>
+                <span class="deck-warning-desc">Promises, await chains, error swallowing. Concurrency model bleeds into business logic.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: The Insight -->
+      <div class="deck-slide" data-slide="2">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">The Insight</span>
+          <h2 class="deck-slide-title">What if your compiler could see everything?</h2>
+          <div class="deck-insight-text">
+            <p class="deck-insight-highlight">Virtual modules are the only I/O boundary.</p>
+            <p class="deck-insight-desc">The handler's IR tree IS the control flow graph - no back-edges, no exceptions. The compiler can prove what every handler does, what it accesses, what it returns.</p>
+          </div>
+          <div class="deck-pipeline">
+            <div class="deck-pipeline-group">
+              <div class="deck-pipeline-step"><span>Handler
+Code</span></div>
+              <span class="deck-pipeline-arrow">&#8594;</span>
+            </div>
+            <div class="deck-pipeline-group">
+              <div class="deck-pipeline-step"><span>Compiler
+Analysis</span></div>
+              <span class="deck-pipeline-arrow">&#8594;</span>
+            </div>
+            <div class="deck-pipeline-group">
+              <div class="deck-pipeline-step"><span>Proven
+Contract</span></div>
+              <span class="deck-pipeline-arrow">&#8594;</span>
+            </div>
+            <div class="deck-pipeline-group">
+              <div class="deck-pipeline-step"><span>Auto
+Sandbox</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Language Design -->
+      <div class="deck-slide" data-slide="3">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">Language Design</span>
+          <h2 class="deck-slide-title">TypeScript, minus the footguns</h2>
+          <div class="deck-columns deck-columns--mt">
+            <div class="deck-card">
+              <div class="deck-subset-header deck-subset-header-removed">REMOVED</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  classes / this</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  var</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  while loops</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  async / await / Promises</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  truthy/falsy coercion</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  exceptions (throw/catch)</div>
+            </div>
+            <div class="deck-card">
+              <div class="deck-subset-header deck-subset-header-kept">KEPT</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  arrow functions</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  const / let</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  destructuring</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  for...of</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  match expressions</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  JSX (first-class)</div>
+            </div>
+          </div>
+          <p class="deck-footnote">Unsupported features fail at parse time with a suggested alternative - not at runtime.</p>
+        </div>
+      </div>
+
+      <!-- Slide 4: Verification -->
+      <div class="deck-slide" data-slide="4">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">Verification</span>
+          <h2 class="deck-slide-title">Your handler is proven correct at build time</h2>
+          <div class="deck-check-list">
+            <div class="deck-check-item">
+              <span class="deck-check-icon">&#10003;</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">Every code path returns a Response</span>
+                <span class="deck-check-desc">No forgotten early returns. No implicit undefined.</span>
+              </div>
+            </div>
+            <div class="deck-check-item">
+              <span class="deck-check-icon">&#10003;</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">Result values checked before access</span>
+                <span class="deck-check-desc">jwtVerify(...).ok must be tested - the BoolChecker enforces it.</span>
+              </div>
+            </div>
+            <div class="deck-check-item">
+              <span class="deck-check-icon">&#10003;</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">No unreachable code</span>
+                <span class="deck-check-desc">Dead branches are a build error, not a linter warning.</span>
+              </div>
+            </div>
+            <div class="deck-check-item">
+              <span class="deck-check-icon">&#10003;</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">Boolean enforcement</span>
+                <span class="deck-check-desc">Truthy/falsy coercion rejected everywhere. Progressive type inference for env(), cacheGet(), match arms.</span>
+              </div>
+            </div>
+            <div class="deck-check-item">
+              <span class="deck-check-icon">&#10003;</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">Full type checking</span>
+                <span class="deck-check-desc">Variable types, function signatures, property access, nominal interfaces - all validated.</span>
+              </div>
+            </div>
+          </div>
+          <div class="deck-command-bar">
+            <code class="deck-command-input">$ zigttp build handler.ts -Dverify</code>
+            <code class="deck-command-output">&#8594;  all code paths verified &#10003;</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: Security -->
+      <div class="deck-slide" data-slide="5">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">Security</span>
+          <h2 class="deck-slide-title">Automatic least-privilege sandboxing</h2>
+          <p class="deck-slide-subtitle">The compiler extracts a contract of what the handler does - then restricts runtime access to exactly those proven values.</p>
+          <div class="deck-security-layout">
+            <div class="deck-card deck-card--contract">
+              <div class="deck-contract-label">contract.json</div>
+<pre class="deck-contract-code">{
+  "env": ["API_KEY", "DB_URL"],
+  "egress": ["api.stripe.com"],
+  "cache": ["sessions"],
+  "sql": ["getUserById"],
+  "proof": "complete"
+}</pre>
+            </div>
+            <div class="deck-shield-list">
+              <div class="deck-shield-item">
+                <span class="deck-shield-icon">&#128737;</span>
+                <span class="deck-shield-text">Zero configuration required</span>
+              </div>
+              <div class="deck-shield-item">
+                <span class="deck-shield-icon">&#128737;</span>
+                <span class="deck-shield-text">Env vars scoped to declared set</span>
+              </div>
+              <div class="deck-shield-item">
+                <span class="deck-shield-icon">&#128737;</span>
+                <span class="deck-shield-text">Egress locked to proven hosts</span>
+              </div>
+              <div class="deck-shield-item">
+                <span class="deck-shield-icon">&#128737;</span>
+                <span class="deck-shield-text">Non-literal args report dynamic: true</span>
+              </div>
+              <div class="deck-shield-item">
+                <span class="deck-shield-icon">&#128737;</span>
+                <span class="deck-shield-text">-Dpolicy=policy.json for overrides</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: Concurrency & Durability -->
+      <div class="deck-slide" data-slide="6">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">Concurrency &amp; Durability</span>
+          <h2 class="deck-slide-title">Linear code. Parallel I/O. Crash recovery.</h2>
+          <div class="deck-columns deck-columns--mt deck-columns--fill">
+            <div class="deck-card">
+              <div class="deck-card-header">
+                <span class="deck-card-header-icon">&#9889;</span>
+                <span class="deck-card-header-title">Structured Concurrent I/O</span>
+              </div>
+              <p class="deck-card-bold">parallel() and race() from zigttp:io</p>
+              <p class="deck-card-body">Handler code stays synchronous and linear. Concurrency happens in the I/O layer using OS threads.</p>
+              <p class="deck-card-highlight">3 API calls &#215; 50ms each = ~50ms total</p>
+            </div>
+            <div class="deck-card">
+              <div class="deck-card-header">
+                <span class="deck-card-header-icon">&#128260;</span>
+                <span class="deck-card-header-title">Durable Execution</span>
+              </div>
+              <p class="deck-card-bold">--durable &lt;dir&gt; enables crash recovery</p>
+              <p class="deck-card-body">Write-ahead oplog. Each I/O call persisted before returning. On crash, replay without touching the network.</p>
+              <code class="deck-card-code">sleep() - sleepUntil() - waitSignal()</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 7: Evolution -->
+      <div class="deck-slide" data-slide="7">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">Evolution</span>
+          <h2 class="deck-slide-title">Ship with confidence - prove before deploy</h2>
+          <div class="deck-columns deck-columns--mt deck-columns--fill">
+            <div class="deck-card deck-card--col">
+              <div class="deck-evo-title">Deterministic Replay</div>
+              <p class="deck-evo-body">Record every I/O boundary with --trace. Replay against new versions. Handlers = pure functions of (Request, VirtualModuleResponses).</p>
+              <div class="deck-cmd-tag"><code>--trace / --replay</code></div>
+            </div>
+            <div class="deck-card deck-card--col">
+              <div class="deck-evo-title">Proven Evolution</div>
+              <p class="deck-evo-body">Diff contracts + replay traces between handler versions. Result: equivalent, additive, or breaking - with a proof certificate.</p>
+              <div class="deck-cmd-tag"><code>-Dprove=contract:traces</code></div>
+            </div>
+            <div class="deck-card deck-card--col">
+              <div class="deck-evo-title">Proven Deploys</div>
+              <p class="deck-evo-body">Generate platform-specific deployment configs from proven contracts. Env vars &#8594; params, routes &#8594; API events, egress &#8594; tags.</p>
+              <div class="deck-cmd-tag"><code>-Ddeploy=aws</code></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: Composition -->
+      <div class="deck-slide" data-slide="8">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">Composition</span>
+          <h2 class="deck-slide-title">Zero-overhead composition. Native speed.</h2>
+          <div class="deck-card deck-card--mt">
+            <div class="deck-card-header">
+              <span class="deck-card-header-icon">&#128230;</span>
+              <span class="deck-card-header-title">Guard Composition</span>
+            </div>
+            <code class="deck-guard-code">guard(auth) |&gt; guard(log) |&gt; handler |&gt; guard(cors)</code>
+            <p class="deck-card-body deck-card-body--flush">Desugared to a single flat function with sequential if-checks at compile time. Zero runtime overhead.</p>
+          </div>
+          <div class="deck-card deck-card--mt-sm">
+            <div class="deck-card-header">
+              <span class="deck-card-header-icon">&#9881;&#65039;</span>
+              <span class="deck-card-header-title">Native Virtual Modules</span>
+            </div>
+            <div class="deck-modules-grid">
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:jwt</code>
+                <span class="deck-module-desc">JWT auth</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:schema</code>
+                <span class="deck-module-desc">JSON Schema</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:cache</code>
+                <span class="deck-module-desc">Caching</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:crypto</code>
+                <span class="deck-module-desc">Crypto</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:io</code>
+                <span class="deck-module-desc">Parallel I/O</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:durable</code>
+                <span class="deck-module-desc">Durability</span>
+              </div>
+            </div>
+          </div>
+          <p class="deck-footnote deck-footnote--pushed">Implemented in Zig - zero interpretation overhead.</p>
+        </div>
+      </div>
+
+      <!-- Slide 9: Closing -->
+      <div class="deck-slide" data-slide="9">
+        <div class="deck-accent-bar"></div>
+        <div class="deck-title-content">
+          <h1 class="deck-closing-title">zigttp</h1>
+          <p class="deck-closing-tagline">Write handlers. Prove them. Ship them.</p>
+          <div class="deck-summary-list">
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Opinionated subset</code>
+              <span class="deck-summary-value">Parse-time rejection of footguns</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Compile-time verification</code>
+              <span class="deck-summary-value">Every path, every type, every boolean</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Automatic sandboxing</code>
+              <span class="deck-summary-value">Least-privilege derived from analysis</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Structured I/O</code>
+              <span class="deck-summary-value">Linear code, parallel execution</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Durable execution</code>
+              <span class="deck-summary-value">Crash recovery via write-ahead oplog</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Deterministic replay</code>
+              <span class="deck-summary-value">Record I/O boundaries, replay anywhere</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Proven evolution</code>
+              <span class="deck-summary-value">Diff contracts, classify changes</span>
+            </div>
+            <div class="deck-summary-row">
+              <code class="deck-summary-label">Native performance</code>
+              <span class="deck-summary-value">3ms init - 1.2MB - 4MB baseline</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <nav class="deck-nav" aria-label="Slide navigation">
+      <div class="deck-dots">
+        <button class="deck-dot active" data-dot="0" aria-label="Go to slide 1"></button>
+        <button class="deck-dot" data-dot="1" aria-label="Go to slide 2"></button>
+        <button class="deck-dot" data-dot="2" aria-label="Go to slide 3"></button>
+        <button class="deck-dot" data-dot="3" aria-label="Go to slide 4"></button>
+        <button class="deck-dot" data-dot="4" aria-label="Go to slide 5"></button>
+        <button class="deck-dot" data-dot="5" aria-label="Go to slide 6"></button>
+        <button class="deck-dot" data-dot="6" aria-label="Go to slide 7"></button>
+        <button class="deck-dot" data-dot="7" aria-label="Go to slide 8"></button>
+        <button class="deck-dot" data-dot="8" aria-label="Go to slide 9"></button>
+        <button class="deck-dot" data-dot="9" aria-label="Go to slide 10"></button>
+      </div>
+      <div class="deck-controls">
+        <span class="deck-counter">1 / 10</span>
+        <button class="deck-prev" disabled aria-label="Previous slide">&#8592;</button>
+        <button class="deck-next" aria-label="Next slide">&#8594;</button>
+      </div>
+    </nav>
+  </section>
+
+  <script src="/script.js"></script>
+</body>
+</html>

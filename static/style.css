@@ -26,6 +26,8 @@
   --green:        #4ade80;
   --red:          #f87171;
   --blue:         #60a5fa;
+  --teal:         #2DD4BF;
+  --font-mono:    "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono", Consolas, monospace;
 
   /* syntax colors */
   --syn-keyword:  #c084fc;
@@ -63,7 +65,7 @@ a:hover {
 }
 
 code {
-  font-family: "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono", Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.875em;
 }
 
@@ -130,13 +132,16 @@ code {
 }
 
 .nav-logo-img {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
 }
 
 .logo-zig {
   color: var(--accent);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
 }
 
 .logo-ttp {
@@ -845,6 +850,656 @@ code {
   color: var(--text);
 }
 
+/* --- Slide Deck --- */
+.deck-page {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.deck {
+  max-width: 1100px;
+  height: calc(100vh - 56px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  position: relative;
+}
+
+.deck-viewport {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.deck-slide {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.deck-slide.active {
+  display: flex;
+  animation: deckSlideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes deckSlideIn {
+  from { opacity: 0; transform: translateX(calc(var(--slide-dir, 1) * 40px)); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* SlideLayout pattern */
+.deck-slide-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 4%, 48px) 8% clamp(16px, 3%, 32px);
+}
+
+.deck-tag {
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 0.9vw, 11px);
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.deck-slide-title {
+  font-size: clamp(22px, 3.2vw, 42px);
+  color: var(--text);
+  font-weight: 700;
+  margin: 0 0 4px;
+  line-height: 1.15;
+}
+
+.deck-slide-subtitle {
+  font-size: clamp(12px, 1.3vw, 16px);
+  color: var(--text-muted);
+  margin: 8px 0 0;
+  font-style: italic;
+  max-width: 92%;
+}
+
+/* Card */
+.deck-card {
+  background: var(--bg-card);
+  padding: clamp(14px, 2vw, 24px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}
+
+/* Title slide (0) and Closing slide (9) */
+.deck-accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent);
+}
+
+.deck-title-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8%;
+}
+
+.deck-hero-title {
+  font-family: var(--font-mono);
+  font-size: clamp(48px, 8vw, 96px);
+  color: var(--accent);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.deck-hero-subtitle {
+  font-size: clamp(18px, 2.5vw, 28px);
+  color: var(--text);
+  margin: 16px 0 0;
+  font-weight: 400;
+}
+
+.deck-hero-caption {
+  font-size: clamp(12px, 1.4vw, 16px);
+  color: var(--text-muted);
+  margin: 12px 0 0;
+  letter-spacing: 0.02em;
+}
+
+.deck-stats-bar {
+  position: absolute;
+  bottom: 48px;
+  left: 0;
+  right: 0;
+  height: 22%;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
+  gap: 10%;
+}
+
+.deck-stat-value {
+  font-family: var(--font-mono);
+  font-size: clamp(24px, 3.5vw, 42px);
+  color: var(--accent);
+  font-weight: 700;
+  display: block;
+}
+
+.deck-stat-label {
+  font-size: clamp(11px, 1.2vw, 14px);
+  color: var(--text-muted);
+  margin-top: 2px;
+  display: block;
+}
+
+/* Columns */
+.deck-columns {
+  display: flex;
+  gap: clamp(12px, 2vw, 24px);
+}
+
+.deck-columns > * {
+  flex: 1;
+}
+
+/* Slide 1: The Problem */
+.deck-warning-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.deck-warning-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.deck-warning-icon {
+  color: var(--red);
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.deck-warning-title {
+  font-size: clamp(13px, 1.4vw, 16px);
+  color: var(--accent);
+  font-weight: 600;
+  min-width: 180px;
+}
+
+.deck-warning-desc {
+  font-size: clamp(12px, 1.2vw, 14px);
+  color: var(--text-muted);
+  flex: 1;
+}
+
+/* Slide 2: Pipeline diagram */
+.deck-insight-text {
+  margin-top: 16px;
+}
+
+.deck-insight-highlight {
+  font-size: clamp(14px, 1.6vw, 18px);
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.deck-insight-desc {
+  font-size: clamp(12px, 1.3vw, 16px);
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.6;
+  max-width: 90%;
+}
+
+.deck-pipeline {
+  display: flex;
+  align-items: center;
+  margin-top: clamp(24px, 4vh, 48px);
+  justify-content: center;
+}
+
+.deck-pipeline-group {
+  display: flex;
+  align-items: center;
+}
+
+.deck-pipeline-step {
+  width: clamp(100px, 16vw, 180px);
+  height: clamp(70px, 10vh, 100px);
+  background: var(--bg-elevated);
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.deck-pipeline-step span {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1.2vw, 15px);
+  color: var(--text);
+  text-align: center;
+  white-space: pre-line;
+  line-height: 1.4;
+}
+
+.deck-pipeline-arrow {
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 2vw, 24px);
+  color: var(--accent);
+  padding: 0 clamp(6px, 1vw, 16px);
+}
+
+/* Slide 3: Language Design */
+.deck-subset-header {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.deck-subset-header-removed { color: var(--red); }
+.deck-subset-header-kept { color: var(--green); }
+
+.deck-subset-item {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1.2vw, 14px);
+  padding: 5px 0;
+}
+
+.deck-subset-removed { color: var(--text-dim); }
+.deck-subset-kept { color: var(--text); }
+
+.deck-footnote {
+  font-size: clamp(11px, 1.1vw, 13px);
+  color: var(--text-dim);
+  font-style: italic;
+  margin-top: 16px;
+}
+
+.deck-footnote--pushed {
+  margin-top: auto;
+}
+
+.deck-item-row {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.deck-item-row--tight {
+  gap: 12px;
+}
+
+.deck-card--col {
+  display: flex;
+  flex-direction: column;
+}
+
+.deck-card--contract {
+  flex: 0 0 45%;
+}
+
+.deck-card--mt {
+  margin-top: 24px;
+}
+
+.deck-card--mt-sm {
+  margin-top: clamp(12px, 2vh, 24px);
+}
+
+.deck-card-body--flush {
+  margin-bottom: 0;
+}
+
+.deck-columns--mt {
+  margin-top: 24px;
+}
+
+.deck-columns--fill {
+  flex: 1;
+}
+
+/* Slide 4: Verification */
+.deck-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.deck-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.deck-check-icon {
+  color: var(--green);
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.deck-check-title {
+  font-size: clamp(12px, 1.3vw, 15px);
+  color: var(--teal);
+  font-weight: 600;
+  min-width: 200px;
+}
+
+.deck-check-desc {
+  font-size: clamp(11px, 1.1vw, 13px);
+  color: var(--text-muted);
+}
+
+.deck-command-bar {
+  margin-top: auto;
+  background: var(--bg-card);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.deck-command-input {
+  font-size: clamp(12px, 1.3vw, 15px);
+  color: var(--accent);
+}
+
+.deck-command-output {
+  font-size: clamp(11px, 1.2vw, 14px);
+  color: var(--green);
+}
+
+/* Slide 5: Security */
+.deck-security-layout {
+  display: flex;
+  gap: clamp(16px, 3vw, 32px);
+  margin-top: 20px;
+  flex: 1;
+}
+
+.deck-contract-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.deck-contract-code {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.1vw, 13px);
+  color: var(--text-dim);
+  margin: 0;
+  line-height: 1.8;
+  white-space: pre;
+}
+
+.deck-shield-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: center;
+}
+
+.deck-shield-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.deck-shield-icon {
+  color: var(--teal);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.deck-shield-text {
+  font-size: clamp(12px, 1.3vw, 15px);
+  color: var(--text);
+}
+
+/* Slide 6: Concurrency */
+.deck-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.deck-card-header-icon {
+  font-size: 18px;
+}
+
+.deck-card-header-title {
+  font-size: clamp(14px, 1.4vw, 17px);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.deck-card-bold {
+  font-size: clamp(12px, 1.2vw, 14px);
+  color: var(--text);
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.deck-card-body {
+  font-size: clamp(11px, 1.1vw, 13px);
+  color: var(--text-muted);
+  margin: 0 0 14px;
+  line-height: 1.6;
+}
+
+.deck-card-highlight {
+  font-size: clamp(12px, 1.3vw, 15px);
+  color: var(--teal);
+  font-weight: 600;
+  margin: 0;
+}
+
+.deck-card-code {
+  font-size: clamp(11px, 1.1vw, 13px);
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* Slide 7: Evolution */
+.deck-evo-title {
+  font-size: clamp(13px, 1.3vw, 16px);
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.deck-evo-body {
+  font-size: clamp(11px, 1.1vw, 13px);
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.deck-cmd-tag {
+  margin-top: 16px;
+  background: var(--bg-elevated);
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.deck-cmd-tag code {
+  font-size: clamp(10px, 1vw, 12px);
+  color: var(--teal);
+}
+
+/* Slide 8: Composition */
+.deck-guard-code {
+  font-size: clamp(12px, 1.3vw, 15px);
+  color: var(--teal);
+  display: block;
+  margin: 8px 0;
+}
+
+.deck-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 24px;
+}
+
+.deck-module-item {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.deck-module-name {
+  font-size: clamp(10px, 1.1vw, 13px);
+  color: var(--text);
+}
+
+.deck-module-desc {
+  font-size: clamp(10px, 1vw, 12px);
+  color: var(--text-dim);
+}
+
+/* Slide 9: Closing */
+.deck-closing-title {
+  font-family: var(--font-mono);
+  font-size: clamp(40px, 6vw, 72px);
+  color: var(--accent);
+  font-weight: 700;
+  margin: 0 0 4px;
+  line-height: 1.1;
+}
+
+.deck-closing-tagline {
+  font-size: clamp(16px, 2.2vw, 26px);
+  color: var(--text);
+  margin: 0 0 clamp(24px, 4vh, 48px);
+}
+
+.deck-summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.deck-summary-row {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  padding: 4px 0;
+}
+
+.deck-summary-label {
+  font-size: clamp(11px, 1.2vw, 14px);
+  color: var(--accent);
+  min-width: clamp(160px, 22vw, 260px);
+}
+
+.deck-summary-value {
+  font-size: clamp(11px, 1.2vw, 14px);
+  color: var(--text-muted);
+}
+
+/* Navigation */
+.deck-nav {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(22, 22, 25, 0.9);
+  border-top: 1px solid var(--bg-elevated);
+  flex-shrink: 0;
+}
+
+.deck-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.deck-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  background: var(--bg-elevated);
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.deck-dot.active {
+  width: 24px;
+  background: var(--accent);
+}
+
+.deck-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.deck-counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.deck-prev,
+.deck-next {
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.deck-prev {
+  background: none;
+  border: 1px solid var(--text-dim);
+  color: var(--text-muted);
+}
+
+.deck-prev:disabled {
+  border-color: var(--bg-elevated);
+  color: var(--bg-elevated);
+  cursor: default;
+}
+
+.deck-next {
+  background: var(--accent);
+  border: none;
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.deck-next:disabled {
+  background: none;
+  border: 1px solid var(--bg-elevated);
+  color: var(--bg-elevated);
+  cursor: default;
+}
+
 /* --- Responsive --- */
 @media (max-width: 768px) {
   .section {
@@ -916,6 +1571,37 @@ code {
   .tabs-body {
     padding: 16px;
   }
+
+  .deck-columns {
+    flex-direction: column;
+  }
+
+  .deck-pipeline {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .deck-security-layout {
+    flex-direction: column;
+  }
+
+  .deck-modules-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .deck-warning-title {
+    min-width: 140px;
+  }
+
+  .deck-check-title {
+    min-width: 160px;
+  }
+
+  .deck-command-bar {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -943,5 +1629,22 @@ code {
   .bench-ops {
     text-align: left;
     font-size: 0.75rem;
+  }
+
+  .deck-modules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .deck-pipeline-step {
+    width: clamp(70px, 20vw, 100px);
+    height: clamp(50px, 12vh, 70px);
+  }
+
+  .deck-stats-bar {
+    gap: 5%;
+  }
+
+  .deck-summary-label {
+    min-width: 120px;
   }
 }

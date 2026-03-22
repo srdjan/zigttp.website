@@ -21,6 +21,7 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
   let path = url.pathname;
 
   if (path === "/") path = "/index.html";
+  if (path === "/deck") path = "/deck.html";
 
   const headers: Record<string, string> = {
     "content-type": getContentType(path),
