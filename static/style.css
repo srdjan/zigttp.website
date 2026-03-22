@@ -44,6 +44,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -52,6 +53,7 @@ body {
   color: var(--text);
   line-height: 1.6;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 a {
@@ -71,6 +73,7 @@ code {
 
 /* --- Layout --- */
 .container {
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 24px;
@@ -109,6 +112,7 @@ code {
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
   background: rgba(9, 9, 11, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -149,9 +153,55 @@ code {
 }
 
 .nav-links {
-  display: flex;
+  display: none;
   gap: 28px;
   align-items: center;
+}
+
+.nav-burger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-muted);
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.nav-burger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-burger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-burger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-links.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  background: rgba(9, 9, 11, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px 24px;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  z-index: 99;
 }
 
 .nav-links a {
@@ -193,11 +243,12 @@ code {
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(1.75rem, 6vw, 4.5rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: 24px;
+  overflow-wrap: break-word;
 }
 
 .accent {
@@ -285,6 +336,8 @@ code {
 .terminal-body pre {
   margin: 0;
   line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .terminal-body code {
@@ -854,6 +907,7 @@ code {
 .deck-page {
   overflow: hidden;
   height: 100vh;
+  width: 100%;
 }
 
 .deck {
@@ -895,7 +949,8 @@ code {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: clamp(24px, 4%, 48px) 8% clamp(16px, 3%, 32px);
+  padding: clamp(16px, 4%, 48px) clamp(16px, 4%, 8%) clamp(12px, 3%, 32px);
+  overflow-y: auto;
 }
 
 .deck-tag {
@@ -945,7 +1000,7 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 8%;
+  padding: 0 clamp(16px, 4%, 8%);
 }
 
 .deck-hero-title {
@@ -980,8 +1035,8 @@ code {
   background: var(--bg-card);
   display: flex;
   align-items: center;
-  padding: 0 8%;
-  gap: 10%;
+  padding: 0 clamp(16px, 4%, 8%);
+  gap: 5%;
 }
 
 .deck-stat-value {
@@ -1002,6 +1057,7 @@ code {
 /* Columns */
 .deck-columns {
   display: flex;
+  flex-direction: column;
   gap: clamp(12px, 2vw, 24px);
 }
 
@@ -1034,7 +1090,6 @@ code {
   font-size: clamp(13px, 1.4vw, 16px);
   color: var(--accent);
   font-weight: 600;
-  min-width: 180px;
 }
 
 .deck-warning-desc {
@@ -1066,6 +1121,8 @@ code {
 .deck-pipeline {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: clamp(24px, 4vh, 48px);
   justify-content: center;
 }
@@ -1076,8 +1133,8 @@ code {
 }
 
 .deck-pipeline-step {
-  width: clamp(100px, 16vw, 180px);
-  height: clamp(70px, 10vh, 100px);
+  width: clamp(70px, 20vw, 180px);
+  height: clamp(50px, 10vh, 100px);
   background: var(--bg-elevated);
   border: 1.5px solid var(--accent);
   display: flex;
@@ -1199,7 +1256,6 @@ code {
   font-size: clamp(12px, 1.3vw, 15px);
   color: var(--teal);
   font-weight: 600;
-  min-width: 200px;
 }
 
 .deck-check-desc {
@@ -1212,8 +1268,10 @@ code {
   background: var(--bg-card);
   padding: 14px 20px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
   align-items: center;
+  text-align: center;
   box-shadow: 0 4px 16px rgba(0,0,0,0.4);
 }
 
@@ -1230,6 +1288,7 @@ code {
 /* Slide 5: Security */
 .deck-security-layout {
   display: flex;
+  flex-direction: column;
   gap: clamp(16px, 3vw, 32px);
   margin-top: 20px;
   flex: 1;
@@ -1359,7 +1418,7 @@ code {
 
 .deck-modules-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 8px 24px;
 }
 
@@ -1411,7 +1470,7 @@ code {
 .deck-summary-label {
   font-size: clamp(11px, 1.2vw, 14px);
   color: var(--accent);
-  min-width: clamp(160px, 22vw, 260px);
+  min-width: 120px;
 }
 
 .deck-summary-value {
@@ -1546,9 +1605,6 @@ code {
     font-size: 0.75rem;
   }
 
-  .nav-links a:not(.nav-gh) {
-    display: none;
-  }
 
   .arch-flow {
     flex-direction: column;
@@ -1571,44 +1627,9 @@ code {
   .tabs-body {
     padding: 16px;
   }
-
-  .deck-columns {
-    flex-direction: column;
-  }
-
-  .deck-pipeline {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .deck-security-layout {
-    flex-direction: column;
-  }
-
-  .deck-modules-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .deck-warning-title {
-    min-width: 140px;
-  }
-
-  .deck-check-title {
-    min-width: 160px;
-  }
-
-  .deck-command-bar {
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-  }
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-
   .hero-stats {
     gap: 16px;
   }
@@ -1630,21 +1651,55 @@ code {
     text-align: left;
     font-size: 0.75rem;
   }
+}
 
-  .deck-modules-grid {
-    grid-template-columns: 1fr;
+/* Desktop enhancements */
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex;
   }
 
-  .deck-pipeline-step {
-    width: clamp(70px, 20vw, 100px);
-    height: clamp(50px, 12vh, 70px);
+  .nav-burger {
+    display: none;
+  }
+
+  .deck-columns {
+    flex-direction: row;
+  }
+
+  .deck-security-layout {
+    flex-direction: row;
+  }
+
+  .deck-modules-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .deck-command-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    gap: 0;
+  }
+
+  .deck-warning-title {
+    min-width: 180px;
+  }
+
+  .deck-check-title {
+    min-width: 200px;
+  }
+
+  .deck-pipeline {
+    flex-wrap: nowrap;
+    gap: 0;
   }
 
   .deck-stats-bar {
-    gap: 5%;
+    gap: 10%;
   }
 
   .deck-summary-label {
-    min-width: 120px;
+    min-width: clamp(160px, 22vw, 260px);
   }
 }
