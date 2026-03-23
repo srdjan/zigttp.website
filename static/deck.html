@@ -3,10 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>zigttp - Slide Deck</title>
-  <meta name="description" content="zigttp slide deck: the JavaScript runtime that proves your code. Compile-time verification, automatic sandboxing, deterministic replay.">
+  <title>zigttp Presentation - Compile-Time Verified JavaScript Runtime Built in Zig</title>
+  <meta name="description" content="zigttp slide deck: the JavaScript runtime that proves your code. Compile-time verification, automatic sandboxing, deterministic replay. 3ms cold start, 1.2MB binary.">
+  <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#f7a41d">
-  <link rel="icon" type="image/jpeg" href="/logo-circle.jpeg">
+  <link rel="canonical" href="https://zigttp.website/deck">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="dns-prefetch" href="https://github.com">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zigttp.website/deck">
+  <meta property="og:title" content="zigttp Presentation - Compile-Time Verified JavaScript Runtime">
+  <meta property="og:description" content="Slide deck for zigttp: compile-time verification, automatic sandboxing, deterministic replay. 3ms cold start, 1.2MB binary, zero dependencies.">
+  <meta property="og:image" content="https://zigttp.website/zigttp-logo.jpg">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="327">
+  <meta property="og:site_name" content="zigttp">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="zigttp Presentation - Compile-Time Verified JavaScript Runtime">
+  <meta name="twitter:description" content="Slide deck for zigttp: compile-time verification, automatic sandboxing, deterministic replay.">
+  <meta name="twitter:image" content="https://zigttp.website/zigttp-logo.jpg">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://zigttp.website/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Presentation",
+        "item": "https://zigttp.website/deck"
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="/style.css">
 </head>
 <body class="deck-page">
@@ -14,7 +59,7 @@
   <nav class="nav">
     <div class="container nav-inner">
       <a href="/" class="nav-logo">
-        <img src="/logo-circle.jpeg" alt="zigttp logo" class="nav-logo-img">
+        <img src="/logo-circle.jpeg" alt="zigttp logo" class="nav-logo-img" width="48" height="48">
         <span class="logo-zig">zigttp</span>
       </a>
       <button class="nav-burger" aria-label="Toggle menu">
@@ -25,8 +70,10 @@
         <a href="/#code">Code</a>
         <a href="/#performance">Performance</a>
         <a href="/#modules">Modules</a>
-        <a href="/deck.html">Deck</a>
-        <a href="https://github.com/srdjan/zigttp" class="nav-gh" target="_blank" rel="noopener">GitHub</a>
+        <a href="/#compare">Compare</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/deck">Deck</a>
+        <a href="https://github.com/srdjan/zigttp" class="nav-gh" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
     </div>
   </nav>
@@ -441,6 +488,6 @@ Sandbox</span></div>
     </nav>
   </section>
 
-  <script src="/script.js"></script>
+  <script src="/script.js" defer></script>
 </body>
 </html>

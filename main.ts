@@ -9,6 +9,8 @@ const CONTENT_TYPES: Record<string, string> = {
   ".ico": "image/x-icon",
   ".woff2": "font/woff2",
   ".woff": "font/woff",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
 };
 
 function getContentType(path: string): string {
@@ -21,29 +23,46 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
   let path = url.pathname;
 
   if (path === "/") path = "/index.html";
+
+  // 301 redirect /deck.html to /deck to avoid duplicate content
+  if (path === "/deck.html") {
+    return new Response(null, {
+      status: 301,
+      headers: { "location": "/deck" },
+    });
+  }
   if (path === "/deck") path = "/deck.html";
 
   const headers: Record<string, string> = {
     "content-type": getContentType(path),
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "DENY",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "permissions-policy": "camera=(), microphone=(), geolocation=()",
   };
 
-  // Cache static assets aggressively, HTML not at all
-  if (path.endsWith(".html")) {
-    headers["cache-control"] = "no-cache";
-  } else {
-    headers["cache-control"] = "public, max-age=31536000, immutable";
-  }
+  const nocache = path.endsWith(".html") || path.endsWith(".txt")
+    || path.endsWith(".xml") || path === "/manifest.json";
+  headers["cache-control"] = nocache
+    ? "no-cache"
+    : "public, max-age=31536000, immutable";
 
   try {
     const file = await Deno.readFile(`./static${path}`);
     return new Response(file, { headers });
   } catch {
-    // SPA fallback: serve index.html for clean URLs
+    // Custom 404: serve index.html with 404 status
     try {
       const index = await Deno.readFile("./static/index.html");
       return new Response(index, {
         status: 404,
-        headers: { "content-type": "text/html; charset=utf-8" },
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "referrer-policy": "strict-origin-when-cross-origin",
+          "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        },
       });
     } catch {
       return new Response("Not Found", { status: 404 });
