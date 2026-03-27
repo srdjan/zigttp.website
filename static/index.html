@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>zigttp - Serverless Runtime That Proves Your Code Correct</title>
-  <meta name="description" content="Write a TypeScript handler. The compiler verifies 7 safety properties, generates your AWS template, and estimates your cost. 3ms cold start, 1.2MB binary. Built in Zig.">
+  <title>zigttp - Proven Serverless Runtime | 3ms Cold Start, 1.2MB Binary, Zero Dependencies</title>
+  <meta name="description" content="We removed half of TypeScript. Then the compiler could prove the rest. 7 safety proofs, auto-generated AWS templates, cost estimation. 1.2MB binary, built in Zig.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#f7a41d">
   <link rel="canonical" href="https://zigttp.website/">
@@ -17,8 +17,8 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://zigttp.website/">
-  <meta property="og:title" content="zigttp - Other runtimes hope your code works. This one proves it.">
-  <meta property="og:description" content="Write a TypeScript handler. The compiler verifies 7 safety properties, generates your AWS template, and estimates your cost. 3ms cold start, 1.2MB binary.">
+  <meta property="og:title" content="zigttp - We removed half of TypeScript. Then the compiler could prove the rest.">
+  <meta property="og:description" content="No classes. No async/await. No try/catch. Every restriction enables a compile-time proof. 7 safety properties, auto-generated AWS templates, 1.2MB binary.">
   <meta property="og:image" content="https://zigttp.website/zigttp-logo.jpg">
   <meta property="og:image:width" content="600">
   <meta property="og:image:height" content="327">
@@ -26,8 +26,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="zigttp - Other runtimes hope your code works. This one proves it.">
-  <meta name="twitter:description" content="Write a TypeScript handler. The compiler verifies 7 safety properties, generates your AWS template, and estimates your cost. 3ms cold start, 1.2MB binary.">
+  <meta name="twitter:title" content="zigttp - We removed half of TypeScript. Then the compiler could prove the rest.">
+  <meta name="twitter:description" content="No classes. No async/await. No try/catch. Every restriction enables a compile-time proof. 7 safety properties, auto-generated AWS templates, 1.2MB binary.">
   <meta name="twitter:image" content="https://zigttp.website/zigttp-logo.jpg">
 
   <!-- Structured Data -->
@@ -36,14 +36,14 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "zigttp",
-    "description": "A TypeScript runtime built from scratch in Zig for serverless workloads. A lightweight alternative to Node.js, Deno, and Bun with compile-time verification, automatic sandboxing, and zero dependencies.",
+    "description": "We removed half of TypeScript so the compiler could prove the rest. A TypeScript runtime built from scratch in Zig for serverless workloads with compile-time verification, 7 safety proofs, and zero dependencies.",
     "url": "https://zigttp.website",
     "applicationCategory": "DeveloperApplication",
-    "applicationSubCategory": "JavaScript Runtime",
-    "keywords": "TypeScript runtime, Zig runtime, Node.js alternative, Deno alternative, Bun alternative, serverless runtime, JavaScript runtime, fast cold start",
+    "applicationSubCategory": "TypeScript Runtime",
+    "keywords": "TypeScript runtime, Zig runtime, Node.js alternative, Deno alternative, Bun alternative, serverless runtime, TypeScript serverless, fast cold start",
     "operatingSystem": "Linux, macOS",
     "license": "https://opensource.org/licenses/MIT",
-    "programmingLanguage": ["Zig", "JavaScript", "TypeScript"],
+    "programmingLanguage": ["Zig", "TypeScript"],
     "codeRepository": "https://github.com/srdjan/zigttp",
     "offers": {
       "@type": "Offer",
@@ -89,12 +89,12 @@
         "name": "How is zigttp different from Node.js, Deno, and Bun?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Node.js, Deno, and Bun are general-purpose JavaScript runtimes that support the full language specification. zigttp implements an opinionated TypeScript subset that removes footgun features at parse time, enabling compile-time verification, automatic sandboxing, and deterministic replay - none of which are possible with full JavaScript runtimes."
+          "text": "Node.js, Deno, and Bun are general-purpose runtimes that support the full language specification. zigttp implements an opinionated TypeScript subset that removes footgun features at parse time, enabling compile-time verification, automatic sandboxing, and deterministic replay - none of which are possible with full TypeScript runtimes."
         }
       },
       {
         "@type": "Question",
-        "name": "What TypeScript and JavaScript features does zigttp support?",
+        "name": "What TypeScript features does zigttp support?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "zigttp supports arrow functions, const/let, destructuring, template literals, for...of, optional chaining, nullish coalescing, the pipe operator, array methods (map, filter, reduce), JSX/TSX, TypeScript type stripping, and comptime() evaluation. Features like classes, var, while loops, async/await, and try/catch are intentionally excluded."
@@ -105,7 +105,7 @@
         "name": "How fast is zigttp compared to Node.js, Deno, and Bun?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "zigttp cold starts at ~71ms (embedded bytecode) vs ~100-130ms for Bun, ~150-200ms for Deno, and ~200-300ms for Node.js. The binary is 1.2MB vs 80-130MB for the others. Memory baseline is 4MB vs 20-30MB."
+          "text": "zigttp runtime initializes in ~3ms vs ~100-130ms for Bun, ~150-200ms for Deno, and ~200-300ms for Node.js. The binary is 1.2MB vs 80-130MB for the others. Memory baseline is 4MB vs 20-30MB."
         }
       },
       {
@@ -137,7 +137,7 @@
         "name": "Why is zigttp built in Zig instead of Rust or C++?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Zig provides manual memory control with comptime metaprogramming, no hidden allocations, and no runtime overhead - ideal for a JavaScript engine where every microsecond of cold start matters. Zig's comptime evaluation also powers zigttp's build-time handler verification."
+          "text": "Zig provides manual memory control with comptime metaprogramming, no hidden allocations, and no runtime overhead - ideal for a TypeScript engine where every microsecond of cold start matters. Zig's comptime evaluation also powers zigttp's build-time handler verification."
         }
       },
       {
@@ -210,10 +210,10 @@
   <section class="hero">
     <div class="container">
       <p class="hero-badge">Experimental - under active development</p>
-      <h1 class="hero-title">Other runtimes hope your code works.<br><span class="accent">This one proves it.</span></h1>
+      <h1 class="hero-title">We removed half of TypeScript.<br><span class="accent">Then the compiler could prove the rest.</span></h1>
       <p class="hero-sub">
-        Write a TypeScript handler. The compiler verifies 7 safety properties,
-        generates your AWS template, and tells you what it will cost - before you deploy.
+        No classes. No async/await. No try/catch. Every restriction enables a compile-time proof.
+        Every proof ships to production.
       </p>
       <div class="hero-stats">
         <div class="stat">
@@ -260,7 +260,7 @@
   <!-- Features -->
   <section id="features" class="section">
     <div class="container">
-      <h2 class="section-title">What the compiler proves about your handler</h2>
+      <h2 class="section-title">Seven things the compiler knows about your handler that you don't</h2>
       <p class="section-sub">
         zigttp restricts the language so the compiler can see every possible execution path.
         Then it proves properties no other runtime can even check.
@@ -270,11 +270,11 @@
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h3>Less JavaScript, more guarantees</h3>
+          <h3>Less TypeScript, more guarantees</h3>
           <p>
             The compiler can prove your handler correct because it can see every possible
             execution path. That requires removing while loops, try/catch, classes, and async -
-            the features that make control flow analysis impossible in general JS runtimes.
+            the features that make control flow analysis impossible in general TS runtimes.
           </p>
         </div>
         <div class="feature-card">
@@ -339,9 +339,10 @@
   <!-- Code Examples -->
   <section id="code" class="section section-dark">
     <div class="container">
-      <h2 class="section-title">Clean, predictable code</h2>
+      <h2 class="section-title">Functions in. Responses out. Nothing else.</h2>
       <p class="section-sub">
-        Functions in, responses out. No middleware chains, no decorator magic, no hidden state.
+        Arrow function composition instead of middleware chains. No decorator magic, no hidden state.
+        Write a handler function. Return a response. The compiler handles everything else.
       </p>
       <div class="code-tabs">
         <div class="tabs-header">
@@ -544,7 +545,7 @@
   <!-- Deploy Report Preview -->
   <section class="section section-dark">
     <div class="container">
-      <h2 class="section-title">This is your deploy report. The compiler wrote it.</h2>
+      <h2 class="section-title">Your deploy report. Written by a compiler, not a human.</h2>
       <p class="section-sub">Every handler build produces this. No configuration, no templates, no manual review.</p>
       <div class="terminal terminal-narrow">
         <div class="terminal-bar">
@@ -588,10 +589,10 @@
   <!-- zts Engine -->
   <section id="engine" class="section">
     <div class="container">
-      <h2 class="section-title">zts: a JavaScript engine built for one thing</h2>
+      <h2 class="section-title">Not a V8 wrapper. Not a QuickJS fork. Built from zero.</h2>
       <p class="section-sub">
-        Run a request handler as fast as possible, prove it correct, get out of the way.
-        Not a V8 wrapper. Not a QuickJS fork. Purpose-built from scratch in Zig.
+        zts is a TypeScript engine with one job: run a request handler as fast as possible,
+        prove it correct, and get out of the way. Purpose-built in Zig, start to finish.
       </p>
       <div class="features-grid">
         <div class="feature-card">
@@ -631,9 +632,9 @@
   <!-- Performance -->
   <section id="performance" class="section">
     <div class="container">
-      <h2 class="section-title">Performance</h2>
+      <h2 class="section-title">3ms cold start. Here's what that means for your Lambda bill.</h2>
       <p class="section-sub">
-        Powered by <strong>zts</strong> - a pure Zig JavaScript engine with a JIT compiler,
+        Powered by <strong>zts</strong> - a pure Zig TypeScript engine with a JIT compiler,
         NaN-boxed values, and hidden classes. It skips everything a FaaS handler doesn't need.
       </p>
 
@@ -708,13 +709,13 @@
       <div class="cold-start-grid">
         <div class="cold-card">
           <span class="cold-runtime">zigttp</span>
-          <span class="cold-time accent">~71ms</span>
-          <span class="cold-note">embedded bytecode</span>
+          <span class="cold-time accent">~3ms</span>
+          <span class="cold-note">runtime init</span>
         </div>
         <div class="cold-card">
           <span class="cold-runtime">zigttp</span>
-          <span class="cold-time">~83ms</span>
-          <span class="cold-note">runtime parsing</span>
+          <span class="cold-time">~18-33ms</span>
+          <span class="cold-note">Linux static build</span>
         </div>
         <div class="cold-card">
           <span class="cold-runtime">Bun</span>
@@ -733,8 +734,8 @@
         </div>
       </div>
       <p class="perf-footnote">
-        Runtime initialization is only 3ms. macOS dynamic linker accounts for 80-90ms.
-        Linux static builds target 18-33ms total cold start.
+        3ms is runtime initialization. macOS dynamic linker adds ~70-80ms overhead.
+        Linux static builds achieve 18-33ms end-to-end cold start.
       </p>
     </div>
   </section>
@@ -742,10 +743,10 @@
   <!-- Architecture -->
   <section class="section section-dark">
     <div class="container">
-      <h2 class="section-title">Two-layer architecture</h2>
+      <h2 class="section-title">Two layers. Both Zig. Both yours to read.</h2>
       <p class="section-sub">
-        zigttp is a server. zts is the engine. Both are written in Zig. Together they form
-        a purpose-built runtime for handling HTTP requests with JavaScript.
+        zigttp is a server. zts is the engine. Together they form a purpose-built runtime
+        for handling HTTP requests with TypeScript. Open source, start to finish.
       </p>
       <div class="arch-grid">
         <div class="arch-card">
@@ -798,7 +799,7 @@
   <!-- Virtual Modules -->
   <section id="modules" class="section">
     <div class="container">
-      <h2 class="section-title">Virtual modules</h2>
+      <h2 class="section-title">Standard library. Zero npm. Native Zig under every import.</h2>
       <p class="section-sub">
         Import native Zig implementations with zero JS interpretation overhead.
         Common FaaS functionality, none of the npm baggage.
@@ -901,7 +902,7 @@
             </tr>
             <tr>
               <td class="compare-label">Cold start</td>
-              <td class="compare-highlight">~71ms</td>
+              <td class="compare-highlight">~3ms</td>
               <td>~200-300ms</td>
               <td>~150-200ms</td>
               <td>~100-130ms</td>
@@ -984,7 +985,7 @@
               <td>npm</td>
             </tr>
             <tr>
-              <td class="compare-label">Full JavaScript</td>
+              <td class="compare-label">Full TypeScript</td>
               <td>Restricted subset</td>
               <td class="compare-highlight">Yes</td>
               <td class="compare-highlight">Yes</td>
@@ -1013,7 +1014,7 @@
   <!-- Get Started -->
   <section class="section section-dark">
     <div class="container">
-      <h2 class="section-title">Get started</h2>
+      <h2 class="section-title">Three commands to your first proven handler</h2>
       <p class="section-sub">
         Requires Zig 0.16.0 or later.
       </p>
@@ -1059,7 +1060,7 @@
   <!-- Subset -->
   <section class="section">
     <div class="container">
-      <h2 class="section-title">The language subset</h2>
+      <h2 class="section-title">What we kept. What we cut. Why each cut is a feature.</h2>
       <p class="section-sub">
         zts implements ES5 with select ES6+ extensions. Every unsupported feature
         is detected at parse time with a helpful error message suggesting an alternative.
@@ -1106,24 +1107,24 @@
   <!-- FAQ -->
   <section class="section section-dark" id="faq">
     <div class="container">
-      <h2 class="section-title">Frequently asked questions</h2>
-      <p class="section-sub">If removing JavaScript features sounds limiting, these answers explain why it is the opposite.</p>
+      <h2 class="section-title">If removing TypeScript features sounds limiting, read this.</h2>
+      <p class="section-sub">These answers explain why it is the opposite.</p>
       <div class="faq-list">
         <details class="faq-item">
           <summary class="faq-question">What is zigttp?</summary>
-          <p class="faq-answer">zigttp is a JavaScript runtime built from scratch in Zig, designed specifically for serverless and FaaS workloads. It compiles your handler into a single binary with zero dependencies, achieving 3ms cold starts, a 1.2MB binary size, and 80K requests per second throughput.</p>
+          <p class="faq-answer">zigttp is a TypeScript runtime built from scratch in Zig, designed specifically for serverless and FaaS workloads. It compiles your handler into a single binary with zero dependencies, achieving 3ms cold starts, a 1.2MB binary size, and 80K requests per second throughput.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">How is zigttp different from Node.js, Deno, and Bun?</summary>
-          <p class="faq-answer">Node.js, Deno, and Bun are general-purpose JavaScript runtimes that support the full language specification. zigttp takes the opposite approach: it implements an opinionated TypeScript subset that removes footgun features (classes, this, async/await, exceptions) at parse time. This constraint enables compile-time verification of handler correctness, automatic least-privilege sandboxing, and deterministic replay - none of which are possible when the runtime must support arbitrary JavaScript. If you need a general-purpose runtime, use Node.js, Deno, or Bun. If you want provably correct serverless handlers with minimal cold starts, zigttp is the better fit.</p>
+          <p class="faq-answer">Node.js, Deno, and Bun are general-purpose runtimes that support the full language specification. zigttp takes the opposite approach: it implements an opinionated TypeScript subset that removes footgun features (classes, this, async/await, exceptions) at parse time. This constraint enables compile-time verification of handler correctness, automatic least-privilege sandboxing, and deterministic replay - none of which are possible when the runtime must support arbitrary TypeScript. If you need a general-purpose runtime, use Node.js, Deno, or Bun. If you want provably correct serverless handlers with minimal cold starts, zigttp is the better fit.</p>
         </details>
         <details class="faq-item">
-          <summary class="faq-question">What JavaScript features does zigttp support?</summary>
+          <summary class="faq-question">What TypeScript features does zigttp support?</summary>
           <p class="faq-answer">zigttp supports arrow functions, const/let, destructuring, template literals, for...of, optional chaining, nullish coalescing, the pipe operator, array methods (map, filter, reduce), JSX/TSX, TypeScript type stripping, and comptime() evaluation. Features like classes, var, while loops, async/await, and try/catch are intentionally excluded with parse-time errors that suggest alternatives.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">How fast is zigttp compared to Node.js, Deno, and Bun?</summary>
-          <p class="faq-answer">zigttp cold starts at ~71ms (embedded bytecode) vs ~100-130ms for Bun, ~150-200ms for Deno, and ~200-300ms for Node.js. The binary is 1.2MB vs 80-130MB for the others. Memory baseline is 4MB vs 20-30MB. Runtime initialization alone is 3ms. These gains come from Zig's zero-overhead abstractions and a custom JS engine (zts) purpose-built for short-lived request handlers.</p>
+          <p class="faq-answer">zigttp runtime initializes in ~3ms vs ~100-130ms for Bun, ~150-200ms for Deno, and ~200-300ms for Node.js. Linux static builds achieve 18-33ms end-to-end cold start. The binary is 1.2MB vs 80-130MB for the others. Memory baseline is 4MB vs 20-30MB. These gains come from Zig's zero-overhead abstractions and a custom TS engine (zts) purpose-built for short-lived request handlers.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Is zigttp free and open source?</summary>
@@ -1135,11 +1136,11 @@
         </details>
         <details class="faq-item">
           <summary class="faq-question">Can I use zigttp instead of Bun for serverless functions?</summary>
-          <p class="faq-answer">Yes, if your use case is request-response serverless handlers. Bun is a general-purpose runtime that supports the full Node.js API, npm packages, and arbitrary JavaScript. zigttp is purpose-built for FaaS: it trades generality for a 1.2MB binary, 4MB memory footprint, compile-time handler verification, and automatic sandboxing. For serverless workloads where cold start time and resource efficiency matter, zigttp is a strong Bun alternative.</p>
+          <p class="faq-answer">Yes, if your use case is request-response serverless handlers. Bun is a general-purpose runtime that supports the full Node.js API, npm packages, and arbitrary TypeScript. zigttp is purpose-built for FaaS: it trades generality for a 1.2MB binary, 4MB memory footprint, compile-time handler verification, and automatic sandboxing. For serverless workloads where cold start time and resource efficiency matter, zigttp is a strong Bun alternative.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Why is zigttp built in Zig instead of Rust or C++?</summary>
-          <p class="faq-answer">Zig provides manual memory control with comptime metaprogramming, no hidden allocations, and no runtime overhead - ideal for building a JavaScript engine where every microsecond of cold start matters. Unlike C++, Zig has no hidden constructors or exceptions. Unlike Rust, Zig avoids borrow checker complexity while still preventing undefined behavior through explicit error handling. Zig's comptime evaluation also powers zigttp's build-time handler verification.</p>
+          <p class="faq-answer">Zig provides manual memory control with comptime metaprogramming, no hidden allocations, and no runtime overhead - ideal for building a TypeScript engine where every microsecond of cold start matters. Unlike C++, Zig has no hidden constructors or exceptions. Unlike Rust, Zig avoids borrow checker complexity while still preventing undefined behavior through explicit error handling. Zig's comptime evaluation also powers zigttp's build-time handler verification.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Does zigttp support TypeScript?</summary>
@@ -1147,7 +1148,7 @@
         </details>
         <details class="faq-item">
           <summary class="faq-question">Can I migrate from Node.js or Express to zigttp?</summary>
-          <p class="faq-answer">zigttp is not a drop-in replacement for Node.js. It implements a restricted TypeScript subset and does not support npm packages, the Node.js API, or middleware frameworks like Express. However, if your serverless handlers are stateless request-response functions, the migration path is straightforward: rewrite handlers using zigttp's functional style and virtual modules. The result is a provably correct, single-binary deployment with dramatically lower cold starts.</p>
+          <p class="faq-answer">zigttp is not a drop-in replacement for Node.js. It implements a restricted TypeScript subset and does not support npm packages, the Node.js API, or middleware frameworks like Express - it uses arrow function composition instead. However, if your serverless handlers are stateless request-response functions, the migration path is straightforward: rewrite handlers using zigttp's functional style and virtual modules. The result is a provably correct, single-binary deployment with dramatically lower cold starts.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">What does "proves your code correct" mean?</summary>
