@@ -1872,6 +1872,28 @@ details[open] .faq-question::before {
   font-style: italic;
 }
 
+.hero-footnote {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: .75rem;
+  margin-top: 8px;
+}
+
+.terminal-narrow {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.proof-item-spaced {
+  margin-top: .5rem;
+}
+
+.proof-stat {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 /* --- Skip link (WCAG) --- */
 .skip-link {
   position: absolute;

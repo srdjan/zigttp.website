@@ -233,7 +233,7 @@
           <span class="stat-label">per 1M requests*</span>
         </div>
       </div>
-      <p style="text-align:center;color:var(--text-dim);font-size:.75rem;margin-top:8px">*AWS Lambda 128MB, us-east-1. Derived from proven I/O depth, not estimated.</p>
+      <p class="hero-footnote">*AWS Lambda 128MB, us-east-1. Derived from proven I/O depth, not estimated.</p>
       <div class="terminal">
         <div class="terminal-bar">
           <span class="terminal-dot" aria-hidden="true"></span>
@@ -532,8 +532,8 @@
             <div class="proof-item"><span class="proven">A03</span> Injection</div>
             <div class="proof-item"><span class="proven">A05</span> Security Misconfiguration</div>
             <div class="proof-item"><span class="proven">A07</span> Auth Failures</div>
-            <div class="proof-item" style="margin-top: .5rem"><span class="stat-value" style="font-size: 1rem">$0.64</span> per 1M requests</div>
-            <div class="proof-item"><span class="stat-value" style="font-size: 1rem">210ms</span> proven timeout</div>
+            <div class="proof-item proof-item-spaced"><span class="proof-stat">$0.64</span> per 1M requests</div>
+            <div class="proof-item"><span class="proof-stat">210ms</span> proven timeout</div>
           </div>
           <p class="proof-caption">OWASP compliance, cost estimation, VPC rules. From the compiler.</p>
         </div>
@@ -546,11 +546,11 @@
     <div class="container">
       <h2 class="section-title">This is your deploy report. The compiler wrote it.</h2>
       <p class="section-sub">Every handler build produces this. No configuration, no templates, no manual review.</p>
-      <div class="terminal" style="max-width: 680px; margin: 0 auto">
+      <div class="terminal terminal-narrow">
         <div class="terminal-bar">
-          <span class="terminal-dot"></span>
-          <span class="terminal-dot"></span>
-          <span class="terminal-dot"></span>
+          <span class="terminal-dot" aria-hidden="true"></span>
+          <span class="terminal-dot" aria-hidden="true"></span>
+          <span class="terminal-dot" aria-hidden="true"></span>
           <span class="terminal-title">deploy-report.txt</span>
         </div>
         <div class="terminal-body">
