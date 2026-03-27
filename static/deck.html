@@ -413,8 +413,114 @@ Sandbox</span></div>
         </div>
       </div>
 
-      <!-- Slide 9: Closing -->
+      <!-- Slide 9: Comparison -->
       <div class="deck-slide" data-slide="9">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">Comparison</span>
+          <h2 class="deck-slide-title">zigttp vs the general-purpose runtimes</h2>
+
+          <div class="deck-cmp">
+            <div class="deck-cmp-headers">
+              <div class="deck-cmp-label-hd"></div>
+              <div class="deck-cmp-hero-hd">zigttp</div>
+              <div class="deck-cmp-other-hd">Node.js</div>
+              <div class="deck-cmp-other-hd">Deno</div>
+              <div class="deck-cmp-other-hd">Bun</div>
+            </div>
+
+            <div class="deck-cmp-section">Performance</div>
+
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">Cold start</div>
+              <div class="deck-cmp-hero">~3ms</div>
+              <div class="deck-cmp-other">~200-300ms</div>
+              <div class="deck-cmp-other">~150-200ms</div>
+              <div class="deck-cmp-other">~100-130ms</div>
+            </div>
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">Binary</div>
+              <div class="deck-cmp-hero">1.2MB</div>
+              <div class="deck-cmp-other">~80MB</div>
+              <div class="deck-cmp-other">~130MB</div>
+              <div class="deck-cmp-other">~90MB</div>
+            </div>
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">Memory</div>
+              <div class="deck-cmp-hero">4MB</div>
+              <div class="deck-cmp-other">~30MB</div>
+              <div class="deck-cmp-other">~25MB</div>
+              <div class="deck-cmp-other">~20MB</div>
+            </div>
+
+            <div class="deck-cmp-section">Verification</div>
+
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">Compile-time proofs</div>
+              <div class="deck-cmp-hero deck-cmp-yes">&#10003;</div>
+              <div class="deck-cmp-other deck-cmp-no">-</div>
+              <div class="deck-cmp-other deck-cmp-no">-</div>
+              <div class="deck-cmp-other deck-cmp-no">-</div>
+            </div>
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">Auto sandboxing</div>
+              <div class="deck-cmp-hero deck-cmp-yes">&#10003;</div>
+              <div class="deck-cmp-other deck-cmp-no">-</div>
+              <div class="deck-cmp-other deck-cmp-partial">Perms</div>
+              <div class="deck-cmp-other deck-cmp-no">-</div>
+            </div>
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">Injection prevention</div>
+              <div class="deck-cmp-hero">Proof</div>
+              <div class="deck-cmp-other">Manual</div>
+              <div class="deck-cmp-other">Manual</div>
+              <div class="deck-cmp-other">Manual</div>
+            </div>
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">OWASP compliance</div>
+              <div class="deck-cmp-hero">Auto</div>
+              <div class="deck-cmp-other">Audit</div>
+              <div class="deck-cmp-other">Audit</div>
+              <div class="deck-cmp-other">Audit</div>
+            </div>
+
+            <div class="deck-cmp-section">DX &amp; Trade-offs</div>
+
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">Deploy manifest</div>
+              <div class="deck-cmp-hero">Compiler</div>
+              <div class="deck-cmp-other">Template</div>
+              <div class="deck-cmp-other">Template</div>
+              <div class="deck-cmp-other">Template</div>
+            </div>
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">AI agents</div>
+              <div class="deck-cmp-hero">Built-in</div>
+              <div class="deck-cmp-other">Generic</div>
+              <div class="deck-cmp-other">Generic</div>
+              <div class="deck-cmp-other">Generic</div>
+            </div>
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">Full TypeScript</div>
+              <div class="deck-cmp-hero deck-cmp-tradeoff">Subset</div>
+              <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
+              <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
+              <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
+            </div>
+            <div class="deck-cmp-row">
+              <div class="deck-cmp-label">npm ecosystem</div>
+              <div class="deck-cmp-hero deck-cmp-tradeoff">Virtual</div>
+              <div class="deck-cmp-other deck-cmp-other-yes">Full</div>
+              <div class="deck-cmp-other deck-cmp-other-yes">Full</div>
+              <div class="deck-cmp-other deck-cmp-other-yes">Full</div>
+            </div>
+          </div>
+
+          <p class="deck-footnote deck-footnote--pushed">zigttp trades generality for verification, security, and deployment automation.</p>
+        </div>
+      </div>
+
+      <!-- Slide 10: Closing -->
+      <div class="deck-slide" data-slide="10">
         <div class="deck-accent-bar"></div>
         <div class="deck-title-content">
           <h1 class="deck-closing-title">zigttp</h1>
@@ -479,9 +585,10 @@ Sandbox</span></div>
         <button class="deck-dot" data-dot="7" aria-label="Go to slide 8"></button>
         <button class="deck-dot" data-dot="8" aria-label="Go to slide 9"></button>
         <button class="deck-dot" data-dot="9" aria-label="Go to slide 10"></button>
+        <button class="deck-dot" data-dot="10" aria-label="Go to slide 11"></button>
       </div>
       <div class="deck-controls">
-        <span class="deck-counter">1 / 10</span>
+        <span class="deck-counter">1 / 11</span>
         <button class="deck-prev" disabled aria-label="Previous slide">&#8592;</button>
         <button class="deck-next" aria-label="Next slide">&#8594;</button>
       </div>

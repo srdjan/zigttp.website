@@ -166,6 +166,14 @@
       },
       {
         "@type": "Question",
+        "name": "How do AI coding agents work with zigttp?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "zigttp ships with purpose-built coding agents, skills, and MCP tools. The restricted language subset means AI agents generate correct handlers reliably. Custom agents know every virtual module API and compiler proof. Skills scaffold handlers from descriptions. MCP tools let any AI assistant query the language spec at code-generation time. The compiler verifies everything the agent writes."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "How does OWASP compliance mapping work?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -197,6 +205,7 @@
         <a href="#code">Code</a>
         <a href="#engine">Engine</a>
         <a href="#modules">Modules</a>
+        <a href="#agents">Agents</a>
         <a href="#compare">Compare</a>
         <a href="#faq">FAQ</a>
         <a href="/deck">Deck</a>
@@ -930,154 +939,278 @@
     </div>
   </section>
 
+  <!-- Agents, Skills & Tools -->
+  <section id="agents" class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">A smaller language is a better prompt. AI agents write proven handlers on the first try.</h2>
+      <p class="section-sub">
+        The same restrictions that let the compiler prove your code correct also let AI coding agents
+        generate it reliably. 14 supported features instead of 200. One handler pattern instead of dozens.
+        The compiler catches what the agent misses.
+      </p>
+      <div class="agents-grid">
+        <div class="agent-card">
+          <div class="agent-header">
+            <div class="agent-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M16 14H8a4 4 0 0 0-4 4v2h16v-2a4 4 0 0 0-4-4z"/><circle cx="9" cy="6" r="0.5" fill="currentColor"/><circle cx="15" cy="6" r="0.5" fill="currentColor"/></svg>
+            </div>
+            <h3>Custom Agents</h3>
+          </div>
+          <p>
+            Purpose-built coding agents that know the complete zts language spec, every virtual module API,
+            and every compiler proof. They write handlers in the restricted subset natively - no
+            classes, no try/catch, no async/await by design, not by accident.
+          </p>
+          <div class="agent-detail">
+            <code>zts-coding-expert</code> - handler code, guard composition, pattern matching
+          </div>
+          <div class="agent-detail">
+            <code>zig-expert</code> - virtual module internals, runtime extensions
+          </div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-header">
+            <div class="agent-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3>Skills</h3>
+          </div>
+          <p>
+            Slash commands that scaffold proven handlers from a description. Type what the handler
+            should do, get working code with the right virtual module imports, proper Result checking,
+            and guard composition. The compiler verifies it before you even run it.
+          </p>
+          <div class="agent-detail">
+            <code>/zts-coding-expert</code> - scaffold a handler from a description
+          </div>
+          <div class="agent-detail">
+            <code>/architect-reviewer</code> - review handler architecture
+          </div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-header">
+            <div class="agent-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3>MCP Tools</h3>
+          </div>
+          <p>
+            Model Context Protocol tools that give any AI assistant deep knowledge of zigttp.
+            Query the language spec, look up virtual module signatures, check which features are
+            banned and why. Your assistant learns the runtime, not just the syntax.
+          </p>
+          <div class="agent-detail">
+            <code>query-docs</code> - search zigttp docs and virtual module APIs
+          </div>
+          <div class="agent-detail">
+            <code>resolve-library-id</code> - find module signatures and usage patterns
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-workflow">
+        <div class="terminal terminal-narrow">
+          <div class="terminal-bar">
+            <span class="terminal-dot" aria-hidden="true"></span>
+            <span class="terminal-dot" aria-hidden="true"></span>
+            <span class="terminal-dot" aria-hidden="true"></span>
+            <span class="terminal-title">claude code</span>
+          </div>
+          <div class="terminal-body">
+<pre><code><span class="t-prompt">></span> <span class="t-string">write a handler that validates a user payload, checks a JWT,</span>
+  <span class="t-string">caches the result for 5 minutes, and returns the user profile</span>
+
+<span class="t-comment"># Agent writes handler.ts using zigttp:auth, zigttp:validate,</span>
+<span class="t-comment"># zigttp:cache - all in the restricted subset</span>
+
+<span class="t-prompt">$</span> zig build -Dhandler=handler.ts -Dverify
+
+<span class="t-output">Verification passed</span>
+<span class="t-output">  PROVEN exhaustive_returns   every path returns Response</span>
+<span class="t-output">  PROVEN result_safety        all Results checked before access</span>
+<span class="t-output">  PROVEN injection_safe       no unvalidated input in sinks</span>
+<span class="t-output">  PROVEN state_isolated       no cross-request data leakage</span>
+<span class="t-output">Handler ready: 7/7 proofs passed</span></code></pre>
+          </div>
+        </div>
+        <p class="agent-workflow-caption">
+          Agent writes the code. Compiler proves it correct. From prompt to proven handler in one step.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- Comparison -->
-  <section id="compare" class="section section-dark">
+  <section id="compare" class="section">
     <div class="container">
       <h2 class="section-title">The comparison no one asked for (but everyone needs)</h2>
       <p class="section-sub">
         Each runtime makes different trade-offs. zigttp sacrifices generality for verification,
         security proofs, and deployment automation. Here is what that looks like.
       </p>
-      <div class="compare-table-wrap">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>zigttp</th>
-              <th>Node.js</th>
-              <th>Deno</th>
-              <th>Bun</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="compare-label">Written in</td>
-              <td class="compare-highlight">Zig</td>
-              <td>C++</td>
-              <td>Rust</td>
-              <td>Zig + C++</td>
-            </tr>
-            <tr>
-              <td class="compare-label">JS engine</td>
-              <td class="compare-highlight">zts (custom)</td>
-              <td>V8</td>
-              <td>V8</td>
-              <td>JavaScriptCore</td>
-            </tr>
-            <tr>
-              <td class="compare-label">TypeScript</td>
-              <td class="compare-highlight">Native stripping</td>
-              <td>Via transpiler</td>
-              <td>Native stripping</td>
-              <td>Native stripping</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Cold start</td>
-              <td class="compare-highlight">~3ms</td>
-              <td>~200-300ms</td>
-              <td>~150-200ms</td>
-              <td>~100-130ms</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Binary size</td>
-              <td class="compare-highlight">1.2MB</td>
-              <td>~80MB</td>
-              <td>~130MB</td>
-              <td>~90MB</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Memory baseline</td>
-              <td class="compare-highlight">4MB</td>
-              <td>~30MB</td>
-              <td>~25MB</td>
-              <td>~20MB</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Compile-time verification</td>
-              <td class="compare-highlight">Yes</td>
-              <td>No</td>
-              <td>No</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Auto sandboxing</td>
-              <td class="compare-highlight">Yes</td>
-              <td>No</td>
-              <td>Permissions</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Deterministic replay</td>
-              <td class="compare-highlight">Yes</td>
-              <td>No</td>
-              <td>No</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Injection prevention</td>
-              <td class="compare-highlight">Compile-time proof</td>
-              <td>Manual review</td>
-              <td>Manual review</td>
-              <td>Manual review</td>
-            </tr>
-            <tr>
-              <td class="compare-label">OWASP compliance</td>
-              <td class="compare-highlight">Auto-generated</td>
-              <td>Manual audit</td>
-              <td>Manual audit</td>
-              <td>Manual audit</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Deploy manifest</td>
-              <td class="compare-highlight">From compiler</td>
-              <td>Manual template</td>
-              <td>Manual template</td>
-              <td>Manual template</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Cost estimation</td>
-              <td class="compare-highlight">From proofs</td>
-              <td>Guesswork</td>
-              <td>Guesswork</td>
-              <td>Guesswork</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Mock server</td>
-              <td class="compare-highlight">From compiler</td>
-              <td>WireMock / MSW</td>
-              <td>Manual</td>
-              <td>Manual</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Dependencies</td>
-              <td class="compare-highlight">Zero</td>
-              <td>npm</td>
-              <td>npm / jsr</td>
-              <td>npm</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Full TypeScript</td>
-              <td>Restricted subset</td>
-              <td class="compare-highlight">Yes</td>
-              <td class="compare-highlight">Yes</td>
-              <td class="compare-highlight">Yes</td>
-            </tr>
-            <tr>
-              <td class="compare-label">npm ecosystem</td>
-              <td>Virtual modules only</td>
-              <td class="compare-highlight">Full npm</td>
-              <td class="compare-highlight">npm + jsr</td>
-              <td class="compare-highlight">Full npm</td>
-            </tr>
-            <tr>
-              <td class="compare-label">Use case</td>
-              <td class="compare-highlight">Serverless / FaaS</td>
-              <td>General purpose</td>
-              <td>General purpose</td>
-              <td>General purpose</td>
-            </tr>
-          </tbody>
-        </table>
+
+      <div class="cmp">
+        <!-- Column headers -->
+        <div class="cmp-headers">
+          <div class="cmp-label-col"></div>
+          <div class="cmp-hero-col">
+            <div class="cmp-runtime-badge cmp-runtime-badge--hero">
+              <img src="/logo-circle.jpeg" alt="" class="cmp-runtime-logo" width="24" height="24">
+              <span>zigttp</span>
+            </div>
+          </div>
+          <div class="cmp-other-col"><span class="cmp-runtime-name">Node.js</span></div>
+          <div class="cmp-other-col"><span class="cmp-runtime-name">Deno</span></div>
+          <div class="cmp-other-col"><span class="cmp-runtime-name">Bun</span></div>
+        </div>
+
+        <!-- Runtime section -->
+        <div class="cmp-group-label">Runtime</div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Written in</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">Zig</span></div>
+          <div class="cmp-other-col">C++</div>
+          <div class="cmp-other-col">Rust</div>
+          <div class="cmp-other-col">Zig + C++</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">JS engine</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">zts (custom)</span></div>
+          <div class="cmp-other-col">V8</div>
+          <div class="cmp-other-col">V8</div>
+          <div class="cmp-other-col">JavaScriptCore</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">TypeScript</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">Native stripping</span></div>
+          <div class="cmp-other-col">Via transpiler</div>
+          <div class="cmp-other-col">Native stripping</div>
+          <div class="cmp-other-col">Native stripping</div>
+        </div>
+
+        <!-- Performance section -->
+        <div class="cmp-group-label">Performance</div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Cold start</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--big">~3ms</span></div>
+          <div class="cmp-other-col">~200-300ms</div>
+          <div class="cmp-other-col">~150-200ms</div>
+          <div class="cmp-other-col">~100-130ms</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Binary size</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--big">1.2MB</span></div>
+          <div class="cmp-other-col">~80MB</div>
+          <div class="cmp-other-col">~130MB</div>
+          <div class="cmp-other-col">~90MB</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Memory baseline</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--big">4MB</span></div>
+          <div class="cmp-other-col">~30MB</div>
+          <div class="cmp-other-col">~25MB</div>
+          <div class="cmp-other-col">~20MB</div>
+        </div>
+
+        <!-- Verification & Security section -->
+        <div class="cmp-group-label">Verification &amp; Security</div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Compile-time verification</div>
+          <div class="cmp-hero-col"><span class="cmp-check" aria-label="Yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5 6.5-7" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="cmp-other-col"><span class="cmp-dash" aria-label="No"></span></div>
+          <div class="cmp-other-col"><span class="cmp-dash" aria-label="No"></span></div>
+          <div class="cmp-other-col"><span class="cmp-dash" aria-label="No"></span></div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Auto sandboxing</div>
+          <div class="cmp-hero-col"><span class="cmp-check" aria-label="Yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5 6.5-7" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="cmp-other-col"><span class="cmp-dash" aria-label="No"></span></div>
+          <div class="cmp-other-col"><span class="cmp-val cmp-val--partial">Permissions</span></div>
+          <div class="cmp-other-col"><span class="cmp-dash" aria-label="No"></span></div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Deterministic replay</div>
+          <div class="cmp-hero-col"><span class="cmp-check" aria-label="Yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5 6.5-7" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="cmp-other-col"><span class="cmp-dash" aria-label="No"></span></div>
+          <div class="cmp-other-col"><span class="cmp-dash" aria-label="No"></span></div>
+          <div class="cmp-other-col"><span class="cmp-dash" aria-label="No"></span></div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Injection prevention</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">Compile-time proof</span></div>
+          <div class="cmp-other-col">Manual review</div>
+          <div class="cmp-other-col">Manual review</div>
+          <div class="cmp-other-col">Manual review</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">OWASP compliance</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">Auto-generated</span></div>
+          <div class="cmp-other-col">Manual audit</div>
+          <div class="cmp-other-col">Manual audit</div>
+          <div class="cmp-other-col">Manual audit</div>
+        </div>
+
+        <!-- Developer Experience section -->
+        <div class="cmp-group-label">Developer Experience</div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Deploy manifest</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">From compiler</span></div>
+          <div class="cmp-other-col">Manual template</div>
+          <div class="cmp-other-col">Manual template</div>
+          <div class="cmp-other-col">Manual template</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Cost estimation</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">From proofs</span></div>
+          <div class="cmp-other-col">Guesswork</div>
+          <div class="cmp-other-col">Guesswork</div>
+          <div class="cmp-other-col">Guesswork</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Mock server</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">From compiler</span></div>
+          <div class="cmp-other-col">WireMock / MSW</div>
+          <div class="cmp-other-col">Manual</div>
+          <div class="cmp-other-col">Manual</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Dependencies</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">Zero</span></div>
+          <div class="cmp-other-col">npm</div>
+          <div class="cmp-other-col">npm / jsr</div>
+          <div class="cmp-other-col">npm</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">AI coding agents</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">Purpose-built</span></div>
+          <div class="cmp-other-col">Generic</div>
+          <div class="cmp-other-col">Generic</div>
+          <div class="cmp-other-col">Generic</div>
+        </div>
+
+        <!-- Trade-offs section -->
+        <div class="cmp-group-label">Trade-offs</div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">Full TypeScript</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--dim">Restricted subset</span></div>
+          <div class="cmp-other-col"><span class="cmp-val cmp-val--other-yes">Yes</span></div>
+          <div class="cmp-other-col"><span class="cmp-val cmp-val--other-yes">Yes</span></div>
+          <div class="cmp-other-col"><span class="cmp-val cmp-val--other-yes">Yes</span></div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-label-col">npm ecosystem</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--dim">Virtual modules only</span></div>
+          <div class="cmp-other-col"><span class="cmp-val cmp-val--other-yes">Full npm</span></div>
+          <div class="cmp-other-col"><span class="cmp-val cmp-val--other-yes">npm + jsr</span></div>
+          <div class="cmp-other-col"><span class="cmp-val cmp-val--other-yes">Full npm</span></div>
+        </div>
+        <div class="cmp-row cmp-row--last">
+          <div class="cmp-label-col">Use case</div>
+          <div class="cmp-hero-col"><span class="cmp-val cmp-val--accent">Serverless / FaaS</span></div>
+          <div class="cmp-other-col">General purpose</div>
+          <div class="cmp-other-col">General purpose</div>
+          <div class="cmp-other-col">General purpose</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1228,6 +1361,10 @@
         <details class="faq-item">
           <summary class="faq-question">How does OWASP compliance mapping work?</summary>
           <p class="faq-answer">The compiler maps its proven properties to OWASP Top 10 categories automatically. No secrets leaking to responses proves A01. No credentials in logs proves A02. All input validated before egress proves A03. Contract-derived sandbox proves A05. All Results checked before access proves A07. The deploy report shows PROVEN or --- for each category. These are compiler proofs, not self-declarations.</p>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-question">How do AI coding agents work with zigttp?</summary>
+          <p class="faq-answer">zigttp ships with purpose-built agents, skills, and MCP tools for AI-assisted development. The restricted language subset means agents generate valid handlers reliably - 14 supported features instead of 200, one handler pattern instead of dozens, and the compiler verifies everything the agent writes. Custom agents know every virtual module API. Skills scaffold handlers from natural language descriptions. MCP tools let any AI assistant query the language spec and module signatures at code-generation time.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Can I use zigttp in CI/CD pipelines?</summary>
