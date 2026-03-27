@@ -18,7 +18,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://zigttp.website/">
   <meta property="og:title" content="zigttp - We removed half of TypeScript. Then the compiler could prove the rest.">
-  <meta property="og:description" content="No classes. No async/await. No try/catch. Every restriction enables a compile-time proof. 7 safety properties, auto-generated AWS templates, 1.2MB binary.">
+  <meta property="og:description" content="No classes. No try/catch. Sync-looking code, async I/O underneath. Automatic sandboxing, durable execution, 7 compile-time proofs. 1.2MB binary.">
   <meta property="og:image" content="https://zigttp.website/zigttp-logo.jpg">
   <meta property="og:image:width" content="600">
   <meta property="og:image:height" content="327">
@@ -27,7 +27,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="zigttp - We removed half of TypeScript. Then the compiler could prove the rest.">
-  <meta name="twitter:description" content="No classes. No async/await. No try/catch. Every restriction enables a compile-time proof. 7 safety properties, auto-generated AWS templates, 1.2MB binary.">
+  <meta name="twitter:description" content="No classes. No try/catch. Sync-looking code, async I/O underneath. Automatic sandboxing, durable execution, 7 compile-time proofs. 1.2MB binary.">
   <meta name="twitter:image" content="https://zigttp.website/zigttp-logo.jpg">
 
   <!-- Structured Data -->
@@ -97,7 +97,7 @@
         "name": "What TypeScript features does zigttp support?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "zigttp supports arrow functions, const/let, destructuring, template literals, for...of, optional chaining, nullish coalescing, the pipe operator, array methods (map, filter, reduce), JSX/TSX, TypeScript type stripping, and comptime() evaluation. Features like classes, var, while loops, async/await, and try/catch are intentionally excluded."
+          "text": "zigttp supports arrow functions, const/let, destructuring, template literals, for...of, optional chaining, nullish coalescing, the pipe operator, array methods (map, filter, reduce), JSX/TSX, TypeScript type stripping, and comptime() evaluation. Features like classes, var, while loops, and try/catch are intentionally excluded. async/await is replaced by sync-looking code backed by Zig's async I/O system."
         }
       },
       {
@@ -212,8 +212,8 @@
       <p class="hero-badge">Experimental - under active development</p>
       <h1 class="hero-title">We removed half of TypeScript.<br><span class="accent">Then the compiler could prove the rest.</span></h1>
       <p class="hero-sub">
-        No classes. No async/await. No try/catch. Every restriction enables a compile-time proof.
-        Every proof ships to production.
+        No classes. No try/catch. Sync-looking code powered by Zig's async I/O underneath.
+        Automatic sandboxing, durable execution, and 7 compile-time proofs that ship to production.
       </p>
       <div class="hero-stats">
         <div class="stat">
@@ -504,7 +504,7 @@
             <div class="proof-item"><code>No while loops</code><span class="proof-arrow">-></span><span class="proof-benefit">finite paths</span></div>
             <div class="proof-item"><code>No try/catch</code><span class="proof-arrow">-></span><span class="proof-benefit">explicit errors</span></div>
             <div class="proof-item"><code>No class/this</code><span class="proof-arrow">-></span><span class="proof-benefit">predictable shapes</span></div>
-            <div class="proof-item"><code>No async/await</code><span class="proof-arrow">-></span><span class="proof-benefit">linear execution</span></div>
+            <div class="proof-item"><code>No async/await</code><span class="proof-arrow">-></span><span class="proof-benefit">sync code, Zig async I/O</span></div>
             <div class="proof-item"><code>No null</code><span class="proof-arrow">-></span><span class="proof-benefit">one absent value</span></div>
             <div class="proof-item"><code>No var</code><span class="proof-arrow">-></span><span class="proof-benefit">block scoping</span></div>
             <div class="proof-item"><code>No ==</code><span class="proof-arrow">-></span><span class="proof-benefit">strict equality</span></div>
@@ -847,7 +847,7 @@
         </div>
         <div class="module-card">
           <code class="module-import">zigttp:io</code>
-          <p>Structured concurrent I/O without async/await. Overlaps multiple fetchSync calls on OS threads (max 8 concurrent).</p>
+          <p>Structured concurrent I/O - write sync-looking code while Zig's async I/O handles parallelism underneath. Overlaps multiple fetchSync calls on OS threads (max 8 concurrent).</p>
           <code class="module-exports">parallel, race</code>
         </div>
         <div class="module-card">
@@ -1093,8 +1093,8 @@
             <li><code>var</code> - use let/const</li>
             <li><code>while</code> - use for...of with range()</li>
             <li><code>try/catch</code> - use Result types</li>
-            <li><code>async/await</code> - sequential by design</li>
-            <li><code>Promises</code> - one request at a time</li>
+            <li><code>async/await</code> - Zig's async I/O gives you sync-looking code with async performance</li>
+            <li><code>Promises</code> - use parallel() and race() instead</li>
             <li>Regular expressions</li>
             <li>Event loop</li>
             <li><code>require</code> / dynamic import</li>
@@ -1116,11 +1116,11 @@
         </details>
         <details class="faq-item">
           <summary class="faq-question">How is zigttp different from Node.js, Deno, and Bun?</summary>
-          <p class="faq-answer">Node.js, Deno, and Bun are general-purpose runtimes that support the full language specification. zigttp takes the opposite approach: it implements an opinionated TypeScript subset that removes footgun features (classes, this, async/await, exceptions) at parse time. This constraint enables compile-time verification of handler correctness, automatic least-privilege sandboxing, and deterministic replay - none of which are possible when the runtime must support arbitrary TypeScript. If you need a general-purpose runtime, use Node.js, Deno, or Bun. If you want provably correct serverless handlers with minimal cold starts, zigttp is the better fit.</p>
+          <p class="faq-answer">Node.js, Deno, and Bun are general-purpose runtimes that support the full language specification. zigttp takes the opposite approach: it implements an opinionated TypeScript subset that removes footgun features (classes, this, exceptions) at parse time and replaces async/await with sync-looking code backed by Zig's async I/O. This constraint enables compile-time verification of handler correctness, automatic least-privilege sandboxing, durable execution, and deterministic replay - none of which are possible when the runtime must support arbitrary TypeScript. If you need a general-purpose runtime, use Node.js, Deno, or Bun. If you want provably correct serverless handlers with minimal cold starts, zigttp is the better fit.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">What TypeScript features does zigttp support?</summary>
-          <p class="faq-answer">zigttp supports arrow functions, const/let, destructuring, template literals, for...of, optional chaining, nullish coalescing, the pipe operator, array methods (map, filter, reduce), JSX/TSX, TypeScript type stripping, and comptime() evaluation. Features like classes, var, while loops, async/await, and try/catch are intentionally excluded with parse-time errors that suggest alternatives.</p>
+          <p class="faq-answer">zigttp supports arrow functions, const/let, destructuring, template literals, for...of, optional chaining, nullish coalescing, the pipe operator, array methods (map, filter, reduce), JSX/TSX, TypeScript type stripping, and comptime() evaluation. Features like classes, var, while loops, and try/catch are intentionally excluded with parse-time errors that suggest alternatives. async/await is replaced by sync-looking code backed by Zig's async I/O - use parallel() and race() for concurrency.</p>
         </details>
         <details class="faq-item">
           <summary class="faq-question">How fast is zigttp compared to Node.js, Deno, and Bun?</summary>
