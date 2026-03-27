@@ -1871,3 +1871,37 @@ details[open] .faq-question::before {
   color: var(--text-dim);
   font-style: italic;
 }
+
+/* --- Skip link (WCAG) --- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 1000;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* --- Reduced motion (WCAG 2.1) --- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bench-bar { transition: width 0.01s linear !important; }
+  .deck-slide { animation: none !important; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* --- 600px breakpoint (large phones) --- */
+@media (max-width: 600px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .proof-chain { grid-template-columns: 1fr; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .subset-grid { grid-template-columns: 1fr; }
+}

@@ -12,6 +12,18 @@ if (burger && navLinks) {
       navLinks.classList.remove("open");
     });
   });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && navLinks.classList.contains("open")) {
+      burger.classList.remove("active");
+      navLinks.classList.remove("open");
+    }
+  });
+  document.addEventListener("click", (e) => {
+    if (navLinks.classList.contains("open") && !e.target.closest(".nav-inner")) {
+      burger.classList.remove("active");
+      navLinks.classList.remove("open");
+    }
+  });
 }
 
 // Tab switching
