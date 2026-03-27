@@ -1799,3 +1799,75 @@ details[open] .faq-question::before {
     min-width: clamp(160px, 22vw, 260px);
   }
 }
+
+/* --- Proof Chain --- */
+.proof-chain {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .proof-chain {
+    grid-template-columns: 1fr;
+  }
+}
+
+.proof-col {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.proof-col h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.proof-list {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  font-family: var(--font-mono);
+  font-size: .85rem;
+}
+
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--text-muted);
+}
+
+.proof-item code {
+  color: var(--red);
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.proof-arrow {
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.proof-benefit {
+  color: var(--green);
+}
+
+.proven {
+  color: var(--green);
+  font-weight: 600;
+  min-width: 5ch;
+}
+
+.proof-caption {
+  margin-top: 1rem;
+  font-size: .85rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
