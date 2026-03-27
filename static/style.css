@@ -1875,8 +1875,8 @@ details[open] .faq-question::before {
 /* --- Skip link (WCAG) --- */
 .skip-link {
   position: absolute;
-  top: -100%;
-  left: 16px;
+  left: -9999px;
+  top: auto;
   z-index: 1000;
   padding: 8px 16px;
   background: var(--accent);
@@ -1887,7 +1887,9 @@ details[open] .faq-question::before {
 }
 
 .skip-link:focus {
+  left: 16px;
   top: 0;
+  position: fixed;
 }
 
 /* --- Reduced motion (WCAG 2.1) --- */
