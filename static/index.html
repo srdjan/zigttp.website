@@ -629,6 +629,77 @@
     </div>
   </section>
 
+  <!-- Comptime -->
+  <section id="comptime" class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">comptime(): Zig's best idea, now in TypeScript.</h2>
+      <p class="section-sub">
+        Evaluate expressions at load time, not request time. The result is baked into bytecode as a constant.
+        Zero per-request cost. Inspired by Zig's comptime - brought to TypeScript for the first time.
+      </p>
+      <div class="comptime-grid">
+        <div class="comptime-example">
+          <div class="terminal terminal-sm">
+            <div class="terminal-bar">
+              <span class="terminal-dot" aria-hidden="true"></span>
+              <span class="terminal-dot" aria-hidden="true"></span>
+              <span class="terminal-dot" aria-hidden="true"></span>
+              <span class="terminal-title">handler.ts</span>
+            </div>
+<pre><code><span class="c-comment">// Evaluated once at load time, not per request</span>
+<span class="c-keyword">const</span> VERSION_HASH = <span class="c-fn">comptime</span>(<span class="c-fn">hash</span>(<span class="c-string">"v2.1.0"</span>));
+<span class="c-keyword">const</span> MAX_BODY    = <span class="c-fn">comptime</span>(<span class="c-number">1024</span> * <span class="c-number">1024</span> * <span class="c-number">10</span>);
+<span class="c-keyword">const</span> GOLDEN      = <span class="c-fn">comptime</span>((<span class="c-number">1</span> + Math.<span class="c-fn">sqrt</span>(<span class="c-number">5</span>)) / <span class="c-number">2</span>);
+<span class="c-keyword">const</span> HEADER      = <span class="c-fn">comptime</span>(<span class="c-string">"x-api-version"</span>.<span class="c-fn">toUpperCase</span>());
+
+<span class="c-comment">// Schema compiled once, validated every request</span>
+<span class="c-fn">comptime</span>(<span class="c-fn">schemaCompile</span>(<span class="c-string">"user"</span>, JSON.<span class="c-fn">stringify</span>({
+    type: <span class="c-string">"object"</span>,
+    required: [<span class="c-string">"name"</span>, <span class="c-string">"email"</span>],
+    properties: {
+        name:  { type: <span class="c-string">"string"</span>, minLength: <span class="c-number">1</span> },
+        email: { type: <span class="c-string">"string"</span>, format: <span class="c-string">"email"</span> }
+    }
+})));
+
+<span class="c-keyword">const</span> <span class="c-fn">handler</span> = (<span class="c-param">req</span>: Request): Response =&gt; {
+    <span class="c-comment">// VERSION_HASH, MAX_BODY, GOLDEN, HEADER are all constants here</span>
+    <span class="c-comment">// No computation, just bytecode literals</span>
+    <span class="c-keyword">const</span> result = <span class="c-fn">validateJson</span>(<span class="c-string">"user"</span>, req.body);
+    <span class="c-keyword">if</span> (!result.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ errors: result.errors }, { status: <span class="c-number">400</span> });
+    <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ created: <span class="c-keyword">true</span>, user: result.value }, { status: <span class="c-number">201</span> });
+};</code></pre>
+          </div>
+        </div>
+        <div class="comptime-details">
+          <div class="feature-card">
+            <h3>What runs at load time</h3>
+            <p>
+              Arithmetic, Math methods, string methods, parseInt/parseFloat,
+              JSON.parse, hash(), and schemaCompile(). Pure, deterministic expressions only -
+              no I/O, no side effects.
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>What you get at request time</h3>
+            <p>
+              A bytecode constant. The expression is gone - replaced by its result.
+              Your handler pays zero cost for values that never change between requests.
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>Why this matters for FaaS</h3>
+            <p>
+              Serverless handlers run millions of times. A schema compiled once at load time
+              instead of per-request eliminates microseconds that compound into real money
+              on your Lambda bill.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Performance -->
   <section id="performance" class="section">
     <div class="container">

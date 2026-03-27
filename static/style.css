@@ -694,6 +694,24 @@ code {
   background: var(--border-light);
 }
 
+/* --- Comptime --- */
+.comptime-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.comptime-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comptime-example .terminal {
+  margin: 0;
+}
+
 /* --- Modules --- */
 .modules-grid {
   display: grid;
@@ -1666,6 +1684,7 @@ details[open] .faq-question::before {
     font-size: 1.5rem;
   }
 
+  .comptime-grid,
   .features-grid,
   .arch-grid,
   .subset-grid {
@@ -1924,6 +1943,7 @@ details[open] .faq-question::before {
 
 /* --- 600px breakpoint (large phones) --- */
 @media (max-width: 600px) {
+  .comptime-grid { grid-template-columns: 1fr; }
   .features-grid { grid-template-columns: 1fr; }
   .proof-chain { grid-template-columns: 1fr; }
   .modules-grid { grid-template-columns: 1fr; }
