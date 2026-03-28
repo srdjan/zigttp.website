@@ -228,7 +228,7 @@ code {
 
 /* --- Hero --- */
 .hero {
-  padding: 100px 0 80px;
+  padding: 50px 0 80px;
   text-align: center;
 }
 
@@ -1922,7 +1922,7 @@ details[open] .faq-question::before {
   }
 
   .hero {
-    padding: 64px 0 48px;
+    padding: 40px 0 48px;
   }
 
   .hero-stats {
