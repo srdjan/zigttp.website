@@ -1093,6 +1093,43 @@ details[open] .faq-question::before {
   font-size: 0.9375rem;
 }
 
+/* Smooth accordion (pretext-enhanced) */
+button.faq-question {
+  appearance: none;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+
+.faq-body {
+  overflow: hidden;
+  transition: height 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-item[aria-expanded="true"] .faq-question::before {
+  content: "\2212";
+}
+
+/* Section title line reveal (pretext-enhanced) */
+.reveal-ready .reveal-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(6px);
+  transition: opacity 500ms ease,
+              transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 500ms ease;
+}
+
+.reveal-ready .reveal-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
 /* --- Footer --- */
 .footer {
   padding: 48px 0;

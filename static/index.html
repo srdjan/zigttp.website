@@ -221,7 +221,7 @@
       <h1 class="hero-title">It Is Different<br><span class="accent">That's For Sure!</span></h1>
       <p class="hero-badge">Experimental - under active development<br>Depends on Zig v0.16, first release after Zig stable v0.16</p>
       <div class="section-title">Subtract half of TypeScript<br>The rest becomes provable</div>
-      <p class="hero-sub">
+      <p class="hero-sub" data-reveal="lines">
         No classes. No try/catch. Sync-looking code powered by Zig's async I/O underneath.
         Automatic sandboxing, durable execution, and 7 compile-time proofs that ship to production.
       </p>
@@ -270,7 +270,7 @@
   <!-- Features -->
   <section id="features" class="section">
     <div class="container">
-      <h2 class="section-title">Seven things the compiler knows about your handler that you don't</h2>
+      <h2 class="section-title" data-reveal="lines">Seven things the compiler knows about your handler that you don't</h2>
       <p class="section-sub">
         zigttp restricts the language so the compiler can see every possible execution path.
         Then it proves properties no other runtime can even check.
@@ -502,7 +502,7 @@
   <!-- Proof Chain -->
   <section id="proofs" class="section">
     <div class="container">
-      <h2 class="section-title">Every restriction buys a proof. Every proof ships to production.</h2>
+      <h2 class="section-title" data-reveal="lines">Every restriction buys a proof. Every proof ships to production.</h2>
       <p class="section-sub">
         No other serverless runtime can do this. The restricted language subset makes exhaustive
         static analysis possible. The analysis produces proven facts. The facts generate your deployment.
@@ -943,7 +943,7 @@
   <!-- Agents, Skills & Tools -->
   <section id="agents" class="section section-dark">
     <div class="container">
-      <h2 class="section-title">A smaller language is a better prompt. AI agents write proven handlers on the first try.</h2>
+      <h2 class="section-title" data-reveal="lines">A smaller language is a better prompt. AI agents write proven handlers on the first try.</h2>
       <p class="section-sub">
         The same restrictions that let the compiler prove your code correct also let AI coding agents
         generate it reliably. 14 supported features instead of 200. One handler pattern instead of dozens.
@@ -1397,5 +1397,6 @@
   </footer>
 
   <script src="/script.js" defer></script>
+  <script type="module" src="/pretext-animations.js"></script>
 </body>
 </html>
