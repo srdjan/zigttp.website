@@ -232,6 +232,16 @@ code {
   text-align: center;
 }
 
+.hero-burst-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .hero-badge {
   display: inline-block;
   padding: 4px 14px;
@@ -243,6 +253,8 @@ code {
 }
 
 .hero-title {
+  position: relative;
+  isolation: isolate;
   font-size: clamp(1.75rem, 6vw, 4.5rem);
   font-weight: 800;
   letter-spacing: -0.03em;
