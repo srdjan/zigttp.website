@@ -64,6 +64,94 @@ const observer = new IntersectionObserver(
 const benchGrid = document.querySelector(".bench-grid");
 if (benchGrid) observer.observe(benchGrid);
 
+// Scroll progress bar
+const scrollProgress = document.querySelector(".scroll-progress");
+if (scrollProgress) {
+  window.addEventListener("scroll", () => {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) {
+      scrollProgress.style.width = (window.scrollY / docHeight * 100) + "%";
+    }
+  }, { passive: true });
+}
+
+// Staggered fade-in for cards and elements on scroll
+const fadeObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll(".fade-in-up");
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add("visible"), i * 80);
+        });
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 },
+);
+
+document.querySelectorAll(".features-grid, .cold-start-grid, .start-grid").forEach((grid) => {
+  grid.querySelectorAll(":scope > *").forEach((child) => {
+    child.classList.add("fade-in-up");
+  });
+  fadeObserver.observe(grid);
+});
+
+// Comparison table row-by-row reveal
+const cmpObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll(".cmp-row").forEach((row, i) => {
+          row.classList.add("fade-in-up");
+          setTimeout(() => row.classList.add("visible"), i * 60);
+        });
+        cmpObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1 },
+);
+
+const cmpTable = document.querySelector(".cmp");
+if (cmpTable) cmpObserver.observe(cmpTable);
+
+// Hero stat count-up animation
+const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (!REDUCED) {
+  const stats = document.querySelectorAll(".stat-value");
+  const originals = [];
+  stats.forEach((el) => {
+    originals.push(el.textContent);
+    el.textContent = "";
+  });
+  setTimeout(() => {
+    const duration = 800;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 4);
+      stats.forEach((el, i) => {
+        const final = originals[i];
+        if (final === "7") {
+          el.textContent = String(Math.round(ease * 7));
+        } else if (final === "3ms") {
+          el.textContent = Math.round(ease * 3) + "ms";
+        } else if (final === "1.2MB") {
+          el.textContent = (ease * 1.2).toFixed(1) + "MB";
+        } else if (final === "$0.64") {
+          el.textContent = "$" + (ease * 0.64).toFixed(2);
+        } else {
+          el.textContent = final;
+        }
+      });
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }, 600);
+}
+
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (e) => {
