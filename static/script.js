@@ -44,6 +44,45 @@ document.querySelectorAll(".tab").forEach((tab) => {
   });
 });
 
+// Module category filter
+document.querySelectorAll(".module-filter").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const filter = btn.dataset.filter;
+    const section = btn.closest(".container");
+
+    section.querySelectorAll(".module-filter").forEach((b) =>
+      b.classList.remove("active")
+    );
+    btn.classList.add("active");
+
+    section.querySelectorAll(".module-card").forEach((card) => {
+      if (filter === "all" || card.dataset.category === filter) {
+        card.removeAttribute("data-hidden");
+      } else {
+        card.setAttribute("data-hidden", "");
+      }
+    });
+  });
+});
+
+// Install method switching
+document.querySelectorAll(".install-method").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.method;
+    const step = btn.closest(".start-step");
+
+    step.querySelectorAll(".install-method").forEach((b) =>
+      b.classList.remove("active")
+    );
+    step.querySelectorAll(".install-panel").forEach((p) =>
+      p.classList.remove("active")
+    );
+
+    btn.classList.add("active");
+    step.querySelector(`[data-install="${target}"]`).classList.add("active");
+  });
+});
+
 // Animate benchmark bars on scroll
 const observer = new IntersectionObserver(
   (entries) => {
@@ -91,7 +130,7 @@ const fadeObserver = new IntersectionObserver(
   { threshold: 0.15 },
 );
 
-document.querySelectorAll(".features-grid, .cold-start-grid, .start-grid").forEach((grid) => {
+document.querySelectorAll(".features-grid, .cold-start-grid, .start-grid, .modules-grid, .subset-grid, .zts-proofs-grid").forEach((grid) => {
   grid.querySelectorAll(":scope > *").forEach((child) => {
     child.classList.add("fade-in-up");
   });
@@ -140,8 +179,8 @@ if (!REDUCED) {
           el.textContent = Math.round(ease * 3) + "ms";
         } else if (final === "1.2MB") {
           el.textContent = (ease * 1.2).toFixed(1) + "MB";
-        } else if (final === "$0.64") {
-          el.textContent = "$" + (ease * 0.64).toFixed(2);
+        } else if (final === "18") {
+          el.textContent = String(Math.round(ease * 18));
         } else {
           el.textContent = final;
         }

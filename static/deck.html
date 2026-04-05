@@ -70,8 +70,8 @@
       </button>
       <div class="nav-links">
         <a href="/#features">Features</a>
+        <a href="/#zts">zts</a>
         <a href="/#code">Code</a>
-        <a href="/#performance">Performance</a>
         <a href="/#modules">Modules</a>
         <a href="/#compare">Compare</a>
         <a href="/#faq">FAQ</a>
@@ -187,23 +187,23 @@ Sandbox</span></div>
           <h2 class="deck-slide-title">TypeScript, minus the footguns</h2>
           <div class="deck-columns deck-columns--mt">
             <div class="deck-card">
-              <div class="deck-subset-header deck-subset-header-removed">REMOVED</div>
-              <div class="deck-subset-item deck-subset-removed">&#10005;  classes / this</div>
-              <div class="deck-subset-item deck-subset-removed">&#10005;  var</div>
-              <div class="deck-subset-item deck-subset-removed">&#10005;  while loops</div>
+              <div class="deck-subset-header deck-subset-header-removed">REMOVED (zts)</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  classes / this / new</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  var / null / == / !=</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  while / do...while</div>
               <div class="deck-subset-item deck-subset-removed">&#10005;  async / await / Promises</div>
-              <div class="deck-subset-item deck-subset-removed">&#10005;  truthy/falsy coercion</div>
-              <div class="deck-subset-item deck-subset-removed">&#10005;  exceptions (throw/catch)</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  try / catch / throw</div>
+              <div class="deck-subset-item deck-subset-removed">&#10005;  regex / delete / any / as</div>
             </div>
             <div class="deck-card">
-              <div class="deck-subset-header deck-subset-header-kept">KEPT</div>
-              <div class="deck-subset-item deck-subset-kept">&#10003;  arrow functions</div>
-              <div class="deck-subset-item deck-subset-kept">&#10003;  const / let</div>
-              <div class="deck-subset-item deck-subset-kept">&#10003;  destructuring</div>
-              <div class="deck-subset-item deck-subset-kept">&#10003;  for...of</div>
-              <div class="deck-subset-item deck-subset-kept">&#10003;  match expressions</div>
+              <div class="deck-subset-header deck-subset-header-kept">KEPT + ADDED (zts)</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  arrow functions + destructuring</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  const / let / for...of</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  match expressions (exhaustive)</div>
               <div class="deck-subset-item deck-subset-kept">&#10003;  pipe operator (|&gt;)</div>
-              <div class="deck-subset-item deck-subset-kept">&#10003;  JSX (first-class)</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  guard() composition</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  comptime() evaluation</div>
+              <div class="deck-subset-item deck-subset-kept">&#10003;  JSX / TSX (first-class SSR)</div>
             </div>
           </div>
           <p class="deck-footnote">Unsupported features fail at parse time with a suggested alternative - not at runtime.</p>
@@ -253,7 +253,7 @@ Sandbox</span></div>
             </div>
           </div>
           <div class="deck-command-bar">
-            <code class="deck-command-input">$ zigttp build handler.ts -Dverify</code>
+            <code class="deck-command-input">$ zigttp check handler.ts --verify</code>
             <code class="deck-command-output">&#8594;  all code paths verified &#10003;</code>
           </div>
         </div>
@@ -348,19 +348,74 @@ Sandbox</span></div>
             <div class="deck-card deck-card--col">
               <div class="deck-evo-title">Proven Evolution</div>
               <p class="deck-evo-body">Diff contracts + replay traces between handler versions. Result: equivalent, additive, or breaking - with a proof certificate.</p>
-              <div class="deck-cmd-tag"><code>-Dprove=contract:traces</code></div>
+              <div class="deck-cmd-tag"><code>zigttp prove old.json new.json</code></div>
             </div>
             <div class="deck-card deck-card--col">
               <div class="deck-evo-title">Proven Deploys</div>
               <p class="deck-evo-body">Generate platform-specific deployment configs from proven contracts. Env vars &#8594; params, routes &#8594; API events, egress &#8594; tags.</p>
-              <div class="deck-cmd-tag"><code>-Ddeploy=aws</code></div>
+              <div class="deck-cmd-tag"><code>zigttp compile --deploy=aws</code></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 8: Composition -->
+      <!-- Slide 8: CLI -->
       <div class="deck-slide" data-slide="8">
+        <div class="deck-slide-inner">
+          <span class="deck-tag">Developer Experience</span>
+          <h2 class="deck-slide-title">One CLI. Everything you need.</h2>
+          <div class="deck-card deck-card--mt">
+            <div class="deck-card-header">
+              <span class="deck-card-header-icon">&#9654;</span>
+              <span class="deck-card-header-title">zigttp CLI v0.1.0</span>
+            </div>
+            <code class="deck-guard-code">init &#8594; dev &#8594; check &#8594; compile &#8594; prove &#8594; deploy</code>
+          </div>
+          <div class="deck-check-list" style="margin-top: 24px;">
+            <div class="deck-check-item">
+              <span class="deck-check-icon">$</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">zigttp init my-handler</span>
+                <span class="deck-check-desc">Bootstrap project with handler, tests, and config</span>
+              </div>
+            </div>
+            <div class="deck-check-item">
+              <span class="deck-check-icon">$</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">zigttp dev</span>
+                <span class="deck-check-desc">Watch mode with live verification on save</span>
+              </div>
+            </div>
+            <div class="deck-check-item">
+              <span class="deck-check-icon">$</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">zigttp compile --deploy=aws</span>
+                <span class="deck-check-desc">Prove, compile, and generate deployment manifest</span>
+              </div>
+            </div>
+            <div class="deck-check-item">
+              <span class="deck-check-icon">$</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">zigttp prove old.json new.json</span>
+                <span class="deck-check-desc">Diff contracts for safe handler upgrades</span>
+              </div>
+            </div>
+            <div class="deck-check-item">
+              <span class="deck-check-icon">$</span>
+              <div class="deck-item-row deck-item-row--tight">
+                <span class="deck-check-title">zigttp mock tests.jsonl --port 3001</span>
+                <span class="deck-check-desc">Generate mock server from test fixtures</span>
+              </div>
+            </div>
+          </div>
+          <div class="deck-command-bar">
+            <code class="deck-command-input">$ curl -fsSL https://zigttp.timok.com/install.sh | sh</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 9: Composition -->
+      <div class="deck-slide" data-slide="9">
         <div class="deck-slide-inner">
           <span class="deck-tag">Composition</span>
           <h2 class="deck-slide-title">Zero-overhead composition. Native speed.</h2>
@@ -383,16 +438,20 @@ Sandbox</span></div>
                 <span class="deck-module-desc">JWT + webhooks</span>
               </div>
               <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:crypto</code>
+                <span class="deck-module-desc">SHA/HMAC/B64</span>
+              </div>
+              <div class="deck-module-item">
                 <code class="deck-module-name">zigttp:validate</code>
                 <span class="deck-module-desc">JSON Schema</span>
               </div>
               <div class="deck-module-item">
-                <code class="deck-module-name">zigttp:cache</code>
-                <span class="deck-module-desc">KV store</span>
+                <code class="deck-module-name">zigttp:decode</code>
+                <span class="deck-module-desc">Parse + validate</span>
               </div>
               <div class="deck-module-item">
-                <code class="deck-module-name">zigttp:crypto</code>
-                <span class="deck-module-desc">SHA/HMAC/B64</span>
+                <code class="deck-module-name">zigttp:cache</code>
+                <span class="deck-module-desc">KV store + TTL</span>
               </div>
               <div class="deck-module-item">
                 <code class="deck-module-name">zigttp:sql</code>
@@ -403,21 +462,57 @@ Sandbox</span></div>
                 <span class="deck-module-desc">Parallel I/O</span>
               </div>
               <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:durable</code>
+                <span class="deck-module-desc">Crash recovery</span>
+              </div>
+              <div class="deck-module-item">
                 <code class="deck-module-name">zigttp:compose</code>
                 <span class="deck-module-desc">Guards + pipe</span>
               </div>
               <div class="deck-module-item">
-                <code class="deck-module-name">zigttp:durable</code>
-                <span class="deck-module-desc">Crash recovery</span>
+                <code class="deck-module-name">zigttp:router</code>
+                <span class="deck-module-desc">Route matching</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:env</code>
+                <span class="deck-module-desc">Environment</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:http</code>
+                <span class="deck-module-desc">Cookies + CORS</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:url</code>
+                <span class="deck-module-desc">URL parsing</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:id</code>
+                <span class="deck-module-desc">UUID/ULID/nano</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:log</code>
+                <span class="deck-module-desc">Structured logs</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:text</code>
+                <span class="deck-module-desc">Escape + slug</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:time</code>
+                <span class="deck-module-desc">ISO/HTTP dates</span>
+              </div>
+              <div class="deck-module-item">
+                <code class="deck-module-name">zigttp:ratelimit</code>
+                <span class="deck-module-desc">Token bucket</span>
               </div>
             </div>
           </div>
-          <p class="deck-footnote deck-footnote--pushed">Implemented in Zig - zero interpretation overhead.</p>
+          <p class="deck-footnote deck-footnote--pushed">18 modules implemented in Zig - zero interpretation overhead.</p>
         </div>
       </div>
 
-      <!-- Slide 9: Comparison -->
-      <div class="deck-slide" data-slide="9">
+      <!-- Slide 10: Comparison -->
+      <div class="deck-slide" data-slide="10">
         <div class="deck-slide-inner">
           <span class="deck-tag">Comparison</span>
           <h2 class="deck-slide-title">zigttp vs the general-purpose runtimes</h2>
@@ -503,8 +598,8 @@ Sandbox</span></div>
               <div class="deck-cmp-other">Generic</div>
             </div>
             <div class="deck-cmp-row">
-              <div class="deck-cmp-label">Full TypeScript</div>
-              <div class="deck-cmp-hero deck-cmp-tradeoff">Subset</div>
+              <div class="deck-cmp-label">Language</div>
+              <div class="deck-cmp-hero deck-cmp-tradeoff">zts subset</div>
               <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
               <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
               <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
@@ -522,8 +617,8 @@ Sandbox</span></div>
         </div>
       </div>
 
-      <!-- Slide 10: Closing -->
-      <div class="deck-slide" data-slide="10">
+      <!-- Slide 11: Closing -->
+      <div class="deck-slide" data-slide="11">
         <div class="deck-accent-bar"></div>
         <div class="deck-title-content">
           <h1 class="deck-closing-title">zigttp</h1>
@@ -589,9 +684,10 @@ Sandbox</span></div>
         <button class="deck-dot" data-dot="8" aria-label="Go to slide 9"></button>
         <button class="deck-dot" data-dot="9" aria-label="Go to slide 10"></button>
         <button class="deck-dot" data-dot="10" aria-label="Go to slide 11"></button>
+        <button class="deck-dot" data-dot="11" aria-label="Go to slide 12"></button>
       </div>
       <div class="deck-controls">
-        <span class="deck-counter">1 / 11</span>
+        <span class="deck-counter">1 / 12</span>
         <button class="deck-prev" disabled aria-label="Previous slide">&#8592;</button>
         <button class="deck-next" aria-label="Next slide">&#8594;</button>
       </div>

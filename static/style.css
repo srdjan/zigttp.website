@@ -447,6 +447,8 @@ code {
 .t-string { color: var(--syn-string); }
 .t-output { color: var(--text-dim); }
 .t-comment { color: var(--syn-comment); }
+.t-error { color: #f87171; font-weight: 600; }
+.t-dim { color: var(--text-dim); opacity: 0.7; }
 
 /* --- Features --- */
 .features-grid {
@@ -870,12 +872,180 @@ code {
   word-break: break-word;
 }
 
+/* --- Module Filters --- */
+.module-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.module-filter {
+  padding: 8px 16px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.module-filter.active,
+.module-filter:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(247, 164, 29, 0.06);
+}
+
+.module-card[data-hidden] {
+  display: none;
+}
+
+/* --- Module Effect Badges --- */
+.module-effect {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  align-self: flex-start;
+}
+
+.module-effect--read {
+  background: rgba(96, 165, 250, 0.1);
+  color: #60a5fa;
+}
+
+.module-effect--write {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+}
+
+.module-effect--none {
+  background: rgba(74, 222, 128, 0.1);
+  color: var(--green);
+}
+
+/* --- zts Proofs Grid --- */
+.zts-verification {
+  margin-top: 48px;
+}
+
+.zts-verification h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.zts-proofs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.zts-proofs-grid > div {
+  padding: 10px 20px;
+  background: rgba(74, 222, 128, 0.06);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--green);
+  font-family: var(--font-mono);
+}
+
+/* --- Install Methods --- */
+.install-methods {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.install-method {
+  padding: 6px 14px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.install-method.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.install-panel {
+  display: none;
+}
+
+.install-panel.active {
+  display: block;
+}
+
+/* --- CLI Reference --- */
+.cli-reference {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.cli-reference h3 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.8125rem;
+  color: var(--accent);
+}
+
+.cli-commands {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 24px;
+}
+
+.cli-cmd {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 0.875rem;
+}
+
+.cli-cmd code {
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.cli-cmd span {
+  color: var(--text-dim);
+  font-size: 0.8125rem;
+}
+
 /* --- Get Started --- */
 .start-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   position: relative;
+}
+
+.start-grid--4 {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .start-grid::before {
@@ -887,6 +1057,10 @@ code {
   height: 1px;
   background: linear-gradient(90deg, var(--accent), var(--border-light), var(--accent));
   z-index: 0;
+}
+
+.start-grid--4::before {
+  display: none;
 }
 
 .start-step h3 {
@@ -2171,13 +2345,31 @@ button.faq-question {
     grid-template-columns: 1fr;
   }
 
-  .start-grid {
+  .start-grid,
+  .start-grid--4 {
     grid-template-columns: 1fr;
     gap: 24px;
   }
 
   .start-grid::before {
     display: none;
+  }
+
+  .cli-commands {
+    grid-template-columns: 1fr;
+  }
+
+  .module-filters {
+    gap: 6px;
+  }
+
+  .zts-proofs-grid {
+    gap: 8px;
+  }
+
+  .zts-proofs-grid > div {
+    font-size: 0.75rem;
+    padding: 8px 14px;
   }
 
   .feature-card:first-child {
