@@ -80,26 +80,16 @@ function initAccordion(prepare, layout) {
     return result.height + padBottom;
   }
 
-  let openIndex = -1;
-
   function toggle(index) {
-    if (openIndex >= 0 && openIndex !== index) {
-      const prev = items[openIndex];
-      prev.el.setAttribute("aria-expanded", "false");
-      prev.body.style.height = "0px";
-    }
-
     const item = items[index];
     const isOpen = item.el.getAttribute("aria-expanded") === "true";
 
     if (isOpen) {
       item.el.setAttribute("aria-expanded", "false");
       item.body.style.height = "0px";
-      openIndex = -1;
     } else {
       item.el.setAttribute("aria-expanded", "true");
       item.body.style.height = measureHeight(item) + "px";
-      openIndex = index;
     }
   }
 
@@ -111,13 +101,27 @@ function initAccordion(prepare, layout) {
     if (index >= 0) toggle(index);
   });
 
+  list.addEventListener("keydown", (e) => {
+    const btn = e.target.closest("button.faq-question");
+    if (!btn) return;
+    const index = items.findIndex((i) => i.btn === btn);
+    if (index < 0) return;
+    let next;
+    if (e.key === "ArrowDown") next = items[(index + 1) % items.length];
+    else if (e.key === "ArrowUp") next = items[(index - 1 + items.length) % items.length];
+    else if (e.key === "Home") next = items[0];
+    else if (e.key === "End") next = items[items.length - 1];
+    if (next) { e.preventDefault(); next.btn.focus(); }
+  });
+
   window.addEventListener(
     "resize",
     debounce(() => {
-      if (openIndex >= 0) {
-        const item = items[openIndex];
-        item.body.style.height = measureHeight(item) + "px";
-      }
+      items.forEach((item) => {
+        if (item.el.getAttribute("aria-expanded") === "true") {
+          item.body.style.height = measureHeight(item) + "px";
+        }
+      });
     }, 150),
   );
 }

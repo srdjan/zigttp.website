@@ -26,21 +26,40 @@ if (burger && navLinks) {
   });
 }
 
-// Tab switching
-document.querySelectorAll(".tab").forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const target = tab.dataset.tab;
-    const container = tab.closest(".code-tabs");
+// Tab switching with keyboard navigation
+document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
+  const tabs = [...tablist.querySelectorAll('[role="tab"]')];
+  const container = tablist.closest(".code-tabs");
 
-    container
-      .querySelectorAll(".tab")
-      .forEach((t) => t.classList.remove("active"));
+  function activateTab(tab) {
+    const target = tab.dataset.tab;
+    tabs.forEach((t) => {
+      t.classList.remove("active");
+      t.setAttribute("aria-selected", "false");
+      t.setAttribute("tabindex", "-1");
+    });
     container
       .querySelectorAll(".tab-panel")
       .forEach((p) => p.classList.remove("active"));
 
     tab.classList.add("active");
+    tab.setAttribute("aria-selected", "true");
+    tab.setAttribute("tabindex", "0");
+    tab.focus();
     container.querySelector(`#tab-${target}`).classList.add("active");
+  }
+
+  tabs.forEach((tab) => tab.addEventListener("click", () => activateTab(tab)));
+
+  tablist.addEventListener("keydown", (e) => {
+    const idx = tabs.indexOf(document.activeElement);
+    if (idx < 0) return;
+    let next;
+    if (e.key === "ArrowRight") next = tabs[(idx + 1) % tabs.length];
+    else if (e.key === "ArrowLeft") next = tabs[(idx - 1 + tabs.length) % tabs.length];
+    else if (e.key === "Home") next = tabs[0];
+    else if (e.key === "End") next = tabs[tabs.length - 1];
+    if (next) { e.preventDefault(); activateTab(next); }
   });
 });
 
@@ -130,7 +149,7 @@ const fadeObserver = new IntersectionObserver(
   { threshold: 0.15 },
 );
 
-document.querySelectorAll(".features-grid, .cold-start-grid, .start-grid, .modules-grid, .subset-grid, .zts-proofs-grid").forEach((grid) => {
+document.querySelectorAll(".features-grid, .cold-start-grid, .start-grid, .modules-grid, .subset-grid, .zigts-proofs-grid").forEach((grid) => {
   grid.querySelectorAll(":scope > *").forEach((child) => {
     child.classList.add("fade-in-up");
   });
@@ -188,7 +207,31 @@ if (!REDUCED) {
       if (t < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
-  }, 600);
+  }, 400);
+}
+
+// Scroll spy for active nav indicator
+const spyLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const spySections = [...spyLinks].map((link) =>
+  document.querySelector(link.getAttribute("href"))
+).filter(Boolean);
+
+if (spySections.length) {
+  const scrollSpy = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          spyLinks.forEach((link) => link.classList.remove("active"));
+          const active = document.querySelector(
+            `.nav-links a[href="#${entry.target.id}"]`
+          );
+          if (active) active.classList.add("active");
+        }
+      });
+    },
+    { threshold: 0.3, rootMargin: "-56px 0px -60% 0px" },
+  );
+  spySections.forEach((section) => scrollSpy.observe(section));
 }
 
 // Smooth scroll for anchor links

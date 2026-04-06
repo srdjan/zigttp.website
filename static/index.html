@@ -6,7 +6,7 @@
     <title>zigttp v0.14.0 - Single-Binary Release for Linux and macOS</title>
     <meta
       name="description"
-      content="zigttp v0.14.0 ships the first single-binary release for Linux and macOS plus a built-in agentic coding loop in the CLI. Proven handlers, 3ms runtime init, 1.2MB deploys."
+      content="zigttp v0.14.0: pre-built binaries for Linux and macOS, built-in agentic coding loop, 7 compile-time proofs, 3ms cold start, 1.2MB binary."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -67,7 +67,7 @@
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "TypeScript Runtime, CLI Tool",
-      "keywords": "TypeScript runtime, Zig runtime, single binary release, Linux binary, macOS binary, agentic coding loop, zigttp CLI, compile-time verification, serverless runtime, zts, virtual modules",
+      "keywords": "TypeScript runtime, Zig runtime, single binary release, Linux binary, macOS binary, agentic coding loop, zigttp CLI, compile-time verification, serverless runtime, zigts, virtual modules",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -108,7 +108,7 @@
           "name": "What is new in zigttp v0.14.0?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "zigttp v0.14.0 introduces two major features: the first single-binary release for Linux and macOS, and a built-in agentic coding loop inside the zigttp CLI. The release keeps the same compile-time verification model, 1.2MB binary footprint, and GitHub-first install flow."
+            "text": "Pre-built binaries for Linux and macOS, and a built-in agentic coding loop in the CLI. The runtime is unchanged: same proofs, same binary size, same virtual modules."
           }
         },
         {
@@ -124,7 +124,7 @@
           "name": "How is zigttp different from Node.js, Deno, and Bun?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Node.js, Deno, and Bun are general-purpose runtimes that support the full language specification. zigttp implements an opinionated TypeScript subset that removes footgun features at parse time, enabling compile-time verification, automatic sandboxing, and deterministic replay - none of which are possible with full TypeScript runtimes."
+            "text": "Node.js, Deno, and Bun run the full language spec. zigttp implements a restricted subset (zigts) that removes classes, exceptions, and async/await at parse time. The restrictions let the compiler prove handler correctness, generate least-privilege sandboxes, and replay executions deterministically."
           }
         },
         {
@@ -132,7 +132,7 @@
           "name": "What does proves your code correct mean?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The compiler walks every possible execution path through your handler and checks 7 properties statically: exhaustive returns, result safety, optional narrowing, state isolation, injection prevention, fault coverage, and match exhaustiveness. These are exhaustive proofs derived from the restricted language subset, not type hints or linter rules."
+            "text": "The compiler walks every execution path and checks 7 properties: every path returns a Response, every Result is checked before access, module-scope state does not leak between requests, unvalidated input never reaches sensitive sinks, match expressions cover all variants, and optionals are narrowed before use. These are static proofs, not lint heuristics."
           }
         },
         {
@@ -140,7 +140,7 @@
           "name": "Can I migrate from Node.js or Express to zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "zigttp is not a drop-in replacement for Node.js. It implements a restricted TypeScript subset and does not support npm packages or the Node.js API. However, if your serverless handlers are stateless request-response functions, the migration path is straightforward: rewrite handlers using zigttp's functional style and virtual modules."
+            "text": "zigttp does not support npm or the Node.js API. If your handlers are stateless request-response functions, rewriting them in zigts is usually direct. You get compile-time proofs and a 1.2MB binary with 3ms cold start in exchange for giving up the npm ecosystem."
           }
         },
         {
@@ -161,10 +161,10 @@
         },
         {
           "@type": "Question",
-          "name": "What is zts?",
+          "name": "What is zigts?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "zts is the TypeScript subset that zigttp supports. It removes features that prevent compile-time analysis - classes, try/catch, while loops, null, async/await, regex - and adds features that enable it: match expressions, pipe operator, guard() composition, and comptime() evaluation. The restrictions are what make the 7 compile-time proofs possible."
+            "text": "zigts is the TypeScript subset that zigttp supports. It removes features that prevent compile-time analysis - classes, try/catch, while loops, null, async/await, regex - and adds features that enable it: match expressions, pipe operator, guard() composition, and comptime() evaluation. The restrictions are what make the 7 compile-time proofs possible."
           }
         },
         {
@@ -172,7 +172,7 @@
           "name": "How do I install zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Start with the GitHub README install instructions and releases page. zigttp v0.14.0 is the first single-binary release for Linux and macOS, and the repository remains the source of truth for installation details and source-build guidance."
+            "text": "Run the one-line installer from the README, or download a tarball from the GitHub releases page. Source builds require Zig 0.16.0-dev."
           }
         },
         {
@@ -180,7 +180,7 @@
           "name": "Can I use npm packages with zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. zigttp does not support npm packages or the Node.js module system. Instead, it provides 18 virtual modules implemented in native Zig. This eliminates supply chain risk and enables the compiler to track every capability your handler uses for automatic sandboxing."
+            "text": "No. zigttp ships 18 virtual modules (zigttp:auth, zigttp:cache, zigttp:sql, zigttp:crypto, etc.) implemented in Zig. The compiler tracks every module import to generate least-privilege sandboxes. For anything the virtual modules do not cover, call an external API with fetchSync."
           }
         }
       ]
@@ -213,7 +213,7 @@
         </button>
         <div class="nav-links">
           <a href="#features">Features</a>
-          <a href="#zts">zts</a>
+          <a href="#zigts">zigts</a>
           <a href="#code">Code</a>
           <a href="#modules">Modules</a>
           <a href="#compare">Compare</a>
@@ -268,7 +268,6 @@
               </p>
             </article>
           </div>
-          <section id="features" class="section"></section>
           <div class="hero-stats">
             <div class="stat">
               <span class="stat-value">7</span>
@@ -289,11 +288,11 @@
           </div>
           <div class="hero-ctas entrance-ctas">
             <a
-              href="https://github.com/srdjan/zigttp#quick-start"
+              href="https://github.com/srdjan/zigttp#install"
               class="cta-btn cta-primary"
               target="_blank"
               rel="noopener noreferrer"
-            >Read Install Instructions</a>
+            >Install zigttp</a>
             <a
               href="https://github.com/srdjan/zigttp/releases"
               class="cta-btn cta-secondary"
@@ -333,12 +332,11 @@
       <section id="features" class="section">
         <div class="container">
           <h2 class="section-title" data-reveal="lines">
-            v0.14.0 makes zigttp easier to install and harder to outgrow.
+            What v0.14.0 ships.
           </h2>
           <p class="section-sub">
-            The release story is now simple: get the binary, stay inside the
-            CLI, and keep the same proof-driven runtime model once you are ready
-            to ship.
+            A single binary you install from GitHub, and a CLI that stays
+            with you from scaffold through deploy.
           </p>
           <div class="features-grid">
             <div class="feature-card">
@@ -358,9 +356,9 @@
               </div>
               <h3>First Single-Binary Release</h3>
               <p>
-                zigttp v0.14.0 is the first release that ships as a single
-                binary for Linux and macOS. The website now treats the GitHub
-                release and README as the canonical install path.
+                v0.14.0 ships pre-built binaries for Linux and macOS.
+                Install from the GitHub release page or the one-line
+                installer in the README.
               </p>
             </div>
             <div class="feature-card">
@@ -381,9 +379,9 @@
               </div>
               <h3>Built-In Agentic Coding Loop</h3>
               <p>
-                The CLI is no longer just a thin wrapper around build steps. It
-                is now part of the development loop, helping you bootstrap,
-                iterate, and verify handlers without leaving zigttp.
+                The CLI scaffolds a project, watches for changes, re-verifies
+                on save, and runs the handler locally. You stay in one tool
+                from first file to deploy.
               </p>
             </div>
             <div class="feature-card">
@@ -402,10 +400,11 @@
               </div>
               <h3>Your Code, Proven Correct</h3>
               <p>
-                The compiler walks every execution path and proves 7 properties:
-                exhaustive returns, injection safety, state isolation, and more.
-                No annotations. No linter rules. Real proofs that catch what
-                tests miss.
+                The compiler walks every execution path and proves 7
+                properties: exhaustive returns, injection safety, state
+                isolation, result checking, optional narrowing, match
+                completeness, and idempotency. These are static proofs, not
+                lint rules.
               </p>
             </div>
             <div class="feature-card">
@@ -424,9 +423,8 @@
               </div>
               <h3>3ms Runtime Init. 1.2MB Binary.</h3>
               <p>
-                The new install story does not change the payload. zigttp still
-                ships tiny binaries with fast startup and a deployment profile
-                built for serverless workloads.
+                Same payload as previous releases. The binary is 1.2MB,
+                runtime init takes 3ms, and memory baseline sits at 4MB.
               </p>
             </div>
             <div class="feature-card">
@@ -447,9 +445,9 @@
               </div>
               <h3>18 Modules, No npm</h3>
               <p>
-                Auth, caching, SQL, crypto, routing, durable execution - 18
-                virtual modules implemented in native Zig. Import what you need.
-                No npm. No node_modules. No supply chain risk.
+                Auth, caching, SQL, crypto, routing, durable execution: 18
+                virtual modules implemented in native Zig. Import what you
+                need. The compiler tracks every import for sandboxing.
               </p>
             </div>
             <div class="feature-card">
@@ -468,22 +466,22 @@
               <h3>Deploy From Proof</h3>
               <p>
                 One build command generates your AWS SAM template, VPC rules,
-                cost estimate, and OWASP compliance report. Arithmetic on proven
-                facts, not guesswork.
+                cost estimate, and OWASP compliance report. Every output is
+                derived from the compiler's proof results.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- zts Language -->
-      <section id="zts" class="section section-dark">
+      <!-- zigts Language -->
+      <section id="zigts" class="section section-dark">
         <div class="container">
           <h2 class="section-title">TypeScript, minus the footguns.</h2>
           <p class="section-sub">
-            zts is the TypeScript subset that makes compile-time verification
-            possible. Remove the features that prevent static analysis. Keep
-            everything you need for handlers.
+            zigts is the TypeScript subset zigttp compiles. It drops features
+            that block static analysis and adds constructs (match, pipe,
+            guard, comptime) that make the 7 proofs possible.
           </p>
           <div class="subset-grid">
             <div class="subset-card subset-yes">
@@ -540,9 +538,9 @@
               </ul>
             </div>
           </div>
-          <div class="zts-verification">
+          <div class="zigts-verification">
             <h3>What the compiler proves</h3>
-            <div class="zts-proofs-grid">
+            <div class="zigts-proofs-grid">
               <div>Control flow completeness</div>
               <div>Result type safety</div>
               <div>Optional narrowing</div>
@@ -562,11 +560,11 @@
             <div class="terminal-body">
               <pre><code><span class="t-prompt">$</span> zigttp check handler.ts
 
-<span class="t-error">  error[E0012]: `class` is not supported in zts</span>
+<span class="t-error">  error[E0012]: `class` is not supported in zigts</span>
 <span class="t-dim">    --> handler.ts:3:1</span>
 <span class="t-dim">    = help: use a plain object literal or factory function</span>
 
-<span class="t-error">  error[E0017]: `try/catch` is not supported in zts</span>
+<span class="t-error">  error[E0017]: `try/catch` is not supported in zigts</span>
 <span class="t-dim">    --> handler.ts:8:3</span>
 <span class="t-dim">    = help: use Result types - check .ok before .value</span></code></pre>
             </div>
@@ -581,18 +579,18 @@
             A handler is a function that returns a response.
           </h2>
           <p class="section-sub">
-            No middleware chains. No decorator magic. No hidden state. Write a
-            function, return a response, ship it.
+            Plain functions, explicit data flow, and the compiler verifying
+            the result. Four examples showing how handlers look in practice.
           </p>
           <div class="code-tabs">
-            <div class="tabs-header">
-              <button class="tab active" data-tab="routing">Routing</button>
-              <button class="tab" data-tab="auth">Auth + Validation</button>
-              <button class="tab" data-tab="compose">Pipe + Guard</button>
-              <button class="tab" data-tab="durable">Durable</button>
+            <div class="tabs-header" role="tablist">
+              <button class="tab active" data-tab="routing" role="tab" aria-selected="true" aria-controls="tab-routing" tabindex="0">Routing</button>
+              <button class="tab" data-tab="auth" role="tab" aria-selected="false" aria-controls="tab-auth" tabindex="-1">Auth + Validation</button>
+              <button class="tab" data-tab="compose" role="tab" aria-selected="false" aria-controls="tab-compose" tabindex="-1">Pipe + Guard</button>
+              <button class="tab" data-tab="durable" role="tab" aria-selected="false" aria-controls="tab-durable" tabindex="-1">Durable</button>
             </div>
             <div class="tabs-body">
-              <div class="tab-panel active" id="tab-routing">
+              <div class="tab-panel active" id="tab-routing" role="tabpanel" aria-labelledby="tab-routing">
                 <pre><code><span class="c-keyword">import</span> { routerMatch } <span class="c-keyword">from</span> <span class="c-string">"zigttp:router"</span>;
 
 <span class="c-keyword">const</span> routes = {
@@ -615,7 +613,7 @@
 }</code></pre>
               </div>
 
-              <div class="tab-panel" id="tab-auth">
+              <div class="tab-panel" id="tab-auth" role="tabpanel" aria-labelledby="tab-auth">
                 <pre><code><span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
 <span class="c-keyword">import</span> { schemaCompile, validateJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
 
@@ -651,7 +649,7 @@
 }</code></pre>
               </div>
 
-              <div class="tab-panel" id="tab-compose">
+              <div class="tab-panel" id="tab-compose" role="tabpanel" aria-labelledby="tab-compose">
                 <pre><code><span class="c-keyword">import</span> { guard } <span class="c-keyword">from</span> <span class="c-string">"zigttp:compose"</span>;
 <span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
 <span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
@@ -680,7 +678,7 @@
 <span class="c-keyword">const</span> handler = <span class="c-fn">guard</span>(cors) |> <span class="c-fn">guard</span>(requireAuth) |> dashboard;</code></pre>
               </div>
 
-              <div class="tab-panel" id="tab-durable">
+              <div class="tab-panel" id="tab-durable" role="tabpanel" aria-labelledby="tab-durable">
                 <pre><code><span class="c-keyword">import</span> { run, step, waitSignal } <span class="c-keyword">from</span> <span class="c-string">"zigttp:durable"</span>;
 <span class="c-keyword">import</span> { decodeJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:decode"</span>;
 <span class="c-keyword">import</span> { schemaCompile } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
@@ -1008,10 +1006,11 @@
             Different runtime, different trade-offs.
           </h2>
           <p class="section-sub">
-            zigttp sacrifices generality for guarantees. Here's what that looks
-            like in practice.
+            zigttp gives up full TypeScript, npm, and general-purpose scope.
+            In return, it proves handler correctness at compile time.
           </p>
 
+          <div class="cmp-wrap">
           <div class="cmp">
             <!-- Column headers -->
             <div class="cmp-headers">
@@ -1151,7 +1150,7 @@
             <div class="cmp-row">
               <div class="cmp-label-col">Language</div>
               <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--dim">zts subset</span>
+                <span class="cmp-val cmp-val--dim">zigts subset</span>
               </div>
               <div class="cmp-other-col">
                 <span class="cmp-val cmp-val--other-yes">Yes</span>
@@ -1188,10 +1187,11 @@
               <div class="cmp-other-col">General purpose</div>
             </div>
           </div>
+          </div>
           <p class="cmp-closing">
-            zigttp is not a drop-in replacement for Node.js. It is a
-            purpose-built runtime for serverless handlers that need to be fast,
-            correct, and cheap.
+            zigttp is not a Node.js replacement. It is a single-purpose
+            runtime for serverless handlers where cold start, binary size,
+            and correctness guarantees matter.
           </p>
         </div>
       </section>
@@ -1201,9 +1201,8 @@
         <div class="container">
           <h2 class="section-title">Start from the v0.14.0 release.</h2>
           <p class="section-sub">
-            GitHub is now the source of truth for installation. From there, the
-            CLI takes over for project creation, agentic iteration,
-            verification, and shipping.
+            Install the binary from GitHub, then use the CLI for everything
+            else.
           </p>
           <div class="start-grid start-grid--4">
             <div class="start-step">
@@ -1212,14 +1211,14 @@
                 <div class="terminal-body">
                   <pre><code><span class="t-comment"># GitHub is the source of truth for v0.14.0</span>
 <span class="t-output">README install guide:</span>
-<span class="t-output">  github.com/srdjan/zigttp#quick-start</span>
+<span class="t-output">  github.com/srdjan/zigttp#install</span>
 <span class="t-output">Release downloads:</span>
 <span class="t-output">  github.com/srdjan/zigttp/releases</span></code></pre>
                 </div>
               </div>
               <div class="start-step-links">
                 <a
-                  href="https://github.com/srdjan/zigttp#quick-start"
+                  href="https://github.com/srdjan/zigttp#install"
                   target="_blank"
                   rel="noopener noreferrer"
                 >Open README</a>
@@ -1270,9 +1269,7 @@
           <div class="cli-reference">
             <h3>CLI in v0.14.0</h3>
             <p class="cli-lede">
-              Two release headlines define the new flow: install the Linux/macOS
-              binary from GitHub, then stay inside the CLI with the built-in
-              agentic coding loop.
+              Nine commands cover the full lifecycle from scaffold to deploy.
             </p>
             <div class="cli-commands">
               <div class="cli-cmd">
@@ -1340,11 +1337,10 @@
                 What is new in zigttp v0.14.0?
               </summary>
               <p class="faq-answer">
-                Two major additions define the release: the first single-binary
-                release for Linux and macOS, and a built-in agentic coding loop
-                inside the zigttp CLI. The runtime model stays the same:
-                proof-driven builds, tiny binaries, and native modules instead
-                of npm.
+                Pre-built binaries for Linux and macOS, and a built-in
+                agentic coding loop in the CLI. The runtime itself is
+                unchanged: same proofs, same binary size, same virtual
+                modules.
               </p>
             </details>
             <details class="faq-item">
@@ -1362,16 +1358,14 @@
                 How is zigttp different from Node.js, Deno, and Bun?
               </summary>
               <p class="faq-answer">
-                Node.js, Deno, and Bun are general-purpose runtimes that support
-                the full language specification. zigttp takes the opposite
-                approach: it implements an opinionated TypeScript subset that
-                removes footgun features (classes, this, exceptions) at parse
-                time and replaces async/await with sync-looking code backed by
-                Zig's async I/O. This constraint enables compile-time
-                verification of handler correctness, automatic least-privilege
-                sandboxing, durable execution, and deterministic replay - none
-                of which are possible when the runtime must support arbitrary
-                TypeScript.
+                Node.js, Deno, and Bun run the full language spec. zigttp
+                implements a restricted subset (zigts) that removes classes,
+                exceptions, and async/await at parse time. The restrictions
+                let the compiler prove handler correctness, generate
+                least-privilege sandboxes, and replay executions
+                deterministically. Those properties require a closed language
+                surface, which is why general-purpose runtimes cannot offer
+                them.
               </p>
             </details>
             <details class="faq-item">
@@ -1379,14 +1373,13 @@
                 What does "proves your code correct" actually mean?
               </summary>
               <p class="faq-answer">
-                The compiler walks every possible execution path through your
-                handler and checks 7 properties statically. It proves every path
-                returns a Response, every Result is checked before access, no
-                module-scope state leaks between requests, no unvalidated input
-                reaches sensitive sinks, match expressions are exhaustive, and
-                optionals are narrowed before use. These are not type hints or
-                linter rules - they are exhaustive proofs derived from the
-                restricted language subset.
+                The compiler walks every execution path and checks 7
+                properties: every path returns a Response, every Result is
+                checked before access, module-scope state does not leak
+                between requests, unvalidated input never reaches sensitive
+                sinks, match expressions cover all variants, and optionals
+                are narrowed before use. These are static proofs over the
+                restricted language subset, not lint heuristics.
               </p>
             </details>
             <details class="faq-item">
@@ -1394,13 +1387,12 @@
                 Can I migrate from Node.js or Express?
               </summary>
               <p class="faq-answer">
-                zigttp is not a drop-in replacement for Node.js. It implements a
-                restricted TypeScript subset and does not support npm packages
-                or the Node.js API. However, if your serverless handlers are
-                stateless request-response functions, the migration path is
-                straightforward: rewrite handlers using zigttp's functional
-                style and virtual modules. The result is a provably correct,
-                single-binary deployment with dramatically lower cold starts.
+                zigttp does not support npm or the Node.js API, so it is not
+                a drop-in swap. If your handlers are stateless
+                request-response functions, rewriting them in zigts is
+                usually direct. You get compile-time proofs and a 1.2MB
+                binary with 3ms cold start in exchange for giving up the npm
+                ecosystem.
               </p>
             </details>
             <details class="faq-item">
@@ -1426,9 +1418,9 @@
               </p>
             </details>
             <details class="faq-item">
-              <summary class="faq-question">What is zts?</summary>
+              <summary class="faq-question">What is zigts?</summary>
               <p class="faq-answer">
-                zts is the TypeScript subset that zigttp supports. It removes
+                zigts is the TypeScript subset that zigttp supports. It removes
                 features that prevent compile-time analysis - classes,
                 try/catch, while loops, null, async/await, regex - and adds
                 features that enable it: match expressions, pipe operator,
@@ -1441,10 +1433,9 @@
             <details class="faq-item">
               <summary class="faq-question">How do I install zigttp?</summary>
               <p class="faq-answer">
-                Start with the GitHub README install instructions and releases
-                page. zigttp v0.14.0 is the first single-binary release for
-                Linux and macOS, and the repository remains the source of truth
-                for installation details and source-build guidance.
+                Run the one-line installer from the README, or download a
+                tarball from the GitHub releases page. Source builds require
+                Zig 0.16.0-dev.
               </p>
             </details>
             <details class="faq-item">
@@ -1452,13 +1443,11 @@
                 Can I use npm packages with zigttp?
               </summary>
               <p class="faq-answer">
-                No. zigttp does not support npm packages or the Node.js module
-                system. Instead, it provides 18 virtual modules (zigttp:auth,
-                zigttp:cache, zigttp:sql, zigttp:crypto, etc.) implemented in
-                native Zig. This eliminates supply chain risk and enables the
-                compiler to track every capability your handler uses for
-                automatic sandboxing. If you need functionality not covered by a
-                virtual module, use fetchSync to call an external API.
+                No. zigttp ships 18 virtual modules (zigttp:auth,
+                zigttp:cache, zigttp:sql, zigttp:crypto, etc.) implemented
+                in Zig instead. The compiler tracks every module import to
+                generate least-privilege sandboxes. For anything the virtual
+                modules do not cover, call an external API with fetchSync.
               </p>
             </details>
           </div>
@@ -1497,6 +1486,7 @@
             rel="noopener noreferrer"
           >Zig</a>
         </div>
+        <p class="footer-meta">MIT License - v0.14.0</p>
       </div>
     </footer>
 
