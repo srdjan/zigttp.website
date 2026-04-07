@@ -1,3 +1,10 @@
+const SECURITY_HEADERS: Record<string, string> = {
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "DENY",
+  "referrer-policy": "strict-origin-when-cross-origin",
+  "permissions-policy": "camera=(), microphone=(), geolocation=()",
+};
+
 const CONTENT_TYPES: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -34,11 +41,8 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
   if (path === "/deck") path = "/deck.html";
 
   const headers: Record<string, string> = {
+    ...SECURITY_HEADERS,
     "content-type": getContentType(path),
-    "x-content-type-options": "nosniff",
-    "x-frame-options": "DENY",
-    "referrer-policy": "strict-origin-when-cross-origin",
-    "permissions-policy": "camera=(), microphone=(), geolocation=()",
   };
 
   const nocache = path.endsWith(".html") || path.endsWith(".txt")
@@ -57,11 +61,8 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
       return new Response(index, {
         status: 404,
         headers: {
+          ...SECURITY_HEADERS,
           "content-type": "text/html; charset=utf-8",
-          "x-content-type-options": "nosniff",
-          "x-frame-options": "DENY",
-          "referrer-policy": "strict-origin-when-cross-origin",
-          "permissions-policy": "camera=(), microphone=(), geolocation=()",
         },
       });
     } catch {

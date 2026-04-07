@@ -84,24 +84,6 @@ document.querySelectorAll(".module-filter").forEach((btn) => {
   });
 });
 
-// Install method switching
-document.querySelectorAll(".install-method").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const target = btn.dataset.method;
-    const step = btn.closest(".start-step");
-
-    step.querySelectorAll(".install-method").forEach((b) =>
-      b.classList.remove("active")
-    );
-    step.querySelectorAll(".install-panel").forEach((p) =>
-      p.classList.remove("active")
-    );
-
-    btn.classList.add("active");
-    step.querySelector(`[data-install="${target}"]`).classList.add("active");
-  });
-});
-
 // Animate benchmark bars on scroll
 const observer = new IntersectionObserver(
   (entries) => {

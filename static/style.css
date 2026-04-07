@@ -1106,39 +1106,6 @@ code {
   font-family: var(--font-mono);
 }
 
-/* --- Install Methods --- */
-.install-methods {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.install-method {
-  padding: 6px 14px;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--text-dim);
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: var(--font-mono);
-  transition: border-color 0.15s, color 0.15s;
-}
-
-.install-method.active {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.install-panel {
-  display: none;
-}
-
-.install-panel.active {
-  display: block;
-}
-
 /* --- CLI Reference --- */
 .cli-reference {
   margin-top: 40px;
@@ -2756,78 +2723,6 @@ button.faq-question {
   }
 }
 
-/* --- Proof Chain --- */
-.proof-chain {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-@media (max-width: 768px) {
-  .proof-chain {
-    grid-template-columns: 1fr;
-  }
-}
-
-.proof-col {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-}
-
-.proof-col h3 {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.proof-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-.proof-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-}
-
-.proof-item code {
-  color: var(--red);
-  background: none;
-  padding: 0;
-  font-size: inherit;
-}
-
-.proof-arrow {
-  color: var(--text-dim);
-  flex-shrink: 0;
-}
-
-.proof-benefit {
-  color: var(--green);
-}
-
-.proven {
-  color: var(--green);
-  font-weight: 600;
-  min-width: 5ch;
-}
-
-.proof-caption {
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  color: var(--text-dim);
-  font-style: italic;
-}
-
 .hero-footnote {
   text-align: center;
   color: var(--text-dim);
@@ -2934,16 +2829,6 @@ button.faq-question {
   margin: 0 auto;
 }
 
-.proof-item-spaced {
-  margin-top: 0.5rem;
-}
-
-.proof-stat {
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 1rem;
-}
-
 /* --- Skip link (WCAG) --- */
 .skip-link {
   position: absolute;
@@ -2962,85 +2847,6 @@ button.faq-question {
   left: 16px;
   top: 0;
   position: fixed;
-}
-
-/* --- Agents, Skills & Tools --- */
-.agents-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 48px;
-}
-
-.agent-card {
-  padding: 32px;
-  background: var(--bg-code);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  transition: border-color 0.2s;
-}
-
-.agent-card:hover {
-  border-color: var(--border-light);
-}
-
-.agent-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.agent-icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(247, 164, 29, 0.1);
-  border-radius: 8px;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-.agent-card h3 {
-  font-size: 1.125rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.agent-card p {
-  color: var(--text-muted);
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-.agent-detail {
-  padding: 8px 0;
-  border-top: 1px solid var(--border);
-  font-size: 0.875rem;
-  color: var(--text-muted);
-}
-
-.agent-detail code {
-  color: var(--accent);
-  background: rgba(247, 164, 29, 0.08);
-  padding: 1px 5px;
-  border-radius: 3px;
-  font-size: 0.8125em;
-}
-
-.agent-workflow {
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.agent-workflow-caption {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.9375rem;
-  margin-top: 16px;
 }
 
 /* --- Reduced motion (WCAG 2.1) --- */
@@ -3068,13 +2874,7 @@ button.faq-question {
   .features-grid {
     grid-template-columns: 1fr;
   }
-  .proof-chain {
-    grid-template-columns: 1fr;
-  }
   .modules-grid {
-    grid-template-columns: 1fr;
-  }
-  .agents-grid {
     grid-template-columns: 1fr;
   }
   .subset-grid {
