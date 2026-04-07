@@ -585,12 +585,61 @@ code {
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
-.feature-card:first-child {
+.feature-card--hero {
   grid-column: 1 / -1;
+  border-top: 3px solid var(--accent);
+  background: linear-gradient(
+    180deg,
+    rgba(247, 164, 29, 0.04) 0%,
+    var(--bg-card) 100%
+  );
+  box-shadow: 0 0 30px rgba(247, 164, 29, 0.06);
 }
 
-.feature-card:first-child h3 {
+.feature-card--hero h3 {
   font-size: 1.25rem;
+}
+
+.feature-card--hero-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.hero-steps {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.hero-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.hero-step-num {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.hero-step-arrow {
+  color: var(--border-light);
+  margin: 0 2px;
+}
+
+.feature-card--hero-terminal {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  overflow: hidden;
 }
 
 .feature-card:hover {
@@ -2564,8 +2613,12 @@ button.faq-question {
     padding: 8px 14px;
   }
 
-  .feature-card:first-child {
+  .feature-card--hero {
     grid-column: 1;
+  }
+
+  .feature-card--hero-layout {
+    grid-template-columns: 1fr;
   }
 
   .cold-start-grid {
