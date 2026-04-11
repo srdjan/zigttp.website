@@ -172,6 +172,7 @@
         </button>
         <div class="nav-links">
           <a href="#code">Code</a>
+          <a href="#expert">Expert</a>
           <a href="#modules">Modules</a>
           <a
             href="https://github.com/srdjan/zigttp/tree/main/docs"
@@ -330,33 +331,32 @@
             </div>
             <div class="tabs-body">
               <div class="tab-panel active" id="tab-routing" role="tabpanel" aria-labelledby="tab-routing">
-                <pre><code><span class="c-keyword">import</span> { routerMatch } <span class="c-keyword">from</span> <span class="c-string">"zigttp:router"</span>;
+                <pre><code><span class="c-keyword">import</span> { method, pathname, params } <span class="c-keyword">from</span> <span class="c-string">"zigttp:router"</span>;
 
-<span class="c-keyword">const</span> routes = {
-    <span class="c-string">"GET /"</span>:            getHome,
-    <span class="c-string">"GET /health"</span>:      getHealth,
-    <span class="c-string">"GET /users/:id"</span>:   getUser,
-    <span class="c-string">"POST /echo"</span>:       postEcho,
-};
+<span class="c-keyword">const</span> <span class="c-fn">getUser</span> = (<span class="c-param">id</span>: <span class="c-attr">string</span>) =>
+    <span class="c-fn">fetchSync</span>(<span class="c-string">`https://api.example.com/users/</span>${id}<span class="c-string">`</span>)
+    |> Response.<span class="c-fn">json</span>;
 
 <span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>) {
-    <span class="c-keyword">const</span> match = <span class="c-fn">routerMatch</span>(routes, req);
-    <span class="c-keyword">if</span> (match) {
-        req.params = match.params;
-        <span class="c-keyword">return</span> match.<span class="c-fn">handler</span>(req);
-    }
-    <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
-        { error: <span class="c-string">"Not Found"</span> },
-        { status: <span class="c-number">404</span> }
-    );
+    <span class="c-keyword">return</span> <span class="c-keyword">match</span> (<span class="c-string">`</span>${<span class="c-fn">method</span>(req)}<span class="c-string"> </span>${<span class="c-fn">pathname</span>(req)}<span class="c-string">`</span>) {
+        <span class="c-string">"GET /"</span>          => Response.<span class="c-fn">json</span>({ status: <span class="c-string">"ok"</span> }),
+        <span class="c-string">"GET /health"</span>    => Response.<span class="c-fn">json</span>({ healthy: <span class="c-number">true</span> }),
+        <span class="c-string">"GET /users/:id"</span> => <span class="c-fn">getUser</span>(<span class="c-fn">params</span>(req).id),
+        <span class="c-string">"POST /echo"</span>     => Response.<span class="c-fn">json</span>(req.body),
+        _                => Response.<span class="c-fn">json</span>(
+                                { error: <span class="c-string">"Not Found"</span> },
+                                { status: <span class="c-number">404</span> }
+                            ),
+    };
 }</code></pre>
               </div>
 
               <div class="tab-panel" id="tab-auth" role="tabpanel" aria-labelledby="tab-auth">
                 <pre><code><span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
-<span class="c-keyword">import</span> { schemaCompile, validateJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
+<span class="c-keyword">import</span> { validateJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
+<span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
 
-<span class="c-fn">schemaCompile</span>(<span class="c-string">"user"</span>, JSON.<span class="c-fn">stringify</span>({
+<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"user"</span>, {
     type: <span class="c-string">"object"</span>,
     required: [<span class="c-string">"name"</span>, <span class="c-string">"email"</span>],
     properties: {
@@ -371,20 +371,21 @@
         { error: <span class="c-string">"unauthorized"</span> }, { status: <span class="c-number">401</span> }
     );
 
-    <span class="c-keyword">const</span> auth = <span class="c-fn">jwtVerify</span>(token, <span class="c-string">"my-secret"</span>);
-    <span class="c-keyword">if</span> (!auth.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+    <span class="c-keyword">const</span> auth = <span class="c-fn">jwtVerify</span>(token, <span class="c-fn">env</span>(<span class="c-string">"JWT_SECRET"</span>) ?? <span class="c-string">""</span>);
+    <span class="c-keyword">assert</span>(auth.ok, Response.<span class="c-fn">json</span>(
         { error: auth.error }, { status: <span class="c-number">401</span> }
-    );
+    ));
 
-    <span class="c-keyword">if</span> (req.method === <span class="c-string">"POST"</span>) {
-        <span class="c-keyword">const</span> result = <span class="c-fn">validateJson</span>(<span class="c-string">"user"</span>, req.body);
-        <span class="c-keyword">if</span> (!result.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
-            { errors: result.errors }, { status: <span class="c-number">400</span> }
-        );
-        <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ user: result.value }, { status: <span class="c-number">201</span> });
-    }
-
-    <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ user: auth.value });
+    <span class="c-keyword">return</span> <span class="c-keyword">match</span> (req.method) {
+        <span class="c-string">"POST"</span> => {
+            <span class="c-keyword">const</span> result = <span class="c-fn">validateJson</span>(<span class="c-string">"user"</span>, req.body);
+            <span class="c-keyword">assert</span>(result.ok, Response.<span class="c-fn">json</span>(
+                { errors: result.errors }, { status: <span class="c-number">400</span> }
+            ));
+            Response.<span class="c-fn">json</span>({ user: result.value }, { status: <span class="c-number">201</span> });
+        },
+        _ => Response.<span class="c-fn">json</span>({ user: auth.value }),
+    };
 }</code></pre>
               </div>
 
@@ -393,19 +394,27 @@
 <span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
 <span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
 
-<span class="c-keyword">const</span> <span class="c-fn">cors</span> = (<span class="c-param">req</span>) => {
-    <span class="c-keyword">if</span> (req.method === <span class="c-string">"OPTIONS"</span>) <span class="c-keyword">return</span> Response.<span class="c-fn">text</span>(<span class="c-string">""</span>, {
-        status: <span class="c-number">204</span>,
-        headers: { <span class="c-string">"Access-Control-Allow-Origin"</span>: <span class="c-string">"*"</span> }
-    });
-    <span class="c-keyword">return</span> <span class="c-keyword">undefined</span>;
-};
+<span class="c-keyword">distinct type</span> <span class="c-attr">Secret</span> = <span class="c-attr">string</span>;
+<span class="c-keyword">const</span> jwtSecret: <span class="c-attr">Secret</span> = <span class="c-fn">env</span>(<span class="c-string">"JWT_SECRET"</span>) ?? <span class="c-string">""</span>;
+
+<span class="c-keyword">const</span> <span class="c-fn">cors</span> = (<span class="c-param">req</span>) =>
+    <span class="c-keyword">match</span> (req.method) {
+        <span class="c-string">"OPTIONS"</span> => Response.<span class="c-fn">text</span>(<span class="c-string">""</span>, {
+            status: <span class="c-number">204</span>,
+            headers: { <span class="c-string">"Access-Control-Allow-Origin"</span>: <span class="c-string">"*"</span> }
+        }),
+        _ => <span class="c-keyword">undefined</span>,
+    };
 
 <span class="c-keyword">const</span> <span class="c-fn">requireAuth</span> = (<span class="c-param">req</span>) => {
     <span class="c-keyword">const</span> token = <span class="c-fn">parseBearer</span>(req.headers[<span class="c-string">"authorization"</span>]);
-    <span class="c-keyword">if</span> (!token) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ error: <span class="c-string">"unauthorized"</span> }, { status: <span class="c-number">401</span> });
-    <span class="c-keyword">const</span> auth = <span class="c-fn">jwtVerify</span>(token, <span class="c-fn">env</span>(<span class="c-string">"JWT_SECRET"</span>) ?? <span class="c-string">""</span>);
-    <span class="c-keyword">if</span> (!auth.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ error: auth.error }, { status: <span class="c-number">403</span> });
+    <span class="c-keyword">if</span> (!token) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+        { error: <span class="c-string">"unauthorized"</span> }, { status: <span class="c-number">401</span> }
+    );
+    <span class="c-keyword">const</span> auth = <span class="c-fn">jwtVerify</span>(token, jwtSecret);
+    <span class="c-keyword">if</span> (!auth.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+        { error: auth.error }, { status: <span class="c-number">403</span> }
+    );
     req.user = auth.value;
     <span class="c-keyword">return</span> <span class="c-keyword">undefined</span>;
 };
@@ -420,9 +429,8 @@
               <div class="tab-panel" id="tab-durable" role="tabpanel" aria-labelledby="tab-durable">
                 <pre><code><span class="c-keyword">import</span> { run, step, waitSignal } <span class="c-keyword">from</span> <span class="c-string">"zigttp:durable"</span>;
 <span class="c-keyword">import</span> { decodeJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:decode"</span>;
-<span class="c-keyword">import</span> { schemaCompile } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
 
-<span class="c-fn">schemaCompile</span>(<span class="c-string">"order"</span>, JSON.<span class="c-fn">stringify</span>({
+<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"order"</span>, {
     type: <span class="c-string">"object"</span>,
     required: [<span class="c-string">"item"</span>, <span class="c-string">"qty"</span>],
     properties: {
@@ -433,20 +441,20 @@
 
 <span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>) {
     <span class="c-keyword">const</span> body = <span class="c-fn">decodeJson</span>(<span class="c-string">"order"</span>, req.body);
-    <span class="c-keyword">if</span> (!body.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
+    <span class="c-keyword">assert</span>(body.ok, Response.<span class="c-fn">json</span>(
         { errors: body.errors }, { status: <span class="c-number">400</span> }
-    );
+    ));
 
     <span class="c-keyword">return</span> <span class="c-fn">run</span>(<span class="c-string">`order-</span>${body.value.item}<span class="c-string">`</span>, () => {
         <span class="c-keyword">const</span> charge = <span class="c-fn">step</span>(<span class="c-string">"charge"</span>, () =>
             <span class="c-fn">fetchSync</span>(<span class="c-string">"https://pay.api/charge"</span>, {
                 method: <span class="c-string">"POST"</span>,
-                body: JSON.<span class="c-fn">stringify</span>(body.value)
+                body: body.value
             })
         );
         <span class="c-comment">// Wait for external webhook confirmation</span>
         <span class="c-keyword">const</span> confirm = <span class="c-fn">waitSignal</span>(<span class="c-string">"payment-confirmed"</span>);
-        <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ status: <span class="c-string">"fulfilled"</span>, id: confirm.id });
+        Response.<span class="c-fn">json</span>({ status: <span class="c-string">"fulfilled"</span>, id: confirm.id });
     });
 }</code></pre>
               </div>
@@ -455,8 +463,61 @@
         </div>
       </section>
 
+      <!-- Expert Agent -->
+      <section id="expert" class="section">
+        <div class="container">
+          <div class="expert-layout">
+            <div class="expert-prose">
+              <h2 class="section-title">
+                The compiler writes code with you.
+              </h2>
+              <p>
+                <code>zigttp expert</code> gives Claude Code native tool-use
+                access to the compiler. Describe what you want. The agent
+                writes the handler, the compiler rejects what breaks the
+                rules, the agent rewrites until all 7 proofs pass. You get a
+                proven-correct handler without touching a terminal.
+              </p>
+              <p>
+                The same loop runs in CI. Push a broken handler, the compiler
+                catches it, the agent fixes it, the pipeline stays green.
+              </p>
+            </div>
+            <div class="expert-terminal">
+              <div class="terminal">
+                <div class="terminal-bar">
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-title">zigttp expert</span>
+                </div>
+                <div class="terminal-body">
+                  <pre><code><span class="t-prompt">$</span> zigttp expert <span class="t-string">"add a health check endpoint"</span>
+
+<span class="t-dim">[agent] Writing handler with match routing...</span>
+<span class="t-dim">[agent] Compiling handler.ts</span>
+
+<span class="t-error">  error[E0017]: `try/catch` is not supported in zigts</span>
+<span class="t-dim">    --> handler.ts:9:5</span>
+<span class="t-dim">    = help: use assert() for Result narrowing</span>
+
+<span class="t-dim">[agent] Rewriting with assert + match...</span>
+<span class="t-dim">[agent] Compiling handler.ts</span>
+
+<span class="t-output">  PROVEN 7/7 proofs</span>
+<span class="t-output">  Handler ready: health-check (1.2MB)</span>
+
+<span class="t-dim">[agent] Created src/health-check.ts</span>
+<span class="t-dim">[agent] Updated tests.jsonl with 3 test cases</span></code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Virtual Modules -->
-      <section id="modules" class="section">
+      <section id="modules" class="section section-dark">
         <div class="container">
           <h2 class="section-title">
             18 native modules replace npm for serverless.
@@ -580,7 +641,7 @@
       </section>
 
       <!-- Get Started + FAQ -->
-      <section id="get-started" class="section section-dark">
+      <section id="get-started" class="section">
         <div class="container">
           <h2 class="section-title">Get started.</h2>
           <div class="terminal terminal-workflow">

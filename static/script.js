@@ -107,6 +107,24 @@ document.querySelectorAll(".modules-grid").forEach((grid) => {
   fadeObserver.observe(grid);
 });
 
+// Fade-in for standalone elements on scroll
+const elFadeObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        elFadeObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.2 },
+);
+
+document.querySelectorAll(".pitch-terminal, .expert-terminal, .cli-reference").forEach((el) => {
+  el.classList.add("fade-in-up");
+  elFadeObserver.observe(el);
+});
+
 // Hero stat count-up animation
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (!REDUCED) {

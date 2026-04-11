@@ -218,7 +218,7 @@ code {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 10px;
 }
 
 .nav-burger span {
@@ -251,10 +251,20 @@ code {
   background: rgba(10, 10, 15, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 16px 24px;
-  gap: 16px;
+  padding: 8px 24px;
+  gap: 0;
   border-bottom: 1px solid var(--border);
   z-index: 99;
+}
+
+.nav-links.open a {
+  padding: 14px 0;
+  display: block;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-links.open a:last-child {
+  border-bottom: none;
 }
 
 .nav-links a {
@@ -370,7 +380,7 @@ code {
   position: relative;
   isolation: isolate;
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-size: clamp(2.5rem, 8vw, 7rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.05;
@@ -550,7 +560,7 @@ code {
   margin: 0;
   line-height: 1.7;
   white-space: pre-wrap;
-  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 .terminal-body code {
@@ -617,6 +627,48 @@ code {
   max-width: none;
 }
 
+/* --- Expert Agent --- */
+.expert-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.expert-prose h2 {
+  margin-bottom: 24px;
+}
+
+.expert-prose p {
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.expert-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.expert-prose code {
+  color: var(--accent);
+  background: rgba(247, 164, 29, 0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.expert-terminal .terminal {
+  max-width: none;
+  border-color: var(--accent-border);
+  box-shadow:
+    0 4px 40px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(247, 164, 29, 0.04);
+}
+
+.expert-terminal .terminal-bar {
+  border-top: 2px solid var(--accent);
+}
+
 /* --- Code Tabs --- */
 .code-tabs {
   border: 1px solid var(--border);
@@ -667,8 +719,6 @@ code {
 
 .tab-panel.active {
   display: block;
-  border-left: 3px solid var(--accent);
-  padding-left: 24px;
 }
 
 .tab-panel pre {
@@ -1860,20 +1910,25 @@ button.faq-question {
 }
 
 /* --------------------------------------------------------
-   Responsive
+   Responsive: tablets and small laptops (max 768px)
    -------------------------------------------------------- */
 @media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+
   .section {
     padding: 64px 0;
   }
 
-  .tab {
-    padding: 14px 20px;
+  .section-title {
+    margin-bottom: 28px;
   }
 
+  /* Hero */
   .hero {
     min-height: auto;
-    padding: 40px 0 0;
+    padding: 0;
   }
 
   .hero-content {
@@ -1888,7 +1943,14 @@ button.faq-question {
     font-size: 1.75rem;
   }
 
-  .pitch-layout {
+  .cta-btn {
+    padding: 10px 24px;
+    font-size: 0.9375rem;
+  }
+
+  /* Pitch + Expert */
+  .pitch-layout,
+  .expert-layout {
     grid-template-columns: 1fr;
   }
 
@@ -1896,16 +1958,17 @@ button.faq-question {
     position: static;
   }
 
-  .modules-grid {
-    grid-template-columns: 1fr;
+  .expert-layout {
+    gap: 32px;
   }
 
-  .cli-list {
-    grid-template-columns: 1fr;
+  /* Code tabs */
+  .tab {
+    padding: 12px 16px;
   }
 
-  .module-filters {
-    gap: 6px;
+  .tabs-body {
+    padding: 16px;
   }
 
   .terminal-body {
@@ -1917,27 +1980,168 @@ button.faq-question {
     font-size: 0.75rem;
   }
 
-  .tabs-body {
-    padding: 16px;
+  /* Modules */
+  .modules-grid {
+    grid-template-columns: 1fr;
   }
 
-  .tab-panel.active {
-    border-left: none;
-    padding-left: 0;
+  /* CLI reference */
+  .cli-list {
+    grid-template-columns: 1fr;
+  }
+
+  .module-filters {
+    gap: 6px;
   }
 }
 
+/* --------------------------------------------------------
+   Responsive: small phones (max 480px)
+   -------------------------------------------------------- */
 @media (max-width: 480px) {
+  .container,
+  .container--wide {
+    padding: 0 16px;
+  }
+
+  .section {
+    padding: 48px 0;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    margin-bottom: 24px;
+  }
+
+  /* Hero */
+  .hero-content {
+    padding: 32px 0 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 9vw, 3rem);
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-size: 0.9375rem;
+    margin-bottom: 24px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta-btn {
+    padding: 12px 24px;
+    font-size: 0.9375rem;
+    text-align: center;
+  }
+
   .hero-stats {
-    gap: 16px;
+    gap: 12px 24px;
+    margin-top: 32px;
+    padding-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
   }
 
   .stat-value {
     font-size: 1.5rem;
   }
+
+  .stat-label {
+    font-size: 0.625rem;
+  }
+
+  .hero-terminal-wrap {
+    padding: 0 0 32px;
+  }
+
+  /* Pitch + Expert */
+  .pitch-prose p,
+  .expert-prose p {
+    font-size: 0.9375rem;
+  }
+
+  /* Code tabs */
+  .tab {
+    padding: 10px 12px;
+    font-size: 0.75rem;
+  }
+
+  .tabs-body {
+    padding: 12px;
+  }
+
+  .terminal-body code,
+  .tab-panel code {
+    font-size: 0.6875rem;
+  }
+
+  .terminal-body {
+    padding: 12px;
+  }
+
+  /* Modules */
+  .module-card {
+    padding: 12px;
+  }
+
+  .module-import {
+    font-size: 0.8125rem;
+    padding: 2px 6px;
+  }
+
+  .module-exports {
+    font-size: 0.625rem;
+  }
+
+  .module-filter {
+    padding: 8px 14px;
+    min-height: 40px;
+    font-size: 0.75rem;
+  }
+
+  /* CLI reference */
+  .cli-entry {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cli-entry dt {
+    font-size: 0.75rem;
+  }
+
+  .cli-entry dd {
+    font-size: 0.75rem;
+    padding-left: 0;
+  }
+
+  /* FAQ */
+  .faq-question {
+    font-size: 0.9375rem;
+    padding: 16px 0;
+  }
+
+  .faq-answer {
+    font-size: 0.875rem;
+    padding-left: 24px;
+  }
+
+  /* Footer */
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
 }
 
-/* Tablet enhancements */
+/* --------------------------------------------------------
+   Responsive: tablet enhancements (min 481px)
+   -------------------------------------------------------- */
 @media (min-width: 481px) {
   .deck-modules-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1945,6 +2149,19 @@ button.faq-question {
 
   .modules-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-stats {
+    display: flex;
+  }
+}
+
+/* --------------------------------------------------------
+   Responsive: medium screens (769px - 1024px)
+   -------------------------------------------------------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .modules-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
