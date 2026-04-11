@@ -153,7 +153,7 @@
     <a href="#main" class="skip-link">Skip to main content</a>
 
     <!-- Nav -->
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <div class="container nav-inner">
         <a href="#" class="nav-logo">
           <img
@@ -165,12 +165,17 @@
           >
           <span class="logo-zig">zigttp</span>
         </a>
-        <button class="nav-burger" aria-label="Toggle menu">
+        <button
+          class="nav-burger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="primary-nav-links"
+        >
           <span aria-hidden="true"></span><span aria-hidden="true"></span><span
             aria-hidden="true"
           ></span>
         </button>
-        <div class="nav-links">
+        <div class="nav-links" id="primary-nav-links">
           <a href="#code">Code</a>
           <a href="#expert">Expert</a>
           <a href="#modules">Modules</a>
@@ -195,8 +200,7 @@
         <div class="container hero-content">
           <p class="hero-badge entrance-badge">v0.16.0-rc2</p>
           <h1 class="hero-title">
-            One binary.<br><span class="accent"
-            >Proven correct.</span>
+            One binary.<br><span class="accent">Proven correct.</span>
           </h1>
           <p class="hero-sub">
             A TypeScript runtime built in Zig that compiles handlers into
@@ -265,13 +269,13 @@
               </h2>
               <p>
                 zigttp implements a restricted TypeScript subset called
-                <strong>zigts</strong>. It drops classes, try/catch, async/await,
-                and null at parse time. It adds match expressions, pipe operator,
-                guard composition, and comptime evaluation. The restrictions let
-                the compiler walk every execution path and prove 7 properties
-                statically: exhaustive returns, injection safety, state isolation,
-                result checking, optional narrowing, match completeness, and
-                idempotency.
+                <strong>zigts</strong>. It drops classes, try/catch,
+                async/await, and null at parse time. It adds match expressions,
+                pipe operator, guard composition, and comptime evaluation. The
+                restrictions let the compiler walk every execution path and
+                prove 7 properties statically: exhaustive returns, injection
+                safety, state isolation, result checking, optional narrowing,
+                match completeness, and idempotency.
               </p>
               <p>
                 No V8. No QuickJS. A custom engine with JIT compilation,
@@ -324,13 +328,58 @@
           </h2>
           <div class="code-tabs">
             <div class="tabs-header" role="tablist">
-              <button class="tab active" data-tab="routing" role="tab" aria-selected="true" aria-controls="tab-routing" tabindex="0">Routing</button>
-              <button class="tab" data-tab="auth" role="tab" aria-selected="false" aria-controls="tab-auth" tabindex="-1">Auth + Validation</button>
-              <button class="tab" data-tab="compose" role="tab" aria-selected="false" aria-controls="tab-compose" tabindex="-1">Pipe + Guard</button>
-              <button class="tab" data-tab="durable" role="tab" aria-selected="false" aria-controls="tab-durable" tabindex="-1">Durable</button>
+              <button
+                class="tab active"
+                id="tab-routing-trigger"
+                data-tab="routing"
+                role="tab"
+                aria-selected="true"
+                aria-controls="tab-routing"
+                tabindex="0"
+              >
+                Routing
+              </button>
+              <button
+                class="tab"
+                id="tab-auth-trigger"
+                data-tab="auth"
+                role="tab"
+                aria-selected="false"
+                aria-controls="tab-auth"
+                tabindex="-1"
+              >
+                Auth + Validation
+              </button>
+              <button
+                class="tab"
+                id="tab-compose-trigger"
+                data-tab="compose"
+                role="tab"
+                aria-selected="false"
+                aria-controls="tab-compose"
+                tabindex="-1"
+              >
+                Pipe + Guard
+              </button>
+              <button
+                class="tab"
+                id="tab-durable-trigger"
+                data-tab="durable"
+                role="tab"
+                aria-selected="false"
+                aria-controls="tab-durable"
+                tabindex="-1"
+              >
+                Durable
+              </button>
             </div>
             <div class="tabs-body">
-              <div class="tab-panel active" id="tab-routing" role="tabpanel" aria-labelledby="tab-routing">
+              <div
+                class="tab-panel active"
+                id="tab-routing"
+                role="tabpanel"
+                aria-labelledby="tab-routing-trigger"
+              >
                 <pre><code><span class="c-keyword">import</span> { method, pathname, params } <span class="c-keyword">from</span> <span class="c-string">"zigttp:router"</span>;
 
 <span class="c-keyword">const</span> <span class="c-fn">getUser</span> = (<span class="c-param">id</span>: <span class="c-attr">string</span>) =>
@@ -351,7 +400,13 @@
 }</code></pre>
               </div>
 
-              <div class="tab-panel" id="tab-auth" role="tabpanel" aria-labelledby="tab-auth">
+              <div
+                class="tab-panel"
+                id="tab-auth"
+                role="tabpanel"
+                aria-labelledby="tab-auth-trigger"
+                hidden
+              >
                 <pre><code><span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
 <span class="c-keyword">import</span> { validateJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
 <span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
@@ -389,7 +444,13 @@
 }</code></pre>
               </div>
 
-              <div class="tab-panel" id="tab-compose" role="tabpanel" aria-labelledby="tab-compose">
+              <div
+                class="tab-panel"
+                id="tab-compose"
+                role="tabpanel"
+                aria-labelledby="tab-compose-trigger"
+                hidden
+              >
                 <pre><code><span class="c-keyword">import</span> { guard } <span class="c-keyword">from</span> <span class="c-string">"zigttp:compose"</span>;
 <span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
 <span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
@@ -426,7 +487,13 @@
 <span class="c-keyword">const</span> handler = <span class="c-fn">guard</span>(cors) |> <span class="c-fn">guard</span>(requireAuth) |> dashboard;</code></pre>
               </div>
 
-              <div class="tab-panel" id="tab-durable" role="tabpanel" aria-labelledby="tab-durable">
+              <div
+                class="tab-panel"
+                id="tab-durable"
+                role="tabpanel"
+                aria-labelledby="tab-durable-trigger"
+                hidden
+              >
                 <pre><code><span class="c-keyword">import</span> { run, step, waitSignal } <span class="c-keyword">from</span> <span class="c-string">"zigttp:durable"</span>;
 <span class="c-keyword">import</span> { decodeJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:decode"</span>;
 
@@ -473,10 +540,10 @@
               </h2>
               <p>
                 <code>zigttp expert</code> gives Claude Code native tool-use
-                access to the compiler. Describe what you want. The agent
-                writes the handler, the compiler rejects what breaks the
-                rules, the agent rewrites until all 7 proofs pass. You get a
-                proven-correct handler without touching a terminal.
+                access to the compiler. Describe what you want. The agent writes
+                the handler, the compiler rejects what breaks the rules, the
+                agent rewrites until all 7 proofs pass. You get a proven-correct
+                handler without touching a terminal.
               </p>
               <p>
                 The same loop runs in CI. Push a broken handler, the compiler
@@ -523,13 +590,37 @@
             18 native modules replace npm for serverless.
           </h2>
           <div class="module-filters">
-            <button class="module-filter active" data-filter="all">All</button>
-            <button class="module-filter" data-filter="security">
+            <button
+              class="module-filter active"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              All
+            </button>
+            <button
+              class="module-filter"
+              data-filter="security"
+              aria-pressed="false"
+            >
               Security
             </button>
-            <button class="module-filter" data-filter="io">I/O</button>
-            <button class="module-filter" data-filter="data">Data</button>
-            <button class="module-filter" data-filter="utility">Utility</button>
+            <button class="module-filter" data-filter="io" aria-pressed="false">
+              I/O
+            </button>
+            <button
+              class="module-filter"
+              data-filter="data"
+              aria-pressed="false"
+            >
+              Data
+            </button>
+            <button
+              class="module-filter"
+              data-filter="utility"
+              aria-pressed="false"
+            >
+              Utility
+            </button>
           </div>
           <div class="modules-grid">
             <div class="module-card" data-category="security">
@@ -728,12 +819,11 @@
               <p class="faq-answer">
                 Node.js, Deno, and Bun run the full language spec. zigttp
                 implements a restricted subset (zigts) that removes classes,
-                exceptions, and async/await at parse time. The restrictions
-                let the compiler prove handler correctness, generate
-                least-privilege sandboxes, and replay executions
-                deterministically. Those properties require a closed language
-                surface, which is why general-purpose runtimes cannot offer
-                them.
+                exceptions, and async/await at parse time. The restrictions let
+                the compiler prove handler correctness, generate least-privilege
+                sandboxes, and replay executions deterministically. Those
+                properties require a closed language surface, which is why
+                general-purpose runtimes cannot offer them.
               </p>
             </details>
             <details class="faq-item">
@@ -741,13 +831,13 @@
                 What does "proves your code correct" actually mean?
               </summary>
               <p class="faq-answer">
-                The compiler walks every execution path and checks 7
-                properties: every path returns a Response, every Result is
-                checked before access, module-scope state does not leak
-                between requests, unvalidated input never reaches sensitive
-                sinks, match expressions cover all variants, and optionals
-                are narrowed before use. These are static proofs over the
-                restricted language subset, not lint heuristics.
+                The compiler walks every execution path and checks 7 properties:
+                every path returns a Response, every Result is checked before
+                access, module-scope state does not leak between requests,
+                unvalidated input never reaches sensitive sinks, match
+                expressions cover all variants, and optionals are narrowed
+                before use. These are static proofs over the restricted language
+                subset, not lint heuristics.
               </p>
             </details>
             <details class="faq-item">
@@ -755,18 +845,18 @@
                 Can I use npm packages with zigttp?
               </summary>
               <p class="faq-answer">
-                No. zigttp ships 18 virtual modules implemented in Zig
-                instead. The compiler tracks every module import to generate
-                least-privilege sandboxes. For anything the virtual modules
-                do not cover, call an external API with fetchSync.
+                No. zigttp ships 18 virtual modules implemented in Zig instead.
+                The compiler tracks every module import to generate
+                least-privilege sandboxes. For anything the virtual modules do
+                not cover, call an external API with fetchSync.
               </p>
             </details>
             <details class="faq-item">
               <summary class="faq-question">How do I install zigttp?</summary>
               <p class="faq-answer">
                 Run the one-line installer from the README, or download a
-                tarball from the GitHub releases page. Source builds require
-                Zig 0.16.0-dev.
+                tarball from the GitHub releases page. Source builds require Zig
+                0.16.0-dev.
               </p>
             </details>
             <details class="faq-item">
@@ -774,9 +864,9 @@
                 Is it free and open source?
               </summary>
               <p class="faq-answer">
-                Yes. zigttp is MIT licensed and available on GitHub. The
-                entire runtime, compiler, and standard library of virtual
-                modules are open source.
+                Yes. zigttp is MIT licensed and available on GitHub. The entire
+                runtime, compiler, and standard library of virtual modules are
+                open source.
               </p>
             </details>
           </div>

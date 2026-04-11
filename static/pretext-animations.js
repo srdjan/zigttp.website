@@ -30,7 +30,7 @@ function initAccordion(prepare, layout) {
   const items = [];
   const detailsEls = list.querySelectorAll("details.faq-item");
 
-  detailsEls.forEach((details) => {
+  detailsEls.forEach((details, index) => {
     const summary = details.querySelector("summary");
     const answer = details.querySelector(".faq-answer");
     if (!summary || !answer) return;
@@ -42,10 +42,17 @@ function initAccordion(prepare, layout) {
     const btn = document.createElement("button");
     btn.className = "faq-question";
     btn.setAttribute("type", "button");
+    btn.id = `faq-question-${index + 1}`;
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-controls", `faq-answer-${index + 1}`);
     btn.textContent = summary.textContent;
 
     const body = document.createElement("div");
     body.className = "faq-body";
+    body.id = `faq-answer-${index + 1}`;
+    body.setAttribute("role", "region");
+    body.setAttribute("aria-labelledby", btn.id);
+    body.setAttribute("aria-hidden", "true");
     body.style.height = "0px";
 
     const inner = document.createElement("p");
@@ -86,9 +93,13 @@ function initAccordion(prepare, layout) {
 
     if (isOpen) {
       item.el.setAttribute("aria-expanded", "false");
+      item.btn.setAttribute("aria-expanded", "false");
+      item.body.setAttribute("aria-hidden", "true");
       item.body.style.height = "0px";
     } else {
       item.el.setAttribute("aria-expanded", "true");
+      item.btn.setAttribute("aria-expanded", "true");
+      item.body.setAttribute("aria-hidden", "false");
       item.body.style.height = measureHeight(item) + "px";
     }
   }
@@ -108,10 +119,14 @@ function initAccordion(prepare, layout) {
     if (index < 0) return;
     let next;
     if (e.key === "ArrowDown") next = items[(index + 1) % items.length];
-    else if (e.key === "ArrowUp") next = items[(index - 1 + items.length) % items.length];
-    else if (e.key === "Home") next = items[0];
+    else if (e.key === "ArrowUp") {
+      next = items[(index - 1 + items.length) % items.length];
+    } else if (e.key === "Home") next = items[0];
     else if (e.key === "End") next = items[items.length - 1];
-    if (next) { e.preventDefault(); next.btn.focus(); }
+    if (next) {
+      e.preventDefault();
+      next.btn.focus();
+    }
   });
 
   window.addEventListener(

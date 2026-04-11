@@ -2,26 +2,30 @@
 const burger = document.querySelector(".nav-burger");
 const navLinks = document.querySelector(".nav-links");
 if (burger && navLinks) {
+  function setMenuState(open) {
+    burger.classList.toggle("active", open);
+    navLinks.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", String(open));
+  }
+
   burger.addEventListener("click", () => {
-    burger.classList.toggle("active");
-    navLinks.classList.toggle("open");
+    setMenuState(!navLinks.classList.contains("open"));
   });
   navLinks.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      burger.classList.remove("active");
-      navLinks.classList.remove("open");
+      setMenuState(false);
     });
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && navLinks.classList.contains("open")) {
-      burger.classList.remove("active");
-      navLinks.classList.remove("open");
+      setMenuState(false);
     }
   });
   document.addEventListener("click", (e) => {
-    if (navLinks.classList.contains("open") && !e.target.closest(".nav-inner")) {
-      burger.classList.remove("active");
-      navLinks.classList.remove("open");
+    if (
+      navLinks.classList.contains("open") && !e.target.closest(".nav-inner")
+    ) {
+      setMenuState(false);
     }
   });
 }
@@ -40,13 +44,18 @@ document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
     });
     container
       .querySelectorAll(".tab-panel")
-      .forEach((p) => p.classList.remove("active"));
+      .forEach((p) => {
+        p.classList.remove("active");
+        p.hidden = true;
+      });
 
     tab.classList.add("active");
     tab.setAttribute("aria-selected", "true");
     tab.setAttribute("tabindex", "0");
     tab.focus();
-    container.querySelector(`#tab-${target}`).classList.add("active");
+    const panel = container.querySelector(`#tab-${target}`);
+    panel.classList.add("active");
+    panel.hidden = false;
   }
 
   tabs.forEach((tab) => tab.addEventListener("click", () => activateTab(tab)));
@@ -56,33 +65,43 @@ document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
     if (idx < 0) return;
     let next;
     if (e.key === "ArrowRight") next = tabs[(idx + 1) % tabs.length];
-    else if (e.key === "ArrowLeft") next = tabs[(idx - 1 + tabs.length) % tabs.length];
-    else if (e.key === "Home") next = tabs[0];
+    else if (e.key === "ArrowLeft") {
+      next = tabs[(idx - 1 + tabs.length) % tabs.length];
+    } else if (e.key === "Home") next = tabs[0];
     else if (e.key === "End") next = tabs[tabs.length - 1];
-    if (next) { e.preventDefault(); activateTab(next); }
+    if (next) {
+      e.preventDefault();
+      activateTab(next);
+    }
   });
 });
 
 // Module category filter
-document.querySelectorAll(".module-filter").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const filter = btn.dataset.filter;
-    const section = btn.closest(".container");
+const moduleSection = document.querySelector(".module-filters")?.closest(".container");
+if (moduleSection) {
+  const filterBtns = moduleSection.querySelectorAll(".module-filter");
+  const moduleCards = moduleSection.querySelectorAll(".module-card");
 
-    section.querySelectorAll(".module-filter").forEach((b) =>
-      b.classList.remove("active")
-    );
-    btn.classList.add("active");
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter;
+      filterBtns.forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
 
-    section.querySelectorAll(".module-card").forEach((card) => {
-      if (filter === "all" || card.dataset.category === filter) {
-        card.removeAttribute("data-hidden");
-      } else {
-        card.setAttribute("data-hidden", "");
-      }
+      moduleCards.forEach((card) => {
+        if (filter === "all" || card.dataset.category === filter) {
+          card.removeAttribute("data-hidden");
+        } else {
+          card.setAttribute("data-hidden", "");
+        }
+      });
     });
   });
-});
+}
 
 // Staggered fade-in for module cards on scroll
 const fadeObserver = new IntersectionObserver(
@@ -120,62 +139,34 @@ const elFadeObserver = new IntersectionObserver(
   { threshold: 0.2 },
 );
 
-document.querySelectorAll(".pitch-terminal, .expert-terminal, .cli-reference").forEach((el) => {
-  el.classList.add("fade-in-up");
-  elFadeObserver.observe(el);
-});
-
-// Hero stat count-up animation
-const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (!REDUCED) {
-  const stats = document.querySelectorAll(".stat-value");
-  const originals = [];
-  stats.forEach((el) => {
-    originals.push(el.textContent);
-    el.textContent = "";
+document.querySelectorAll(".pitch-terminal, .expert-terminal, .cli-reference")
+  .forEach((el) => {
+    el.classList.add("fade-in-up");
+    elFadeObserver.observe(el);
   });
-  setTimeout(() => {
-    const duration = 800;
-    const start = performance.now();
-    function tick(now) {
-      const t = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - t, 4);
-      stats.forEach((el, i) => {
-        const final = originals[i];
-        if (final === "7") {
-          el.textContent = String(Math.round(ease * 7));
-        } else if (final === "3ms") {
-          el.textContent = Math.round(ease * 3) + "ms";
-        } else if (final === "1.2MB") {
-          el.textContent = (ease * 1.2).toFixed(1) + "MB";
-        } else if (final === "18") {
-          el.textContent = String(Math.round(ease * 18));
-        } else {
-          el.textContent = final;
-        }
-      });
-      if (t < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }, 400);
-}
+
+const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // Hero terminal parallax
 if (!REDUCED) {
   const heroTerminal = document.querySelector(".hero-terminal-wrap");
-  if (heroTerminal) {
+  if (heroTerminal && window.matchMedia("(min-width: 1024px)").matches) {
     let ticking = false;
-    window.addEventListener("scroll", () => {
+    let lastOffset = -1;
+    const handler = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          const offset = scrollY * 0.12;
-          heroTerminal.style.transform = `translateY(${offset}px)`;
+          const offset = Math.min(window.scrollY * 0.08, 48);
+          if (offset !== lastOffset) {
+            heroTerminal.style.transform = `translateY(${offset}px)`;
+            lastOffset = offset;
+          }
           ticking = false;
         });
         ticking = true;
       }
-    }, { passive: true });
+    };
+    window.addEventListener("scroll", handler, { passive: true });
   }
 }
 
@@ -192,13 +183,13 @@ if (spySections.length) {
         if (entry.isIntersecting) {
           spyLinks.forEach((link) => link.classList.remove("active"));
           const active = document.querySelector(
-            `.nav-links a[href="#${entry.target.id}"]`
+            `.nav-links a[href="#${entry.target.id}"]`,
           );
           if (active) active.classList.add("active");
         }
       });
     },
-    { threshold: 0.3, rootMargin: "-56px 0px -60% 0px" },
+    { threshold: 0.3, rootMargin: `${-parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height"))}px 0px -60% 0px` },
   );
   spySections.forEach((section) => scrollSpy.observe(section));
 }
@@ -247,7 +238,9 @@ if (deck) {
     updateButtons();
 
     animating = true;
-    slide.addEventListener("animationend", () => { animating = false; }, { once: true });
+    slide.addEventListener("animationend", () => {
+      animating = false;
+    }, { once: true });
   }
 
   dots.forEach((dot, i) => {
@@ -259,7 +252,10 @@ if (deck) {
 
   document.addEventListener("keydown", (e) => {
     const tag = document.activeElement && document.activeElement.tagName;
-    if (e.key === " " && (tag === "BUTTON" || tag === "INPUT" || tag === "TEXTAREA")) return;
+    if (
+      e.key === " " &&
+      (tag === "BUTTON" || tag === "INPUT" || tag === "TEXTAREA")
+    ) return;
     if (e.key === "ArrowRight" || e.key === " ") {
       e.preventDefault();
       go(currentSlide + 1);

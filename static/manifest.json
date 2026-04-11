@@ -1,5 +1,5 @@
 {
-  "name": "zigttp - JavaScript Runtime Built in Zig",
+  "name": "zigttp - TypeScript Runtime Built in Zig",
   "short_name": "zigttp",
   "start_url": "/",
   "display": "standalone",
