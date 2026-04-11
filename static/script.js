@@ -84,38 +84,7 @@ document.querySelectorAll(".module-filter").forEach((btn) => {
   });
 });
 
-// Animate benchmark bars on scroll
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll(".bench-bar[data-animate]").forEach(
-          (bar, i) => {
-            setTimeout(() => bar.classList.add("animated"), i * 80);
-          },
-        );
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.2 },
-);
-
-const benchGrid = document.querySelector(".bench-grid");
-if (benchGrid) observer.observe(benchGrid);
-
-// Scroll progress bar
-const scrollProgress = document.querySelector(".scroll-progress");
-if (scrollProgress) {
-  window.addEventListener("scroll", () => {
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (docHeight > 0) {
-      scrollProgress.style.width = (window.scrollY / docHeight * 100) + "%";
-    }
-  }, { passive: true });
-}
-
-// Staggered fade-in for cards and elements on scroll
+// Staggered fade-in for module cards on scroll
 const fadeObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -131,31 +100,12 @@ const fadeObserver = new IntersectionObserver(
   { threshold: 0.15 },
 );
 
-document.querySelectorAll(".features-grid, .cold-start-grid, .start-grid, .modules-grid, .subset-grid, .zigts-proofs-grid").forEach((grid) => {
+document.querySelectorAll(".modules-grid").forEach((grid) => {
   grid.querySelectorAll(":scope > *").forEach((child) => {
     child.classList.add("fade-in-up");
   });
   fadeObserver.observe(grid);
 });
-
-// Comparison table row-by-row reveal
-const cmpObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll(".cmp-row").forEach((row, i) => {
-          row.classList.add("fade-in-up");
-          setTimeout(() => row.classList.add("visible"), i * 60);
-        });
-        cmpObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.1 },
-);
-
-const cmpTable = document.querySelector(".cmp");
-if (cmpTable) cmpObserver.observe(cmpTable);
 
 // Hero stat count-up animation
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -190,6 +140,25 @@ if (!REDUCED) {
     }
     requestAnimationFrame(tick);
   }, 400);
+}
+
+// Hero terminal parallax
+if (!REDUCED) {
+  const heroTerminal = document.querySelector(".hero-terminal-wrap");
+  if (heroTerminal) {
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const offset = scrollY * 0.12;
+          heroTerminal.style.transform = `translateY(${offset}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
 }
 
 // Scroll spy for active nav indicator

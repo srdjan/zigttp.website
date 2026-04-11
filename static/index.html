@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp v0.16.0-rc2 - Single-Binary Release for Linux and macOS</title>
+    <title>zigttp - TypeScript runtime built in Zig for serverless</title>
     <meta
       name="description"
-      content="zigttp v0.16.0-rc2: pre-built binaries for Linux and macOS, built-in agentic coding loop, 7 compile-time proofs, 3ms cold start, 1.2MB binary."
+      content="zigttp compiles TypeScript handlers into proven-correct 1.2MB binaries with 3ms cold start. Built from scratch in Zig."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
 
@@ -28,11 +28,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/">
     <meta
       property="og:title"
-      content="zigttp v0.16.0-rc2 - Single binary. Built-in agentic coding loop."
+      content="zigttp - TypeScript runtime built in Zig for serverless"
     >
     <meta
       property="og:description"
-      content="The first zigttp single-binary release for Linux and macOS, now with a built-in agentic coding loop in the CLI."
+      content="Compiles TypeScript handlers into proven-correct 1.2MB binaries with 3ms cold start."
     >
     <meta
       property="og:image"
@@ -46,11 +46,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp v0.16.0-rc2 - Single binary. Built-in agentic coding loop."
+      content="zigttp - TypeScript runtime built in Zig for serverless"
     >
     <meta
       name="twitter:description"
-      content="The first zigttp single-binary release for Linux and macOS, now with a built-in agentic coding loop in the CLI."
+      content="Compiles TypeScript handlers into proven-correct 1.2MB binaries with 3ms cold start."
     >
     <meta
       name="twitter:image"
@@ -63,11 +63,11 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "zigttp v0.16.0-rc2 is a TypeScript runtime built from scratch in Zig for serverless workloads. It ships the first single-binary release for Linux and macOS and adds a built-in agentic coding loop to the CLI.",
+      "description": "A TypeScript runtime built from scratch in Zig for serverless workloads. Compiles handlers into proven-correct 1.2MB binaries with 3ms cold start.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "TypeScript Runtime, CLI Tool",
-      "keywords": "TypeScript runtime, Zig runtime, single binary release, Linux binary, macOS binary, agentic coding loop, zigttp CLI, compile-time verification, serverless runtime, zigts, virtual modules",
+      "keywords": "TypeScript runtime, Zig runtime, serverless, compile-time verification, zigts, virtual modules",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -105,22 +105,6 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is new in zigttp v0.16.0-rc2?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pre-built binaries for Linux and macOS, and a built-in agentic coding loop in the CLI. The runtime is unchanged: same proofs, same binary size, same virtual modules."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What exactly is zigttp?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "zigttp is a TypeScript runtime built from scratch in Zig, designed specifically for serverless and FaaS workloads. It compiles your handler into a single 1.2MB binary with zero dependencies, and v0.16.0-rc2 is the first release that ships as a single binary for Linux and macOS."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "How is zigttp different from Node.js, Deno, and Bun?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -137,34 +121,10 @@
         },
         {
           "@type": "Question",
-          "name": "Can I migrate from Node.js or Express to zigttp?",
+          "name": "Can I use npm packages with zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "zigttp does not support npm or the Node.js API. If your handlers are stateless request-response functions, rewriting them in zigts is usually direct. You get compile-time proofs and a 1.2MB binary with 3ms cold start in exchange for giving up the npm ecosystem."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is zigttp free and open source?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. zigttp is MIT licensed and available on GitHub. The entire runtime, compiler, and standard library of virtual modules are open source."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What are virtual modules?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Virtual modules (zigttp:auth, zigttp:cache, zigttp:sql, zigttp:io, etc.) are built-in capabilities implemented in Zig with zero interpretation overhead. They provide JWT authentication, key-value caching, SQLite queries, parallel I/O, durable execution, and more - all accessible through standard import syntax and tracked by the compiler for automatic sandboxing."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is zigts?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "zigts is the TypeScript subset that zigttp supports. It removes features that prevent compile-time analysis - classes, try/catch, while loops, null, async/await, regex - and adds features that enable it: match expressions, pipe operator, guard() composition, and comptime() evaluation. The restrictions are what make the 7 compile-time proofs possible."
+            "text": "No. zigttp ships 18 virtual modules (zigttp:auth, zigttp:cache, zigttp:sql, zigttp:crypto, etc.) implemented in Zig. The compiler tracks every module import to generate least-privilege sandboxes. For anything the virtual modules do not cover, call an external API with fetchSync."
           }
         },
         {
@@ -177,10 +137,10 @@
         },
         {
           "@type": "Question",
-          "name": "Can I use npm packages with zigttp?",
+          "name": "Is zigttp free and open source?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. zigttp ships 18 virtual modules (zigttp:auth, zigttp:cache, zigttp:sql, zigttp:crypto, etc.) implemented in Zig. The compiler tracks every module import to generate least-privilege sandboxes. For anything the virtual modules do not cover, call an external API with fetchSync."
+            "text": "Yes. zigttp is MIT licensed and available on GitHub. The entire runtime, compiler, and standard library of virtual modules are open source."
           }
         }
       ]
@@ -190,7 +150,6 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <div class="scroll-progress" aria-hidden="true"></div>
     <a href="#main" class="skip-link">Skip to main content</a>
 
     <!-- Nav -->
@@ -212,11 +171,8 @@
           ></span>
         </button>
         <div class="nav-links">
-          <a href="#features">Features</a>
-          <a href="#zigts">zigts</a>
           <a href="#code">Code</a>
           <a href="#modules">Modules</a>
-          <a href="#compare">Compare</a>
           <a
             href="https://github.com/srdjan/zigttp/tree/main/docs"
             target="_blank"
@@ -228,7 +184,6 @@
             target="_blank"
             rel="noopener noreferrer"
           >GitHub</a>
-          <span class="nav-wip">WIP</span>
         </div>
       </div>
     </nav>
@@ -236,57 +191,16 @@
     <!-- Hero -->
     <main id="main">
       <section class="hero">
-        <div class="container">
-          <p class="hero-badge-top entrance-badge">
-            New Release | v0.16.0-rc2 | Linux + macOS binaries
-          </p>
+        <div class="container hero-content">
+          <p class="hero-badge entrance-badge">v0.16.0-rc2</p>
           <h1 class="hero-title">
             One binary.<br><span class="accent"
-            >Built-in agentic coding loop.</span>
+            >Proven correct.</span>
           </h1>
-          <p class="hero-sub" data-reveal="lines">
-            zigttp v0.16.0-rc2 is the first single-binary release for Linux and
-            macOS. Install from GitHub, ship 1.2MB handlers, and iterate with a
-            built-in agentic coding loop inside the CLI.
+          <p class="hero-sub">
+            A TypeScript runtime built in Zig that compiles handlers into
+            verified 1.2MB binaries.
           </p>
-          <div class="release-highlights">
-            <article class="release-highlight">
-              <p class="release-kicker">First major feature</p>
-              <h2>Single-binary release for Linux and macOS</h2>
-              <p>
-                v0.16.0-rc2 changes the first-run story. Start from a release binary
-                and the GitHub install guide instead of treating zigttp like a
-                source build from day one.
-              </p>
-            </article>
-            <article class="release-highlight">
-              <p class="release-kicker">Second major feature</p>
-              <h2>Built-in agentic coding loop</h2>
-              <p>
-                The zigttp CLI now keeps scaffolding, iteration, and
-                verification in one place so you can stay inside the tool while
-                building handlers.
-              </p>
-            </article>
-          </div>
-          <div class="hero-stats">
-            <div class="stat">
-              <span class="stat-value">7</span>
-              <span class="stat-label">proofs at build time</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value">3ms</span>
-              <span class="stat-label">runtime init</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value">1.2MB</span>
-              <span class="stat-label">single binary</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value">18</span>
-              <span class="stat-label">native modules</span>
-            </div>
-          </div>
           <div class="hero-ctas entrance-ctas">
             <a
               href="https://github.com/srdjan/zigttp#install"
@@ -295,328 +209,97 @@
               rel="noopener noreferrer"
             >Install zigttp</a>
             <a
-              href="https://github.com/srdjan/zigttp/releases"
+              href="https://github.com/srdjan/zigttp"
               class="cta-btn cta-secondary"
               target="_blank"
               rel="noopener noreferrer"
-            >View Releases</a>
+            >GitHub</a>
           </div>
-          <div class="terminal entrance-terminal">
-            <div class="terminal-bar">
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-title">terminal</span>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-value">7</span>
+              <span class="stat-label">compile-time proofs</span>
             </div>
-            <div class="terminal-body">
-              <pre><code><span class="t-prompt">$</span> zigttp dev
-
+            <div class="stat">
+              <span class="stat-value">3ms</span>
+              <span class="stat-label">cold start</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">1.2MB</span>
+              <span class="stat-label">binary</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">18</span>
+              <span class="stat-label">native modules</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-terminal-wrap">
+          <div class="container">
+            <div class="terminal entrance-terminal">
+              <div class="terminal-bar">
+                <span class="terminal-dot" aria-hidden="true"></span>
+                <span class="terminal-dot" aria-hidden="true"></span>
+                <span class="terminal-dot" aria-hidden="true"></span>
+                <span class="terminal-title">terminal</span>
+              </div>
+              <div class="terminal-body">
+                <pre><code><span class="t-prompt">$</span> zigttp dev
 <span class="t-output">zigttp v0.16.0-rc2</span>
-<span class="t-output">Built-in agentic coding loop: active</span>
 <span class="t-output">Verification passed - 7/7 proofs</span>
-<span class="t-output">  PROVEN read_only       no state mutations</span>
-<span class="t-output">  PROVEN injection_safe  no unvalidated input in sinks</span>
-<span class="t-output">  PROVEN state_isolated  no cross-request data leakage</span>
-<span class="t-output">  PROVEN idempotent      safe for at-least-once delivery</span>
 <span class="t-output">Handler ready. Listening on http://localhost:8080</span></code></pre>
-            </div>
-          </div>
-          <p class="hero-footnote">
-            v0.16.0-rc2 is the first zigttp single-binary release for Linux and
-            macOS. The GitHub repository is the source of truth for installation
-            and release details.
-          </p>
-        </div>
-      </section>
-
-      <!-- Features / Benefits -->
-      <section id="features" class="section">
-        <div class="container">
-          <h2 class="section-title" data-reveal="lines">
-            What v0.16.0-rc2 ships.
-          </h2>
-          <p class="section-sub">
-            A single binary you install from GitHub, and a CLI that stays
-            with you from scaffold through deploy.
-          </p>
-          <div class="features-grid">
-            <div class="feature-card feature-card--hero">
-              <div class="feature-card--hero-layout">
-                <div class="feature-card--hero-content">
-                  <div class="feature-icon">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path d="M4 6h16" />
-                      <path d="M4 12h10" />
-                      <path d="M4 18h7" />
-                      <path d="M18 16l2 2 4-4" />
-                    </svg>
-                  </div>
-                  <h3>Built-In Agentic Coding Loop</h3>
-                  <p>
-                    Scaffold a project, write your handler, save. The compiler
-                    re-verifies 7 proofs on every change and the local server
-                    reloads automatically. One CLI, one loop: edit, prove, run.
-                  </p>
-                  <div class="hero-steps">
-                    <span class="hero-step"><span class="hero-step-num">1</span> Scaffold</span>
-                    <span class="hero-step-arrow">&rarr;</span>
-                    <span class="hero-step"><span class="hero-step-num">2</span> Code</span>
-                    <span class="hero-step-arrow">&rarr;</span>
-                    <span class="hero-step"><span class="hero-step-num">3</span> Verify</span>
-                    <span class="hero-step-arrow">&rarr;</span>
-                    <span class="hero-step"><span class="hero-step-num">4</span> Ship</span>
-                  </div>
-                </div>
-                <div class="feature-card--hero-terminal">
-                  <div class="terminal-bar">
-                    <span class="terminal-dot" aria-hidden="true"></span>
-                    <span class="terminal-dot" aria-hidden="true"></span>
-                    <span class="terminal-dot" aria-hidden="true"></span>
-                    <span class="terminal-title">zigttp dev</span>
-                  </div>
-                  <div class="terminal-body">
-                    <pre><code><span class="t-prompt">$</span> zigttp dev
-<span class="t-output">watching src/handler.ts</span>
-<span class="t-dim">-- save detected --</span>
-<span class="t-output">compiling... 7/7 proofs passed</span>
-<span class="t-output">server reloaded on :8080</span></code></pre>
-                  </div>
-                </div>
               </div>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M5 12h14" />
-                  <path d="M12 5v14" />
-                  <rect x="3" y="3" width="18" height="18" rx="3" />
-                </svg>
-              </div>
-              <h3>First Single-Binary Release</h3>
-              <p>
-                v0.16.0-rc2 ships pre-built binaries for Linux and macOS.
-                Install from the GitHub release page or the one-line
-                installer in the README.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                  <path d="M2 17l10 5 10-5" />
-                  <path d="M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <h3>Compiler-in-the-Loop for Claude</h3>
-              <p>
-                The <code>zigttp expert</code> namespace gives Claude Code
-                native tool-use access to the compiler. Claude writes code,
-                the compiler verifies it, Claude fixes what fails - producing
-                proven-correct handlers without you touching a terminal.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M9 12l2 2 4-4" />
-                  <circle cx="12" cy="12" r="10" />
-                </svg>
-              </div>
-              <h3>Your Code, Proven Correct</h3>
-              <p>
-                The compiler walks every execution path and proves 7
-                properties: exhaustive returns, injection safety, state
-                isolation, result checking, optional narrowing, match
-                completeness, and idempotency. These are static proofs, not
-                lint rules.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-              </div>
-              <h3>3ms Runtime Init. 1.2MB Binary.</h3>
-              <p>
-                Same payload as previous releases. The binary is 1.2MB,
-                runtime init takes 3ms, and memory baseline sits at 4MB.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <rect x="2" y="2" width="20" height="8" rx="2" />
-                  <rect x="2" y="14" width="20" height="8" rx="2" />
-                  <line x1="6" y1="6" x2="6.01" y2="6" />
-                  <line x1="6" y1="18" x2="6.01" y2="18" />
-                </svg>
-              </div>
-              <h3>18 Modules, No npm</h3>
-              <p>
-                Auth, caching, SQL, crypto, routing, durable execution: 18
-                virtual modules implemented in native Zig. Import what you
-                need. The compiler tracks every import for sandboxing.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              </div>
-              <h3>Deploy From Proof</h3>
-              <p>
-                One build command generates your AWS SAM template, VPC rules,
-                cost estimate, and OWASP compliance report. Every output is
-                derived from the compiler's proof results.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- zigts Language -->
-      <section id="zigts" class="section section-dark">
+      <!-- The Pitch -->
+      <section id="pitch" class="section">
         <div class="container">
-          <h2 class="section-title">TypeScript, minus the footguns.</h2>
-          <p class="section-sub">
-            zigts is the TypeScript subset zigttp compiles. It drops features
-            that block static analysis and adds constructs (match, pipe,
-            guard, comptime) that make the 7 proofs possible.
-          </p>
-          <div class="subset-grid">
-            <div class="subset-card subset-yes">
-              <h3>Supported</h3>
-              <ul>
-                <li>let / const declarations</li>
-                <li>if / else / for...of</li>
-                <li>Arrow functions and destructuring</li>
-                <li>Template literals and spread</li>
-                <li><code>match</code> expressions (exhaustive)</li>
-                <li>Pipe operator <code>|></code></li>
-                <li><code>guard()</code> composition</li>
-                <li><code>assert</code> statements (type narrowing)</li>
-                <li><code>distinct type</code> declarations (nominal safety)</li>
-                <li><code>comptime()</code> evaluation</li>
-                <li>
-                  Optional chaining <code>?.</code> and nullish coalesce <code
-                  >??</code>
-                </li>
-                <li>Type annotations (stripped at compile)</li>
-                <li>JSX / TSX (first-class SSR)</li>
-              </ul>
+          <div class="pitch-layout">
+            <div class="pitch-prose">
+              <h2 class="section-title" data-reveal="lines">
+                TypeScript, minus the footguns.
+              </h2>
+              <p>
+                zigttp implements a restricted TypeScript subset called
+                <strong>zigts</strong>. It drops classes, try/catch, async/await,
+                and null at parse time. It adds match expressions, pipe operator,
+                guard composition, and comptime evaluation. The restrictions let
+                the compiler walk every execution path and prove 7 properties
+                statically: exhaustive returns, injection safety, state isolation,
+                result checking, optional narrowing, match completeness, and
+                idempotency.
+              </p>
+              <p>
+                No V8. No QuickJS. A custom engine with JIT compilation,
+                NaN-boxed values, and hybrid arena allocation. String operations
+                run 63x faster than QuickJS. Cold start is 3ms while Node.js
+                takes 200-300ms. The output is a single 1.2MB binary with 4MB
+                memory baseline.
+              </p>
+              <p>
+                You give up npm, the full language spec, and general-purpose
+                scope. You get a compiler that proves your serverless handlers
+                correct before they ship.
+                <a
+                  href="https://github.com/srdjan/zigttp/tree/main/docs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Read the full zigts spec</a>
+              </p>
             </div>
-            <div class="subset-card subset-no">
-              <h3>Banned at parse time</h3>
-              <ul>
-                <li>
-                  <code>class</code> / <code>this</code> - use plain objects
-                </li>
-                <li>
-                  <code>while</code> / <code>do...while</code> - use <code
-                  >for...of</code>
-                </li>
-                <li>
-                  <code>switch</code> / <code>case</code> - use <code
-                  >match</code> expressions
-                </li>
-                <li>
-                  <code>try</code> / <code>catch</code> / <code>throw</code> -
-                  use Result types
-                </li>
-                <li>
-                  <code>var</code> - use <code>let</code> or <code>const</code>
-                </li>
-                <li><code>null</code> - use <code>undefined</code></li>
-                <li>
-                  <code>==</code> / <code>!=</code> - use <code>===</code> /
-                  <code>!==</code>
-                </li>
-                <li><code>new</code> - use factory functions</li>
-                <li>
-                  <code>async</code> / <code>await</code> - I/O is synchronous
-                </li>
-                <li><code>delete</code> - use destructuring</li>
-                <li><code>any</code> / <code>as</code> - use proper types</li>
-                <li>
-                  <code>regex</code> - use string methods or <code
-                  >zigttp:text</code>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="zigts-verification">
-            <h3>What the compiler proves</h3>
-            <div class="zigts-proofs-grid">
-              <div>Control flow completeness</div>
-              <div>Result type safety</div>
-              <div>Optional narrowing</div>
-              <div>Match exhaustiveness</div>
-              <div>State isolation</div>
-              <div>Injection safety</div>
-              <div>Idempotency</div>
-            </div>
-          </div>
-          <div class="terminal terminal-narrow" style="margin-top: 32px">
-            <div class="terminal-bar">
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-title">zigttp check</span>
-            </div>
-            <div class="terminal-body">
-              <pre><code><span class="t-prompt">$</span> zigttp check handler.ts
+            <div class="pitch-terminal">
+              <div class="terminal">
+                <div class="terminal-bar">
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-title">zigttp check</span>
+                </div>
+                <div class="terminal-body">
+                  <pre><code><span class="t-prompt">$</span> zigttp check handler.ts
 
 <span class="t-error">  error[E0012]: `class` is not supported in zigts</span>
 <span class="t-dim">    --> handler.ts:3:1</span>
@@ -625,21 +308,19 @@
 <span class="t-error">  error[E0017]: `try/catch` is not supported in zigts</span>
 <span class="t-dim">    --> handler.ts:8:3</span>
 <span class="t-dim">    = help: use Result types - check .ok before .value</span></code></pre>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Code Examples -->
-      <section id="code" class="section">
-        <div class="container">
+      <section id="code" class="section section-dark">
+        <div class="container container--wide">
           <h2 class="section-title">
             A handler is a function that returns a response.
           </h2>
-          <p class="section-sub">
-            Plain functions, explicit data flow, and the compiler verifying
-            the result. Four examples showing how handlers look in practice.
-          </p>
           <div class="code-tabs">
             <div class="tabs-header" role="tablist">
               <button class="tab active" data-tab="routing" role="tab" aria-selected="true" aria-controls="tab-routing" tabindex="0">Routing</button>
@@ -771,27 +452,15 @@
               </div>
             </div>
           </div>
-          <p class="section-link">
-            <a
-              href="https://github.com/srdjan/zigttp/tree/main/examples"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Explore more examples in the docs &#8594;</a>
-          </p>
         </div>
       </section>
 
       <!-- Virtual Modules -->
-      <section id="modules" class="section section-dark">
+      <section id="modules" class="section">
         <div class="container">
           <h2 class="section-title">
             18 native modules replace npm for serverless.
           </h2>
-          <p class="section-sub">
-            Every capability your handler needs, implemented in Zig with zero
-            interpretation overhead. Import what you use. The compiler tracks
-            every call for automatic sandboxing.
-          </p>
           <div class="module-filters">
             <button class="module-filter active" data-filter="all">All</button>
             <button class="module-filter" data-filter="security">
@@ -805,10 +474,6 @@
             <div class="module-card" data-category="security">
               <span class="module-import">zigttp:auth</span>
               <span class="module-effect module-effect--read">read</span>
-              <p>
-                JWT verification, bearer token parsing, webhook signatures,
-                timing-safe comparison.
-              </p>
               <code class="module-exports"
               >parseBearer, jwtVerify, jwtSign, verifyWebhookSignature,
                 timingSafeEqual</code>
@@ -816,39 +481,23 @@
             <div class="module-card" data-category="security">
               <span class="module-import">zigttp:crypto</span>
               <span class="module-effect module-effect--read">read</span>
-              <p>
-                SHA-256 hashing, HMAC-SHA256, Base64 encode and decode. No
-                external crypto dependencies.
-              </p>
               <code class="module-exports"
               >sha256, hmacSha256, base64Encode, base64Decode</code>
             </div>
             <div class="module-card" data-category="io">
               <span class="module-import">zigttp:io</span>
               <span class="module-effect module-effect--write">write</span>
-              <p>
-                Concurrent HTTP dispatch. Run up to 8 outbound calls in parallel
-                or race for first response.
-              </p>
               <code class="module-exports">parallel, race</code>
             </div>
             <div class="module-card" data-category="io">
               <span class="module-import">zigttp:http</span>
               <span class="module-effect module-effect--none">none</span>
-              <p>
-                Cookie parsing, content negotiation, CORS headers, content-type
-                detection.
-              </p>
               <code class="module-exports"
               >parseCookies, setCookie, negotiate, parseContentType, cors</code>
             </div>
             <div class="module-card" data-category="io">
               <span class="module-import">zigttp:durable</span>
               <span class="module-effect module-effect--write">write</span>
-              <p>
-                Crash-recoverable workflows with named steps. Sleep, wait for
-                signals, replay from oplog.
-              </p>
               <code class="module-exports"
               >run, step, stepWithTimeout, sleep, sleepUntil, waitSignal,
                 signal</code>
@@ -856,38 +505,22 @@
             <div class="module-card" data-category="io">
               <span class="module-import">zigttp:cache</span>
               <span class="module-effect module-effect--write">write</span>
-              <p>
-                In-memory key-value store with TTL, namespace isolation, LRU
-                eviction, atomic increment.
-              </p>
               <code class="module-exports"
               >cacheGet, cacheSet, cacheDelete, cacheIncr, cacheStats</code>
             </div>
             <div class="module-card" data-category="io">
               <span class="module-import">zigttp:sql</span>
               <span class="module-effect module-effect--write">write</span>
-              <p>
-                SQLite queries with parameter binding. Register named
-                statements, execute reads and writes.
-              </p>
               <code class="module-exports">sql, sqlOne, sqlMany, sqlExec</code>
             </div>
             <div class="module-card" data-category="data">
               <span class="module-import">zigttp:env</span>
               <span class="module-effect module-effect--read">read</span>
-              <p>
-                Type-safe environment variable access. Returns string or
-                undefined, tracked for contract extraction.
-              </p>
               <code class="module-exports">env</code>
             </div>
             <div class="module-card" data-category="data">
               <span class="module-import">zigttp:validate</span>
               <span class="module-effect module-effect--read">read</span>
-              <p>
-                JSON Schema compilation and validation. Supports types, ranges,
-                formats, enums, nested objects.
-              </p>
               <code class="module-exports"
               >schemaCompile, validateJson, validateObject, coerceJson,
                 schemaDrop</code>
@@ -895,526 +528,138 @@
             <div class="module-card" data-category="data">
               <span class="module-import">zigttp:decode</span>
               <span class="module-effect module-effect--read">read</span>
-              <p>
-                Parse and validate in one call. JSON bodies, URL-encoded forms,
-                query parameters.
-              </p>
               <code class="module-exports"
               >decodeJson, decodeForm, decodeQuery</code>
             </div>
             <div class="module-card" data-category="data">
               <span class="module-import">zigttp:url</span>
               <span class="module-effect module-effect--none">none</span>
-              <p>
-                URL parsing, search parameter extraction, encode and decode. No
-                URL constructor needed.
-              </p>
               <code class="module-exports"
               >urlParse, urlSearchParams, urlEncode, urlDecode</code>
             </div>
             <div class="module-card" data-category="data">
               <span class="module-import">zigttp:id</span>
               <span class="module-effect module-effect--none">none</span>
-              <p>
-                Generate unique identifiers. UUID v4, ULID (sortable), and
-                nanoid (compact).
-              </p>
               <code class="module-exports">uuid, ulid, nanoid</code>
             </div>
             <div class="module-card" data-category="utility">
               <span class="module-import">zigttp:router</span>
               <span class="module-effect module-effect--read">read</span>
-              <p>
-                Pattern-based route matching. Match HTTP method + path with
-                named parameters.
-              </p>
               <code class="module-exports">routerMatch</code>
             </div>
             <div class="module-card" data-category="utility">
               <span class="module-import">zigttp:compose</span>
               <span class="module-effect module-effect--none">none</span>
-              <p>
-                Middleware composition via pipe operator. Guards short-circuit,
-                handler runs last.
-              </p>
               <code class="module-exports">guard</code>
             </div>
             <div class="module-card" data-category="utility">
               <span class="module-import">zigttp:log</span>
               <span class="module-effect module-effect--none">none</span>
-              <p>
-                Structured logging at four levels. Output captured for tracing
-                and replay.
-              </p>
               <code class="module-exports"
               >logDebug, logInfo, logWarn, logError</code>
             </div>
             <div class="module-card" data-category="utility">
               <span class="module-import">zigttp:text</span>
               <span class="module-effect module-effect--none">none</span>
-              <p>
-                HTML escaping, slugification, truncation, masking. Safe string
-                transforms without regex.
-              </p>
               <code class="module-exports"
               >escapeHtml, unescapeHtml, slugify, truncate, mask</code>
             </div>
             <div class="module-card" data-category="utility">
               <span class="module-import">zigttp:time</span>
               <span class="module-effect module-effect--none">none</span>
-              <p>
-                ISO 8601 and HTTP date formatting, parsing, and arithmetic. No
-                Date object needed.
-              </p>
               <code class="module-exports"
               >formatIso, formatHttp, parseIso, addSeconds</code>
             </div>
             <div class="module-card" data-category="utility">
               <span class="module-import">zigttp:ratelimit</span>
               <span class="module-effect module-effect--write">write</span>
-              <p>
-                Token bucket rate limiting with automatic window tracking and
-                reset.
-              </p>
               <code class="module-exports">rateCheck, rateReset</code>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Performance / Numbers -->
-      <section id="performance" class="section">
+      <!-- Get Started + FAQ -->
+      <section id="get-started" class="section section-dark">
         <div class="container">
-          <h2 class="section-title">
-            Built from zero in Zig. No V8. No QuickJS.
-          </h2>
-          <p class="section-sub">
-            A custom TypeScript engine with JIT compilation, NaN-boxed values,
-            and hybrid arena allocation.
-          </p>
+          <h2 class="section-title">Get started.</h2>
+          <div class="terminal terminal-workflow">
+            <div class="terminal-bar">
+              <span class="terminal-dot" aria-hidden="true"></span>
+              <span class="terminal-dot" aria-hidden="true"></span>
+              <span class="terminal-dot" aria-hidden="true"></span>
+              <span class="terminal-title">workflow</span>
+            </div>
+            <div class="terminal-body">
+              <pre><code><span class="t-dim"># 1. Install from GitHub</span>
+<span class="t-prompt">$</span> <span class="t-output">curl -fsSL https://zigttp.timok.com/install | sh</span>
 
-          <h3 class="perf-heading">JS Engine Performance (vs QuickJS)</h3>
-          <div class="bench-grid">
-            <div class="bench-row">
-              <span class="bench-label">String Operations</span>
-              <div class="bench-bar-wrap">
-                <div class="bench-bar" style="--pct: 100%" data-animate>
-                  <span class="bench-value">63x faster</span>
-                </div>
-              </div>
-              <span class="bench-ops">16.3M ops/s</span>
-            </div>
-            <div class="bench-row">
-              <span class="bench-label">Object Create</span>
-              <div class="bench-bar-wrap">
-                <div class="bench-bar" style="--pct: 76%" data-animate>
-                  <span class="bench-value">4.8x</span>
-                </div>
-              </div>
-              <span class="bench-ops">8.1M ops/s</span>
-            </div>
-            <div class="bench-row">
-              <span class="bench-label">HTTP Handler</span>
-              <div class="bench-bar-wrap">
-                <div class="bench-bar" style="--pct: 49%" data-animate>
-                  <span class="bench-value">3.1x</span>
-                </div>
-              </div>
-              <span class="bench-ops">1.0M ops/s</span>
-            </div>
-          </div>
-
-          <h3 class="perf-heading">Cold Start Comparison</h3>
-          <div class="cold-start-grid">
-            <div class="cold-card">
-              <span class="cold-runtime">zigttp</span>
-              <span class="cold-time accent">~3ms</span>
-              <span class="cold-note">runtime init</span>
-            </div>
-            <div class="cold-card">
-              <span class="cold-runtime">Bun</span>
-              <span class="cold-time cold-slower">~100-130ms</span>
-              <span class="cold-note">JavaScriptCore</span>
-            </div>
-            <div class="cold-card">
-              <span class="cold-runtime">Deno</span>
-              <span class="cold-time cold-slower">~150-200ms</span>
-              <span class="cold-note">V8 snapshot</span>
-            </div>
-            <div class="cold-card">
-              <span class="cold-runtime">Node.js</span>
-              <span class="cold-time cold-slower">~200-300ms</span>
-              <span class="cold-note">V8 + module loading</span>
-            </div>
-          </div>
-          <p class="perf-footnote">
-            <a
-              href="https://github.com/srdjan/zigttp/blob/main/docs/architecture.md"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Read the architecture docs &#8594;</a>
-          </p>
-        </div>
-      </section>
-
-      <!-- Comparison -->
-      <section id="compare" class="section section-dark">
-        <div class="container">
-          <h2 class="section-title">
-            Different runtime, different trade-offs.
-          </h2>
-          <p class="section-sub">
-            zigttp gives up full TypeScript, npm, and general-purpose scope.
-            In return, it proves handler correctness at compile time.
-          </p>
-
-          <div class="cmp-wrap">
-          <div class="cmp">
-            <!-- Column headers -->
-            <div class="cmp-headers">
-              <div class="cmp-label-col"></div>
-              <div class="cmp-hero-col">
-                <div class="cmp-runtime-badge cmp-runtime-badge--hero">
-                  <img
-                    src="/logo-circle.jpeg"
-                    alt=""
-                    class="cmp-runtime-logo"
-                    width="24"
-                    height="24"
-                  >
-                  <span>zigttp</span>
-                </div>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-runtime-name">Node.js</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-runtime-name">Deno</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-runtime-name">Bun</span>
-              </div>
-            </div>
-
-            <!-- Performance section -->
-            <div class="cmp-group-label">Performance</div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">Cold start</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--big">~3ms</span>
-              </div>
-              <div class="cmp-other-col">~200-300ms</div>
-              <div class="cmp-other-col">~150-200ms</div>
-              <div class="cmp-other-col">~100-130ms</div>
-            </div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">Binary size</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--big">1.2MB</span>
-              </div>
-              <div class="cmp-other-col">~80MB</div>
-              <div class="cmp-other-col">~130MB</div>
-              <div class="cmp-other-col">~90MB</div>
-            </div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">Memory baseline</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--big">4MB</span>
-              </div>
-              <div class="cmp-other-col">~30MB</div>
-              <div class="cmp-other-col">~25MB</div>
-              <div class="cmp-other-col">~20MB</div>
-            </div>
-
-            <!-- Verification & Security section -->
-            <div class="cmp-group-label">Verification &amp; Security</div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">Compile-time proofs</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-check" aria-label="Yes"><svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M3 8.5l3.5 3.5 6.5-7"
-                      stroke="var(--green)"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg></span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-dash" aria-label="No"></span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-dash" aria-label="No"></span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-dash" aria-label="No"></span>
-              </div>
-            </div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">Injection prevention</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--accent">Compile-time proof</span>
-              </div>
-              <div class="cmp-other-col">Manual review</div>
-              <div class="cmp-other-col">Manual review</div>
-              <div class="cmp-other-col">Manual review</div>
-            </div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">Auto sandboxing</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-check" aria-label="Yes"><svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M3 8.5l3.5 3.5 6.5-7"
-                      stroke="var(--green)"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg></span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-dash" aria-label="No"></span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-val cmp-val--partial">Permissions</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-dash" aria-label="No"></span>
-              </div>
-            </div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">Deploy manifest</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--accent">From compiler</span>
-              </div>
-              <div class="cmp-other-col">Manual template</div>
-              <div class="cmp-other-col">Manual template</div>
-              <div class="cmp-other-col">Manual template</div>
-            </div>
-
-            <!-- Trade-offs section -->
-            <div class="cmp-group-label">Trade-offs</div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">Language</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--dim">zigts subset</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-val cmp-val--other-yes">Yes</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-val cmp-val--other-yes">Yes</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-val cmp-val--other-yes">Yes</span>
-              </div>
-            </div>
-            <div class="cmp-row">
-              <div class="cmp-label-col">npm ecosystem</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--dim">Virtual modules only</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-val cmp-val--other-yes">Full npm</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-val cmp-val--other-yes">npm + jsr</span>
-              </div>
-              <div class="cmp-other-col">
-                <span class="cmp-val cmp-val--other-yes">Full npm</span>
-              </div>
-            </div>
-            <div class="cmp-row cmp-row--last">
-              <div class="cmp-label-col">Use case</div>
-              <div class="cmp-hero-col">
-                <span class="cmp-val cmp-val--accent">Serverless / FaaS</span>
-              </div>
-              <div class="cmp-other-col">General purpose</div>
-              <div class="cmp-other-col">General purpose</div>
-              <div class="cmp-other-col">General purpose</div>
-            </div>
-          </div>
-          </div>
-          <p class="cmp-closing">
-            zigttp is not a Node.js replacement. It is a single-purpose
-            runtime for serverless handlers where cold start, binary size,
-            and correctness guarantees matter.
-          </p>
-        </div>
-      </section>
-
-      <!-- Get Started -->
-      <section id="get-started" class="section">
-        <div class="container">
-          <h2 class="section-title">Start from the v0.16.0-rc2 release.</h2>
-          <p class="section-sub">
-            Install the binary from GitHub, then use the CLI for everything
-            else.
-          </p>
-          <div class="start-grid start-grid--4">
-            <div class="start-step">
-              <h3><span class="step-num">1</span> Install</h3>
-              <div class="terminal terminal-sm">
-                <div class="terminal-body">
-                  <pre><code><span class="t-comment"># GitHub is the source of truth for v0.16.0-rc2</span>
-<span class="t-output">README install guide:</span>
-<span class="t-output">  github.com/srdjan/zigttp#install</span>
-<span class="t-output">Release downloads:</span>
-<span class="t-output">  github.com/srdjan/zigttp/releases</span></code></pre>
-                </div>
-              </div>
-              <div class="start-step-links">
-                <a
-                  href="https://github.com/srdjan/zigttp#install"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Open README</a>
-                <a
-                  href="https://github.com/srdjan/zigttp/releases"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Open Releases</a>
-              </div>
-            </div>
-            <div class="start-step">
-              <h3><span class="step-num">2</span> Create</h3>
-              <div class="terminal terminal-sm">
-                <div class="terminal-body">
-                  <pre><code><span class="t-prompt">$</span> zigttp init my-handler
+<span class="t-dim"># 2. Create a handler</span>
+<span class="t-prompt">$</span> zigttp init my-handler
 <span class="t-output">  Created my-handler/handler.ts</span>
 <span class="t-output">  Created my-handler/tests.jsonl</span>
-<span class="t-output">  Built-in agentic coding loop: ready</span>
-<span class="t-prompt">$</span> cd my-handler</code></pre>
-                </div>
-              </div>
-            </div>
-            <div class="start-step">
-              <h3><span class="step-num">3</span> Iterate</h3>
-              <div class="terminal terminal-sm">
-                <div class="terminal-body">
-                  <pre><code><span class="t-prompt">$</span> zigttp dev
-<span class="t-output">  Agentic coding loop: active</span>
+
+<span class="t-dim"># 3. Develop with live verification</span>
+<span class="t-prompt">$</span> cd my-handler && zigttp dev
 <span class="t-output">  Listening on http://localhost:8080</span>
 <span class="t-output">  Watching handler.ts for changes</span>
-<span class="t-output">  Verification: enabled</span></code></pre>
-                </div>
-              </div>
-            </div>
-            <div class="start-step">
-              <h3><span class="step-num">4</span> Deploy</h3>
-              <div class="terminal terminal-sm">
-                <div class="terminal-body">
-                  <pre><code><span class="t-prompt">$</span> zigttp compile --deploy=aws
-<span class="t-output">  PROVEN 7/7 proofs</span>
-<span class="t-output">  Wrote: contract.json, template.yaml</span>
-<span class="t-output">  Binary: my-handler (1.2MB)</span>
-<span class="t-output">  Ready for single-binary release flow</span></code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="cli-reference">
-            <h3>CLI in v0.16.0-rc2</h3>
-            <p class="cli-lede">
-              Ten commands cover the full lifecycle from scaffold to deploy.
-            </p>
-            <div class="cli-commands">
-              <div class="cli-cmd">
-                <code>zigttp serve</code><span>Run a handler on the same
-                  single-binary runtime you ship</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp init</code><span>Bootstrap a new project and hand
-                  it to the agentic coding loop</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp dev</code><span>Watch mode with live verification
-                  and the built-in agentic coding loop</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp doctor</code><span>Diagnostic checks for local
-                  setup and release readiness</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp compile</code><span>Precompile a handler to a
-                  single deployable binary</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp check</code><span>Type and verification
-                  checks</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp prove</code><span>Compare contracts for safe
-                  upgrades</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp mock</code><span>Generate mock server from
-                  tests</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp link</code><span>Cross-handler contract
-                  linking</span>
-              </div>
-              <div class="cli-cmd">
-                <code>zigttp expert</code><span>Compiler-in-the-Loop for
-                  Claude Code and CI integration</span>
-              </div>
-            </div>
-          </div>
-          <div class="hero-ctas hero-ctas--center">
-            <a
-              href="https://github.com/srdjan/zigttp"
-              class="cta-btn cta-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Browse the Source</a>
-            <a
-              href="https://github.com/srdjan/zigttp/tree/main/docs"
-              class="cta-btn cta-secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Read the Docs</a>
-          </div>
-        </div>
-      </section>
 
-      <!-- FAQ -->
-      <section class="section section-dark" id="faq">
-        <div class="container">
-          <h2 class="section-title">What zigttp is and isn't</h2>
+<span class="t-dim"># 4. Compile and deploy</span>
+<span class="t-prompt">$</span> zigttp compile --deploy=aws
+<span class="t-output">  PROVEN 7/7 proofs</span>
+<span class="t-output">  Binary: my-handler (1.2MB)</span>
+<span class="t-output">  Wrote: contract.json, template.yaml</span></code></pre>
+            </div>
+          </div>
+
+          <div class="cli-reference">
+            <h3>CLI Reference</h3>
+            <dl class="cli-list">
+              <div class="cli-entry">
+                <dt>zigttp serve</dt>
+                <dd>Run a handler on the single-binary runtime</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp init</dt>
+                <dd>Bootstrap a new project</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp dev</dt>
+                <dd>Watch mode with live verification</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp check</dt>
+                <dd>Type and verification checks</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp compile</dt>
+                <dd>Precompile to a single binary</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp prove</dt>
+                <dd>Compare contracts for safe upgrades</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp doctor</dt>
+                <dd>Diagnostic checks for local setup</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp mock</dt>
+                <dd>Generate mock server from tests</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp link</dt>
+                <dd>Cross-handler contract linking</dd>
+              </div>
+              <div class="cli-entry">
+                <dt>zigttp expert</dt>
+                <dd>Compiler-in-the-Loop for Claude Code</dd>
+              </div>
+            </dl>
+          </div>
+
+          <h3 class="faq-heading">Questions</h3>
           <div class="faq-list">
-            <details class="faq-item">
-              <summary class="faq-question">
-                What is new in zigttp v0.16.0-rc2?
-              </summary>
-              <p class="faq-answer">
-                Pre-built binaries for Linux and macOS, and a built-in
-                agentic coding loop in the CLI. The runtime itself is
-                unchanged: same proofs, same binary size, same virtual
-                modules.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">What exactly is zigttp?</summary>
-              <p class="faq-answer">
-                zigttp is a TypeScript runtime built from scratch in Zig,
-                designed specifically for serverless and FaaS workloads. It
-                compiles your handler into a single 1.2MB binary with zero
-                dependencies, and v0.16.0-rc2 is the first release that ships as a
-                single binary for Linux and macOS.
-              </p>
-            </details>
             <details class="faq-item">
               <summary class="faq-question">
                 How is zigttp different from Node.js, Deno, and Bun?
@@ -1446,51 +691,13 @@
             </details>
             <details class="faq-item">
               <summary class="faq-question">
-                Can I migrate from Node.js or Express?
+                Can I use npm packages with zigttp?
               </summary>
               <p class="faq-answer">
-                zigttp does not support npm or the Node.js API, so it is not
-                a drop-in swap. If your handlers are stateless
-                request-response functions, rewriting them in zigts is
-                usually direct. You get compile-time proofs and a 1.2MB
-                binary with 3ms cold start in exchange for giving up the npm
-                ecosystem.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">
-                Is it free and open source?
-              </summary>
-              <p class="faq-answer">
-                Yes. zigttp is MIT licensed and available on GitHub. The entire
-                runtime, compiler, and standard library of virtual modules are
-                open source.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">What are virtual modules?</summary>
-              <p class="faq-answer">
-                Virtual modules (zigttp:auth, zigttp:cache, zigttp:sql,
-                zigttp:io, etc.) are built-in capabilities implemented in Zig
-                with zero interpretation overhead. They replace npm packages for
-                common serverless needs: JWT authentication, key-value caching,
-                SQLite queries, parallel I/O, durable execution, and more. The
-                compiler tracks every virtual module call for automatic
-                sandboxing.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">What is zigts?</summary>
-              <p class="faq-answer">
-                zigts is the TypeScript subset that zigttp supports. It removes
-                features that prevent compile-time analysis - classes,
-                try/catch, while loops, switch, null, async/await, regex - and
-                adds features that enable it: match expressions, pipe operator,
-                guard() composition, assert statements, and comptime()
-                evaluation. The restrictions are what make the 7 compile-time
-                proofs possible. Every banned
-                feature has a recommended replacement that works within the
-                verification model.
+                No. zigttp ships 18 virtual modules implemented in Zig
+                instead. The compiler tracks every module import to generate
+                least-privilege sandboxes. For anything the virtual modules
+                do not cover, call an external API with fetchSync.
               </p>
             </details>
             <details class="faq-item">
@@ -1503,16 +710,29 @@
             </details>
             <details class="faq-item">
               <summary class="faq-question">
-                Can I use npm packages with zigttp?
+                Is it free and open source?
               </summary>
               <p class="faq-answer">
-                No. zigttp ships 18 virtual modules (zigttp:auth,
-                zigttp:cache, zigttp:sql, zigttp:crypto, etc.) implemented
-                in Zig instead. The compiler tracks every module import to
-                generate least-privilege sandboxes. For anything the virtual
-                modules do not cover, call an external API with fetchSync.
+                Yes. zigttp is MIT licensed and available on GitHub. The
+                entire runtime, compiler, and standard library of virtual
+                modules are open source.
               </p>
             </details>
+          </div>
+
+          <div class="hero-ctas hero-ctas--center">
+            <a
+              href="https://github.com/srdjan/zigttp"
+              class="cta-btn cta-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Browse the Source</a>
+            <a
+              href="https://github.com/srdjan/zigttp/tree/main/docs"
+              class="cta-btn cta-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Read the Docs</a>
           </div>
         </div>
       </section>
