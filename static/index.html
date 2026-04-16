@@ -587,6 +587,17 @@
               </button>
               <button
                 class="tab"
+                id="tab-tsx-trigger"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="false"
+                aria-controls="tab-tsx"
+                tabindex="-1"
+              >
+                TSX / SSR
+              </button>
+              <button
+                class="tab"
                 id="tab-compose-trigger"
                 data-tab="compose"
                 role="tab"
@@ -676,6 +687,35 @@
         },
         _ => Response.<span class="c-fn">json</span>({ user: auth.value }),
     };
+}</code></pre>
+              </div>
+
+              <div
+                class="tab-panel"
+                id="tab-tsx"
+                role="tabpanel"
+                aria-labelledby="tab-tsx-trigger"
+                hidden
+              >
+                <pre><code><span class="c-keyword">type</span> <span class="c-attr">Props</span> = {
+    name: <span class="c-attr">string</span>;
+    count: <span class="c-attr">number</span>;
+};
+
+<span class="c-keyword">function</span> <span class="c-fn">Card</span>(<span class="c-param">props</span>: <span class="c-attr">Props</span>): <span class="c-attr">JSX.Element</span> {
+    <span class="c-keyword">return</span> (
+        &lt;<span class="c-fn">div</span> <span class="c-attr">class</span>=<span class="c-string">"card"</span>&gt;
+            &lt;<span class="c-fn">h1</span>&gt;Hello, {props.name}&lt;/<span class="c-fn">h1</span>&gt;
+            &lt;<span class="c-fn">p</span>&gt;Count: {props.count}&lt;/<span class="c-fn">p</span>&gt;
+        &lt;/<span class="c-fn">div</span>&gt;
+    );
+}
+
+<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> {
+    <span class="c-keyword">const</span> data: <span class="c-attr">Props</span> = { name: <span class="c-string">"World"</span>, count: <span class="c-number">42</span> };
+    <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(
+        <span class="c-fn">renderToString</span>(&lt;<span class="c-fn">Card</span> <span class="c-attr">name</span>={data.name} <span class="c-attr">count</span>={data.count} /&gt;)
+    );
 }</code></pre>
               </div>
 
