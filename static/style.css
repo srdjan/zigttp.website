@@ -176,6 +176,16 @@ code {
   line-height: 1.15;
 }
 
+.section-kicker {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
 /* --- Nav --- */
 .nav {
   position: sticky;
@@ -532,6 +542,152 @@ code {
 .hero-terminal-wrap {
   margin-top: 12px;
   padding: 0 0 40px;
+}
+
+/* --- Feature Map --- */
+.feature-map {
+  position: relative;
+  overflow: clip;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.025),
+      rgba(255, 255, 255, 0.01) 24%,
+      rgba(10, 10, 15, 0) 100%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(247, 164, 29, 0.045),
+      rgba(139, 195, 216, 0.025) 55%,
+      transparent 78%
+    );
+}
+
+.feature-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      rgba(255, 255, 255, 0.018) 50%,
+      transparent 100%
+    );
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.feature-map-shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+  gap: clamp(36px, 6vw, 92px);
+  align-items: start;
+}
+
+.feature-intro {
+  position: sticky;
+  top: calc(var(--nav-height) + 36px);
+}
+
+.feature-intro .section-title {
+  margin-bottom: 22px;
+}
+
+.feature-intro p:last-child {
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  max-width: 34rem;
+}
+
+.feature-list {
+  border-top: 1px solid var(--accent-border);
+}
+
+.feature-row {
+  padding: 24px 0 22px;
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.feature-row:last-child {
+  border-bottom: none;
+}
+
+.feature-row:hover {
+  border-color: var(--border-light);
+  transform: translateX(4px);
+}
+
+.feature-row-head {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.feature-row-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.feature-row-body h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin-bottom: 10px;
+}
+
+.feature-row-summary {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 44rem;
+}
+
+.feature-row-summary code {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.feature-row-meta {
+  margin-top: 14px;
+  margin-left: 74px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.feature-row-meta span {
+  position: relative;
+}
+
+.feature-row-meta span:not(:last-child)::after {
+  content: "/";
+  position: absolute;
+  right: -12px;
+  color: var(--accent-border);
 }
 
 /* --- Terminal --- */
@@ -1996,16 +2152,35 @@ button.faq-question {
 
   /* Pitch + Expert */
   .pitch-layout,
-  .expert-layout {
+  .expert-layout,
+  .feature-map-shell {
     grid-template-columns: 1fr;
   }
 
-  .pitch-terminal {
+  .pitch-terminal,
+  .feature-intro {
     position: static;
   }
 
   .expert-layout {
     gap: 32px;
+  }
+
+  .feature-row {
+    padding: 22px 0 20px;
+  }
+
+  .feature-row-head {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .feature-row-index {
+    padding-top: 0;
+  }
+
+  .feature-row-meta {
+    margin-left: 0;
   }
 
   /* Code tabs */
@@ -2112,8 +2287,22 @@ button.faq-question {
 
   /* Pitch + Expert */
   .pitch-prose p,
-  .expert-prose p {
+  .expert-prose p,
+  .feature-intro p:last-child {
     font-size: 0.9375rem;
+  }
+
+  .feature-row-body h3 {
+    font-size: 1.375rem;
+  }
+
+  .feature-row-summary {
+    font-size: 0.9375rem;
+  }
+
+  .feature-row-meta {
+    gap: 6px 16px;
+    font-size: 0.6875rem;
   }
 
   /* Code tabs */

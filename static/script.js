@@ -119,7 +119,7 @@ const fadeObserver = new IntersectionObserver(
   { threshold: 0.15 },
 );
 
-document.querySelectorAll(".modules-grid").forEach((grid) => {
+document.querySelectorAll(".modules-grid, .feature-list").forEach((grid) => {
   grid.querySelectorAll(":scope > *").forEach((child) => {
     child.classList.add("fade-in-up");
   });
@@ -139,7 +139,9 @@ const elFadeObserver = new IntersectionObserver(
   { threshold: 0.2 },
 );
 
-document.querySelectorAll(".pitch-terminal, .expert-terminal, .cli-reference")
+document.querySelectorAll(
+  ".feature-intro, .pitch-terminal, .expert-terminal, .cli-reference",
+)
   .forEach((el) => {
     el.classList.add("fade-in-up");
     elFadeObserver.observe(el);

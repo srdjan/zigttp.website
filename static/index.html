@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp - TypeScript runtime built in Zig for serverless</title>
+    <title>zigttp - Native compiler-agent runtime built in Zig</title>
     <meta
       name="description"
-      content="zigttp compiles TypeScript handlers into proven-correct 1.2MB binaries with 3ms cold start. Built from scratch in Zig."
+      content="zigttp is a TypeScript runtime built in Zig with a native compiler-agent loop. It rewrites, verifies, and compiles handlers into proven 1.2MB binaries with 3ms cold start."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -28,11 +28,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/">
     <meta
       property="og:title"
-      content="zigttp - TypeScript runtime built in Zig for serverless"
+      content="zigttp - Native compiler-agent runtime built in Zig"
     >
     <meta
       property="og:description"
-      content="Compiles TypeScript handlers into proven-correct 1.2MB binaries with 3ms cold start."
+      content="A TypeScript runtime with a native compiler-agent loop that rewrites, verifies, and compiles handlers into proven 1.2MB binaries."
     >
     <meta
       property="og:image"
@@ -46,11 +46,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp - TypeScript runtime built in Zig for serverless"
+      content="zigttp - Native compiler-agent runtime built in Zig"
     >
     <meta
       name="twitter:description"
-      content="Compiles TypeScript handlers into proven-correct 1.2MB binaries with 3ms cold start."
+      content="A TypeScript runtime with a native compiler-agent loop that rewrites, verifies, and compiles handlers into proven 1.2MB binaries."
     >
     <meta
       name="twitter:image"
@@ -63,11 +63,11 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "A TypeScript runtime built from scratch in Zig for serverless workloads. Compiles handlers into proven-correct 1.2MB binaries with 3ms cold start.",
+      "description": "A TypeScript runtime built from scratch in Zig with a native compiler-agent loop. It rewrites, verifies, and compiles handlers into proven 1.2MB binaries with 3ms cold start.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
-      "applicationSubCategory": "TypeScript Runtime, CLI Tool",
-      "keywords": "TypeScript runtime, Zig runtime, serverless, compile-time verification, zigts, virtual modules",
+      "applicationSubCategory": "TypeScript Runtime, Compiler-Agent, CLI Tool",
+      "keywords": "TypeScript runtime, Zig runtime, compiler agent, agentic compiler, compile-time verification, zigts, virtual modules",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -176,8 +176,9 @@
           ></span>
         </button>
         <div class="nav-links" id="primary-nav-links">
-          <a href="#code">Code</a>
           <a href="#expert">Expert</a>
+          <a href="#features">Features</a>
+          <a href="#code">Code</a>
           <a href="#modules">Modules</a>
           <a
             href="https://github.com/srdjan/zigttp/tree/main/docs"
@@ -198,13 +199,13 @@
     <main id="main">
       <section class="hero">
         <div class="container hero-content">
-          <p class="hero-badge entrance-badge">v0.16.0-rc2</p>
+          <p class="hero-badge entrance-badge">native compiler-agent loop</p>
           <h1 class="hero-title">
             One binary.<br><span class="accent">Proven correct.</span>
           </h1>
           <p class="hero-sub">
-            A TypeScript runtime built in Zig that compiles handlers into
-            verified 1.2MB binaries.
+            A TypeScript runtime built in Zig where the compiler is the agent:
+            it edits, verifies, and ships proven 1.2MB binaries.
           </p>
           <div class="hero-ctas entrance-ctas">
             <a
@@ -249,12 +250,246 @@
                 <span class="terminal-title">terminal</span>
               </div>
               <div class="terminal-body">
-                <pre><code><span class="t-prompt">$</span> zigttp dev
-<span class="t-output">zigttp v0.16.0-rc2</span>
-<span class="t-output">Verification passed - 7/7 proofs</span>
+                <pre><code><span class="t-prompt">$</span> zigttp expert <span class="t-string">"add a health check endpoint"</span>
+<span class="t-dim">[compiler-agent] Planning patch...</span>
+<span class="t-output">PROVEN 7/7 proofs</span>
 <span class="t-output">Handler ready. Listening on http://localhost:8080</span></code></pre>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Expert Agent -->
+      <section id="expert" class="section">
+        <div class="container">
+          <div class="expert-layout">
+            <div class="expert-prose">
+              <p class="section-kicker">Native Compiler-Agent</p>
+              <h2 class="section-title">
+                The compiler is the agent.
+              </h2>
+              <p>
+                <code>zigttp expert</code> is not an editor plugin or a
+                third-party agent framework. zigttp embeds the agentic loop
+                into the compiler itself: you describe the change, the compiler
+                proposes edits, runs verification, rejects invalid moves, and
+                keeps iterating until the handler is inside the language,
+                contract, and proof boundaries.
+              </p>
+              <p>
+                That makes zigttp unusual in a way most dev tools are not. It
+                may be the first environment where the compiler is not just the
+                judge of the agent, but the agentic loop itself. No MCP bridge.
+                No external orchestration layer. No “agent plus compiler”
+                handoff. The compiler stays live in the edit path, which makes
+                the workflow faster, stricter, and much harder to bluff. It
+                feels less like autocomplete and more like a native proving
+                machine that can also write.
+              </p>
+              <p>
+                The same loop carries into CI and deployment. If a change breaks
+                the subset, invalidates a proof, or widens the contract in the
+                wrong direction, the compiler-agent stops it before it ships.
+              </p>
+            </div>
+            <div class="expert-terminal">
+              <div class="terminal">
+                <div class="terminal-bar">
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-dot" aria-hidden="true"></span>
+                  <span class="terminal-title">zigttp expert</span>
+                </div>
+                <div class="terminal-body">
+                  <pre><code><span class="t-prompt">$</span> zigttp expert <span class="t-string">"add a health check endpoint with auth bypass"</span>
+
+<span class="t-dim">[compiler-agent] Planning handler patch...</span>
+<span class="t-dim">[compiler-agent] Simulating edit against zigts rules...</span>
+
+<span class="t-error">  error[E0017]: `try/catch` is not supported in zigts</span>
+<span class="t-dim">    --> handler.ts:9:5</span>
+<span class="t-dim">    = help: use assert() for Result narrowing</span>
+
+<span class="t-dim">[compiler-agent] Rewriting with assert + match...</span>
+<span class="t-dim">[compiler-agent] Re-running proofs + contract extraction...</span>
+
+<span class="t-output">  PROVEN 7/7 proofs</span>
+<span class="t-output">  CONTRACT stable: no new secrets, hosts, or modules</span>
+<span class="t-output">  Handler ready: health-check (1.2MB)</span>
+
+<span class="t-dim">[compiler-agent] Created src/health-check.ts</span>
+<span class="t-dim">[compiler-agent] Updated tests.jsonl with 3 test cases</span></code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section feature-map">
+        <div class="container feature-map-shell">
+          <div class="feature-intro">
+            <p class="section-kicker">Feature Surface</p>
+            <h2 class="section-title">
+              The whole product, visible before the deep dive.
+            </h2>
+            <p>
+              The compiler-agent loop leads, but zigttp is larger than one
+              trick. It is also a runtime, a restricted language, a proof
+              system, a native standard library, and a deploy pipeline. These
+              are the major surfaces it ships today.
+            </p>
+          </div>
+
+          <div class="feature-list" aria-label="zigttp feature categories">
+            <article class="feature-row">
+              <div class="feature-row-head">
+                <span class="feature-row-index">01</span>
+                <div class="feature-row-body">
+                  <h3>Runtime and Performance</h3>
+                  <p class="feature-row-summary">
+                    Pure-Zig execution tuned for HTTP handlers, with JIT, GC,
+                    pool isolation, and cold-start discipline.
+                  </p>
+                </div>
+              </div>
+              <p class="feature-row-meta">
+                <span>pure Zig runtime</span>
+                <span>x86-64 + ARM64 JIT</span>
+                <span>zero-copy responses</span>
+              </p>
+            </article>
+
+            <article class="feature-row">
+              <div class="feature-row-head">
+                <span class="feature-row-index">02</span>
+                <div class="feature-row-body">
+                  <h3>Language and Type System</h3>
+                  <p class="feature-row-summary">
+                    Restricted JavaScript and TypeScript designed to stay
+                    analyzable, with JSX, TSX, sound-mode checks, and
+                    compile-time evaluation.
+                  </p>
+                </div>
+              </div>
+              <p class="feature-row-meta">
+                <span>native TS + TSX</span>
+                <span>JSX + comptime()</span>
+                <span>no async footguns</span>
+              </p>
+            </article>
+
+            <article class="feature-row">
+              <div class="feature-row-head">
+                <span class="feature-row-index">03</span>
+                <div class="feature-row-body">
+                  <h3>Compile-Time Analysis and Proofs</h3>
+                  <p class="feature-row-summary">
+                    Verification, contract extraction, auto-sandboxing, replay,
+                    and proof-driven upgrade checks turn source into something
+                    the compiler can defend.
+                  </p>
+                </div>
+              </div>
+              <p class="feature-row-meta">
+                <span>-Dverify</span>
+                <span>behavioral paths</span>
+                <span>replay + prove</span>
+              </p>
+            </article>
+
+            <article class="feature-row">
+              <div class="feature-row-head">
+                <span class="feature-row-index">04</span>
+                <div class="feature-row-body">
+                  <h3>Virtual Modules and Native Capabilities</h3>
+                  <p class="feature-row-summary">
+                    The standard library is Zig code exposed as
+                    <code>zigttp:*</code> modules for auth, validation, cache,
+                    SQL, routing, crypto, durable workflows, and more.
+                  </p>
+                </div>
+              </div>
+              <p class="feature-row-meta">
+                <span>18 native modules</span>
+                <span>declared capabilities</span>
+                <span>no npm polyfills</span>
+              </p>
+            </article>
+
+            <article class="feature-row">
+              <div class="feature-row-head">
+                <span class="feature-row-index">05</span>
+                <div class="feature-row-body">
+                  <h3>Deployment and Operations</h3>
+                  <p class="feature-row-summary">
+                    Build-time facts flow straight into deploy, packaging,
+                    sandboxing, OCI metadata, and drift-aware rollout control.
+                  </p>
+                </div>
+              </div>
+              <p class="feature-row-meta">
+                <span>zigttp deploy</span>
+                <span>OCI packaging</span>
+                <span>drift detection</span>
+              </p>
+            </article>
+
+            <article class="feature-row">
+              <div class="feature-row-head">
+                <span class="feature-row-index">06</span>
+                <div class="feature-row-body">
+                  <h3>Durable and Concurrent Execution</h3>
+                  <p class="feature-row-summary">
+                    Keep handler code synchronous while overlapping I/O, then
+                    opt into oplog-backed durable runs with timers, signals, and
+                    crash recovery.
+                  </p>
+                </div>
+              </div>
+              <p class="feature-row-meta">
+                <span>parallel() + race()</span>
+                <span>durable run keys</span>
+                <span>timers + signals</span>
+              </p>
+            </article>
+
+            <article class="feature-row">
+              <div class="feature-row-head">
+                <span class="feature-row-index">07</span>
+                <div class="feature-row-body">
+                  <h3>Developer Experience and Agent Tooling</h3>
+                  <p class="feature-row-summary">
+                    Fetch-like handler APIs, proof cards, compiler JSON, and a
+                    native compiler-agent loop built into zigttp itself.
+                  </p>
+                </div>
+              </div>
+              <p class="feature-row-meta">
+                <span>zigttp agent init</span>
+                <span>zigts check --json</span>
+                <span>no third-party agent shell</span>
+              </p>
+            </article>
+
+            <article class="feature-row">
+              <div class="feature-row-head">
+                <span class="feature-row-index">08</span>
+                <div class="feature-row-body">
+                  <h3>Extensibility and Embedding</h3>
+                  <p class="feature-row-summary">
+                    Extend the runtime with third-party virtual modules or embed
+                    zigttp directly from Zig with explicit configuration.
+                  </p>
+                </div>
+              </div>
+              <p class="feature-row-meta">
+                <span>zigttp-sdk</span>
+                <span>native Zig embedding</span>
+                <span>build-time tooling</span>
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -530,59 +765,6 @@
         </div>
       </section>
 
-      <!-- Expert Agent -->
-      <section id="expert" class="section">
-        <div class="container">
-          <div class="expert-layout">
-            <div class="expert-prose">
-              <h2 class="section-title">
-                The compiler writes code with you.
-              </h2>
-              <p>
-                <code>zigttp expert</code> gives Claude Code native tool-use
-                access to the compiler. Describe what you want. The agent writes
-                the handler, the compiler rejects what breaks the rules, the
-                agent rewrites until all 7 proofs pass. You get a proven-correct
-                handler without touching a terminal.
-              </p>
-              <p>
-                The same loop runs in CI. Push a broken handler, the compiler
-                catches it, the agent fixes it, the pipeline stays green.
-              </p>
-            </div>
-            <div class="expert-terminal">
-              <div class="terminal">
-                <div class="terminal-bar">
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-title">zigttp expert</span>
-                </div>
-                <div class="terminal-body">
-                  <pre><code><span class="t-prompt">$</span> zigttp expert <span class="t-string">"add a health check endpoint"</span>
-
-<span class="t-dim">[agent] Writing handler with match routing...</span>
-<span class="t-dim">[agent] Compiling handler.ts</span>
-
-<span class="t-error">  error[E0017]: `try/catch` is not supported in zigts</span>
-<span class="t-dim">    --> handler.ts:9:5</span>
-<span class="t-dim">    = help: use assert() for Result narrowing</span>
-
-<span class="t-dim">[agent] Rewriting with assert + match...</span>
-<span class="t-dim">[agent] Compiling handler.ts</span>
-
-<span class="t-output">  PROVEN 7/7 proofs</span>
-<span class="t-output">  Handler ready: health-check (1.2MB)</span>
-
-<span class="t-dim">[agent] Created src/health-check.ts</span>
-<span class="t-dim">[agent] Updated tests.jsonl with 3 test cases</span></code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- Virtual Modules -->
       <section id="modules" class="section section-dark">
         <div class="container">
@@ -805,7 +987,7 @@
               </div>
               <div class="cli-entry">
                 <dt>zigttp expert</dt>
-                <dd>Compiler-in-the-Loop for Claude Code</dd>
+                <dd>Compiler-native agent loop for edits, proofs, and repair</dd>
               </div>
             </dl>
           </div>
