@@ -516,6 +516,17 @@
               </button>
               <button
                 class="tab"
+                id="tab-htmx-trigger"
+                data-tab="htmx"
+                role="tab"
+                aria-selected="false"
+                aria-controls="tab-htmx"
+                tabindex="-1"
+              >
+                HTMX
+              </button>
+              <button
+                class="tab"
                 id="tab-compose-trigger"
                 data-tab="compose"
                 role="tab"
@@ -572,19 +583,19 @@
                 hidden
               >
                 <pre><code><span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
-<span class="c-keyword">import</span> { validateJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
+<span class="c-keyword">import</span> { schemaCompile, validateJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
 <span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
 
-<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"user"</span>, {
+<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"user"</span>, <span class="c-fn">JSON</span>.<span class="c-fn">stringify</span>({
     type: <span class="c-string">"object"</span>,
     required: [<span class="c-string">"name"</span>, <span class="c-string">"email"</span>],
     properties: {
         name:  { type: <span class="c-string">"string"</span>, minLength: <span class="c-number">1</span> },
-        email: { type: <span class="c-string">"string"</span>, minLength: <span class="c-number">5</span> },
+        email: { type: <span class="c-string">"string"</span>, format: <span class="c-string">"email"</span> },
     }
-}));
+})));
 
-<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>) {
+<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> {
     <span class="c-keyword">const</span> token = <span class="c-fn">parseBearer</span>(req.headers[<span class="c-string">"authorization"</span>]);
     <span class="c-keyword">if</span> (!token) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
         { error: <span class="c-string">"unauthorized"</span> }, { status: <span class="c-number">401</span> }
@@ -597,7 +608,7 @@
 
     <span class="c-keyword">return</span> <span class="c-keyword">match</span> (req.method) {
         <span class="c-string">"POST"</span> => {
-            <span class="c-keyword">const</span> result = <span class="c-fn">validateJson</span>(<span class="c-string">"user"</span>, req.body);
+            <span class="c-keyword">const</span> result = <span class="c-fn">validateJson</span>(<span class="c-string">"user"</span>, req.body ?? <span class="c-string">""</span>);
             <span class="c-keyword">assert</span>(result.ok, Response.<span class="c-fn">json</span>(
                 { errors: result.errors }, { status: <span class="c-number">400</span> }
             ));
@@ -639,6 +650,54 @@
 
               <div
                 class="tab-panel"
+                id="tab-htmx"
+                role="tabpanel"
+                aria-labelledby="tab-htmx-trigger"
+                hidden
+              >
+                <pre><code><span class="c-keyword">import</span> { decodeForm } <span class="c-keyword">from</span> <span class="c-string">"zigttp:decode"</span>;
+<span class="c-keyword">import</span> { schemaCompile } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
+
+<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"todo.create"</span>, <span class="c-fn">JSON</span>.<span class="c-fn">stringify</span>({
+    type: <span class="c-string">"object"</span>,
+    required: [<span class="c-string">"text"</span>],
+    properties: {
+        text: { type: <span class="c-string">"string"</span>, minLength: <span class="c-number">1</span> },
+    }
+})));
+
+<span class="c-keyword">function</span> <span class="c-fn">TodoForm</span>(): <span class="c-attr">JSX.Element</span> {
+    <span class="c-keyword">return</span> (
+        &lt;<span class="c-fn">form</span> <span class="c-attr">hx-post</span>=<span class="c-string">"/todos"</span> <span class="c-attr">hx-target</span>=<span class="c-string">"#todo-list"</span> <span class="c-attr">hx-swap</span>=<span class="c-string">"beforeend"</span>&gt;
+            &lt;<span class="c-fn">input</span> <span class="c-attr">name</span>=<span class="c-string">"text"</span> <span class="c-attr">required</span>=<span class="c-string">"required"</span> /&gt;
+            &lt;<span class="c-fn">button</span> <span class="c-attr">type</span>=<span class="c-string">"submit"</span>&gt;Add&lt;/<span class="c-fn">button</span>&gt;
+        &lt;/<span class="c-fn">form</span>&gt;
+    );
+}
+
+<span class="c-keyword">function</span> <span class="c-fn">TodoItem</span>(<span class="c-param">text</span>: <span class="c-attr">string</span>): <span class="c-attr">JSX.Element</span> {
+    <span class="c-keyword">return</span> &lt;<span class="c-fn">li</span> <span class="c-attr">class</span>=<span class="c-string">"todo"</span>&gt;{text}&lt;/<span class="c-fn">li</span>&gt;;
+}
+
+<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> {
+    <span class="c-keyword">if</span> (req.method === <span class="c-string">"GET"</span>) {
+        <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(<span class="c-fn">renderToString</span>(
+            &lt;<span class="c-fn">main</span>&gt;
+                &lt;<span class="c-fn">script</span> <span class="c-attr">src</span>=<span class="c-string">"https://unpkg.com/htmx.org@2.0.8"</span>&gt;&lt;/<span class="c-fn">script</span>&gt;
+                &lt;<span class="c-fn">TodoForm</span> /&gt;
+                &lt;<span class="c-fn">ul</span> <span class="c-attr">id</span>=<span class="c-string">"todo-list"</span>&gt;&lt;/<span class="c-fn">ul</span>&gt;
+            &lt;/<span class="c-fn">main</span>&gt;
+        ));
+    }
+
+    <span class="c-keyword">const</span> todo = <span class="c-fn">decodeForm</span>(<span class="c-string">"todo.create"</span>, req.body ?? <span class="c-string">""</span>);
+    <span class="c-keyword">assert</span>(todo.ok, Response.<span class="c-fn">text</span>(<span class="c-string">"bad request"</span>, { status: <span class="c-number">400</span> }));
+    <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(<span class="c-fn">renderToString</span>(<span class="c-fn">TodoItem</span>(todo.value.text)));
+}</code></pre>
+              </div>
+
+              <div
+                class="tab-panel"
                 id="tab-compose"
                 role="tabpanel"
                 aria-labelledby="tab-compose-trigger"
@@ -649,9 +708,11 @@
 <span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
 
 <span class="c-keyword">distinct type</span> <span class="c-attr">Secret</span> = <span class="c-attr">string</span>;
+<span class="c-keyword">type</span> <span class="c-attr">Claims</span> = { sub: <span class="c-attr">string</span> };
+<span class="c-keyword">type</span> <span class="c-attr">AuthRequest</span> = <span class="c-attr">Request</span> &amp; { user?: <span class="c-attr">Claims</span> };
 <span class="c-keyword">const</span> jwtSecret: <span class="c-attr">Secret</span> = <span class="c-fn">env</span>(<span class="c-string">"JWT_SECRET"</span>) ?? <span class="c-string">""</span>;
 
-<span class="c-keyword">const</span> <span class="c-fn">cors</span> = (<span class="c-param">req</span>) =>
+<span class="c-keyword">const</span> <span class="c-fn">cors</span> = (<span class="c-param">req</span>: <span class="c-attr">AuthRequest</span>): <span class="c-attr">Response</span> | <span class="c-attr">undefined</span> =>
     <span class="c-keyword">match</span> (req.method) {
         <span class="c-string">"OPTIONS"</span> => Response.<span class="c-fn">text</span>(<span class="c-string">""</span>, {
             status: <span class="c-number">204</span>,
@@ -660,7 +721,7 @@
         _ => <span class="c-keyword">undefined</span>,
     };
 
-<span class="c-keyword">const</span> <span class="c-fn">requireAuth</span> = (<span class="c-param">req</span>) => {
+<span class="c-keyword">const</span> <span class="c-fn">requireAuth</span> = (<span class="c-param">req</span>: <span class="c-attr">AuthRequest</span>): <span class="c-attr">Response</span> | <span class="c-attr">undefined</span> => {
     <span class="c-keyword">const</span> token = <span class="c-fn">parseBearer</span>(req.headers[<span class="c-string">"authorization"</span>]);
     <span class="c-keyword">if</span> (!token) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
         { error: <span class="c-string">"unauthorized"</span> }, { status: <span class="c-number">401</span> }
@@ -673,8 +734,8 @@
     <span class="c-keyword">return</span> <span class="c-keyword">undefined</span>;
 };
 
-<span class="c-keyword">const</span> <span class="c-fn">dashboard</span> = (<span class="c-param">req</span>) =>
-    Response.<span class="c-fn">json</span>({ welcome: req.user.sub });
+<span class="c-keyword">const</span> <span class="c-fn">dashboard</span> = (<span class="c-param">req</span>: <span class="c-attr">AuthRequest</span>): <span class="c-attr">Response</span> =>
+    Response.<span class="c-fn">json</span>({ welcome: req.user?.sub ?? <span class="c-string">"guest"</span> });
 
 <span class="c-comment">// Pipe: guards short-circuit, handler runs last</span>
 <span class="c-keyword">const</span> handler = <span class="c-fn">guard</span>(cors) |> <span class="c-fn">guard</span>(requireAuth) |> dashboard;</code></pre>
@@ -689,18 +750,19 @@
               >
                 <pre><code><span class="c-keyword">import</span> { run, step, waitSignal } <span class="c-keyword">from</span> <span class="c-string">"zigttp:durable"</span>;
 <span class="c-keyword">import</span> { decodeJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:decode"</span>;
+<span class="c-keyword">import</span> { schemaCompile } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
 
-<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"order"</span>, {
+<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"order"</span>, <span class="c-fn">JSON</span>.<span class="c-fn">stringify</span>({
     type: <span class="c-string">"object"</span>,
     required: [<span class="c-string">"item"</span>, <span class="c-string">"qty"</span>],
     properties: {
         item: { type: <span class="c-string">"string"</span> },
         qty:  { type: <span class="c-string">"number"</span>, minimum: <span class="c-number">1</span> }
     }
-}));
+})));
 
-<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>) {
-    <span class="c-keyword">const</span> body = <span class="c-fn">decodeJson</span>(<span class="c-string">"order"</span>, req.body);
+<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> {
+    <span class="c-keyword">const</span> body = <span class="c-fn">decodeJson</span>(<span class="c-string">"order"</span>, req.body ?? <span class="c-string">""</span>);
     <span class="c-keyword">assert</span>(body.ok, Response.<span class="c-fn">json</span>(
         { errors: body.errors }, { status: <span class="c-number">400</span> }
     ));
@@ -714,7 +776,11 @@
         );
         <span class="c-comment">// Wait for external webhook confirmation</span>
         <span class="c-keyword">const</span> confirm = <span class="c-fn">waitSignal</span>(<span class="c-string">"payment-confirmed"</span>);
-        Response.<span class="c-fn">json</span>({ status: <span class="c-string">"fulfilled"</span>, id: confirm.id });
+        <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({
+            status: <span class="c-string">"fulfilled"</span>,
+            chargeStatus: charge.status,
+            signal: confirm
+        });
     });
 }</code></pre>
               </div>
