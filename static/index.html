@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp - Native compiler-agent runtime built in Zig</title>
+    <title>zigttp - Compiler-agent runtime built in Zig</title>
     <meta
       name="description"
-      content="zigttp is a TypeScript runtime built in Zig with a native compiler-agent loop. It rewrites, verifies, and compiles handlers into proven 1.2MB binaries with 3ms cold start."
+      content="zigttp is a compiler-agent runtime built in Zig for TypeScript handlers. It rewrites, verifies, and deploys proven single-binary services."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -28,11 +28,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/">
     <meta
       property="og:title"
-      content="zigttp - Native compiler-agent runtime built in Zig"
+      content="zigttp - Compiler-agent runtime built in Zig"
     >
     <meta
       property="og:description"
-      content="A TypeScript runtime with a native compiler-agent loop that rewrites, verifies, and compiles handlers into proven 1.2MB binaries."
+      content="A compiler-agent runtime that rewrites, verifies, and deploys proven single-binary TypeScript handlers."
     >
     <meta
       property="og:image"
@@ -46,11 +46,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp - Native compiler-agent runtime built in Zig"
+      content="zigttp - Compiler-agent runtime built in Zig"
     >
     <meta
       name="twitter:description"
-      content="A TypeScript runtime with a native compiler-agent loop that rewrites, verifies, and compiles handlers into proven 1.2MB binaries."
+      content="A compiler-agent runtime that rewrites, verifies, and deploys proven single-binary TypeScript handlers."
     >
     <meta
       name="twitter:image"
@@ -63,11 +63,11 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "A TypeScript runtime built from scratch in Zig with a native compiler-agent loop. It rewrites, verifies, and compiles handlers into proven 1.2MB binaries with 3ms cold start.",
+      "description": "A compiler-agent runtime built from scratch in Zig for TypeScript handlers. It rewrites, verifies, and deploys proven single-binary services.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
-      "applicationSubCategory": "TypeScript Runtime, Compiler-Agent, CLI Tool",
-      "keywords": "TypeScript runtime, Zig runtime, compiler agent, agentic compiler, compile-time verification, zigts, virtual modules",
+      "applicationSubCategory": "Compiler-Agent, TypeScript Runtime, CLI Tool",
+      "keywords": "compiler agent, agentic compiler, TypeScript runtime, Zig runtime, compile-time verification, zigts, virtual modules",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -198,62 +198,49 @@
     <!-- Hero -->
     <main id="main">
       <section class="hero">
-        <div class="container hero-content">
-          <p class="hero-badge entrance-badge">native compiler-agent loop</p>
-          <h1 class="hero-title">
-            One binary.<br><span class="accent">Proven correct.</span>
-          </h1>
-          <p class="hero-sub">
-            A TypeScript runtime built in Zig where the compiler is the agent:
-            it edits, verifies, and ships proven 1.2MB binaries.
-          </p>
-          <div class="hero-ctas entrance-ctas">
-            <a
-              href="https://github.com/srdjan/zigttp#install"
-              class="cta-btn cta-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Install zigttp</a>
-            <a
-              href="https://github.com/srdjan/zigttp"
-              class="cta-btn cta-secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >GitHub</a>
-          </div>
-          <div class="hero-stats">
-            <div class="stat">
-              <span class="stat-value">7</span>
-              <span class="stat-label">compile-time proofs</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value">3ms</span>
-              <span class="stat-label">cold start</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value">1.2MB</span>
-              <span class="stat-label">binary</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value">18</span>
-              <span class="stat-label">native modules</span>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="hero-brand entrance-brand">zigttp</p>
+            <h1 class="hero-title">
+              Compiler-agent<br><span class="accent">runtime.</span>
+            </h1>
+            <p class="hero-sub">
+              The compiler stays in the loop: it rewrites, verifies, and deploys
+              proven single-binary TypeScript handlers.
+            </p>
+            <div class="hero-ctas entrance-ctas">
+              <a
+                href="https://github.com/srdjan/zigttp#install"
+                class="cta-btn cta-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Install zigttp</a>
+              <a
+                href="https://github.com/srdjan/zigttp/tree/main/docs"
+                class="cta-btn cta-secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Read the docs</a>
             </div>
           </div>
-        </div>
-        <div class="hero-terminal-wrap">
-          <div class="container">
-            <div class="terminal entrance-terminal">
+          <div class="hero-visual hero-terminal-wrap entrance-terminal">
+            <div class="terminal hero-terminal">
               <div class="terminal-bar">
                 <span class="terminal-dot" aria-hidden="true"></span>
                 <span class="terminal-dot" aria-hidden="true"></span>
                 <span class="terminal-dot" aria-hidden="true"></span>
-                <span class="terminal-title">terminal</span>
+                <span class="terminal-title">compiler-agent loop</span>
               </div>
               <div class="terminal-body">
-                <pre><code><span class="t-prompt">$</span> zigttp expert <span class="t-string">"add a health check endpoint"</span>
-<span class="t-dim">[compiler-agent] Planning patch...</span>
+                <pre><code><span class="t-prompt">$</span> zigttp expert <span class="t-string">"add /health and ship it"</span>
+
+<span class="t-dim">[compiler-agent] Planning handler patch...</span>
+<span class="t-dim">[compiler-agent] Simulating edit against zigts rules...</span>
+<span class="t-dim">[compiler-agent] Re-running proofs + contract extraction...</span>
+
 <span class="t-output">PROVEN 7/7 proofs</span>
-<span class="t-output">Handler ready. Listening on http://localhost:8080</span></code></pre>
+<span class="t-output">CONTRACT stable: no new secrets, hosts, or modules</span>
+<span class="t-output">DEPLOY ready: health-check (1.2MB)</span></code></pre>
               </div>
             </div>
           </div>
@@ -267,30 +254,20 @@
             <div class="expert-prose">
               <p class="section-kicker">Native Compiler-Agent</p>
               <h2 class="section-title">
-                The compiler is the agent.
+                It does not call the compiler. It is the compiler.
               </h2>
               <p>
-                <code>zigttp expert</code> is not an editor plugin or a
-                third-party agent framework. zigttp embeds the agentic loop
-                into the compiler itself: you describe the change, the compiler
-                proposes edits, runs verification, rejects invalid moves, and
-                keeps iterating until the handler is inside the language,
-                contract, and proof boundaries.
+                <code>zigttp expert</code> embeds the repair loop directly into
+                zigts. You describe the change, the compiler proposes edits,
+                simulates the patch, reruns verification, and stops only when
+                the handler fits the language, the proof system, and the
+                contract it is allowed to ship.
               </p>
               <p>
-                That makes zigttp unusual in a way most dev tools are not. It
-                may be the first environment where the compiler is not just the
-                judge of the agent, but the agentic loop itself. No MCP bridge.
-                No external orchestration layer. No “agent plus compiler”
-                handoff. The compiler stays live in the edit path, which makes
-                the workflow faster, stricter, and much harder to bluff. It
-                feels less like autocomplete and more like a native proving
-                machine that can also write.
-              </p>
-              <p>
-                The same loop carries into CI and deployment. If a change breaks
-                the subset, invalidates a proof, or widens the contract in the
-                wrong direction, the compiler-agent stops it before it ships.
+                That removes the usual handoff between agent shell and compiler.
+                The same loop governs edits, CI, and deployment, which makes
+                zigttp unusually hard to bluff: the thing writing the patch is
+                also the thing proving it.
               </p>
             </div>
             <div class="expert-terminal">
@@ -332,13 +309,12 @@
           <div class="feature-intro">
             <p class="section-kicker">Feature Surface</p>
             <h2 class="section-title">
-              The whole product, visible before the deep dive.
+              More than one trick.
             </h2>
             <p>
-              The compiler-agent loop leads, but zigttp is larger than one
-              trick. It is also a runtime, a restricted language, a proof
-              system, a native standard library, and a deploy pipeline. These
-              are the major surfaces it ships today.
+              The compiler-agent loop is the headline, but the product ships as
+              a runtime, a restricted language, a proof system, a native
+              standard library, and a deploy pipeline.
             </p>
           </div>
 
@@ -494,73 +470,15 @@
         </div>
       </section>
 
-      <!-- The Pitch -->
-      <section id="pitch" class="section">
-        <div class="container">
-          <div class="pitch-layout">
-            <div class="pitch-prose">
-              <h2 class="section-title" data-reveal="lines">
-                TypeScript, minus the footguns.
-              </h2>
-              <p>
-                zigttp implements a restricted TypeScript subset called
-                <strong>zigts</strong>. It drops classes, try/catch,
-                async/await, and null at parse time. It adds match expressions,
-                pipe operator, guard composition, and comptime evaluation. The
-                restrictions let the compiler walk every execution path and
-                prove 7 properties statically: exhaustive returns, injection
-                safety, state isolation, result checking, optional narrowing,
-                match completeness, and idempotency.
-              </p>
-              <p>
-                No V8. No QuickJS. A custom engine with JIT compilation,
-                NaN-boxed values, and hybrid arena allocation. String operations
-                run 63x faster than QuickJS. Cold start is 3ms while Node.js
-                takes 200-300ms. The output is a single 1.2MB binary with 4MB
-                memory baseline.
-              </p>
-              <p>
-                You give up npm, the full language spec, and general-purpose
-                scope. You get a compiler that proves your serverless handlers
-                correct before they ship.
-                <a
-                  href="https://github.com/srdjan/zigttp/tree/main/docs"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Read the full zigts spec</a>
-              </p>
-            </div>
-            <div class="pitch-terminal">
-              <div class="terminal">
-                <div class="terminal-bar">
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-title">zigttp check</span>
-                </div>
-                <div class="terminal-body">
-                  <pre><code><span class="t-prompt">$</span> zigttp check handler.ts
-
-<span class="t-error">  error[E0012]: `class` is not supported in zigts</span>
-<span class="t-dim">    --> handler.ts:3:1</span>
-<span class="t-dim">    = help: use a plain object literal or factory function</span>
-
-<span class="t-error">  error[E0017]: `try/catch` is not supported in zigts</span>
-<span class="t-dim">    --> handler.ts:8:3</span>
-<span class="t-dim">    = help: use Result types - check .ok before .value</span></code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- Code Examples -->
       <section id="code" class="section section-dark">
         <div class="container container--wide">
-          <h2 class="section-title">
-            A handler is a function that returns a response.
-          </h2>
+          <p class="section-kicker">Verified Subset</p>
+          <h2 class="section-title">Restricted TypeScript, real handlers.</h2>
+          <p class="section-lead">
+            zigts drops the dynamic footguns so auth, SSR, durable workflows,
+            and route logic can live inside one provable surface.
+          </p>
           <div class="code-tabs">
             <div class="tabs-header" role="tablist">
               <button
@@ -808,231 +726,209 @@
       <!-- Virtual Modules -->
       <section id="modules" class="section section-dark">
         <div class="container">
+          <p class="section-kicker">Native Standard Library</p>
           <h2 class="section-title">
             18 native modules replace npm for serverless.
           </h2>
-          <div class="module-filters">
-            <button
-              class="module-filter active"
-              data-filter="all"
-              aria-pressed="true"
-            >
-              All
-            </button>
-            <button
-              class="module-filter"
-              data-filter="security"
-              aria-pressed="false"
-            >
-              Security
-            </button>
-            <button class="module-filter" data-filter="io" aria-pressed="false">
-              I/O
-            </button>
-            <button
-              class="module-filter"
-              data-filter="data"
-              aria-pressed="false"
-            >
-              Data
-            </button>
-            <button
-              class="module-filter"
-              data-filter="utility"
-              aria-pressed="false"
-            >
-              Utility
-            </button>
-          </div>
-          <div class="modules-grid">
-            <div class="module-card" data-category="security">
-              <span class="module-import">zigttp:auth</span>
-              <span class="module-effect module-effect--read">read</span>
-              <code class="module-exports"
-              >parseBearer, jwtVerify, jwtSign, verifyWebhookSignature,
-                timingSafeEqual</code>
-            </div>
-            <div class="module-card" data-category="security">
-              <span class="module-import">zigttp:crypto</span>
-              <span class="module-effect module-effect--read">read</span>
-              <code class="module-exports"
-              >sha256, hmacSha256, base64Encode, base64Decode</code>
-            </div>
-            <div class="module-card" data-category="io">
-              <span class="module-import">zigttp:io</span>
-              <span class="module-effect module-effect--write">write</span>
-              <code class="module-exports">parallel, race</code>
-            </div>
-            <div class="module-card" data-category="io">
-              <span class="module-import">zigttp:http</span>
-              <span class="module-effect module-effect--none">none</span>
-              <code class="module-exports"
-              >parseCookies, setCookie, negotiate, parseContentType, cors</code>
-            </div>
-            <div class="module-card" data-category="io">
-              <span class="module-import">zigttp:durable</span>
-              <span class="module-effect module-effect--write">write</span>
-              <code class="module-exports"
-              >run, step, stepWithTimeout, sleep, sleepUntil, waitSignal,
-                signal</code>
-            </div>
-            <div class="module-card" data-category="io">
-              <span class="module-import">zigttp:cache</span>
-              <span class="module-effect module-effect--write">write</span>
-              <code class="module-exports"
-              >cacheGet, cacheSet, cacheDelete, cacheIncr, cacheStats</code>
-            </div>
-            <div class="module-card" data-category="io">
-              <span class="module-import">zigttp:sql</span>
-              <span class="module-effect module-effect--write">write</span>
-              <code class="module-exports">sql, sqlOne, sqlMany, sqlExec</code>
-            </div>
-            <div class="module-card" data-category="data">
-              <span class="module-import">zigttp:env</span>
-              <span class="module-effect module-effect--read">read</span>
-              <code class="module-exports">env</code>
-            </div>
-            <div class="module-card" data-category="data">
-              <span class="module-import">zigttp:validate</span>
-              <span class="module-effect module-effect--read">read</span>
-              <code class="module-exports"
-              >schemaCompile, validateJson, validateObject, coerceJson,
-                schemaDrop</code>
-            </div>
-            <div class="module-card" data-category="data">
-              <span class="module-import">zigttp:decode</span>
-              <span class="module-effect module-effect--read">read</span>
-              <code class="module-exports"
-              >decodeJson, decodeForm, decodeQuery</code>
-            </div>
-            <div class="module-card" data-category="data">
-              <span class="module-import">zigttp:url</span>
-              <span class="module-effect module-effect--none">none</span>
-              <code class="module-exports"
-              >urlParse, urlSearchParams, urlEncode, urlDecode</code>
-            </div>
-            <div class="module-card" data-category="data">
-              <span class="module-import">zigttp:id</span>
-              <span class="module-effect module-effect--none">none</span>
-              <code class="module-exports">uuid, ulid, nanoid</code>
-            </div>
-            <div class="module-card" data-category="utility">
-              <span class="module-import">zigttp:router</span>
-              <span class="module-effect module-effect--read">read</span>
-              <code class="module-exports">routerMatch</code>
-            </div>
-            <div class="module-card" data-category="utility">
-              <span class="module-import">zigttp:compose</span>
-              <span class="module-effect module-effect--none">none</span>
-              <code class="module-exports">guard</code>
-            </div>
-            <div class="module-card" data-category="utility">
-              <span class="module-import">zigttp:log</span>
-              <span class="module-effect module-effect--none">none</span>
-              <code class="module-exports"
-              >logDebug, logInfo, logWarn, logError</code>
-            </div>
-            <div class="module-card" data-category="utility">
-              <span class="module-import">zigttp:text</span>
-              <span class="module-effect module-effect--none">none</span>
-              <code class="module-exports"
-              >escapeHtml, unescapeHtml, slugify, truncate, mask</code>
-            </div>
-            <div class="module-card" data-category="utility">
-              <span class="module-import">zigttp:time</span>
-              <span class="module-effect module-effect--none">none</span>
-              <code class="module-exports"
-              >formatIso, formatHttp, parseIso, addSeconds</code>
-            </div>
-            <div class="module-card" data-category="utility">
-              <span class="module-import">zigttp:ratelimit</span>
-              <span class="module-effect module-effect--write">write</span>
-              <code class="module-exports">rateCheck, rateReset</code>
-            </div>
+          <p class="section-lead">
+            Auth, validation, cache, SQL, routing, durable workflows, and
+            utility helpers ship as Zig code, not JavaScript polyfills.
+          </p>
+          <div class="module-groups">
+            <section class="module-group">
+              <h3>Security</h3>
+              <ul class="module-list">
+                <li>
+                  <code class="module-name">zigttp:auth</code><span
+                    class="module-copy"
+                  >parseBearer, jwtVerify, jwtSign, verifyWebhookSignature,
+                    timingSafeEqual</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:crypto</code><span
+                    class="module-copy"
+                  >sha256, hmacSha256, base64Encode, base64Decode</span>
+                </li>
+              </ul>
+            </section>
+            <section class="module-group">
+              <h3>I/O and State</h3>
+              <ul class="module-list">
+                <li>
+                  <code class="module-name">zigttp:io</code><span
+                    class="module-copy"
+                  >parallel, race</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:http</code><span
+                    class="module-copy"
+                  >parseCookies, setCookie, negotiate, parseContentType,
+                    cors</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:durable</code><span
+                    class="module-copy"
+                  >run, step, stepWithTimeout, sleep, sleepUntil, waitSignal,
+                    signal</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:cache</code><span
+                    class="module-copy"
+                  >cacheGet, cacheSet, cacheDelete, cacheIncr, cacheStats</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:sql</code><span
+                    class="module-copy"
+                  >sql, sqlOne, sqlMany, sqlExec</span>
+                </li>
+              </ul>
+            </section>
+            <section class="module-group">
+              <h3>Data and Input</h3>
+              <ul class="module-list">
+                <li>
+                  <code class="module-name">zigttp:env</code><span
+                    class="module-copy"
+                  >env</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:validate</code><span
+                    class="module-copy"
+                  >schemaCompile, validateJson, validateObject, coerceJson,
+                    schemaDrop</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:decode</code><span
+                    class="module-copy"
+                  >decodeJson, decodeForm, decodeQuery</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:url</code><span
+                    class="module-copy"
+                  >urlParse, urlSearchParams, urlEncode, urlDecode</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:id</code><span
+                    class="module-copy"
+                  >uuid, ulid, nanoid</span>
+                </li>
+              </ul>
+            </section>
+            <section class="module-group">
+              <h3>Flow and Utility</h3>
+              <ul class="module-list">
+                <li>
+                  <code class="module-name">zigttp:router</code><span
+                    class="module-copy"
+                  >routerMatch</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:compose</code><span
+                    class="module-copy"
+                  >guard</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:log</code><span
+                    class="module-copy"
+                  >logDebug, logInfo, logWarn, logError</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:text</code><span
+                    class="module-copy"
+                  >escapeHtml, unescapeHtml, slugify, truncate, mask</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:time</code><span
+                    class="module-copy"
+                  >formatIso, formatHttp, parseIso, addSeconds</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:ratelimit</code><span
+                    class="module-copy"
+                  >rateCheck, rateReset</span>
+                </li>
+              </ul>
+            </section>
           </div>
         </div>
       </section>
 
-      <!-- Get Started + FAQ -->
+      <!-- Get Started -->
       <section id="get-started" class="section">
         <div class="container">
-          <h2 class="section-title">Get started.</h2>
-          <div class="terminal terminal-workflow">
-            <div class="terminal-bar">
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-title">workflow</span>
-            </div>
-            <div class="terminal-body">
-              <pre><code><span class="t-dim"># 1. Install from GitHub</span>
-<span class="t-prompt">$</span> <span class="t-output">curl -fsSL https://zigttp.timok.com/install | sh</span>
+          <p class="section-kicker">Start Fast</p>
+          <h2 class="section-title">Install, run, deploy.</h2>
+          <p class="section-lead">
+            One short path from first handler to compiler-proven deployment.
+          </p>
+          <div class="start-layout">
+            <div class="terminal terminal-workflow">
+              <div class="terminal-bar">
+                <span class="terminal-dot" aria-hidden="true"></span>
+                <span class="terminal-dot" aria-hidden="true"></span>
+                <span class="terminal-dot" aria-hidden="true"></span>
+                <span class="terminal-title">workflow</span>
+              </div>
+              <div class="terminal-body">
+                <pre><code><span class="t-dim"># 1. Install from GitHub</span>
+<span class="t-prompt">$</span> curl -fsSL https://zigttp.timok.com/install | sh
 
 <span class="t-dim"># 2. Create a handler</span>
 <span class="t-prompt">$</span> zigttp init my-handler
 <span class="t-output">  Created my-handler/handler.ts</span>
 <span class="t-output">  Created my-handler/tests.jsonl</span>
 
-<span class="t-dim"># 3. Develop with live verification</span>
-<span class="t-prompt">$</span> cd my-handler && zigttp dev
-<span class="t-output">  Listening on http://localhost:8080</span>
-<span class="t-output">  Watching handler.ts for changes</span>
-
-<span class="t-dim"># 4. Compile and deploy</span>
-<span class="t-prompt">$</span> zigttp compile --deploy=aws
+<span class="t-dim"># 3. Work with the compiler-agent</span>
+<span class="t-prompt">$</span> cd my-handler && zigttp expert <span class="t-string">"add auth + validation"</span>
 <span class="t-output">  PROVEN 7/7 proofs</span>
-<span class="t-output">  Binary: my-handler (1.2MB)</span>
-<span class="t-output">  Wrote: contract.json, template.yaml</span></code></pre>
+
+<span class="t-dim"># 4. Deploy</span>
+<span class="t-prompt">$</span> zigttp deploy
+<span class="t-output">  Packaged OCI image</span>
+<span class="t-output">  Service provisioned</span></code></pre>
+              </div>
+            </div>
+
+            <div class="cli-reference">
+              <h3>Core Commands</h3>
+              <dl class="cli-list">
+                <div class="cli-entry">
+                  <dt>zigttp init</dt>
+                  <dd>Bootstrap a new project</dd>
+                </div>
+                <div class="cli-entry">
+                  <dt>zigttp serve</dt>
+                  <dd>Run a handler locally</dd>
+                </div>
+                <div class="cli-entry">
+                  <dt>zigttp dev</dt>
+                  <dd>Watch mode with proof-aware reloads</dd>
+                </div>
+                <div class="cli-entry">
+                  <dt>zigttp expert</dt>
+                  <dd>Compiler-native edit, proof, and repair loop</dd>
+                </div>
+                <div class="cli-entry">
+                  <dt>zigttp check</dt>
+                  <dd>Verification and type checks</dd>
+                </div>
+                <div class="cli-entry">
+                  <dt>zigttp deploy</dt>
+                  <dd>One-command build, push, and provision</dd>
+                </div>
+              </dl>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div class="cli-reference">
-            <h3>CLI Reference</h3>
-            <dl class="cli-list">
-              <div class="cli-entry">
-                <dt>zigttp serve</dt>
-                <dd>Run a handler on the single-binary runtime</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp init</dt>
-                <dd>Bootstrap a new project</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp dev</dt>
-                <dd>Watch mode with live verification</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp check</dt>
-                <dd>Type and verification checks</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp compile</dt>
-                <dd>Precompile to a single binary</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp prove</dt>
-                <dd>Compare contracts for safe upgrades</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp doctor</dt>
-                <dd>Diagnostic checks for local setup</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp mock</dt>
-                <dd>Generate mock server from tests</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp link</dt>
-                <dd>Cross-handler contract linking</dd>
-              </div>
-              <div class="cli-entry">
-                <dt>zigttp expert</dt>
-                <dd>Compiler-native agent loop for edits, proofs, and repair</dd>
-              </div>
-            </dl>
-          </div>
-
-          <h3 class="faq-heading">Questions</h3>
+      <section id="questions" class="section section-dark">
+        <div class="container">
+          <p class="section-kicker">Questions</p>
+          <h2 class="section-title">The fast objections.</h2>
+          <p class="section-lead">
+            What most developers need to know before they try it.
+          </p>
           <div class="faq-list">
             <details class="faq-item">
               <summary class="faq-question">
@@ -1093,7 +989,7 @@
             </details>
           </div>
 
-          <div class="hero-ctas hero-ctas--center">
+          <div class="section-ctas">
             <a
               href="https://github.com/srdjan/zigttp"
               class="cta-btn cta-primary"

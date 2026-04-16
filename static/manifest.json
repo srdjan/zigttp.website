@@ -1,9 +1,10 @@
 {
-  "name": "zigttp - TypeScript Runtime Built in Zig",
+  "name": "zigttp - Compiler-Agent Runtime",
   "short_name": "zigttp",
+  "description": "A compiler-agent runtime built in Zig for verified TypeScript handlers.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#161619",
+  "background_color": "#0a0a0f",
   "theme_color": "#f7a41d",
   "icons": [
     { "src": "/favicon-32x32.png", "sizes": "32x32", "type": "image/png" },

@@ -1,8 +1,22 @@
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data:",
+  "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
 const SECURITY_HEADERS: Record<string, string> = {
   "x-content-type-options": "nosniff",
   "x-frame-options": "DENY",
   "referrer-policy": "strict-origin-when-cross-origin",
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  "content-security-policy": CONTENT_SECURITY_POLICY,
 };
 
 const CONTENT_TYPES: Record<string, string> = {
@@ -45,8 +59,8 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
     "content-type": getContentType(path),
   };
 
-  const nocache = path.endsWith(".html") || path.endsWith(".txt")
-    || path.endsWith(".xml") || path === "/manifest.json";
+  const nocache = path.endsWith(".html") || path.endsWith(".txt") ||
+    path.endsWith(".xml") || path === "/manifest.json";
   headers["cache-control"] = nocache
     ? "no-cache"
     : "public, max-age=31536000, immutable";
@@ -63,6 +77,7 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
         headers: {
           ...SECURITY_HEADERS,
           "content-type": "text/html; charset=utf-8",
+          "cache-control": "no-cache",
         },
       });
     } catch {

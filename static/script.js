@@ -76,34 +76,7 @@ document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
   });
 });
 
-// Module category filter
-const moduleSection = document.querySelector(".module-filters")?.closest(".container");
-if (moduleSection) {
-  const filterBtns = moduleSection.querySelectorAll(".module-filter");
-  const moduleCards = moduleSection.querySelectorAll(".module-card");
-
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const filter = btn.dataset.filter;
-      filterBtns.forEach((b) => {
-        b.classList.remove("active");
-        b.setAttribute("aria-pressed", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-pressed", "true");
-
-      moduleCards.forEach((card) => {
-        if (filter === "all" || card.dataset.category === filter) {
-          card.removeAttribute("data-hidden");
-        } else {
-          card.setAttribute("data-hidden", "");
-        }
-      });
-    });
-  });
-}
-
-// Staggered fade-in for module cards on scroll
+// Staggered fade-in for feature and module lists on scroll
 const fadeObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -119,7 +92,7 @@ const fadeObserver = new IntersectionObserver(
   { threshold: 0.15 },
 );
 
-document.querySelectorAll(".modules-grid, .feature-list").forEach((grid) => {
+document.querySelectorAll(".feature-list, .module-groups").forEach((grid) => {
   grid.querySelectorAll(":scope > *").forEach((child) => {
     child.classList.add("fade-in-up");
   });
@@ -140,7 +113,7 @@ const elFadeObserver = new IntersectionObserver(
 );
 
 document.querySelectorAll(
-  ".feature-intro, .pitch-terminal, .expert-terminal, .cli-reference",
+  ".feature-intro, .expert-terminal, .cli-reference, .faq-list",
 )
   .forEach((el) => {
     el.classList.add("fade-in-up");
@@ -191,7 +164,14 @@ if (spySections.length) {
         }
       });
     },
-    { threshold: 0.3, rootMargin: `${-parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height"))}px 0px -60% 0px` },
+    {
+      threshold: 0.3,
+      rootMargin: `${-parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--nav-height",
+        ),
+      )}px 0px -60% 0px`,
+    },
   );
   spySections.forEach((section) => scrollSpy.observe(section));
 }
