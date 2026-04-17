@@ -6,7 +6,7 @@
     <title>zigttp - Compiler-agent runtime built in Zig</title>
     <meta
       name="description"
-      content="zigttp is a compiler-agent runtime built in Zig for TypeScript handlers. It rewrites, verifies, and deploys proven single-binary services."
+      content="zigttp is a compiler-agent runtime built in Zig for TypeScript handlers. It rewrites, verifies, sandboxes, and deploys proven single-binary services."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -32,7 +32,7 @@
     >
     <meta
       property="og:description"
-      content="A compiler-agent runtime that rewrites, verifies, and deploys proven single-binary TypeScript handlers."
+      content="A compiler-agent runtime that rewrites, verifies, sandboxes, and deploys proven single-binary TypeScript handlers."
     >
     <meta
       property="og:image"
@@ -50,7 +50,7 @@
     >
     <meta
       name="twitter:description"
-      content="A compiler-agent runtime that rewrites, verifies, and deploys proven single-binary TypeScript handlers."
+      content="A compiler-agent runtime that rewrites, verifies, sandboxes, and deploys proven single-binary TypeScript handlers."
     >
     <meta
       name="twitter:image"
@@ -63,7 +63,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "A compiler-agent runtime built from scratch in Zig for TypeScript handlers. It rewrites, verifies, and deploys proven single-binary services.",
+      "description": "A compiler-agent runtime built from scratch in Zig for TypeScript handlers. It rewrites, verifies, sandboxes, and deploys proven single-binary services.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Compiler-Agent, TypeScript Runtime, CLI Tool",
@@ -124,7 +124,7 @@
           "name": "Can I use npm packages with zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. zigttp ships 18 virtual modules (zigttp:auth, zigttp:cache, zigttp:sql, zigttp:crypto, etc.) implemented in Zig. The compiler tracks every module import to generate least-privilege sandboxes. For anything the virtual modules do not cover, call an external API with fetchSync."
+            "text": "No. zigttp ships 20 virtual modules (zigttp:auth, zigttp:cache, zigttp:sql, zigttp:crypto, zigttp:service, zigttp:scope, etc.) implemented in Zig. The compiler tracks every module import to generate least-privilege sandboxes. For anything the virtual modules do not cover, call an external API with fetchSync."
           }
         },
         {
@@ -132,7 +132,7 @@
           "name": "How do I install zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Run the one-line installer from the README, or download a tarball from the GitHub releases page. Source builds require Zig 0.16.0-dev."
+            "text": "Run the one-line installer from the README, or download a tarball from the GitHub releases page. Source builds require Zig 0.16.0."
           }
         },
         {
@@ -205,8 +205,8 @@
               Compiler-agent<br><span class="accent">runtime.</span>
             </h1>
             <p class="hero-sub">
-              The compiler stays in the loop: it rewrites, verifies, and deploys
-              proven single-binary TypeScript handlers.
+              The compiler stays in the loop: it rewrites, verifies, sandboxes,
+              and deploys proven single-binary TypeScript handlers.
             </p>
             <div class="hero-ctas entrance-ctas">
               <a
@@ -261,7 +261,9 @@
                 zigts. You describe the change, the compiler proposes edits,
                 simulates the patch, reruns verification, and stops only when
                 the handler fits the language, the proof system, and the
-                contract it is allowed to ship.
+                contract it is allowed to ship. Edits it approves are applied
+                in-process, so the same binary that proves a handler also
+                writes it.
               </p>
               <p>
                 That removes the usual handoff between agent shell and compiler.
@@ -362,16 +364,18 @@
                 <div class="feature-row-body">
                   <h3>Compile-Time Analysis and Proofs</h3>
                   <p class="feature-row-summary">
-                    Verification, contract extraction, auto-sandboxing, replay,
-                    and proof-driven upgrade checks turn source into something
-                    the compiler can defend.
+                    Verification, contract extraction, auto-sandboxing, and
+                    replay turn source into runtime behavior: proven
+                    deterministic and read-only handlers skip JS and serve
+                    GET/HEAD responses from Zig memory, while contracts drive
+                    least-privilege policy.
                   </p>
                 </div>
               </div>
               <p class="feature-row-meta">
                 <span>-Dverify</span>
-                <span>behavioral paths</span>
-                <span>replay + prove</span>
+                <span>proof-driven cache</span>
+                <span>capability-pinned sandbox</span>
               </p>
             </article>
 
@@ -388,7 +392,7 @@
                 </div>
               </div>
               <p class="feature-row-meta">
-                <span>18 native modules</span>
+                <span>20 native modules</span>
                 <span>declared capabilities</span>
                 <span>no npm polyfills</span>
               </p>
@@ -400,15 +404,17 @@
                 <div class="feature-row-body">
                   <h3>Deployment and Operations</h3>
                   <p class="feature-row-summary">
-                    Build-time facts flow straight into deploy, packaging,
-                    sandboxing, OCI metadata, and drift-aware rollout control.
+                    The compiler-proven contract flows into deploy: the control
+                    plane approves safe changes, requests review on capability
+                    diffs, and blocks drifted replaces before the image ever
+                    builds.
                   </p>
                 </div>
               </div>
               <p class="feature-row-meta">
                 <span>zigttp deploy</span>
-                <span>OCI packaging</span>
-                <span>drift detection</span>
+                <span>contract-aware review</span>
+                <span>grants + drift</span>
               </p>
             </article>
 
@@ -443,7 +449,7 @@
                 </div>
               </div>
               <p class="feature-row-meta">
-                <span>zigttp agent init</span>
+                <span>zigttp expert</span>
                 <span>zigts check --json</span>
                 <span>no third-party agent shell</span>
               </p>
@@ -794,7 +800,7 @@
         <div class="container">
           <p class="section-kicker">Native Standard Library</p>
           <h2 class="section-title">
-            18 native modules replace npm for serverless.
+            20 native modules replace npm for serverless.
           </h2>
           <p class="section-lead">
             Auth, validation, cache, SQL, routing, durable workflows, and
@@ -847,6 +853,11 @@
                     class="module-copy"
                   >sql, sqlOne, sqlMany, sqlExec</span>
                 </li>
+                <li>
+                  <code class="module-name">zigttp:service</code><span
+                    class="module-copy"
+                  >serviceCall</span>
+                </li>
               </ul>
             </section>
             <section class="module-group">
@@ -892,6 +903,11 @@
                   <code class="module-name">zigttp:compose</code><span
                     class="module-copy"
                   >guard</span>
+                </li>
+                <li>
+                  <code class="module-name">zigttp:scope</code><span
+                    class="module-copy"
+                  >scope, using, ensure</span>
                 </li>
                 <li>
                   <code class="module-name">zigttp:log</code><span
@@ -1029,7 +1045,7 @@
                 Can I use npm packages with zigttp?
               </summary>
               <p class="faq-answer">
-                No. zigttp ships 18 virtual modules implemented in Zig instead.
+                No. zigttp ships 20 virtual modules implemented in Zig instead.
                 The compiler tracks every module import to generate
                 least-privilege sandboxes. For anything the virtual modules do
                 not cover, call an external API with fetchSync.
@@ -1040,7 +1056,7 @@
               <p class="faq-answer">
                 Run the one-line installer from the README, or download a
                 tarball from the GitHub releases page. Source builds require Zig
-                0.16.0-dev.
+                0.16.0.
               </p>
             </details>
             <details class="faq-item">
