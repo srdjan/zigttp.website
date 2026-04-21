@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp - Compiler-agent runtime built in Zig</title>
+    <title>zigttp - Prove your TypeScript handlers before they ship</title>
     <meta
       name="description"
-      content="zigttp is a compiler-agent runtime built in Zig for TypeScript handlers. It rewrites, verifies, sandboxes, and deploys proven single-binary services."
+      content="zigttp proves TypeScript handlers correct before deploying them. 7 compile-time checks, a compiler-agent loop, 20 native Zig modules, and one-command deploy. No npm. No surprises."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -28,11 +28,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/">
     <meta
       property="og:title"
-      content="zigttp - Compiler-agent runtime built in Zig"
+      content="zigttp - Prove your TypeScript handlers before they ship"
     >
     <meta
       property="og:description"
-      content="A compiler-agent runtime that rewrites, verifies, sandboxes, and deploys proven single-binary TypeScript handlers."
+      content="What if your agent couldn't ship broken code? zigttp's compiler-agent loop proves handler correctness, extracts behavioral contracts, and deploys only what it can sign off on."
     >
     <meta
       property="og:image"
@@ -46,11 +46,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp - Compiler-agent runtime built in Zig"
+      content="zigttp - Prove your TypeScript handlers before they ship"
     >
     <meta
       name="twitter:description"
-      content="A compiler-agent runtime that rewrites, verifies, sandboxes, and deploys proven single-binary TypeScript handlers."
+      content="What if your agent couldn't ship broken code? zigttp's compiler-agent loop proves handler correctness, extracts behavioral contracts, and deploys only what it can sign off on."
     >
     <meta
       name="twitter:image"
@@ -63,7 +63,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "A compiler-agent runtime built from scratch in Zig for TypeScript handlers. It rewrites, verifies, sandboxes, and deploys proven single-binary services.",
+      "description": "zigttp proves TypeScript handlers correct before deploying them. 7 compile-time checks, a compiler-agent loop, 20 native Zig modules, and one-command deploy. No npm. No surprises.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Compiler-Agent, TypeScript Runtime, CLI Tool",
@@ -209,11 +209,12 @@
           <div class="hero-copy">
             <p class="hero-brand entrance-brand">zigttp</p>
             <h1 class="hero-title">
-              Compiler-agent<br><span class="accent">runtime.</span>
+              What if your agent<br><span class="accent">couldn't ship broken code?</span>
             </h1>
             <p class="hero-sub">
-              The compiler stays in the loop: it rewrites, verifies, sandboxes,
-              and deploys proven single-binary TypeScript handlers.
+              zigttp's compiler-agent loop proves handler correctness before
+              applying any edit. It rewrites, re-proves, and only ships what
+              it can verify. One binary. Zero runtime surprises.
             </p>
             <div class="hero-ctas entrance-ctas">
               <a
@@ -259,24 +260,20 @@
         <div class="container">
           <div class="expert-layout">
             <div class="expert-prose">
-              <p class="section-kicker">Native Compiler-Agent</p>
+              <p class="section-kicker">The Loop</p>
               <h2 class="section-title">
                 It does not call the compiler. It is the compiler.
               </h2>
               <p>
-                <code>zigttp expert</code> embeds the repair loop directly into
-                zigts. You describe the change, the compiler proposes edits,
-                simulates the patch, reruns verification, and stops only when
-                the handler fits the language, the proof system, and the
-                contract it is allowed to ship. Edits it approves are applied
-                in-process, so the same binary that proves a handler also
-                writes it.
+                <code>zigttp expert</code> embeds the repair loop inside the
+                compiler itself. Describe the change. It proposes an edit,
+                simulates the patch against zigts rules, reruns all 7 proofs,
+                and stops only when the handler clears the language, the proof
+                system, and the deployment contract it is allowed to ship.
               </p>
               <p>
-                That removes the usual handoff between agent shell and compiler.
-                The same loop governs edits, CI, and deployment, which makes
-                zigttp unusually hard to bluff: the thing writing the patch is
-                also the thing proving it.
+                No handoff between agent shell and compiler. The thing writing
+                the patch is the thing proving it - and it knows when to say no.
               </p>
             </div>
             <div class="expert-terminal">
@@ -317,14 +314,14 @@
       <section id="features" class="section feature-map">
         <div class="container feature-map-shell">
           <div class="feature-intro">
-            <p class="section-kicker">Feature Surface</p>
+            <p class="section-kicker">What Ships</p>
             <h2 class="section-title">
-              More than one trick.
+              One binary. Five moving parts.
             </h2>
             <p>
-              The compiler-agent loop is the headline, but the product ships as
-              a runtime, a restricted language, a proof system, a native
-              standard library, and a deploy pipeline.
+              Compiler-agent loop in front. Pure-Zig runtime, restricted
+              TypeScript subset, seven-check proof engine, 20 native modules,
+              and a contract-aware deploy pipeline behind it.
             </p>
           </div>
 
@@ -497,11 +494,12 @@
       <!-- Code Examples -->
       <section id="code" class="section section-dark">
         <div class="container container--wide">
-          <p class="section-kicker">Verified Subset</p>
-          <h2 class="section-title">Restricted TypeScript, real handlers.</h2>
+          <p class="section-kicker">The Provable Subset</p>
+          <h2 class="section-title">What TypeScript looks like when it can't lie.</h2>
           <p class="section-lead">
-            zigts drops the dynamic footguns so auth, SSR, durable workflows,
-            and route logic can live inside one provable surface.
+            No classes. No exceptions. No async/await. zigts removes the parts
+            the compiler cannot reason about, and keeps everything it can prove
+            is correct.
           </p>
           <div class="code-tabs">
             <div class="tabs-header" role="tablist">
@@ -816,13 +814,15 @@
       <!-- Virtual Modules -->
       <section id="modules" class="section section-dark">
         <div class="container">
-          <p class="section-kicker">Native Standard Library</p>
+          <p class="section-kicker">No npm</p>
           <h2 class="section-title">
-            20 native modules replace npm for serverless.
+            20 Zig modules. Zero npm surface.
           </h2>
           <p class="section-lead">
-            Auth, validation, cache, SQL, routing, durable workflows, and
-            utility helpers ship as Zig code, not JavaScript polyfills.
+            Auth, validation, cache, SQL, routing, and durable workflows - all
+            Zig code under the compiler's control. Every import is tracked to
+            derive a least-privilege sandbox at compile time. No polyfills,
+            no supply-chain surface.
           </p>
           <div class="module-groups">
             <section class="module-group">
@@ -956,10 +956,11 @@
       <!-- Get Started -->
       <section id="get-started" class="section">
         <div class="container">
-          <p class="section-kicker">Start Fast</p>
-          <h2 class="section-title">Install, run, deploy.</h2>
+          <p class="section-kicker">Four Commands</p>
+          <h2 class="section-title">First handler. First proof. Under five minutes.</h2>
           <p class="section-lead">
-            One short path from first handler to compiler-proven deployment.
+            Install, scaffold, run the compiler-agent, deploy. The path from
+            zero to a proven binary is short enough to try right now.
           </p>
           <div class="start-layout">
             <div class="terminal terminal-workflow">
@@ -1028,10 +1029,11 @@
 
       <section id="questions" class="section section-dark">
         <div class="container">
-          <p class="section-kicker">Questions</p>
+          <p class="section-kicker">Good Questions</p>
           <h2 class="section-title">The fast objections.</h2>
           <p class="section-lead">
-            What most developers need to know before they try it.
+            What most developers want answered before committing to a
+            restricted subset.
           </p>
           <div class="faq-list">
             <details class="faq-item">
