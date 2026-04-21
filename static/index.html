@@ -116,7 +116,7 @@
           "name": "What does proves your code correct mean?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The compiler walks every execution path and checks 7 properties: every path returns a Response, every Result is checked before access, module-scope state does not leak between requests, unvalidated input never reaches sensitive sinks, match expressions cover all variants, and optionals are narrowed before use. These are static proofs, not lint heuristics."
+            "text": "The compiler walks every execution path and runs a seven-check verification suite: control flow completeness, property access validation, reachability analysis, dead code detection, Result value access before checking, exhaustive match coverage, and handler contract extraction. From those checks it proves behavioral properties (deterministic, read_only, idempotent) and stamps them as labels on the deployed artifact. These are static proofs over the restricted language subset, not lint heuristics."
           }
         },
         {
@@ -151,6 +151,13 @@
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- WIP Banner -->
+    <div class="wip-banner" role="alert" aria-live="polite">
+      <span class="wip-pill">Work in Progress</span>
+      <span class="wip-banner-text">zigttp is under active development - APIs and features will change before v1.0</span>
+      <span class="wip-pill">Coming Soon</span>
+    </div>
 
     <!-- Nav -->
     <nav class="nav" aria-label="Primary">
@@ -298,7 +305,8 @@
 <span class="t-output">  Handler ready: health-check (1.2MB)</span>
 
 <span class="t-dim">[compiler-agent] Created src/health-check.ts</span>
-<span class="t-dim">[compiler-agent] Updated tests.jsonl with 3 test cases</span></code></pre>
+<span class="t-dim">[compiler-agent] Running zigts gen-tests health-check.ts...</span>
+<span class="t-dim">[compiler-agent] Wrote 6 test cases to tests.jsonl (exhaustive paths)</span></code></pre>
                 </div>
               </div>
             </div>
@@ -347,13 +355,17 @@
                   <p class="feature-row-summary">
                     Restricted JavaScript and TypeScript designed to stay
                     analyzable, with JSX, TSX, sound-mode checks, and
-                    compile-time evaluation.
+                    compile-time evaluation. The type checker enforces nominal
+                    types via <code>distinct type</code>, discriminated union
+                    narrowing, type guard functions, readonly fields, template
+                    literal types, and generic aliases with up to 8 parameters.
+                    No classes, no exceptions, no async/await at parse time.
                   </p>
                 </div>
               </div>
               <p class="feature-row-meta">
                 <span>native TS + TSX</span>
-                <span>JSX + comptime()</span>
+                <span>distinct types + generics</span>
                 <span>no async footguns</span>
               </p>
             </article>
@@ -364,16 +376,18 @@
                 <div class="feature-row-body">
                   <h3>Compile-Time Analysis and Proofs</h3>
                   <p class="feature-row-summary">
-                    Verification, contract extraction, auto-sandboxing, and
-                    replay turn source into runtime behavior: proven
-                    deterministic and read-only handlers skip JS and serve
-                    GET/HEAD responses from Zig memory, while contracts drive
-                    least-privilege policy.
+                    Seven-check verification suite: every path returns a
+                    Response, every Result is checked before access,
+                    reachability and dead-code detection, exhaustive match
+                    coverage, and optionals narrowed before use. Contract
+                    extraction proves behavioral properties (deterministic,
+                    read_only, idempotent) and these proof labels flow
+                    directly into runtime policy and cache decisions.
                   </p>
                 </div>
               </div>
               <p class="feature-row-meta">
-                <span>-Dverify</span>
+                <span>7-check verifier</span>
                 <span>proof-driven cache</span>
                 <span>capability-pinned sandbox</span>
               </p>
@@ -445,13 +459,17 @@
                   <p class="feature-row-summary">
                     Fetch-like handler APIs, proof cards, compiler JSON, and a
                     native compiler-agent loop built into zigttp itself.
+                    <code>zigts gen-tests</code> synthesizes JSONL test cases
+                    from exhaustive execution-path enumeration. Sessions
+                    persist via JSONL event streams and replay from any
+                    checkpoint.
                   </p>
                 </div>
               </div>
               <p class="feature-row-meta">
                 <span>zigttp expert</span>
-                <span>zigts check --json</span>
-                <span>no third-party agent shell</span>
+                <span>zigts gen-tests</span>
+                <span>session replay</span>
               </p>
             </article>
 
@@ -995,6 +1013,10 @@
                   <dd>Verification and type checks</dd>
                 </div>
                 <div class="cli-entry">
+                  <dt>zigts gen-tests</dt>
+                  <dd>Synthesize JSONL tests from exhaustive path enumeration</dd>
+                </div>
+                <div class="cli-entry">
                   <dt>zigttp deploy</dt>
                   <dd>One-command build, push, and provision</dd>
                 </div>
@@ -1031,13 +1053,15 @@
                 What does "proves your code correct" actually mean?
               </summary>
               <p class="faq-answer">
-                The compiler walks every execution path and checks 7 properties:
-                every path returns a Response, every Result is checked before
-                access, module-scope state does not leak between requests,
-                unvalidated input never reaches sensitive sinks, match
-                expressions cover all variants, and optionals are narrowed
-                before use. These are static proofs over the restricted language
-                subset, not lint heuristics.
+                The compiler walks every execution path and runs a seven-check
+                verification suite: control flow completeness (every path
+                returns a Response), property access validation, reachability
+                analysis, dead code detection, Result value access before
+                checking, exhaustive match coverage, and handler contract
+                extraction. From those checks it proves behavioral properties
+                (deterministic, read_only, idempotent) and stamps them as
+                labels on the deployed artifact. These are static proofs over
+                the restricted language subset, not lint heuristics.
               </p>
             </details>
             <details class="faq-item">
