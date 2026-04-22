@@ -6,7 +6,7 @@
     <title>zigttp - Prove your TypeScript handlers before they ship</title>
     <meta
       name="description"
-      content="zigttp proves TypeScript handlers correct before deploying them. 7 compile-time checks, a compiler-agent loop, 20 native Zig modules, and one-command deploy. No npm. No surprises."
+      content="zigttp uses zigts, a restricted TypeScript subset, so the compiler-agent can rewrite, prove, and ship correct handlers. One binary. No npm. No runtime surprises."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -32,7 +32,7 @@
     >
     <meta
       property="og:description"
-      content="What if your agent couldn't ship broken code? zigttp's compiler-agent loop proves handler correctness, extracts behavioral contracts, and deploys only what it can sign off on."
+      content="zigttp uses zigts, a restricted TypeScript subset, so the compiler-agent can rewrite, prove, and ship correct handlers."
     >
     <meta
       property="og:image"
@@ -50,7 +50,7 @@
     >
     <meta
       name="twitter:description"
-      content="What if your agent couldn't ship broken code? zigttp's compiler-agent loop proves handler correctness, extracts behavioral contracts, and deploys only what it can sign off on."
+      content="zigttp uses zigts, a restricted TypeScript subset, so the compiler-agent can rewrite, prove, and ship correct handlers."
     >
     <meta
       name="twitter:image"
@@ -63,7 +63,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "zigttp proves TypeScript handlers correct before deploying them. 7 compile-time checks, a compiler-agent loop, 20 native Zig modules, and one-command deploy. No npm. No surprises.",
+      "description": "zigttp uses zigts, a restricted TypeScript subset, so the compiler-agent can rewrite, prove, and ship correct handlers. One binary. No npm. No runtime surprises.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Compiler-Agent, TypeScript Runtime, CLI Tool",
@@ -108,15 +108,15 @@
           "name": "How is zigttp different from Node.js, Deno, and Bun?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Node.js, Deno, and Bun run the full language spec. zigttp implements a restricted subset (zigts) that removes classes, exceptions, and async/await at parse time. The restrictions let the compiler prove handler correctness, generate least-privilege sandboxes, and replay executions deterministically."
+            "text": "Node.js, Deno, and Bun run the full language. zigttp uses zigts, a restricted subset, so the compiler can prove handlers, derive least-privilege sandboxes, and replay runs deterministically. That guarantee needs a closed language surface."
           }
         },
         {
           "@type": "Question",
-          "name": "What does proves your code correct mean?",
+          "name": "What does \"proves your code correct\" mean?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The compiler walks every execution path and runs a seven-check verification suite: control flow completeness, property access validation, reachability analysis, dead code detection, Result value access before checking, exhaustive match coverage, and handler contract extraction. From those checks it proves behavioral properties (deterministic, read_only, idempotent) and stamps them as labels on the deployed artifact. These are static proofs over the restricted language subset, not lint heuristics."
+            "text": "zigttp runs seven compile-time checks across every path: returns, reachability, Result narrowing, match coverage, property access, dead code, and contract extraction. Those proofs classify the handler and feed runtime policy, sandboxing, and deploy."
           }
         },
         {
@@ -124,7 +124,7 @@
           "name": "Can I use npm packages with zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. zigttp ships 20 virtual modules (zigttp:auth, zigttp:cache, zigttp:sql, zigttp:crypto, zigttp:service, zigttp:scope, etc.) implemented in Zig. The compiler tracks every module import to generate least-privilege sandboxes. For anything the virtual modules do not cover, call an external API with fetchSync."
+            "text": "No. zigttp ships 20 native zigttp:* modules in Zig, and the compiler tracks every import. If a module does not cover it, call the external API with fetchSync."
           }
         },
         {
@@ -132,7 +132,7 @@
           "name": "How do I install zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Run the one-line installer from the README, or download a tarball from the GitHub releases page. Source builds require Zig 0.16.0."
+            "text": "Use the README installer or download v0.16.0-RC8 from GitHub Releases. Building from source currently requires Zig 0.16.0."
           }
         },
         {
@@ -140,7 +140,7 @@
           "name": "Is zigttp free and open source?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. zigttp is MIT licensed and available on GitHub. The entire runtime, compiler, and standard library of virtual modules are open source."
+            "text": "Yes. zigttp is MIT licensed on GitHub, including the runtime, compiler, and virtual-module standard library."
           }
         }
       ]
@@ -154,9 +154,9 @@
 
     <!-- WIP Banner -->
     <div class="wip-banner" role="alert" aria-live="polite">
-      <span class="wip-pill">Work in Progress</span>
-      <span class="wip-banner-text">zigttp is under active development - APIs and features will change before v1.0</span>
-      <span class="wip-pill">Coming Soon</span>
+      <span class="wip-pill">Preview</span>
+      <span class="wip-banner-text">APIs and features may change before v1.0.</span>
+      <span class="wip-pill">v0.16.0-RC8</span>
     </div>
 
     <!-- Nav -->
@@ -212,9 +212,9 @@
               What if your agent<br><span class="accent">couldn't ship broken code?</span>
             </h1>
             <p class="hero-sub">
-              zigttp's compiler-agent loop proves handler correctness before
-              applying any edit. It rewrites, re-proves, and only ships what
-              it can verify. One binary. Zero runtime surprises.
+              zigts strips TypeScript down to the parts the compiler can prove,
+              so zigttp can rewrite, re-prove, and ship only correct handlers.
+              One binary. No runtime surprises.
             </p>
             <div class="hero-ctas entrance-ctas">
               <a
@@ -237,7 +237,7 @@
                 <span class="terminal-dot" aria-hidden="true"></span>
                 <span class="terminal-dot" aria-hidden="true"></span>
                 <span class="terminal-dot" aria-hidden="true"></span>
-                <span class="terminal-title">compiler-agent loop</span>
+                <span class="terminal-title">zigts compiler-agent</span>
               </div>
               <div class="terminal-body">
                 <pre><code><span class="t-prompt">$</span> zigttp expert <span class="t-string">"add /health and ship it"</span>
@@ -262,18 +262,17 @@
             <div class="expert-prose">
               <p class="section-kicker">The Loop</p>
               <h2 class="section-title">
-                It does not call the compiler. It is the compiler.
+                zigts gives the compiler-agent something it can prove.
               </h2>
               <p>
-                <code>zigttp expert</code> embeds the repair loop inside the
-                compiler itself. Describe the change. It proposes an edit,
-                simulates the patch against zigts rules, reruns all 7 proofs,
-                and stops only when the handler clears the language, the proof
-                system, and the deployment contract it is allowed to ship.
+                <code>zigttp expert</code> works because zigts cuts away the
+                dynamic parts the compiler cannot sign. The compiler proposes
+                the edit, checks it against the subset, reruns all 7 proofs,
+                and stops at code it can certify.
               </p>
               <p>
-                No handoff between agent shell and compiler. The thing writing
-                the patch is the thing proving it - and it knows when to say no.
+                The thing writing the patch is the thing rejecting unsupported
+                moves. No shell agent guessing around a separate compiler.
               </p>
             </div>
             <div class="expert-terminal">
@@ -342,9 +341,9 @@
               One binary. Five moving parts.
             </h2>
             <p>
-              Compiler-agent loop in front. Pure-Zig runtime, restricted
-              TypeScript subset, seven-check proof engine, 20 native modules,
-              and a contract-aware deploy pipeline behind it.
+              zigts makes handlers analyzable; the compiler-agent, proof
+              engine, runtime, modules, and deploy pipeline build on that
+              constraint.
             </p>
           </div>
 
@@ -355,8 +354,8 @@
                 <div class="feature-row-body">
                   <h3>Runtime and Performance</h3>
                   <p class="feature-row-summary">
-                    Pure-Zig execution tuned for HTTP handlers, with JIT, GC,
-                    pool isolation, and cold-start discipline.
+                    Pure-Zig execution for HTTP handlers, tuned for fast cold
+                    starts and tight memory.
                   </p>
                 </div>
               </div>
@@ -373,13 +372,9 @@
                 <div class="feature-row-body">
                   <h3>Language and Type System</h3>
                   <p class="feature-row-summary">
-                    Restricted JavaScript and TypeScript designed to stay
-                    analyzable, with JSX, TSX, sound-mode checks, and
-                    compile-time evaluation. The type checker enforces nominal
-                    types via <code>distinct type</code>, discriminated union
-                    narrowing, type guard functions, readonly fields, template
-                    literal types, and generic aliases with up to 8 parameters.
-                    No classes, no exceptions, no async/await at parse time.
+                    zigts trims TypeScript to an analyzable core, then adds
+                    <code>match</code>, <code>guard</code>, and
+                    <code>comptime</code> where proof needs them.
                   </p>
                 </div>
               </div>
@@ -396,13 +391,8 @@
                 <div class="feature-row-body">
                   <h3>Compile-Time Analysis and Proofs</h3>
                   <p class="feature-row-summary">
-                    Seven-check verification suite: every path returns a
-                    Response, every Result is checked before access,
-                    reachability and dead-code detection, exhaustive match
-                    coverage, and optionals narrowed before use. Contract
-                    extraction proves behavioral properties (deterministic,
-                    read_only, idempotent) and these proof labels flow
-                    directly into runtime policy and cache decisions.
+                    Seven static checks prove handler shape, narrow Results,
+                    and turn behavior into deployable contracts.
                   </p>
                 </div>
               </div>
@@ -419,9 +409,8 @@
                 <div class="feature-row-body">
                   <h3>Virtual Modules and Native Capabilities</h3>
                   <p class="feature-row-summary">
-                    The standard library is Zig code exposed as
-                    <code>zigttp:*</code> modules for auth, validation, cache,
-                    SQL, routing, crypto, durable workflows, and more.
+                    Capabilities live in native <code>zigttp:*</code> modules,
+                    so every import stays explicit and measurable.
                   </p>
                 </div>
               </div>
@@ -438,10 +427,8 @@
                 <div class="feature-row-body">
                   <h3>Deployment and Operations</h3>
                   <p class="feature-row-summary">
-                    The compiler-proven contract flows into deploy: the control
-                    plane approves safe changes, requests review on capability
-                    diffs, and blocks drifted replaces before the image ever
-                    builds.
+                    Deploy consumes the proven contract, blocks unsafe diffs,
+                    and escalates only when capability surface changes.
                   </p>
                 </div>
               </div>
@@ -458,9 +445,8 @@
                 <div class="feature-row-body">
                   <h3>Durable and Concurrent Execution</h3>
                   <p class="feature-row-summary">
-                    Keep handler code synchronous while overlapping I/O, then
-                    opt into oplog-backed durable runs with timers, signals, and
-                    crash recovery.
+                    Keep handler code linear, overlap I/O underneath, then opt
+                    into durable runs when the workflow must survive crashes.
                   </p>
                 </div>
               </div>
@@ -477,12 +463,9 @@
                 <div class="feature-row-body">
                   <h3>Developer Experience and Agent Tooling</h3>
                   <p class="feature-row-summary">
-                    Fetch-like handler APIs, proof cards, compiler JSON, and a
-                    native compiler-agent loop built into zigttp itself.
-                    <code>zigts gen-tests</code> synthesizes JSONL test cases
-                    from exhaustive execution-path enumeration. Sessions
-                    persist via JSONL event streams and replay from any
-                    checkpoint.
+                    The compiler-agent edits inside the same proof system, while
+                    <code>zigts gen-tests</code> turns exhaustive paths into
+                    JSONL fixtures.
                   </p>
                 </div>
               </div>
@@ -499,8 +482,8 @@
                 <div class="feature-row-body">
                   <h3>Extensibility and Embedding</h3>
                   <p class="feature-row-summary">
-                    Extend the runtime with third-party virtual modules or embed
-                    zigttp directly from Zig with explicit configuration.
+                    Embed zigttp from Zig or add virtual modules without giving
+                    up explicit configuration.
                   </p>
                 </div>
               </div>
@@ -518,11 +501,11 @@
       <section id="code" class="section section-dark">
         <div class="container container--wide">
           <p class="section-kicker">The Provable Subset</p>
-          <h2 class="section-title">What TypeScript looks like when it can't lie.</h2>
+          <h2 class="section-title">TypeScript, cut down until it can be proved.</h2>
           <p class="section-lead">
-            No classes. No exceptions. No async/await. zigts removes the parts
-            the compiler cannot reason about, and keeps everything it can prove
-            is correct.
+            zigts removes the dynamic surface the compiler cannot sign. What
+            stays is small enough to analyze and expressive enough to build
+            real handlers.
           </p>
           <div class="code-tabs">
             <div class="tabs-header" role="tablist">
@@ -842,10 +825,8 @@
             20 Zig modules. Zero npm surface.
           </h2>
           <p class="section-lead">
-            Auth, validation, cache, SQL, routing, and durable workflows - all
-            Zig code under the compiler's control. Every import is tracked to
-            derive a least-privilege sandbox at compile time. No polyfills,
-            no supply-chain surface.
+            Every capability ships as Zig. Imports stay explicit, sandboxes stay
+            derivable, and npm stays out of the trust boundary.
           </p>
           <div class="module-groups">
             <section class="module-group">
@@ -980,10 +961,9 @@
       <section id="get-started" class="section">
         <div class="container">
           <p class="section-kicker">Four Commands</p>
-          <h2 class="section-title">First handler. First proof. Under five minutes.</h2>
+          <h2 class="section-title">First handler. First proof. Four commands.</h2>
           <p class="section-lead">
-            Install, scaffold, run the compiler-agent, deploy. The path from
-            zero to a proven binary is short enough to try right now.
+            Install. Init. Prove. Deploy.
           </p>
           <div class="start-layout">
             <div class="terminal terminal-workflow">
@@ -1055,8 +1035,7 @@
           <p class="section-kicker">Good Questions</p>
           <h2 class="section-title">The fast objections.</h2>
           <p class="section-lead">
-            What most developers want answered before committing to a
-            restricted subset.
+            The questions that matter before you accept a restricted subset.
           </p>
           <div class="faq-list">
             <details class="faq-item">
@@ -1064,13 +1043,11 @@
                 How is zigttp different from Node.js, Deno, and Bun?
               </summary>
               <p class="faq-answer">
-                Node.js, Deno, and Bun run the full language spec. zigttp
-                implements a restricted subset (zigts) that removes classes,
-                exceptions, and async/await at parse time. The restrictions let
-                the compiler prove handler correctness, generate least-privilege
-                sandboxes, and replay executions deterministically. Those
-                properties require a closed language surface, which is why
-                general-purpose runtimes cannot offer them.
+                Node.js, Deno, and Bun run the full language. zigttp uses
+                zigts, a restricted subset, so the compiler can prove handlers,
+                derive least-privilege sandboxes, and replay runs
+                deterministically. That guarantee needs a closed language
+                surface.
               </p>
             </details>
             <details class="faq-item">
@@ -1078,15 +1055,11 @@
                 What does "proves your code correct" actually mean?
               </summary>
               <p class="faq-answer">
-                The compiler walks every execution path and runs a seven-check
-                verification suite: control flow completeness (every path
-                returns a Response), property access validation, reachability
-                analysis, dead code detection, Result value access before
-                checking, exhaustive match coverage, and handler contract
-                extraction. From those checks it proves behavioral properties
-                (deterministic, read_only, idempotent) and stamps them as
-                labels on the deployed artifact. These are static proofs over
-                the restricted language subset, not lint heuristics.
+                zigttp runs seven compile-time checks across every path:
+                returns, reachability, Result narrowing, match coverage,
+                property access, dead code, and contract extraction. Those
+                proofs classify the handler and feed runtime policy,
+                sandboxing, and deploy.
               </p>
             </details>
             <details class="faq-item">
@@ -1094,18 +1067,17 @@
                 Can I use npm packages with zigttp?
               </summary>
               <p class="faq-answer">
-                No. zigttp ships 20 virtual modules implemented in Zig instead.
-                The compiler tracks every module import to generate
-                least-privilege sandboxes. For anything the virtual modules do
-                not cover, call an external API with fetchSync.
+                No. zigttp ships 20 native <code>zigttp:*</code> modules in
+                Zig, and the compiler tracks every import. If a module does not
+                cover it, call the external API with <code>fetchSync</code>.
               </p>
             </details>
             <details class="faq-item">
               <summary class="faq-question">How do I install zigttp?</summary>
               <p class="faq-answer">
-                Run the one-line installer from the README, or download a
-                tarball from the GitHub releases page. Source builds require Zig
-                0.16.0.
+                Use the README installer or download
+                <code>v0.16.0-RC8</code> from GitHub Releases. Building from
+                source currently requires Zig 0.16.0.
               </p>
             </details>
             <details class="faq-item">
@@ -1113,9 +1085,8 @@
                 Is it free and open source?
               </summary>
               <p class="faq-answer">
-                Yes. zigttp is MIT licensed and available on GitHub. The entire
-                runtime, compiler, and standard library of virtual modules are
-                open source.
+                Yes. zigttp is MIT licensed on GitHub, including the runtime,
+                compiler, and virtual-module standard library.
               </p>
             </details>
           </div>
@@ -1169,7 +1140,7 @@
             rel="noopener noreferrer"
           >Zig</a>
         </div>
-        <p class="footer-meta">MIT License - v0.16.0-rc3</p>
+        <p class="footer-meta">MIT License - v0.16.0-RC8</p>
       </div>
     </footer>
 

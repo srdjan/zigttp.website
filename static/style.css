@@ -875,8 +875,8 @@ code {
 
 .share-btn {
   background: rgba(139, 195, 216, 0.1);
-  border: 1px solid var(--secondary);
-  color: var(--secondary);
+  border: 1px solid var(--accent-secondary);
+  color: var(--accent-secondary);
   font-family: inherit;
   font-size: 0.8125rem;
   padding: 6px 20px;
