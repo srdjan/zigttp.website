@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp v0.16.0-rc3 - Single-Binary Release and Agentic CLI</title>
+    <title>zigttp v0.16.0-RC8 - zigts, compiler-agent, proven handlers</title>
     <meta
       name="description"
-      content="zigttp v0.16.0-rc3 slide deck: first single-binary release for Linux and macOS, plus a built-in agentic coding loop in the CLI."
+      content="zigttp v0.16.0-RC8 slide deck: zigts lets the compiler-agent rewrite, prove, and ship handlers from one binary."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -28,11 +28,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/deck">
     <meta
       property="og:title"
-      content="zigttp v0.16.0-rc3 Presentation - Single-Binary Release and Agentic CLI"
+      content="zigttp v0.16.0-RC8 Presentation - zigts, compiler-agent, proven handlers"
     >
     <meta
       property="og:description"
-      content="Slide deck for zigttp v0.16.0-rc3: Linux/macOS binaries, built-in agentic coding loop, compile-time verification."
+      content="Slide deck for zigttp v0.16.0-RC8: zigts gives the compiler-agent a restricted subset it can rewrite and prove."
     >
     <meta
       property="og:image"
@@ -46,11 +46,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp v0.16.0-rc3 Presentation - Single-Binary Release and Agentic CLI"
+      content="zigttp v0.16.0-RC8 Presentation - zigts, compiler-agent, proven handlers"
     >
     <meta
       name="twitter:description"
-      content="Slide deck for zigttp v0.16.0-rc3: Linux/macOS binaries, built-in agentic coding loop, compile-time verification."
+      content="Slide deck for zigttp v0.16.0-RC8: zigts gives the compiler-agent a restricted subset it can rewrite and prove."
     >
     <meta
       name="twitter:image"
@@ -98,13 +98,12 @@
           <span></span><span></span><span></span>
         </button>
         <div class="nav-links">
+          <a href="/#expert">Loop</a>
           <a href="/#features">Features</a>
-          <a href="/#zigts">zigts</a>
           <a href="/#code">Code</a>
           <a href="/#modules">Modules</a>
-          <a href="/#compare">Compare</a>
-          <a href="/#faq">FAQ</a>
-          <a href="/deck">Deck</a>
+          <a href="/#get-started">Start</a>
+          <a href="/#questions">FAQ</a>
           <a
             href="https://github.com/srdjan/zigttp"
             class="nav-gh"
@@ -123,11 +122,11 @@
           <div class="deck-title-content">
             <h1 class="deck-hero-title">zigttp</h1>
             <p class="deck-hero-subtitle">
-              v0.16.0-rc3: first single-binary release + built-in agentic coding
-              loop
+              v0.16.0-RC8: a compiler-agent that writes inside a provable
+              TypeScript subset
             </p>
             <p class="deck-hero-caption">
-              Linux/macOS binaries - compile-time verification - 1.2MB deploys
+              zigts subset - deployable contracts - 1.2MB deploys
             </p>
           </div>
           <div class="deck-stats-bar">
@@ -149,24 +148,24 @@
         <!-- Slide 1: The Problem -->
         <div class="deck-slide" data-slide="1">
           <div class="deck-slide-inner">
-            <span class="deck-tag">The Release</span>
+            <span class="deck-tag">The Product</span>
             <h2 class="deck-slide-title">
-              v0.16.0-rc3 changes the first-run story
+              RC8 makes the subset feel like leverage
             </h2>
             <p class="deck-slide-subtitle">
-              Install from GitHub, download a binary, iterate inside the CLI.
+              Install once. Edit inside the compiler. Ship only what zigts
+              keeps provable.
             </p>
             <div class="deck-columns deck-columns--mt deck-columns--fill">
               <div class="deck-card">
                 <div class="deck-card-header">
                   <span class="deck-card-header-icon">&#128230;</span>
                   <span class="deck-card-header-title"
-                  >First single-binary release</span>
+                  >Single-binary install</span>
                 </div>
                 <p class="deck-card-body">
-                  zigttp now ships as a single binary for Linux and macOS, so
-                  the release story starts from installable artifacts instead of
-                  source builds.
+                  Linux and macOS builds keep the first run short and start from
+                  a binary, not a toolchain.
                 </p>
               </div>
               <div class="deck-card">
@@ -176,20 +175,19 @@
                   >GitHub-first install path</span>
                 </div>
                 <p class="deck-card-body">
-                  The README and releases page are now the source of truth for
-                  installation, release notes, and contributor-grade
-                  source-build guidance.
+                  README and Releases are the source of truth for install
+                  steps, RC notes, and source-build guidance.
                 </p>
               </div>
               <div class="deck-card">
                 <div class="deck-card-header">
                   <span class="deck-card-header-icon">&#9881;&#65039;</span>
                   <span class="deck-card-header-title"
-                  >Built-in agentic coding loop</span>
+                  >Compiler-native coding loop</span>
                 </div>
                 <p class="deck-card-body">
-                  The CLI is now part of the product surface, keeping project
-                  creation, iteration, verification, and shipping inside zigttp.
+                  <code>zigttp expert</code> writes only inside zigts, reruns
+                  proofs, and stops at code the compiler can sign.
                 </p>
               </div>
             </div>
@@ -201,16 +199,16 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">The Insight</span>
             <h2 class="deck-slide-title">
-              What if your compiler could see everything?
+              zigts makes the compiler-agent possible
             </h2>
             <div class="deck-insight-text">
               <p class="deck-insight-highlight">
-                Virtual modules are the only I/O boundary.
+                The subset is the leverage.
               </p>
               <p class="deck-insight-desc">
-                The handler's IR tree IS the control flow graph - no back-edges,
-                no exceptions. The compiler can prove what every handler does,
-                what it accesses, what it returns.
+                No back-edges, no exceptions, no hidden I/O. The compiler can
+                follow every path, rewrite within bounds, and prove what a
+                handler reads, writes, and returns.
               </p>
             </div>
             <div class="deck-pipeline">
@@ -241,7 +239,9 @@
         <div class="deck-slide" data-slide="3">
           <div class="deck-slide-inner">
             <span class="deck-tag">Language Design</span>
-            <h2 class="deck-slide-title">TypeScript, minus the footguns</h2>
+            <h2 class="deck-slide-title">
+              TypeScript, narrowed until it can be proved
+            </h2>
             <div class="deck-columns deck-columns--mt">
               <div class="deck-card">
                 <div class="deck-subset-header deck-subset-header-removed">
@@ -295,7 +295,7 @@
             </div>
             <p class="deck-footnote">
               Unsupported features fail at parse time with a suggested
-              alternative - not at runtime.
+              alternative, not after deploy.
             </p>
           </div>
         </div>
@@ -305,7 +305,7 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Verification</span>
             <h2 class="deck-slide-title">
-              Your handler is proven correct at build time
+              The agent can only ship what the compiler proves
             </h2>
             <div class="deck-check-list">
               <div class="deck-check-item">
@@ -341,7 +341,7 @@
                   <span class="deck-check-title">Boolean enforcement</span>
                   <span class="deck-check-desc"
                   >Truthy/falsy coercion rejected everywhere. Progressive type
-                    inference for env(), cacheGet(), match arms.</span>
+                    inference for env(), cacheGet(), and match arms.</span>
                 </div>
               </div>
               <div class="deck-check-item">
@@ -514,12 +514,12 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Developer Experience</span>
             <h2 class="deck-slide-title">
-              One CLI. Now with an agentic coding loop.
+              One CLI. The compiler-agent lives inside it.
             </h2>
             <div class="deck-card deck-card--mt">
               <div class="deck-card-header">
                 <span class="deck-card-header-icon">&#9654;</span>
-                <span class="deck-card-header-title">zigttp CLI v0.16.0-rc3</span>
+                <span class="deck-card-header-title">zigttp CLI v0.16.0-RC8</span>
               </div>
               <code class="deck-guard-code"
               >install &#8594; init &#8594; dev &#8594; compile &#8594; prove
@@ -531,8 +531,8 @@
                 <div class="deck-item-row deck-item-row--tight">
                   <span class="deck-check-title">zigttp init my-handler</span>
                   <span class="deck-check-desc"
-                  >Bootstrap project with handler, tests, and the built-in
-                    agentic coding loop</span>
+                  >Bootstrap a project with a handler, tests, and zigts-ready
+                    defaults</span>
                 </div>
               </div>
               <div class="deck-check-item">
@@ -540,8 +540,7 @@
                 <div class="deck-item-row deck-item-row--tight">
                   <span class="deck-check-title">zigttp dev</span>
                   <span class="deck-check-desc"
-                  >Watch mode with live verification and the built-in agentic
-                    coding loop</span>
+                  >Watch mode with live verification and compiler feedback</span>
                 </div>
               </div>
               <div class="deck-check-item">
@@ -577,7 +576,7 @@
               >github.com/srdjan/zigttp#install</code>
               <code class="deck-command-output"
               >GitHub install instructions + release downloads for
-                v0.16.0-rc3</code>
+                v0.16.0-RC8</code>
             </div>
           </div>
         </div>
@@ -681,10 +680,18 @@
                   <code class="deck-module-name">zigttp:ratelimit</code>
                   <span class="deck-module-desc">Token bucket</span>
                 </div>
+                <div class="deck-module-item">
+                  <code class="deck-module-name">zigttp:service</code>
+                  <span class="deck-module-desc">Service calls</span>
+                </div>
+                <div class="deck-module-item">
+                  <code class="deck-module-name">zigttp:scope</code>
+                  <span class="deck-module-desc">Resource scopes</span>
+                </div>
               </div>
             </div>
             <p class="deck-footnote deck-footnote--pushed">
-              18 modules implemented in Zig - zero interpretation overhead.
+              20 modules implemented in Zig - zero interpretation overhead.
             </p>
           </div>
         </div>
