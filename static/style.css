@@ -863,6 +863,19 @@ code {
   border-top: 2px solid var(--accent);
 }
 
+.expert-demo {
+  margin-top: 3rem;
+}
+
+.expert-video {
+  width: 66.67%;
+  border-radius: var(--radius-panel);
+  border: 1px solid rgba(139, 195, 216, 0.15);
+  display: block;
+  background: #000;
+  margin: 0 auto;
+}
+
 /* --- Code Tabs --- */
 .code-tabs {
   border: 1px solid var(--border);
@@ -2094,6 +2107,10 @@ button.faq-question {
   .cta-btn {
     padding: 10px 24px;
     font-size: 0.9375rem;
+  }
+
+  .expert-video {
+    width: 100%;
   }
 
   /* Feature + Expert + Start */

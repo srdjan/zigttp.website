@@ -1,10 +1,11 @@
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
   "style-src 'self' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data:",
-  "connect-src 'self'",
+  "media-src 'self'",
+  "connect-src 'self' https://cdn.jsdelivr.net",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -32,6 +33,8 @@ const CONTENT_TYPES: Record<string, string> = {
   ".woff": "font/woff",
   ".txt": "text/plain; charset=utf-8",
   ".xml": "application/xml; charset=utf-8",
+  ".mp4": "video/mp4",
+  ".mov": "video/quicktime",
 };
 
 function getContentType(path: string): string {
