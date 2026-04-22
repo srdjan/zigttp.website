@@ -308,7 +308,7 @@
               </div>
             </div>
           </div>
-          <div class="expert-demo">
+          <div class="expert-demo" id="expert-demo">
             <video
               class="expert-video"
               controls
@@ -321,6 +321,15 @@
               <source src="/ziggtp-expert-demo.mov" type="video/quicktime">
               <p>Your browser does not support this video format.</p>
             </video>
+            <div class="expert-demo-footer">
+              <button class="share-btn" onclick="
+                const url = location.origin + '/#expert-demo';
+                navigator.clipboard.writeText(url).then(() => {
+                  this.textContent = 'Copied!';
+                  setTimeout(() => this.textContent = 'Copy link', 2000);
+                });
+              " aria-label="Copy link to this demo">Copy link</button>
+            </div>
           </div>
         </div>
       </section>

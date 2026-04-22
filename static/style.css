@@ -867,8 +867,31 @@ code {
   margin-top: 3rem;
 }
 
+.expert-demo-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.share-btn {
+  background: rgba(139, 195, 216, 0.1);
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  padding: 6px 20px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.share-btn:hover {
+  background: rgba(139, 195, 216, 0.2);
+  color: #fff;
+}
+
 .expert-video {
-  width: 66.67%;
+  width: 53%;
   border-radius: var(--radius-panel);
   border: 1px solid rgba(139, 195, 216, 0.15);
   display: block;
