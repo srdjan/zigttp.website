@@ -1285,6 +1285,72 @@ button.faq-question {
   will-change: transform;
 }
 
+/* --- Scroll-driven animations (progressive enhancement) ---
+   Reading-progress bar + view-timeline section reveals. Falls back
+   silently on browsers that lack scroll-driven animation support;
+   the IntersectionObserver fade-ins above cover content reveal. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent) 22%,
+    var(--accent-secondary) 78%,
+    transparent
+  );
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 201;
+  pointer-events: none;
+  opacity: 0;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      opacity: 0.9;
+      animation: scrollProgressFill linear both;
+      animation-timeline: scroll(root block);
+    }
+
+    @keyframes scrollProgressFill {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .section .section-kicker,
+    .section .section-title,
+    .section .section-lead {
+      animation: sectionHeadingReveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+
+    @keyframes sectionHeadingReveal {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
 /* --- Skip link (WCAG) --- */
 .skip-link {
   position: absolute;
