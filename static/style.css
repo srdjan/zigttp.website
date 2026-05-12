@@ -434,12 +434,6 @@ code {
   flex-wrap: wrap;
 }
 
-.hero-ctas--center {
-  margin-top: 72px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border);
-}
-
 .cta-btn {
   display: inline-flex;
   align-items: center;
@@ -479,25 +473,7 @@ code {
   box-shadow: 0 0 0 3px rgba(247, 164, 29, 0.5);
 }
 
-.cta-secondary {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border-light);
-}
-
-.cta-secondary:hover {
-  border-color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
-}
-
 /* --- Hero Terminal --- */
-.hero-terminal-wrap {
-  margin-top: 0;
-  padding: 0;
-  width: 100%;
-}
-
 .hero-terminal {
   width: min(100%, 1320px);
   max-width: none;
@@ -1205,11 +1181,6 @@ button.faq-question {
       transform: translateY(0);
     }
   }
-}
-
-/* --- Hero terminal parallax --- */
-.hero-terminal-wrap {
-  will-change: transform;
 }
 
 /* --- Skip link (WCAG) --- */
@@ -2168,12 +2139,7 @@ button.faq-question {
     text-align: center;
   }
 
-  .hero-terminal-wrap {
-    padding: 0;
-  }
-
   .expert-prose p,
-  .feature-intro p:last-child,
   .section-lead {
     font-size: 0.9375rem;
   }
