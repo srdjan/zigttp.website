@@ -880,31 +880,8 @@ button.faq-question {
   font: inherit;
 }
 
-.faq-body {
-  overflow: hidden;
-  transition: height 220ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 .faq-item[aria-expanded="true"] .faq-question::before {
   content: "\2212";
-}
-
-/* Section title line reveal (pretext-enhanced) */
-.reveal-ready .reveal-line {
-  display: block;
-  opacity: 0;
-  transform: translateY(24px);
-  filter: blur(3px);
-  transition:
-    opacity 500ms ease,
-    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 500ms ease;
-}
-
-.reveal-ready .reveal-line.visible {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
 }
 
 /* --- Footer --- */
@@ -962,49 +939,6 @@ button.faq-question {
   color: var(--text-dim);
   font-size: 0.8125rem;
   margin-top: 16px;
-}
-
-/* --- Scroll-triggered fade-ins --- */
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 400ms ease,
-    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fade-in-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* --- Page load entrance sequence --- */
-@media (prefers-reduced-motion: no-preference) {
-  .entrance-brand,
-  .entrance-ctas,
-  .entrance-terminal {
-    opacity: 0;
-    transform: translateY(12px);
-    animation: entranceFadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  .entrance-brand {
-    animation-delay: 0.1s;
-  }
-  .entrance-ctas {
-    animation-delay: 0.6s;
-  }
-  .entrance-terminal {
-    animation-delay: 0.8s;
-    transform: translateY(20px);
-  }
-
-  @keyframes entranceFadeUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 }
 
 /* --- Skip link (WCAG) --- */
