@@ -13,26 +13,26 @@
 
 :root {
   --nav-height: 56px;
-  --bg: #0a0a0f;
-  --bg-elevated: #111116;
-  --bg-card: #0d0d14;
-  --bg-code: #08080d;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-light: rgba(255, 255, 255, 0.1);
-  --text: #fafafa;
-  --text-muted: #a1a1aa;
-  --text-dim: #71717a;
-  --accent: #f7a41d;
-  --accent-dim: #d48b0f;
-  --accent-glow: rgba(247, 164, 29, 0.06);
-  --accent-border: rgba(247, 164, 29, 0.15);
-  --accent-secondary: #8bc3d8;
-  --green: #4ade80;
-  --red: #f87171;
-  --blue: #60a5fa;
-  --teal: #2dd4bf;
-  --cyan: #8bc3d8;
-  --cyan-dim: rgba(139, 195, 216, 0.08);
+  --bg: #f6f2e8;
+  --bg-elevated: #fffaf0;
+  --bg-card: #fffdf6;
+  --bg-code: #fef7e8;
+  --border: rgba(27, 32, 43, 0.1);
+  --border-light: rgba(27, 32, 43, 0.18);
+  --text: #181b22;
+  --text-muted: #4f5665;
+  --text-dim: #7b8190;
+  --accent: #d98600;
+  --accent-dim: #b86f00;
+  --accent-glow: rgba(217, 134, 0, 0.12);
+  --accent-border: rgba(217, 134, 0, 0.28);
+  --accent-secondary: #2e829a;
+  --green: #168a4a;
+  --red: #c2413b;
+  --blue: #2563eb;
+  --teal: #0f8d7d;
+  --cyan: #2e829a;
+  --cyan-dim: rgba(46, 130, 154, 0.1);
   --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
   --font-body:
     "Outfit",
@@ -50,13 +50,13 @@
   --radius-pill: 999px;
 
   /* syntax colors */
-  --syn-keyword: #c084fc;
-  --syn-string: #4ade80;
-  --syn-fn: #60a5fa;
-  --syn-number: #fb923c;
-  --syn-attr: #fbbf24;
-  --syn-param: #a1a1aa;
-  --syn-comment: #52525b;
+  --syn-keyword: #8b3fc7;
+  --syn-string: #198754;
+  --syn-fn: #1d63b7;
+  --syn-number: #c46b13;
+  --syn-attr: #9a6a00;
+  --syn-param: #616978;
+  --syn-comment: #8d94a3;
 }
 
 html {
@@ -83,7 +83,7 @@ body::before {
   inset: 0;
   z-index: 50;
   pointer-events: none;
-  opacity: 0.025;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 512px 512px;
 }
@@ -113,7 +113,7 @@ a {
 }
 
 a:hover {
-  color: var(--text);
+  color: var(--accent-dim);
 }
 
 code {
@@ -253,10 +253,10 @@ code {
 /* --- Nav --- */
 .nav {
   position: sticky;
-  top: 41px;
+  top: 0;
   z-index: 100;
   width: 100%;
-  background: rgba(10, 10, 15, 0.85);
+  background: rgba(255, 250, 240, 0.86);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -301,7 +301,7 @@ code {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.58);
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
   cursor: pointer;
@@ -312,7 +312,7 @@ code {
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--text-muted);
+  background: var(--text);
   transition: transform 0.2s, opacity 0.2s;
 }
 
@@ -335,7 +335,7 @@ code {
   top: var(--nav-height);
   left: 0;
   right: 0;
-  background: rgba(10, 10, 15, 0.95);
+  background: rgba(255, 250, 240, 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: 8px 24px;
@@ -533,7 +533,7 @@ code {
 
 .cta-primary {
   background: var(--accent);
-  color: #0a0a0f;
+  color: #17120a;
   box-shadow:
     0 0 20px rgba(247, 164, 29, 0.2),
     0 4px 12px rgba(247, 164, 29, 0.15);
@@ -541,7 +541,7 @@ code {
 
 .cta-primary:hover {
   background: var(--accent-dim);
-  color: #0a0a0f;
+  color: #17120a;
   box-shadow:
     0 0 30px rgba(247, 164, 29, 0.3),
     0 6px 16px rgba(247, 164, 29, 0.2);
@@ -581,8 +581,8 @@ code {
   background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.035),
-      rgba(255, 255, 255, 0.015)
+      rgba(255, 255, 255, 0.46),
+      rgba(255, 255, 255, 0.22)
     ),
     var(--bg-code);
   box-shadow:
@@ -591,7 +591,7 @@ code {
 }
 
 .hero-terminal .terminal-bar {
-  background: rgba(17, 17, 22, 0.72);
+  background: rgba(255, 252, 245, 0.82);
 }
 
 /* --- Feature Map --- */
@@ -603,9 +603,9 @@ code {
   background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.025),
-      rgba(255, 255, 255, 0.01) 24%,
-      rgba(10, 10, 15, 0) 100%
+      rgba(255, 255, 255, 0.62),
+      rgba(255, 255, 255, 0.28) 24%,
+      rgba(246, 242, 232, 0) 100%
     ),
     linear-gradient(
     120deg,
@@ -622,7 +622,7 @@ code {
   background: linear-gradient(
     90deg,
     transparent 0,
-    rgba(255, 255, 255, 0.018) 50%,
+    rgba(27, 32, 43, 0.035) 50%,
     transparent 100%
   );
   opacity: 0.35;
@@ -748,7 +748,7 @@ code {
   overflow: hidden;
   text-align: left;
   background: var(--bg-code);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+  box-shadow: 0 18px 50px rgba(99, 77, 35, 0.14);
 }
 
 .terminal-workflow {
@@ -812,7 +812,7 @@ code {
   color: var(--syn-string);
 }
 .t-output {
-  color: var(--text-dim);
+  color: #606775;
 }
 .t-error {
   color: #f87171;
@@ -820,7 +820,7 @@ code {
 }
 .t-dim {
   color: var(--text-dim);
-  opacity: 0.7;
+  opacity: 0.82;
 }
 
 /* --- Expert Agent --- */
@@ -856,7 +856,7 @@ code {
 .expert-terminal .terminal {
   max-width: none;
   border-color: var(--accent-border);
-  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4), 0 0 60px rgba(247, 164, 29, 0.04);
+  box-shadow: 0 16px 44px rgba(99, 77, 35, 0.16), 0 0 60px rgba(217, 134, 0, 0.08);
 }
 
 .expert-terminal .terminal-bar {
@@ -1404,7 +1404,7 @@ button.faq-question {
 .deck-card {
   background: var(--bg-card);
   padding: clamp(14px, 2vw, 24px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 12px 34px rgba(99, 77, 35, 0.12);
 }
 
 .deck-accent-bar {
@@ -2018,8 +2018,8 @@ button.faq-question {
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  background: rgba(17, 17, 22, 0.9);
-  border-top: 1px solid var(--bg-elevated);
+  background: rgba(255, 250, 240, 0.92);
+  border-top: 1px solid var(--border);
   flex-shrink: 0;
 }
 
@@ -2392,5 +2392,482 @@ button.faq-question {
 
   .deck-summary-label {
     min-width: clamp(160px, 22vw, 260px);
+  }
+}
+
+/* --------------------------------------------------------
+   v3 redesign overrides - animejs.com idiom
+   (kept at the bottom so they win the cascade)
+   -------------------------------------------------------- */
+
+/* Anime.js pre-animation gate. Content is visible by default for no-JS;
+   JS-enabled sessions opt into the hidden entrance state. */
+.js .pre-anim {
+  opacity: 0;
+}
+.pre-anim.is-visible,
+.anim-ready .pre-anim,
+[data-reduced-motion="true"] .pre-anim {
+  opacity: 1;
+}
+
+/* Nav version chip (replaces the sticky WIP banner). */
+.nav-version {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-pill);
+  background: rgba(247, 164, 29, 0.08);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .nav-version { display: none; }
+}
+
+/* Full-bleed hero proof circuit. */
+.hero {
+  min-height: calc(100svh - var(--nav-height));
+  background:
+    radial-gradient(
+      circle at 66% 47%,
+      rgba(217, 134, 0, 0.14),
+      rgba(217, 134, 0, 0.04) 35%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, #fffaf0 0%, #f4ead8 72%, var(--bg) 100%);
+}
+.hero::before {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(46, 130, 154, 0.08),
+      transparent
+    );
+  opacity: 0.75;
+}
+.hero .hero-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1480px;
+  min-height: calc(100svh - var(--nav-height));
+  display: grid;
+  grid-template-columns: minmax(320px, 0.72fr) minmax(540px, 1.28fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 80px);
+  padding: clamp(34px, 6vh, 76px) clamp(22px, 5vw, 72px) clamp(28px, 5vh, 56px);
+}
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 520px;
+  margin: 0;
+  transform: none;
+}
+.hero-brand {
+  font-family: var(--font-body);
+  font-size: clamp(4.5rem, 9vw, 8rem);
+  font-weight: 800;
+  letter-spacing: -0.075em;
+  line-height: 0.88;
+}
+.hero-title {
+  font-family: var(--font-body);
+  font-size: clamp(2.8rem, 5.2vw, 5.8rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.92;
+  max-width: 8.4ch;
+}
+.hero-title .hero-line.accent {
+  color: var(--text);
+}
+.hero-sub {
+  max-width: 30rem;
+  margin-left: 0;
+  font-weight: 600;
+}
+.hero-ctas {
+  justify-content: flex-start;
+}
+.hero-visual {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  justify-self: center;
+  pointer-events: none;
+}
+.proof-engine {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+}
+.proof-engine-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.engine-ring {
+  fill: none;
+  stroke: rgba(27, 32, 43, 0.11);
+  stroke-width: 1.2;
+}
+.engine-ring-mid {
+  stroke-dasharray: 2 8;
+}
+.engine-ring-inner {
+  stroke: rgba(46, 130, 154, 0.16);
+}
+.engine-arc {
+  fill: none;
+  stroke-width: 7;
+  stroke-linecap: round;
+  transform-origin: center;
+  filter: url("#proof-glow");
+}
+.engine-arc-a {
+  stroke: var(--accent);
+  stroke-dasharray: 520 1220;
+}
+.engine-arc-b {
+  stroke: #ef4444;
+  stroke-dasharray: 270 1210;
+  transform: rotate(118deg);
+}
+.engine-arc-c {
+  stroke: var(--accent-secondary);
+  stroke-dasharray: 200 940;
+  transform: rotate(244deg);
+}
+.engine-bars rect {
+  fill: #ef4444;
+  opacity: 0.92;
+}
+.engine-trace {
+  fill: none;
+  stroke: #ef4444;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.86;
+}
+.engine-trace-secondary {
+  stroke: var(--accent-secondary);
+  opacity: 0.46;
+}
+.engine-dots circle {
+  fill: #ef4444;
+  opacity: 1;
+}
+.engine-pulse {
+  fill: var(--accent);
+  filter: url("#proof-glow");
+  opacity: 0.8;
+}
+.hero-command {
+  position: absolute;
+  left: clamp(22px, 5vw, 72px);
+  bottom: clamp(20px, 4vh, 44px);
+  z-index: 3;
+  width: min(100%, 430px);
+}
+.hero-terminal {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  background: rgba(255, 253, 246, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: none;
+  overflow: hidden;
+}
+.hero-terminal .terminal-bar {
+  display: none;
+}
+.hero-terminal .terminal-body {
+  padding: 14px 20px;
+}
+.hero-terminal .terminal-body code {
+  font-size: 0.75rem;
+}
+.hero-terminal .terminal-body pre {
+  white-space: pre-wrap;
+  overflow: visible;
+}
+.hero-terminal .t-output {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-dim);
+}
+.hero-replay {
+  display: none;
+}
+
+/* Hero typography refinements for line-by-line reveal. */
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hero-title .hero-line {
+  display: block;
+  will-change: opacity, transform;
+}
+.hero-title .hero-line.accent {
+  color: var(--accent);
+}
+
+/* Hero typed command - characters revealed by anime.js. */
+.hero-typed .ch {
+  opacity: 0;
+  display: inline-block;
+  white-space: pre;
+}
+.hero-typed .ch.is-visible,
+.anim-ready .hero-typed .ch,
+[data-reduced-motion="true"] .hero-typed .ch {
+  opacity: 1;
+}
+.hero-typed::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: var(--accent);
+  animation: cursor-blink 1s steps(2, start) infinite;
+  opacity: 0.7;
+}
+@keyframes cursor-blink {
+  to { visibility: hidden; }
+}
+
+/* Subtle text link variant alongside the primary CTA. */
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.cta-link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Hero replay button - quiet, sits below the terminal. */
+.hero-replay {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.hero-replay::before {
+  content: "\21BB";
+  font-size: 0.9rem;
+}
+.hero-replay:hover {
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+/* Proof checklist beside the expert terminal. */
+.proof-list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px 18px;
+}
+.proof-list li {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+.proof-list li.is-visible,
+.anim-ready .proof-list li,
+[data-reduced-motion="true"] .proof-list li {
+  opacity: 1;
+}
+.proof-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--green);
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Video as collapsed details element. */
+.expert-demo-details {
+  margin-top: 48px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--bg-card);
+  overflow: hidden;
+}
+.expert-demo-details > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.15s;
+}
+.expert-demo-details > summary::-webkit-details-marker { display: none; }
+.expert-demo-details > summary::before {
+  content: "\25B6";
+  font-size: 0.7rem;
+  color: var(--accent);
+  transition: transform 0.2s;
+}
+.expert-demo-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+.expert-demo-details > summary:hover { color: var(--text); }
+.expert-demo-details .expert-demo {
+  padding: 0 20px 20px;
+}
+
+/* Feature row modules sub-line (modules merged into Features). */
+.feature-row-modules {
+  margin-top: 12px;
+  padding-left: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.feature-row-modules .modules-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+.feature-row-modules code {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--accent-secondary);
+  font-size: 0.75rem;
+}
+@media (max-width: 640px) {
+  .feature-row-modules { padding-left: 0; }
+}
+
+/* Install footnote replaces the old CLI reference column. */
+.install-footnote {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+.install-footnote a {
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.install-footnote a:hover {
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+/* Center the install terminal now that the CLI sidebar is gone. */
+#get-started .terminal-workflow {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.anchor-alias {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .hero .hero-inner {
+    display: flex;
+    justify-content: flex-start;
+    min-height: calc(100svh - var(--nav-height));
+    gap: 28px;
+  }
+  .hero-copy {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .hero-visual {
+    width: min(112vw, 520px);
+    align-self: center;
+    margin: -12px -42px -16px auto;
+  }
+  .hero-brand {
+    font-size: clamp(3.8rem, 18vw, 5.3rem);
+  }
+  .hero-title {
+    max-width: 9ch;
+  }
+  .hero-terminal {
+    width: 100%;
+  }
+  .hero-command {
+    position: static;
+    width: 100%;
+    align-self: stretch;
+  }
+  .engine-arc {
+    stroke-width: 6;
   }
 }

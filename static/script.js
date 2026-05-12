@@ -2,11 +2,11 @@
 const burger = document.querySelector(".nav-burger");
 const navLinks = document.querySelector(".nav-links");
 if (burger && navLinks) {
-  function setMenuState(open) {
+  const setMenuState = (open) => {
     burger.classList.toggle("active", open);
     navLinks.classList.toggle("open", open);
     burger.setAttribute("aria-expanded", String(open));
-  }
+  };
 
   burger.addEventListener("click", () => {
     setMenuState(!navLinks.classList.contains("open"));
@@ -30,7 +30,9 @@ if (burger && navLinks) {
   });
 }
 
-// Tab switching with keyboard navigation
+// Tab switching with keyboard navigation.
+// anime-scenes.js handles the visual cross-fade; this owns activation
+// state, focus, and a11y attributes.
 document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
   const tabs = [...tablist.querySelectorAll('[role="tab"]')];
   const container = tablist.closest(".code-tabs");
@@ -76,75 +78,6 @@ document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
   });
 });
 
-// Staggered fade-in for feature and module lists on scroll
-const fadeObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const items = entry.target.querySelectorAll(".fade-in-up");
-        items.forEach((item, i) => {
-          setTimeout(() => item.classList.add("visible"), i * 80);
-        });
-        fadeObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 },
-);
-
-document.querySelectorAll(".feature-list, .module-groups").forEach((grid) => {
-  grid.querySelectorAll(":scope > *").forEach((child) => {
-    child.classList.add("fade-in-up");
-  });
-  fadeObserver.observe(grid);
-});
-
-// Fade-in for standalone elements on scroll
-const elFadeObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        elFadeObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.2 },
-);
-
-document.querySelectorAll(
-  ".feature-intro, .expert-terminal, .cli-reference, .faq-list",
-)
-  .forEach((el) => {
-    el.classList.add("fade-in-up");
-    elFadeObserver.observe(el);
-  });
-
-const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// Hero terminal parallax
-if (!REDUCED) {
-  const heroTerminal = document.querySelector(".hero-terminal-wrap");
-  if (heroTerminal && window.matchMedia("(min-width: 1024px)").matches) {
-    let ticking = false;
-    let lastOffset = -1;
-    const handler = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const offset = Math.min(window.scrollY * 0.08, 48);
-          if (offset !== lastOffset) {
-            heroTerminal.style.transform = `translateY(${offset}px)`;
-            lastOffset = offset;
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener("scroll", handler, { passive: true });
-  }
-}
-
 // Scroll spy for active nav indicator
 const spyLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 const spySections = [...spyLinks].map((link) =>
@@ -187,6 +120,13 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   });
 });
 
+// Safety net: if anime-scenes.js fails to load (CDN blocked, JS error,
+// no ESM support), reveal every .pre-anim element after 3 seconds so
+// content is never permanently hidden.
+setTimeout(() => {
+  document.documentElement.classList.add("anim-ready");
+}, 3000);
+
 // Slide deck navigation
 const deck = document.getElementById("deck");
 if (deck) {
@@ -200,12 +140,12 @@ if (deck) {
   let currentSlide = 0;
   let animating = false;
 
-  function updateButtons() {
+  const updateButtons = () => {
     prevBtn.disabled = currentSlide === 0;
     nextBtn.disabled = currentSlide === total - 1;
-  }
+  };
 
-  function go(next) {
+  const go = (next) => {
     if (next < 0 || next >= total || next === currentSlide || animating) return;
     viewport.style.setProperty("--slide-dir", next > currentSlide ? 1 : -1);
 
@@ -223,7 +163,7 @@ if (deck) {
     slide.addEventListener("animationend", () => {
       animating = false;
     }, { once: true });
-  }
+  };
 
   dots.forEach((dot, i) => {
     dot.addEventListener("click", () => go(i));
