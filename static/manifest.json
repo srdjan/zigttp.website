@@ -1,7 +1,7 @@
 {
-  "name": "zigttp - Compiler-Agent Runtime",
+  "name": "zigttp - Compile-time proof you can see",
   "short_name": "zigttp",
-  "description": "A compiler-agent runtime built in Zig for verified TypeScript handlers.",
+  "description": "Serverless TypeScript runtime built in Zig. The compiler discharges your handler's Spec obligations on every save and ships only what stays proven.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0f",

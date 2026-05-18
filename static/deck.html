@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp v0.16.0-RC8 - zigts, compiler-agent, proven handlers</title>
+    <title>zigttp v1.0.0-alpha - compile-time proof you can see</title>
     <meta
       name="description"
-      content="zigttp v0.16.0-RC8 slide deck: zigts lets the compiler-agent rewrite, prove, and ship handlers from one binary."
+      content="zigttp v1.0.0-alpha slide deck: a serverless TypeScript runtime that discharges your handler's Spec obligations at compile time and keeps the proof flipping live in zigttp studio."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -28,11 +28,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/deck">
     <meta
       property="og:title"
-      content="zigttp v0.16.0-RC8 Presentation - zigts, compiler-agent, proven handlers"
+      content="zigttp v1.0.0-alpha Presentation - compile-time proof you can see"
     >
     <meta
       property="og:description"
-      content="Slide deck for zigttp v0.16.0-RC8: zigts gives the compiler-agent a restricted subset it can rewrite and prove."
+      content="Slide deck for zigttp v1.0.0-alpha: a restricted TypeScript subset, stacked compile-time proofs, a browser proof workbench, and a contract-aware deploy with a persistent proof ledger."
     >
     <meta
       property="og:image"
@@ -46,11 +46,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp v0.16.0-RC8 Presentation - zigts, compiler-agent, proven handlers"
+      content="zigttp v1.0.0-alpha Presentation - compile-time proof you can see"
     >
     <meta
       name="twitter:description"
-      content="Slide deck for zigttp v0.16.0-RC8: zigts gives the compiler-agent a restricted subset it can rewrite and prove."
+      content="Slide deck for zigttp v1.0.0-alpha: a restricted TypeScript subset, stacked compile-time proofs, a browser proof workbench, and a contract-aware deploy with a persistent proof ledger."
     >
     <meta
       name="twitter:image"
@@ -122,11 +122,10 @@
           <div class="deck-title-content">
             <h1 class="deck-hero-title">zigttp</h1>
             <p class="deck-hero-subtitle">
-              v0.16.0-RC8: a compiler-agent that writes inside a provable
-              TypeScript subset
+              v1.0.0-alpha: compile-time proof you can see
             </p>
             <p class="deck-hero-caption">
-              zigts subset - deployable contracts - 1.2MB deploys
+              zigts subset - studio + proven live reload - contract-aware deploy
             </p>
           </div>
           <div class="deck-stats-bar">
@@ -150,11 +149,12 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">The Product</span>
             <h2 class="deck-slide-title">
-              RC8 makes the subset feel like leverage
+              v1.0.0-alpha turns the subset into a live proof loop
             </h2>
             <p class="deck-slide-subtitle">
-              Install once. Edit inside the compiler. Ship only what zigts
-              keeps provable.
+              Install once. Edit your handler. Watch <code>zigttp studio</code>
+              flip the proof chips on every save. Ship only what the verifier
+              and contract diff both keep green.
             </p>
             <div class="deck-columns deck-columns--mt deck-columns--fill">
               <div class="deck-card">
@@ -172,11 +172,13 @@
                 <div class="deck-card-header">
                   <span class="deck-card-header-icon">&#128279;</span>
                   <span class="deck-card-header-title"
-                  >GitHub-first install path</span>
+                  >Studio + proven live reload</span>
                 </div>
                 <p class="deck-card-body">
-                  README and Releases are the source of truth for install
-                  steps, RC notes, and source-build guidance.
+                  <code>zigttp studio</code> re-verifies on save.
+                  <code>dev --watch --prove</code> hot-swaps only on
+                  <code>safe</code> / <code>safe_with_additions</code> and
+                  blocks breaking diffs in place.
                 </p>
               </div>
               <div class="deck-card">
@@ -186,8 +188,10 @@
                   >Compiler-native coding loop</span>
                 </div>
                 <p class="deck-card-body">
-                  <code>zigttp expert</code> writes only inside zigts, reruns
-                  proofs, and stops at code the compiler can sign.
+                  <code>zigts expert</code> writes only inside zigts, reruns the
+                  verifier, discharges declared <code>Spec&lt;...&gt;</code>
+                  obligations, and persists every counterexample to the witness
+                  corpus.
                 </p>
               </div>
             </div>
@@ -199,16 +203,17 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">The Insight</span>
             <h2 class="deck-slide-title">
-              zigts makes the compiler-agent possible
+              The subset is what makes proof tractable
             </h2>
             <div class="deck-insight-text">
               <p class="deck-insight-highlight">
-                The subset is the leverage.
+                Your handler code is the spec.
               </p>
               <p class="deck-insight-desc">
-                No back-edges, no exceptions, no hidden I/O. The compiler can
-                follow every path, rewrite within bounds, and prove what a
-                handler reads, writes, and returns.
+                No back-edges, no exceptions, no hidden I/O. The compiler walks
+                every path in finite time, discharges your declared
+                <code>Spec&lt;...&gt;</code> obligations, and emits a behavioral
+                contract small enough to diff between versions.
               </p>
             </div>
             <div class="deck-pipeline">
@@ -305,7 +310,7 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Verification</span>
             <h2 class="deck-slide-title">
-              The agent can only ship what the compiler proves
+              Stacked proofs: paths, sound mode, contract, Spec discharge
             </h2>
             <div class="deck-check-list">
               <div class="deck-check-item">
@@ -356,9 +361,10 @@
             </div>
             <div class="deck-command-bar">
               <code class="deck-command-input"
-              >$ zigttp check handler.ts --verify</code>
+              >$ zigts check handler.ts --json --contract</code>
               <code class="deck-command-output"
-              >&#8594; all code paths verified &#10003;</code>
+              >&#8594; PROVEN 7/7 paths + Spec&lt;idempotent, deterministic&gt;
+                &#10003;</code>
             </div>
           </div>
         </div>
@@ -486,23 +492,25 @@
               <div class="deck-card deck-card--col">
                 <div class="deck-evo-title">Proven Evolution</div>
                 <p class="deck-evo-body">
-                  Diff contracts + replay traces between handler versions.
-                  Result: equivalent, additive, or breaking - with a proof
-                  certificate.
+                  Diff behavioral contracts and replay traces between handler
+                  versions. Verdicts are <code>safe</code>,
+                  <code>safe_with_additions</code>, <code>breaking</code>, or
+                  <code>needs_review</code> - with a proof certificate.
                 </p>
                 <div class="deck-cmd-tag">
-                  <code>zigttp prove old.json new.json</code>
+                  <code>zigts prove old.json new.json</code>
                 </div>
               </div>
               <div class="deck-card deck-card--col">
-                <div class="deck-evo-title">Proven Deploys</div>
+                <div class="deck-evo-title">Proof Ledger</div>
                 <p class="deck-evo-body">
-                  Generate platform-specific deployment configs from proven
-                  contracts. Env vars &#8594; params, routes &#8594; API events,
-                  egress &#8594; tags.
+                  Every successful deploy and proven hot-swap appends one row to
+                  <code>.zigttp/proofs.jsonl</code> with verdicts, proven facts,
+                  and contract sha. Export as markdown, HTML, or an SVG verdict
+                  badge for the PR description.
                 </p>
                 <div class="deck-cmd-tag">
-                  <code>zigttp compile --deploy=aws</code>
+                  <code>zigttp proofs list | show | diff | export</code>
                 </div>
               </div>
             </div>
@@ -514,69 +522,85 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Developer Experience</span>
             <h2 class="deck-slide-title">
-              One CLI. The compiler-agent lives inside it.
+              Three binaries. Studio in the browser. Expert in the terminal.
             </h2>
             <div class="deck-card deck-card--mt">
               <div class="deck-card-header">
                 <span class="deck-card-header-icon">&#9654;</span>
-                <span class="deck-card-header-title">zigttp CLI v0.16.0-RC8</span>
+                <span class="deck-card-header-title"
+                >zigttp CLI v1.0.0-alpha</span>
               </div>
               <code class="deck-guard-code"
-              >install &#8594; init &#8594; dev &#8594; compile &#8594; prove
-                &#8594; deploy</code>
+              >install &#8594; init &#8594; studio &#8594; build &#8594; deploy
+                &#8594; proofs</code>
             </div>
             <div class="deck-check-list" style="margin-top: 24px">
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
-                  <span class="deck-check-title">zigttp init my-handler</span>
+                  <span class="deck-check-title">zigttp init my-app</span>
                   <span class="deck-check-desc"
-                  >Bootstrap a project with a handler, tests, and zigts-ready
-                    defaults</span>
+                  >Scaffold a project with a handler, zigttp.json, and
+                    zigts-ready defaults</span>
                 </div>
               </div>
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
-                  <span class="deck-check-title">zigttp dev</span>
+                  <span class="deck-check-title">zigttp studio</span>
                   <span class="deck-check-desc"
-                  >Watch mode with live verification and compiler feedback</span>
-                </div>
-              </div>
-              <div class="deck-check-item">
-                <span class="deck-check-icon">$</span>
-                <div class="deck-item-row deck-item-row--tight">
-                  <span class="deck-check-title"
-                  >zigttp compile --deploy=aws</span>
-                  <span class="deck-check-desc"
-                  >Prove, compile, and generate deployment manifest</span>
+                  >Browser proof workbench - verdict, proven surface, Spec
+                    chips, witness corpus on every save</span>
                 </div>
               </div>
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
                   <span class="deck-check-title"
-                  >zigttp prove old.json new.json</span>
+                  >zigttp dev --watch --prove</span>
                   <span class="deck-check-desc"
-                  >Diff contracts for safe handler upgrades</span>
+                  >Proven live reload - hot-swap only on safe /
+                    safe_with_additions verdicts</span>
+                </div>
+              </div>
+              <div class="deck-check-item">
+                <span class="deck-check-icon">$</span>
+                <div class="deck-item-row deck-item-row--tight">
+                  <span class="deck-check-title">zigttp deploy</span>
+                  <span class="deck-check-desc"
+                  >Self-contained binary + one proof-ledger row;
+                    <code>--cloud</code> packages an OCI image with proven-fact
+                    labels</span>
+                </div>
+              </div>
+              <div class="deck-check-item">
+                <span class="deck-check-icon">$</span>
+                <div class="deck-item-row deck-item-row--tight">
+                  <span class="deck-check-title">zigts expert</span>
+                  <span class="deck-check-desc"
+                  >Interactive coding agent with token accounting, session
+                    fork/compact, skills, and Route Forge</span>
                 </div>
               </div>
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
                   <span class="deck-check-title"
-                  >zigttp mock tests.jsonl --port 3001</span>
+                  >zigttp proofs / witnesses</span>
                   <span class="deck-check-desc"
-                  >Generate mock server from test fixtures</span>
+                  >Browse the proof ledger; manage the per-handler witness
+                    corpus that defends against regressions</span>
                 </div>
               </div>
             </div>
             <div class="deck-command-bar">
               <code class="deck-command-input"
-              >github.com/srdjan/zigttp#install</code>
+              >curl -fsSL
+                https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh
+                | sh</code>
               <code class="deck-command-output"
-              >GitHub install instructions + release downloads for
-                v0.16.0-RC8</code>
+              >Pre-built binaries for macOS and Linux (x86_64, aarch64) -
+                v1.0.0-alpha</code>
             </div>
           </div>
         </div>
@@ -850,17 +874,25 @@
               <div class="deck-summary-row">
                 <code class="deck-summary-label">Proven evolution</code>
                 <span class="deck-summary-value"
-                >Diff contracts, classify changes</span>
+                >Diff contracts, classify changes into four verdicts</span>
               </div>
               <div class="deck-summary-row">
-                <code class="deck-summary-label">Effect classification</code>
+                <code class="deck-summary-label">Author-declared Spec</code>
                 <span class="deck-summary-value"
-                >Handler properties proven at build time</span>
+                >Obligations on the return type, discharged by the
+                  compiler</span>
               </div>
               <div class="deck-summary-row">
-                <code class="deck-summary-label">OpenAPI generation</code>
+                <code class="deck-summary-label">Studio + proof ledger</code>
                 <span class="deck-summary-value"
-                >Response schemas from type inference</span>
+                >Browser proof workbench plus a persistent verdict
+                  timeline</span>
+              </div>
+              <div class="deck-summary-row">
+                <code class="deck-summary-label">Witness corpus</code>
+                <span class="deck-summary-value"
+                >Counterexamples persist; regressions are caught, not
+                  rediscovered</span>
               </div>
               <div class="deck-summary-row">
                 <code class="deck-summary-label">Native performance</code>
