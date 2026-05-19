@@ -9,7 +9,7 @@
       content="Edit your handler. Watch the proof flip live. zigttp is a serverless TypeScript runtime where the compiler discharges your handler's Spec obligations on every save. Browser proof workbench, proven live reload, contract-aware deploy. One binary. No npm."
     >
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#f7a41d">
+    <meta name="theme-color" content="#f7f3ea">
     <link rel="canonical" href="https://zigttp.timok.com/">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -18,22 +18,14 @@
     <link rel="dns-prefetch" href="https://github.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     >
-    <script>
-      document.documentElement.classList.add("js");
-    </script>
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://zigttp.timok.com/">
-    <meta
-      property="og:title"
-      content="zigttp - Compile-time proof you can see"
-    >
+    <meta property="og:title" content="zigttp - Compile-time proof you can see">
     <meta
       property="og:description"
       content="Edit your handler. Watch the proof flip live. zigttp discharges your handler's Spec obligations at compile time, on every save."
@@ -46,7 +38,6 @@
     <meta property="og:image:height" content="327">
     <meta property="og:site_name" content="zigttp">
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
@@ -61,7 +52,6 @@
       content="https://zigttp.timok.com/zigttp-logo.jpg"
     >
 
-    <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -115,10 +105,10 @@
         },
         {
           "@type": "Question",
-          "name": "What does \"proves your code correct\" mean?",
+          "name": "What does proves your code correct mean?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Three stacked layers. -Dverify proves seven path properties (returns, reachability, Result narrowing, match coverage, property access, dead code, contract extraction). Sound mode catches arithmetic and comparison bugs at compile time. -Dcontract extracts a behavioral contract that zigttp deploy diffs against the prior version. Your declared Spec<...> obligations - idempotent, deterministic, no_secret_leakage - are discharged on top of all three."
+            "text": "Three stacked layers. -Dverify proves seven path properties. Sound mode catches arithmetic and comparison bugs at compile time. -Dcontract extracts a behavioral contract that zigttp deploy diffs against the prior version. Declared Spec obligations are discharged on top."
           }
         },
         {
@@ -126,7 +116,7 @@
           "name": "Can I use npm packages with zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. zigttp ships 20 native zigttp:* modules in Zig (auth, crypto, validate, decode, sql, cache, durable, http, io, router, compose, env, url, id, log, text, time, ratelimit, service, scope). If a module does not cover what you need, call the external API with fetchSync."
+            "text": "No. zigttp ships native zigttp:* modules in Zig. If a module does not cover what you need, call the external API with fetchSync."
           }
         },
         {
@@ -134,63 +124,42 @@
           "name": "How do I install zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Run curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh. Pre-built binaries cover macOS and Linux on x86_64 and aarch64. Current release is v1.0.0-alpha. Building from source requires Zig 0.16.0."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the witness corpus?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Every counterexample the compiler discovers persists to .zigttp/witnesses/ so a falsifying input never needs to be rediscovered. The corpus replays through zigttp mock --replay, surfaces in the studio panel, and powers regression detection on live reload."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is zigttp free and open source?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. zigttp is MIT licensed on GitHub - runtime, compiler, and virtual-module standard library."
+            "text": "Run curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh. Pre-built binaries cover macOS and Linux on x86_64 and aarch64. Current release is v1.0.0-alpha."
           }
         }
       ]
     }
     </script>
 
-    <link rel="stylesheet" href="/style.css?v=4">
+    <link rel="stylesheet" href="/style.css?v=5">
+    <link rel="stylesheet" href="/home.css?v=1">
   </head>
-  <body>
+  <body class="zigttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- Nav -->
-    <nav class="nav" aria-label="Primary">
-      <div class="container nav-inner">
-        <a href="#" class="nav-logo">
-          <img
-            src="/logo-circle.jpeg"
-            alt="zigttp logo"
-            class="nav-logo-img"
-            width="48"
-            height="48"
-          >
-          <span class="logo-zig">zigttp</span>
-          <span class="nav-version" title="Alpha release">v1.0.0-alpha</span>
+    <header class="z-header">
+      <nav class="z-nav" aria-label="Primary navigation">
+        <a class="z-brand" href="/" aria-label="zigttp home">
+          <img src="/logo-circle.jpeg" alt="" width="38" height="38">
+          <span>zigttp</span>
+          <small>v1.0.0-alpha</small>
         </a>
         <button
-          class="nav-burger"
+          class="z-menu-button"
+          type="button"
           aria-label="Toggle menu"
           aria-expanded="false"
-          aria-controls="primary-nav-links"
+          aria-controls="z-nav-links"
         >
-          <span aria-hidden="true"></span><span aria-hidden="true"></span><span
-            aria-hidden="true"
-          ></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
         </button>
-        <div class="nav-links" id="primary-nav-links">
-          <a href="#expert">Loop</a>
-          <a href="#code">Code</a>
-          <a href="#features">Ships</a>
-          <a href="#get-started">Install</a>
+        <div class="z-nav-links" id="z-nav-links">
+          <a href="#compare">Compare</a>
+          <a href="#proofs">Proofs</a>
+          <a href="#runtime">Runtime</a>
+          <a href="#commands">Commands</a>
           <a
             href="https://github.com/srdjan/zigttp/tree/main/docs"
             target="_blank"
@@ -198,1043 +167,542 @@
           >Docs</a>
           <a
             href="https://github.com/srdjan/zigttp"
-            class="nav-gh"
             target="_blank"
             rel="noopener noreferrer"
           >GitHub</a>
         </div>
-      </div>
-    </nav>
+        <a class="z-nav-cta" href="#install">Install</a>
+      </nav>
+    </header>
 
     <main id="main">
-      <!-- 1. Hero -->
-      <section class="hero">
-        <div class="container hero-inner">
-          <div class="hero-copy">
-            <p
-              class="hero-brand pre-anim"
-              data-anim="hero-wordmark"
-            >
-              zigttp
-            </p>
-            <h1 class="hero-title">
-              <span
-                class="hero-line pre-anim"
-                data-anim="hero-line"
-              >Compile-time proof</span>
-              <span
-                class="hero-line accent pre-anim"
-                data-anim="hero-line"
-              >you can see.</span>
-            </h1>
-            <p class="hero-sub pre-anim" data-anim="hero-sub">
-              Edit your handler. Watch the proof flip live in
-              <code>zigttp studio</code>. Every save recompiles, discharges your
-              declared <code>Spec&lt;...&gt;</code> obligations, and extracts a
-              fresh contract. Your handler code is the spec.
-            </p>
-            <div class="hero-ctas pre-anim" data-anim="hero-ctas">
-              <a
-                href="https://github.com/srdjan/zigttp#install"
-                class="cta-btn cta-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >Install zigttp</a>
-              <a
-                href="https://github.com/srdjan/zigttp/tree/main/docs"
-                class="cta-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >Read the docs <span aria-hidden="true">&rarr;</span></a>
-            </div>
-          </div>
-          <div class="hero-visual" aria-hidden="true">
-            <div class="proof-engine">
-              <svg
-                class="proof-engine-svg"
-                viewBox="0 0 640 640"
-                role="img"
-                aria-label="Animated proof engine"
-              >
-                <defs>
-                  <filter
-                    id="proof-glow"
-                    x="-40%"
-                    y="-40%"
-                    width="180%"
-                    height="180%"
-                  >
-                    <feGaussianBlur stdDeviation="4" result="blur">
-                    </feGaussianBlur>
-                    <feMerge>
-                      <feMergeNode in="blur"></feMergeNode>
-                      <feMergeNode in="SourceGraphic"></feMergeNode>
-                    </feMerge>
-                  </filter>
-                </defs>
-                <circle
-                  class="engine-ring engine-ring-outer"
-                  cx="320"
-                  cy="320"
-                  r="278"
-                >
-                </circle>
-                <circle
-                  class="engine-ring engine-ring-mid"
-                  cx="320"
-                  cy="320"
-                  r="236"
-                >
-                </circle>
-                <circle
-                  class="engine-ring engine-ring-inner"
-                  cx="320"
-                  cy="320"
-                  r="180"
-                >
-                </circle>
-                <circle
-                  class="engine-arc engine-arc-a"
-                  data-anim="engine-arc"
-                  cx="320"
-                  cy="320"
-                  r="278"
-                >
-                </circle>
-                <circle
-                  class="engine-arc engine-arc-b"
-                  data-anim="engine-arc"
-                  cx="320"
-                  cy="320"
-                  r="236"
-                >
-                </circle>
-                <circle
-                  class="engine-arc engine-arc-c"
-                  data-anim="engine-arc"
-                  cx="320"
-                  cy="320"
-                  r="180"
-                >
-                </circle>
-                <g class="engine-bars" data-anim="engine-bars">
-                  <rect x="272" y="162" width="96" height="8"></rect>
-                  <rect x="236" y="184" width="168" height="8"></rect>
-                  <rect x="202" y="206" width="236" height="8"></rect>
-                  <rect x="172" y="228" width="296" height="8"></rect>
-                  <rect x="138" y="250" width="364" height="8"></rect>
-                  <rect x="110" y="272" width="420" height="8"></rect>
-                  <rect x="94" y="294" width="452" height="8"></rect>
-                  <rect x="86" y="316" width="468" height="8"></rect>
-                  <rect x="96" y="338" width="448" height="8"></rect>
-                  <rect x="126" y="360" width="388" height="8"></rect>
-                  <rect x="164" y="382" width="312" height="8"></rect>
-                  <rect x="206" y="404" width="228" height="8"></rect>
-                  <rect x="248" y="426" width="144" height="8"></rect>
-                  <rect x="286" y="448" width="68" height="8"></rect>
-                </g>
-                <path
-                  class="engine-trace"
-                  data-anim="engine-line"
-                  d="M108 396 C172 344 228 342 290 320 S386 274 532 232"
-                >
-                </path>
-                <path
-                  class="engine-trace engine-trace-secondary"
-                  data-anim="engine-line"
-                  d="M122 246 C202 288 260 296 320 296 S448 326 538 382"
-                >
-                </path>
-                <g class="engine-dots" data-anim="engine-dots">
-                  <circle cx="130" cy="382" r="6"></circle>
-                  <circle cx="156" cy="362" r="6"></circle>
-                  <circle cx="184" cy="350" r="6"></circle>
-                  <circle cx="268" cy="327" r="6"></circle>
-                  <circle cx="296" cy="316" r="6"></circle>
-                  <circle cx="324" cy="302" r="6"></circle>
-                  <circle cx="446" cy="258" r="6"></circle>
-                  <circle cx="476" cy="248" r="6"></circle>
-                  <circle cx="506" cy="238" r="6"></circle>
-                </g>
-                <circle
-                  class="engine-pulse"
-                  data-anim="engine-pulse"
-                  cx="0"
-                  cy="0"
-                  r="7"
-                >
-                </circle>
-              </svg>
-            </div>
-          </div>
-          <div class="hero-command">
-            <div class="terminal hero-terminal">
-              <div class="terminal-bar">
-                <span class="terminal-dot" aria-hidden="true"></span>
-                <span class="terminal-dot" aria-hidden="true"></span>
-                <span class="terminal-dot" aria-hidden="true"></span>
-                <span class="terminal-title">zigttp studio</span>
-              </div>
-              <div class="terminal-body">
-                <pre><code><span class="t-prompt">$</span> <span class="hero-typed" data-anim="hero-cmd">zigttp init my-app &amp;&amp; cd my-app &amp;&amp; zigttp dev</span>
-
-<span class="t-output pre-anim" data-anim="hero-output">+pure  +read_only  +deterministic  +injection_safe</span>
-<span class="t-output pre-anim" data-anim="hero-output"># add Date.now() to the handler and save</span>
-<span class="t-output pre-anim" data-anim="hero-output">+pure  +read_only  -deterministic  +injection_safe</span>
-<span class="t-output pre-anim" data-anim="hero-output"># wrap it in step("ts", () =&gt; Date.now())</span>
-<span class="t-output pre-anim" data-anim="hero-output">+pure  +read_only  +deterministic  +injection_safe</span></code></pre>
-              </div>
-            </div>
-            <button
-              type="button"
-              class="hero-replay"
-              data-anim="hero-replay"
-              aria-label="Replay hero animation"
-            >
-              Replay
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2. The Loop -->
-      <section id="expert" class="section">
-        <div class="container">
-          <div class="expert-layout">
-            <div class="expert-prose">
-              <p class="section-kicker">The Loop</p>
-              <h2 class="section-title">
-                The agent edits inside the same proof system that rejects it.
-              </h2>
-              <p>
-                <code>zigts expert</code> proposes a patch, runs it through
-                <code>-Dverify</code> and <code>-Dcontract</code>, discharges
-                your <code>Spec&lt;...&gt;</code> obligations, and stops at code
-                it can certify. Counterexamples land in the witness corpus so a
-                regression never sneaks past twice. No shell agent guessing
-                around a separate compiler.
-              </p>
-              <p>
-                Run <code>dev --watch --prove</code> alongside it. Every save
-                diffs the contract against the running version and only
-                hot-swaps when the verdict is <code>safe</code> or
-                <code>safe_with_additions</code>. Breaking changes block the
-                swap and print the diff.
-              </p>
-              <ul
-                class="proof-list"
-                data-anim="proof-list"
-                aria-label="Compile-time path proofs"
-              >
-                <li>
-                  <span class="proof-mark" aria-hidden="true"
-                  >&#10003;</span>Returns
-                </li>
-                <li>
-                  <span class="proof-mark" aria-hidden="true"
-                  >&#10003;</span>Reachability
-                </li>
-                <li>
-                  <span class="proof-mark" aria-hidden="true"
-                  >&#10003;</span>Result narrowing
-                </li>
-                <li>
-                  <span class="proof-mark" aria-hidden="true"
-                  >&#10003;</span>Match coverage
-                </li>
-                <li>
-                  <span class="proof-mark" aria-hidden="true"
-                  >&#10003;</span>Property access
-                </li>
-                <li>
-                  <span class="proof-mark" aria-hidden="true"
-                  >&#10003;</span>Dead code
-                </li>
-                <li>
-                  <span class="proof-mark" aria-hidden="true"
-                  >&#10003;</span>Contract extraction
-                </li>
-              </ul>
-              <p class="proof-list-note">
-                Stack sound mode and your declared
-                <code>Spec&lt;...&gt;</code> obligations on top - the verifier
-                discharges them in the same pass.
-              </p>
-            </div>
-            <div class="expert-terminal">
-              <div class="terminal">
-                <div class="terminal-bar">
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-dot" aria-hidden="true"></span>
-                  <span class="terminal-title">zigts expert</span>
-                </div>
-                <div class="terminal-body">
-                  <pre><code><span class="t-prompt">$</span> zigts expert <span class="t-string">"add a health check endpoint with auth bypass"</span>
-
-<span class="t-dim">[expert] Planning handler patch...</span>
-<span class="t-dim">[expert] Simulating edit against zigts rules...</span>
-
-<span class="t-error">  error[E0017]: `try/catch` is not supported in zigts</span>
-<span class="t-dim">    --> handler.ts:9:5</span>
-<span class="t-dim">    = help: use assert() for Result narrowing</span>
-
-<span class="t-dim">[expert] Rewriting with assert + match...</span>
-<span class="t-dim">[expert] -Dverify -Dcontract; discharging Spec&lt;...&gt;...</span>
-
-<span class="t-output">  PROVEN 7/7 path proofs + Spec&lt;idempotent, deterministic&gt;</span>
-<span class="t-output">  CONTRACT stable: no new secrets, hosts, or modules</span>
-<span class="t-output">  LEDGER appended: .zigttp/proofs.jsonl (verdict: safe_with_additions)</span>
-<span class="t-output">  Handler ready: health-check (1.2MB)</span></code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-          <details class="expert-demo-details" id="expert-demo">
-            <summary>Watch the agent run (video, 1 min)</summary>
-            <div class="expert-demo">
-              <video
-                class="expert-video"
-                controls
-                muted
-                playsinline
-                preload="metadata"
-                aria-label="zigts expert agent demo"
-              >
-                <source src="/ziggtp-expert-demo.mp4" type="video/mp4">
-                <source src="/ziggtp-expert-demo.mov" type="video/quicktime">
-                <p>Your browser does not support this video format.</p>
-              </video>
-              <div class="expert-demo-footer">
-                <button
-                  class="share-btn"
-                  onclick='const url = location.origin + "/#expert-demo";
-navigator.clipboard.writeText(url).then(() => {
-  this.textContent = "Copied!";
-  setTimeout(() => this.textContent = "Copy link", 2000);
-})'
-                  aria-label="Copy link to this demo"
-                >
-                  Copy link
-                </button>
-              </div>
-            </div>
-          </details>
-        </div>
-      </section>
-
-      <!-- 3. The Provable Subset -->
-      <section id="code" class="section section-dark">
-        <div class="container container--wide">
-          <p class="section-kicker">The Provable Subset</p>
-          <h2 class="section-title">
-            TypeScript, cut down until it can be proved.
-          </h2>
-          <p class="section-lead">
-            What stays is small enough to analyze and expressive enough to ship.
+      <section class="z-hero" id="hero">
+        <div class="z-hero-field" aria-hidden="true"></div>
+        <div class="z-hero-copy">
+          <p class="z-eyebrow">
+            <span class="z-status-dot z-dot-safe"></span>
+            Serverless TypeScript with compile-time contracts
           </p>
-          <div class="code-tabs">
-            <div class="tabs-header" role="tablist">
-              <button
-                class="tab active"
-                id="tab-routing-trigger"
-                data-tab="routing"
-                role="tab"
-                aria-selected="true"
-                aria-controls="tab-routing"
-                tabindex="0"
-              >
-                Routing
-              </button>
-              <button
-                class="tab"
-                id="tab-auth-trigger"
-                data-tab="auth"
-                role="tab"
-                aria-selected="false"
-                aria-controls="tab-auth"
-                tabindex="-1"
-              >
-                Auth + Validation
-              </button>
-              <button
-                class="tab"
-                id="tab-tsx-trigger"
-                data-tab="tsx"
-                role="tab"
-                aria-selected="false"
-                aria-controls="tab-tsx"
-                tabindex="-1"
-              >
-                TSX / SSR
-              </button>
-              <button
-                class="tab"
-                id="tab-htmx-trigger"
-                data-tab="htmx"
-                role="tab"
-                aria-selected="false"
-                aria-controls="tab-htmx"
-                tabindex="-1"
-              >
-                HTMX
-              </button>
-              <button
-                class="tab"
-                id="tab-compose-trigger"
-                data-tab="compose"
-                role="tab"
-                aria-selected="false"
-                aria-controls="tab-compose"
-                tabindex="-1"
-              >
-                Pipe + Guard
-              </button>
-              <button
-                class="tab"
-                id="tab-durable-trigger"
-                data-tab="durable"
-                role="tab"
-                aria-selected="false"
-                aria-controls="tab-durable"
-                tabindex="-1"
-              >
-                Durable
-              </button>
-              <button
-                class="tab"
-                id="tab-specs-trigger"
-                data-tab="specs"
-                role="tab"
-                aria-selected="false"
-                aria-controls="tab-specs"
-                tabindex="-1"
-              >
-                Specs
-              </button>
-            </div>
-            <div class="tabs-body">
-              <div
-                class="tab-panel active"
-                id="tab-routing"
-                role="tabpanel"
-                aria-labelledby="tab-routing-trigger"
-              >
-                <pre><code><span class="c-keyword">import</span> { method, pathname, params } <span class="c-keyword">from</span> <span class="c-string">"zigttp:router"</span>;
+          <h1>zigttp proves your handler before it runs.</h1>
+          <p class="z-hero-lede">
+            Edit TypeScript, save, and watch <code>zigttp studio</code> flip the
+            verdict. The compiler discharges declared
+            <code>Spec&lt;...&gt;</code> obligations, extracts a contract, and
+            blocks unsafe hot swaps.
+          </p>
+          <div class="z-hero-actions">
+            <a class="z-button z-button-primary" href="#install"
+            >Install zigttp</a>
+            <a
+              class="z-button z-button-secondary"
+              href="https://github.com/srdjan/zigttp/tree/main/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Read the docs</a>
+          </div>
+          <div class="z-install-card" aria-label="Install command">
+            <span class="z-prompt">$</span>
+            <code id="install-cmd"
+            >curl -fsSL
+              https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh |
+              sh</code>
+            <button type="button" id="copy-install">Copy</button>
+          </div>
+          <p class="z-hero-note">
+            One binary · no npm surface · native Zig modules · macOS and Linux ·
+            contract-aware deploy
+          </p>
+        </div>
 
-<span class="c-keyword">const</span> <span class="c-fn">getUser</span> = (<span class="c-param">id</span>: <span class="c-attr">string</span>) =>
-    <span class="c-fn">fetchSync</span>(<span class="c-string">`https://api.example.com/users/</span>${id}<span class="c-string">`</span>)
-    |> Response.<span class="c-fn">json</span>;
-
-<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>) {
-    <span class="c-keyword">return</span> <span class="c-keyword">match</span> (<span class="c-string">`</span>${<span class="c-fn">method</span>(req)}<span class="c-string"> </span>${<span class="c-fn">pathname</span>(req)}<span class="c-string">`</span>) {
-        <span class="c-string">"GET /"</span>          => Response.<span class="c-fn">json</span>({ status: <span class="c-string">"ok"</span> }),
-        <span class="c-string">"GET /health"</span>    => Response.<span class="c-fn">json</span>({ healthy: <span class="c-number">true</span> }),
-        <span class="c-string">"GET /users/:id"</span> => <span class="c-fn">getUser</span>(<span class="c-fn">params</span>(req).id),
-        <span class="c-string">"POST /echo"</span>     => Response.<span class="c-fn">json</span>(req.body),
-        _                => Response.<span class="c-fn">json</span>(
-                                { error: <span class="c-string">"Not Found"</span> },
-                                { status: <span class="c-number">404</span> }
-                            ),
-    };
-}</code></pre>
+        <figure class="z-product-shot">
+          <div
+            class="z-studio-mock"
+            role="img"
+            aria-label="Stylized zigttp studio showing proof state, handler code, contract verdict, and witness corpus"
+          >
+            <aside class="z-studio-sidebar">
+              <div class="z-sidebar-title">surfaces</div>
+              <div class="z-surface active">
+                <span class="z-status-dot z-dot-safe"></span>
+                <div><strong>handler.ts</strong><small>proven</small></div>
               </div>
-
-              <div
-                class="tab-panel"
-                id="tab-auth"
-                role="tabpanel"
-                aria-labelledby="tab-auth-trigger"
-                hidden
-              >
-                <pre><code><span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
-<span class="c-keyword">import</span> { schemaCompile, validateJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
-<span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
-
-<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"user"</span>, <span class="c-fn">JSON</span>.<span class="c-fn">stringify</span>({
-    type: <span class="c-string">"object"</span>,
-    required: [<span class="c-string">"name"</span>, <span class="c-string">"email"</span>],
-    properties: {
-        name:  { type: <span class="c-string">"string"</span>, minLength: <span class="c-number">1</span> },
-        email: { type: <span class="c-string">"string"</span>, format: <span class="c-string">"email"</span> },
-    }
-})));
-
-<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> {
-    <span class="c-keyword">const</span> token = <span class="c-fn">parseBearer</span>(req.headers[<span class="c-string">"authorization"</span>]);
-    <span class="c-keyword">if</span> (!token) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
-        { error: <span class="c-string">"unauthorized"</span> }, { status: <span class="c-number">401</span> }
-    );
-
-    <span class="c-keyword">const</span> auth = <span class="c-fn">jwtVerify</span>(token, <span class="c-fn">env</span>(<span class="c-string">"JWT_SECRET"</span>) ?? <span class="c-string">""</span>);
-    <span class="c-keyword">assert</span>(auth.ok, Response.<span class="c-fn">json</span>(
-        { error: auth.error }, { status: <span class="c-number">401</span> }
-    ));
-
-    <span class="c-keyword">return</span> <span class="c-keyword">match</span> (req.method) {
-        <span class="c-string">"POST"</span> => {
-            <span class="c-keyword">const</span> result = <span class="c-fn">validateJson</span>(<span class="c-string">"user"</span>, req.body ?? <span class="c-string">""</span>);
-            <span class="c-keyword">assert</span>(result.ok, Response.<span class="c-fn">json</span>(
-                { errors: result.errors }, { status: <span class="c-number">400</span> }
-            ));
-            Response.<span class="c-fn">json</span>({ user: result.value }, { status: <span class="c-number">201</span> });
-        },
-        _ => Response.<span class="c-fn">json</span>({ user: auth.value }),
-    };
-}</code></pre>
+              <div class="z-surface">
+                <span class="z-status-dot z-dot-review"></span>
+                <div>
+                  <strong>contract</strong><small>safe_with_additions</small>
+                </div>
               </div>
-
-              <div
-                class="tab-panel"
-                id="tab-tsx"
-                role="tabpanel"
-                aria-labelledby="tab-tsx-trigger"
-                hidden
-              >
-                <pre><code><span class="c-keyword">type</span> <span class="c-attr">Props</span> = {
-    name: <span class="c-attr">string</span>;
-    count: <span class="c-attr">number</span>;
-};
-
-<span class="c-keyword">function</span> <span class="c-fn">Card</span>(<span class="c-param">props</span>: <span class="c-attr">Props</span>): <span class="c-attr">JSX.Element</span> {
-    <span class="c-keyword">return</span> (
-        &lt;<span class="c-fn">div</span> <span class="c-attr">class</span>=<span class="c-string">"card"</span>&gt;
-            &lt;<span class="c-fn">h1</span>&gt;Hello, {props.name}&lt;/<span class="c-fn">h1</span>&gt;
-            &lt;<span class="c-fn">p</span>&gt;Count: {props.count}&lt;/<span class="c-fn">p</span>&gt;
-        &lt;/<span class="c-fn">div</span>&gt;
-    );
-}
-
-<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> {
-    <span class="c-keyword">const</span> data: <span class="c-attr">Props</span> = { name: <span class="c-string">"World"</span>, count: <span class="c-number">42</span> };
-    <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(
-        <span class="c-fn">renderToString</span>(&lt;<span class="c-fn">Card</span> <span class="c-attr">name</span>={data.name} <span class="c-attr">count</span>={data.count} /&gt;)
-    );
-}</code></pre>
+              <div class="z-surface">
+                <span class="z-status-dot z-dot-blocked"></span>
+                <div><strong>witnesses</strong><small>2 pinned</small></div>
               </div>
-
-              <div
-                class="tab-panel"
-                id="tab-htmx"
-                role="tabpanel"
-                aria-labelledby="tab-htmx-trigger"
-                hidden
-              >
-                <pre><code><span class="c-keyword">import</span> { decodeForm } <span class="c-keyword">from</span> <span class="c-string">"zigttp:decode"</span>;
-<span class="c-keyword">import</span> { schemaCompile } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
-
-<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"todo.create"</span>, <span class="c-fn">JSON</span>.<span class="c-fn">stringify</span>({
-    type: <span class="c-string">"object"</span>,
-    required: [<span class="c-string">"text"</span>],
-    properties: {
-        text: { type: <span class="c-string">"string"</span>, minLength: <span class="c-number">1</span> },
-    }
-})));
-
-<span class="c-keyword">function</span> <span class="c-fn">TodoForm</span>(): <span class="c-attr">JSX.Element</span> {
-    <span class="c-keyword">return</span> (
-        &lt;<span class="c-fn">form</span> <span class="c-attr">hx-post</span>=<span class="c-string">"/todos"</span> <span class="c-attr">hx-target</span>=<span class="c-string">"#todo-list"</span> <span class="c-attr">hx-swap</span>=<span class="c-string">"beforeend"</span>&gt;
-            &lt;<span class="c-fn">input</span> <span class="c-attr">name</span>=<span class="c-string">"text"</span> <span class="c-attr">required</span>=<span class="c-string">"required"</span> /&gt;
-            &lt;<span class="c-fn">button</span> <span class="c-attr">type</span>=<span class="c-string">"submit"</span>&gt;Add&lt;/<span class="c-fn">button</span>&gt;
-        &lt;/<span class="c-fn">form</span>&gt;
-    );
-}
-
-<span class="c-keyword">function</span> <span class="c-fn">TodoItem</span>(<span class="c-param">text</span>: <span class="c-attr">string</span>): <span class="c-attr">JSX.Element</span> {
-    <span class="c-keyword">return</span> &lt;<span class="c-fn">li</span> <span class="c-attr">class</span>=<span class="c-string">"todo"</span>&gt;{text}&lt;/<span class="c-fn">li</span>&gt;;
-}
-
-<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> {
-    <span class="c-keyword">if</span> (req.method === <span class="c-string">"GET"</span>) {
-        <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(<span class="c-fn">renderToString</span>(
-            &lt;<span class="c-fn">main</span>&gt;
-                &lt;<span class="c-fn">script</span> <span class="c-attr">src</span>=<span class="c-string">"https://unpkg.com/htmx.org@2.0.8"</span>&gt;&lt;/<span class="c-fn">script</span>&gt;
-                &lt;<span class="c-fn">TodoForm</span> /&gt;
-                &lt;<span class="c-fn">ul</span> <span class="c-attr">id</span>=<span class="c-string">"todo-list"</span>&gt;&lt;/<span class="c-fn">ul</span>&gt;
-            &lt;/<span class="c-fn">main</span>&gt;
-        ));
-    }
-
-    <span class="c-keyword">const</span> todo = <span class="c-fn">decodeForm</span>(<span class="c-string">"todo.create"</span>, req.body ?? <span class="c-string">""</span>);
-    <span class="c-keyword">assert</span>(todo.ok, Response.<span class="c-fn">text</span>(<span class="c-string">"bad request"</span>, { status: <span class="c-number">400</span> }));
-    <span class="c-keyword">return</span> Response.<span class="c-fn">html</span>(<span class="c-fn">renderToString</span>(<span class="c-fn">TodoItem</span>(todo.value.text)));
-}</code></pre>
+              <div class="z-sidebar-spacer"></div>
+              <div class="z-sidebar-row">
+                <span>proofs</span><span>7 / 7</span>
               </div>
-
-              <div
-                class="tab-panel"
-                id="tab-compose"
-                role="tabpanel"
-                aria-labelledby="tab-compose-trigger"
-                hidden
-              >
-                <pre><code><span class="c-keyword">import</span> { guard } <span class="c-keyword">from</span> <span class="c-string">"zigttp:compose"</span>;
-<span class="c-keyword">import</span> { parseBearer, jwtVerify } <span class="c-keyword">from</span> <span class="c-string">"zigttp:auth"</span>;
-<span class="c-keyword">import</span> { env } <span class="c-keyword">from</span> <span class="c-string">"zigttp:env"</span>;
-
-<span class="c-keyword">distinct type</span> <span class="c-attr">Secret</span> = <span class="c-attr">string</span>;
-<span class="c-keyword">type</span> <span class="c-attr">Claims</span> = { sub: <span class="c-attr">string</span> };
-<span class="c-keyword">type</span> <span class="c-attr">AuthRequest</span> = <span class="c-attr">Request</span> &amp; { user?: <span class="c-attr">Claims</span> };
-<span class="c-keyword">const</span> jwtSecret: <span class="c-attr">Secret</span> = <span class="c-fn">env</span>(<span class="c-string">"JWT_SECRET"</span>) ?? <span class="c-string">""</span>;
-
-<span class="c-keyword">const</span> <span class="c-fn">cors</span> = (<span class="c-param">req</span>: <span class="c-attr">AuthRequest</span>): <span class="c-attr">Response</span> | <span class="c-attr">undefined</span> =>
-    <span class="c-keyword">match</span> (req.method) {
-        <span class="c-string">"OPTIONS"</span> => Response.<span class="c-fn">text</span>(<span class="c-string">""</span>, {
-            status: <span class="c-number">204</span>,
-            headers: { <span class="c-string">"Access-Control-Allow-Origin"</span>: <span class="c-string">"*"</span> }
-        }),
-        _ => <span class="c-keyword">undefined</span>,
-    };
-
-<span class="c-keyword">const</span> <span class="c-fn">requireAuth</span> = (<span class="c-param">req</span>: <span class="c-attr">AuthRequest</span>): <span class="c-attr">Response</span> | <span class="c-attr">undefined</span> => {
-    <span class="c-keyword">const</span> token = <span class="c-fn">parseBearer</span>(req.headers[<span class="c-string">"authorization"</span>]);
-    <span class="c-keyword">if</span> (!token) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
-        { error: <span class="c-string">"unauthorized"</span> }, { status: <span class="c-number">401</span> }
-    );
-    <span class="c-keyword">const</span> auth = <span class="c-fn">jwtVerify</span>(token, jwtSecret);
-    <span class="c-keyword">if</span> (!auth.ok) <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>(
-        { error: auth.error }, { status: <span class="c-number">403</span> }
-    );
-    req.user = auth.value;
-    <span class="c-keyword">return</span> <span class="c-keyword">undefined</span>;
-};
-
-<span class="c-keyword">const</span> <span class="c-fn">dashboard</span> = (<span class="c-param">req</span>: <span class="c-attr">AuthRequest</span>): <span class="c-attr">Response</span> =>
-    Response.<span class="c-fn">json</span>({ welcome: req.user?.sub ?? <span class="c-string">"guest"</span> });
-
-<span class="c-comment">// Pipe: guards short-circuit, handler runs last</span>
-<span class="c-keyword">const</span> handler = <span class="c-fn">guard</span>(cors) |> <span class="c-fn">guard</span>(requireAuth) |> dashboard;</code></pre>
+              <div class="z-proof-item">
+                <span>✓</span><div>
+                  <strong>returns</strong><small>complete</small>
+                </div>
               </div>
-
-              <div
-                class="tab-panel"
-                id="tab-durable"
-                role="tabpanel"
-                aria-labelledby="tab-durable-trigger"
-                hidden
-              >
-                <pre><code><span class="c-keyword">import</span> { run, step, waitSignal } <span class="c-keyword">from</span> <span class="c-string">"zigttp:durable"</span>;
-<span class="c-keyword">import</span> { decodeJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:decode"</span>;
-<span class="c-keyword">import</span> { schemaCompile } <span class="c-keyword">from</span> <span class="c-string">"zigttp:validate"</span>;
-
-<span class="c-keyword">comptime</span>(() => <span class="c-fn">schemaCompile</span>(<span class="c-string">"order"</span>, <span class="c-fn">JSON</span>.<span class="c-fn">stringify</span>({
-    type: <span class="c-string">"object"</span>,
-    required: [<span class="c-string">"item"</span>, <span class="c-string">"qty"</span>],
-    properties: {
-        item: { type: <span class="c-string">"string"</span> },
-        qty:  { type: <span class="c-string">"number"</span>, minimum: <span class="c-number">1</span> }
-    }
-})));
-
-<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> {
-    <span class="c-keyword">const</span> body = <span class="c-fn">decodeJson</span>(<span class="c-string">"order"</span>, req.body ?? <span class="c-string">""</span>);
-    <span class="c-keyword">assert</span>(body.ok, Response.<span class="c-fn">json</span>(
-        { errors: body.errors }, { status: <span class="c-number">400</span> }
-    ));
-
-    <span class="c-keyword">return</span> <span class="c-fn">run</span>(<span class="c-string">`order-</span>${body.value.item}<span class="c-string">`</span>, () => {
-        <span class="c-keyword">const</span> charge = <span class="c-fn">step</span>(<span class="c-string">"charge"</span>, () =>
-            <span class="c-fn">fetchSync</span>(<span class="c-string">"https://pay.api/charge"</span>, {
-                method: <span class="c-string">"POST"</span>,
-                body: body.value
-            })
-        );
-        <span class="c-comment">// Wait for external webhook confirmation</span>
-        <span class="c-keyword">const</span> confirm = <span class="c-fn">waitSignal</span>(<span class="c-string">"payment-confirmed"</span>);
-        <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({
-            status: <span class="c-string">"fulfilled"</span>,
-            chargeStatus: charge.status,
-            signal: confirm
-        });
-    });
-}</code></pre>
+              <div class="z-proof-item">
+                <span>✓</span><div>
+                  <strong>match coverage</strong><small>exhaustive</small>
+                </div>
               </div>
+              <div class="z-proof-item">
+                <span>✓</span><div>
+                  <strong>no_secret_leakage</strong><small>discharged</small>
+                </div>
+              </div>
+              <div class="z-proof-item">
+                <span>●</span><div>
+                  <strong>ledger</strong><small>HEAD appended</small>
+                </div>
+              </div>
+            </aside>
+            <section class="z-studio-main">
+              <div class="z-studio-tabs">
+                <span>studio</span>
+                <span>handler.ts</span>
+                <span class="active">proof ledger</span>
+                <span>+</span>
+              </div>
+              <div class="z-studio-panes">
+                <div class="z-code-pane focused">
+                  <div class="z-pane-title">
+                    <span>src/handler.ts</span><em>saved 14ms ago</em>
+                  </div>
+                  <pre><code><span class="z-token-key">import</span> { decodeJson } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:decode"</span>;
+<span class="z-token-key">import type</span> { Spec } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:types"</span>;
 
-              <div
-                class="tab-panel"
-                id="tab-specs"
-                role="tabpanel"
-                aria-labelledby="tab-specs-trigger"
-                hidden
-              >
-                <pre><code><span class="c-keyword">import type</span> { <span class="c-attr">Spec</span> } <span class="c-keyword">from</span> <span class="c-string">"zigttp:types"</span>;
-<span class="c-keyword">import</span> { step } <span class="c-keyword">from</span> <span class="c-string">"zigttp:durable"</span>;
-<span class="c-keyword">import</span> { decodeJson } <span class="c-keyword">from</span> <span class="c-string">"zigttp:decode"</span>;
-
-<span class="c-comment">// Declare the obligations the compiler must discharge.</span>
-<span class="c-keyword">type</span> <span class="c-attr">Guardrails</span> = <span class="c-attr">Spec</span>&lt;
-    <span class="c-string">"idempotent"</span>
-    | <span class="c-string">"deterministic"</span>
-    | <span class="c-string">"no_secret_leakage"</span>
-    | <span class="c-string">"injection_safe"</span>
+<span class="z-token-key">type</span> Guardrails = Spec&lt;
+  <span class="z-token-str">"idempotent"</span> | <span class="z-token-str">"deterministic"</span> |
+  <span class="z-token-str">"no_secret_leakage"</span>
 &gt;;
 
-<span class="c-keyword">function</span> <span class="c-fn">handler</span>(<span class="c-param">req</span>: <span class="c-attr">Request</span>): <span class="c-attr">Response</span> &amp; <span class="c-attr">Guardrails</span> {
-    <span class="c-keyword">const</span> body = <span class="c-fn">decodeJson</span>(<span class="c-string">"order"</span>, req.body ?? <span class="c-string">""</span>);
-    <span class="c-keyword">assert</span>(body.ok, Response.<span class="c-fn">json</span>(
-        { errors: body.errors }, { status: <span class="c-number">400</span> }
-    ));
-
-    <span class="c-comment">// `Date.now()` would trip -deterministic - wrap it in step().</span>
-    <span class="c-keyword">const</span> ts = <span class="c-fn">step</span>(<span class="c-string">"ts"</span>, () => <span class="c-fn">Date</span>.<span class="c-fn">now</span>());
-
-    <span class="c-keyword">return</span> Response.<span class="c-fn">json</span>({ id: body.value.item, ts });
-}
-
-<span class="c-comment">// Build:  zigts check handler.ts --json</span>
-<span class="c-comment">//   PROVEN Spec&lt;idempotent, deterministic, no_secret_leakage, injection_safe&gt;</span>
-<span class="c-comment">// Drop the step() wrapper and the verifier raises ZTS500 with the</span>
-<span class="c-comment">// per-property "Try:" suggestion. The studio chip flips red on save.</span></code></pre>
+<span class="z-token-key">function</span> handler(req): Response &amp; Guardrails {
+  <span class="z-token-key">const</span> body = decodeJson(<span class="z-token-str">"order"</span>, req.body ?? <span class="z-token-str">""</span>);
+  assert(body.ok, Response.json({ errors: body.errors }, { status: 400 }));
+  <span class="z-token-key">return</span> Response.json({ status: <span class="z-token-str">"accepted"</span> });
+}</code></pre>
+                </div>
+                <div class="z-verdict-pane">
+                  <div class="z-pane-title">
+                    <span>zigttp studio</span><em>live</em>
+                  </div>
+                  <div class="z-verdict z-verdict-safe">
+                    <span>PROVEN</span>
+                    <strong>7/7</strong>
+                  </div>
+                  <div class="z-verdict-grid">
+                    <span>contract</span><strong>safe_with_additions</strong>
+                    <span>sandbox</span><strong>least privilege</strong>
+                    <span>binary</span><strong>1.2MB</strong>
+                    <span>cold start</span><strong>3ms</strong>
+                  </div>
+                  <pre><code>$ zigttp dev --watch --prove
+verdict: safe_with_additions
+ledger: .zigttp/proofs.jsonl
+hot swap: allowed</code></pre>
+                </div>
               </div>
-            </div>
+            </section>
           </div>
-        </div>
+          <figcaption>
+            The proof workbench, contract diff, and runtime surface in one loop.
+          </figcaption>
+        </figure>
       </section>
 
-      <!-- 4. What Ships (features + modules merged) -->
-      <section id="features" class="section">
-        <div class="container">
-          <span class="anchor-alias" id="modules" aria-hidden="true"></span>
-          <p class="section-kicker">What Ships</p>
-          <h2 class="section-title">One binary. Six moving parts.</h2>
-          <p class="section-lead">
-            zigts makes handlers analyzable; the rest is built on that
-            constraint. 3ms init, 1.2MB binary, 4MB memory baseline.
+      <section class="z-section z-intro" id="proofs">
+        <p class="z-section-kicker">The missing guarantee</p>
+        <div class="z-heading-wide">
+          <h2>Keep TypeScript. Add compiler-enforced contracts.</h2>
+          <p>
+            Node, Deno, Bun, and serverless platforms run your handler and hope
+            tests covered the important paths. zigttp narrows the language
+            surface until the compiler can prove the handler, extract a
+            contract, and derive the sandbox.
           </p>
-
-          <div class="feature-list">
-            <article class="feature-row pre-anim" data-anim="feature-row">
-              <div class="feature-row-head">
-                <span class="feature-row-index">01</span>
-                <div class="feature-row-body">
-                  <h3>Pure-Zig runtime</h3>
-                  <p class="feature-row-summary">
-                    HTTP handlers on x86-64 and ARM64 with fast cold starts and
-                    zero-copy responses.
-                  </p>
-                </div>
-              </div>
-              <p class="feature-row-modules">
-                <span class="modules-label">modules</span>
-                <code>zigttp:io</code>
-                <code>zigttp:http</code>
-              </p>
-            </article>
-
-            <article class="feature-row pre-anim" data-anim="feature-row">
-              <div class="feature-row-head">
-                <span class="feature-row-index">02</span>
-                <div class="feature-row-body">
-                  <h3>zigts: the provable subset</h3>
-                  <p class="feature-row-summary">
-                    Native TS + TSX, distinct types, generics, and
-                    <code>match</code> / <code>guard</code> / <code
-                    >comptime</code>
-                    where proof needs them.
-                  </p>
-                </div>
-              </div>
-              <p class="feature-row-modules">
-                <span class="modules-label">modules</span>
-                <code>zigttp:router</code>
-                <code>zigttp:compose</code>
-              </p>
-            </article>
-
-            <article class="feature-row pre-anim" data-anim="feature-row">
-              <div class="feature-row-head">
-                <span class="feature-row-index">03</span>
-                <div class="feature-row-body">
-                  <h3>Stacked compile-time proofs</h3>
-                  <p class="feature-row-summary">
-                    Seven path proofs under <code>-Dverify</code> plus sound
-                    mode plus <code>-Dcontract</code> extraction plus discharge
-                    of every <code>Spec&lt;...&gt;</code> the handler declares.
-                    The classifier derives a least-privilege sandbox from the
-                    result.
-                  </p>
-                </div>
-              </div>
-              <p class="feature-row-modules">
-                <span class="modules-label">modules</span>
-                <code>zigttp:validate</code>
-                <code>zigttp:decode</code>
-                <code>zigttp:types</code>
-              </p>
-            </article>
-
-            <article class="feature-row pre-anim" data-anim="feature-row">
-              <div class="feature-row-head">
-                <span class="feature-row-index">04</span>
-                <div class="feature-row-body">
-                  <h3>Studio: the browser proof workbench</h3>
-                  <p class="feature-row-summary">
-                    <code>zigttp studio</code> re-verifies on save and shows the
-                    verdict, proven surface, active <code>Spec</code> set,
-                    witness corpus, and spec diagnostics in one pane.
-                    <code>--watch --prove</code> wires the same loop into your
-                    editor: hot-swap only on
-                    <code>safe</code> / <code>safe_with_additions</code>.
-                  </p>
-                </div>
-              </div>
-              <p class="feature-row-modules">
-                <span class="modules-label">commands</span>
-                <code>zigttp studio</code>
-                <code>dev --watch --prove</code>
-              </p>
-            </article>
-
-            <article class="feature-row pre-anim" data-anim="feature-row">
-              <div class="feature-row-head">
-                <span class="feature-row-index">05</span>
-                <div class="feature-row-body">
-                  <h3>20 native modules, zero npm surface</h3>
-                  <p class="feature-row-summary">
-                    Every capability ships as Zig. Imports stay explicit;
-                    sandboxes stay derivable from the contract.
-                  </p>
-                </div>
-              </div>
-              <p class="feature-row-modules">
-                <span class="modules-label">modules</span>
-                <code>zigttp:auth</code>
-                <code>zigttp:crypto</code>
-                <code>zigttp:sql</code>
-                <code>zigttp:cache</code>
-                <code>zigttp:durable</code>
-                <code>zigttp:service</code>
-                <code>zigttp:scope</code>
-                <code>zigttp:io</code>
-                <code>+ more</code>
-              </p>
-            </article>
-
-            <article class="feature-row pre-anim" data-anim="feature-row">
-              <div class="feature-row-head">
-                <span class="feature-row-index">06</span>
-                <div class="feature-row-body">
-                  <h3>Contract-aware deploy with a proof ledger</h3>
-                  <p class="feature-row-summary">
-                    <code>zigttp deploy</code> emits a self-contained binary and
-                    appends one row to <code>.zigttp/proofs.jsonl</code>
-                    with the proven facts and a verdict against the prior entry.
-                    <code>zigttp proofs list | show | diff | export</code>
-                    browses, re-renders, diffs, and exports the timeline as
-                    markdown, HTML, or an SVG verdict badge.
-                  </p>
-                </div>
-              </div>
-              <p class="feature-row-modules">
-                <span class="modules-label">commands</span>
-                <code>zigttp deploy</code>
-                <code>zigttp proofs</code>
-                <code>zigttp witnesses</code>
-              </p>
-            </article>
-          </div>
+        </div>
+        <div class="z-contrast-grid" aria-label="Zigttp positioning">
+          <article>
+            <span>not a full JS runtime</span>
+            <p>
+              zigts is a restricted TypeScript subset built so handlers are
+              analyzable.
+            </p>
+          </article>
+          <article>
+            <span>not a dashboard gate</span>
+            <p>
+              The proof loop runs locally, in CI, and during deploy from the
+              same commands.
+            </p>
+          </article>
+          <article>
+            <span>more than a type check</span>
+            <p>
+              Path proofs, sound mode, contract diffs, witnesses, and Spec
+              obligations stack together.
+            </p>
+          </article>
         </div>
       </section>
 
-      <!-- 5. Install -->
-      <section id="get-started" class="section section-dark">
-        <div class="container">
-          <p class="section-kicker">Four Commands</p>
-          <h2 class="section-title">
-            First handler. First proof. Four commands.
-          </h2>
-          <p class="section-lead">Install. Init. Studio. Deploy.</p>
-          <div class="terminal terminal-workflow">
-            <div class="terminal-bar">
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-dot" aria-hidden="true"></span>
-              <span class="terminal-title">workflow</span>
-            </div>
-            <div class="terminal-body">
-              <pre><code><span class="t-dim"># 1. Install from GitHub</span>
-<span class="t-prompt">$</span> curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh
-
-<span class="t-dim"># 2. Scaffold a project</span>
-<span class="t-prompt">$</span> zigttp init my-app && cd my-app
-<span class="t-output">  Created src/handler.ts</span>
-<span class="t-output">  Created zigttp.json</span>
-
-<span class="t-dim"># 3. Open the proof workbench (or run zigts expert)</span>
-<span class="t-prompt">$</span> zigttp studio
-<span class="t-output">  studio listening on http://localhost:4000</span>
-<span class="t-output">  PROVEN Spec&lt;idempotent, deterministic, no_secret_leakage&gt;</span>
-
-<span class="t-dim"># 4. Verified local deploy + proof ledger entry</span>
-<span class="t-prompt">$</span> zigttp deploy
-<span class="t-output">  built .zigttp/deploy/my-app (1.2MB)</span>
-<span class="t-output">  ledger: verdict=safe_with_additions @ HEAD</span>
-<span class="t-prompt">$</span> zigttp proofs show HEAD</code></pre>
-            </div>
+      <section class="z-section z-compare" id="compare">
+        <div class="z-heading-wide">
+          <div>
+            <p class="z-section-kicker">Positioning</p>
+            <h2>Runtime, compiler, proof ledger, and sandbox in one binary.</h2>
           </div>
-          <p class="install-footnote">
-            Full CLI reference:
+          <p>
+            zigttp trades the full npm surface for compile-time guarantees. That
+            is the point: fewer moving parts, more facts available before a
+            handler ships.
+          </p>
+        </div>
+        <div class="z-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th>Node / Deno / Bun</th>
+                <th>Serverless platforms</th>
+                <th>Static type checks</th>
+                <th>zigttp</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Runs TypeScript handlers</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>partial</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Compile-time path proofs</td>
+                <td>-</td>
+                <td>-</td>
+                <td>limited</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Declared Spec obligations</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Contract-aware hot swap</td>
+                <td>-</td>
+                <td>platform-specific</td>
+                <td>-</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Least-privilege sandbox derivation</td>
+                <td>manual</td>
+                <td>manual</td>
+                <td>-</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Proof ledger and witness replay</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="z-compare-cards" aria-label="Mobile comparison">
+          <article>
+            <h3>Compile-time path proofs</h3><span>Node/Deno/Bun <b
+              >-</b></span><span>Serverless <b>-</b></span><span
+              class="zigttp"
+            >zigttp <b>✓</b></span>
+          </article>
+          <article>
+            <h3>Declared Spec obligations</h3><span>Node/Deno/Bun <b
+              >-</b></span><span>Type checks <b>-</b></span><span
+              class="zigttp"
+            >zigttp <b>✓</b></span>
+          </article>
+          <article>
+            <h3>Contract-aware hot swap</h3><span>Serverless <b
+              >limited</b></span><span>Type checks <b>-</b></span><span
+              class="zigttp"
+            >zigttp <b>✓</b></span>
+          </article>
+          <article>
+            <h3>Proof ledger and witnesses</h3><span>Node/Deno/Bun <b
+              >-</b></span><span>Serverless <b>-</b></span><span
+              class="zigttp"
+            >zigttp <b>✓</b></span>
+          </article>
+        </div>
+      </section>
+
+      <section class="z-section z-feature-split">
+        <div class="z-feature-copy">
+          <p class="z-section-kicker">Proof loop</p>
+          <h2>Same handler, live verdicts, no separate spec file.</h2>
+          <p>
+            The handler declares its obligations in the type surface. Every save
+            recompiles, narrows Results, checks match coverage, extracts the
+            contract, and compares the new surface to the running version.
+          </p>
+          <ul class="z-check-list">
+            <li>
+              Studio shows verdict, active Spec set, contract diff, and
+              witnesses.
+            </li>
+            <li>
+              Unsafe changes block hot swap and print the contract difference.
+            </li>
+            <li>
+              Counterexamples persist so regressions replay instead of
+              rediscovering.
+            </li>
+          </ul>
+        </div>
+        <div class="z-code-card" aria-label="zigttp proof command output">
+          <pre><code><span class="z-muted"># every save runs the same proof path</span>
+<span class="z-cmd">$</span> zigttp dev --watch --prove
+compile src/handler.ts
+verify returns reachability result-narrowing
+verify match-coverage property-access dead-code
+contract extracted: order.accept
+
+<span class="z-safe">PROVEN Spec&lt;idempotent, deterministic, no_secret_leakage&gt;</span>
+verdict safe_with_additions
+hot swap allowed</code></pre>
+        </div>
+      </section>
+
+      <section
+        class="z-section z-pillars"
+        id="runtime"
+        aria-labelledby="runtime-title"
+      >
+        <div class="z-section-heading">
+          <p class="z-section-kicker">Core pillars</p>
+          <h2 id="runtime-title">Why proof-first handlers ship differently.</h2>
+        </div>
+        <div class="z-pillar-grid">
+          <article>
+            <span class="z-card-index">01</span>
+            <h3>Provable subset</h3>
+            <p>
+              zigts keeps the TypeScript surface small enough for exhaustive
+              compile-time analysis.
+            </p>
+          </article>
+          <article>
+            <span class="z-card-index">02</span>
+            <h3>Native module surface</h3>
+            <p>
+              Imports are explicit, capability-scoped, and implemented in Zig
+              instead of hidden in npm.
+            </p>
+          </article>
+          <article>
+            <span class="z-card-index">03</span>
+            <h3>Contract-aware deploy</h3>
+            <p>
+              Deploy emits the binary, appends a proof ledger row, and
+              classifies behavior against the prior version.
+            </p>
+          </article>
+          <article>
+            <span class="z-card-index">04</span>
+            <h3>Agent-ready loop</h3>
+            <p>
+              <code>zigts expert</code> writes against the same verifier that
+              rejects unsupported or unsafe patches.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="z-section z-access" id="commands">
+        <div class="z-section-heading">
+          <p class="z-section-kicker">Local, CI, deploy</p>
+          <h2>Run the proof where the work happens.</h2>
+        </div>
+        <div class="z-access-grid">
+          <article>
+            <span>local</span>
+            <h3>Proof workbench</h3>
+            <p>
+              Open the browser panel and keep the proof state visible while
+              editing.
+            </p>
+            <pre><code>$ zigttp studio</code></pre>
+          </article>
+          <article>
+            <span>watch</span>
+            <h3>Safe hot swap</h3>
+            <p>Only compatible contract changes replace the running handler.</p>
+            <pre><code>$ zigttp dev --watch --prove</code></pre>
+          </article>
+          <article>
+            <span>ci</span>
+            <h3>Contract diff</h3>
+            <p>Compare extracted contracts before a branch is merged.</p>
+            <pre><code>$ zigts prove old.json new.json</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="z-section z-api-section">
+        <div class="z-api-copy">
+          <p class="z-section-kicker">Runtime surface</p>
+          <h2>The CLI is also the proof surface.</h2>
+          <p>
+            The same commands drive local development, agent feedback loops,
+            deployment, witness replay, and proof-ledger inspection.
+          </p>
+          <div class="z-inline-links">
             <a
               href="https://github.com/srdjan/zigttp/tree/main/docs"
               target="_blank"
               rel="noopener noreferrer"
-            >zigttp init / studio / dev / build / deploy / proofs / witnesses,
-              and zigts check / compile / prove / expert &rarr;</a>
-          </p>
-        </div>
-      </section>
-
-      <!-- 6. FAQ -->
-      <section id="questions" class="section">
-        <div class="container">
-          <p class="section-kicker">Good Questions</p>
-          <h2 class="section-title">The fast objections.</h2>
-          <div class="faq-list">
-            <details class="faq-item">
-              <summary class="faq-question">
-                How is zigttp different from Node.js, Deno, and Bun?
-              </summary>
-              <p class="faq-answer">
-                Node.js, Deno, and Bun run the full language. zigttp uses zigts,
-                a restricted subset, so the compiler can prove handlers, derive
-                least-privilege sandboxes, and replay runs deterministically.
-                That guarantee needs a closed language surface.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">
-                What does "proves your code correct" actually mean?
-              </summary>
-              <p class="faq-answer">
-                Three stacked layers, then your own. <code>-Dverify</code>
-                proves seven path properties: returns, reachability, Result
-                narrowing, match coverage, property access, dead code, and
-                contract extraction. Sound mode adds arithmetic and comparison
-                checking across all operators.
-                <code>-Dcontract</code> extracts a behavioral contract that
-                <code>zigttp deploy</code> diffs against the prior version. On
-                top, every <code>Spec&lt;...&gt;</code> obligation you declare
-                (<code>idempotent</code>, <code>deterministic</code>,
-                <code>no_secret_leakage</code>, ...) is discharged by the
-                verifier and surfaced live in <code>zigttp studio</code>.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">
-                What happens on a breaking change?
-              </summary>
-              <p class="faq-answer">
-                Run with <code>dev --watch --prove</code> and the server diffs
-                the contract on every save. The verdict is one of
-                <code>safe</code>, <code>safe_with_additions</code>,
-                <code>breaking</code>, or <code>needs_review</code>. Only the
-                first two hot-swap; the others block the swap and print the
-                diff. <code>zigts prove old.json new.json</code> runs the same
-                comparison standalone in CI.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">
-                What is the witness corpus?
-              </summary>
-              <p class="faq-answer">
-                Every counterexample the compiler discovers persists to
-                <code>.zigttp/witnesses/</code> so a falsifying input never
-                needs to be rediscovered. The corpus replays through
-                <code>zigttp mock --replay</code>, surfaces in the studio panel,
-                and the live-reload HUD calls out when a pinned witness re-fires
-                - that is a regression you explicitly chose to defend against.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">
-                Can I use npm packages with zigttp?
-              </summary>
-              <p class="faq-answer">
-                No. zigttp ships 20 native <code>zigttp:*</code> modules in Zig
-                (auth, crypto, validate, decode, sql, cache, durable, http, io,
-                router, compose, env, url, id, log, text, time, ratelimit,
-                service, scope) and the compiler tracks every import. If a
-                module does not cover what you need, call the external API with
-                <code>fetchSync</code>.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">How do I install zigttp?</summary>
-              <p class="faq-answer">
-                Pre-built binaries cover macOS and Linux on x86_64 and aarch64.
-                Current release is <code>v1.0.0-alpha</code>. Building from
-                source requires Zig 0.16.0.
-              </p>
-              <pre
-                class="faq-answer-code"
-              ><code>curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh</code></pre>
-            </details>
-            <details class="faq-item">
-              <summary class="faq-question">
-                Is it free and open source?
-              </summary>
-              <p class="faq-answer">
-                Yes. zigttp is MIT licensed on GitHub - runtime, compiler, and
-                virtual-module standard library.
-              </p>
-            </details>
-          </div>
-
-          <div class="section-ctas">
+            >CLI docs</a>
             <a
               href="https://github.com/srdjan/zigttp"
-              class="cta-btn cta-primary"
               target="_blank"
               rel="noopener noreferrer"
-            >Browse the source</a>
-            <a
-              href="https://github.com/srdjan/zigttp/tree/main/docs"
-              class="cta-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Read the docs <span aria-hidden="true">&rarr;</span></a>
+            >Source</a>
+            <a href="/deck">Deck</a>
           </div>
+        </div>
+        <div class="z-code-card" aria-label="zigttp CLI workflow">
+          <pre><code><span class="z-muted"># scaffold and prove</span>
+<span class="z-cmd">zigttp</span> init api && cd api
+<span class="z-cmd">zigttp</span> studio
+
+<span class="z-muted"># deploy with a ledger entry</span>
+<span class="z-cmd">zigttp</span> deploy
+<span class="z-cmd">zigttp</span> proofs show HEAD
+
+<span class="z-muted"># keep regressions pinned</span>
+<span class="z-cmd">zigttp</span> witnesses replay
+<span class="z-cmd">zigts</span> expert <span class="z-str">"add health check"</span></code></pre>
+        </div>
+      </section>
+
+      <section class="z-section z-awareness">
+        <div class="z-section-heading">
+          <p class="z-section-kicker">Proof memory</p>
+          <h2>Keep the facts attached to the code.</h2>
+        </div>
+        <div class="z-awareness-grid">
+          <article>
+            <div class="z-mini-shot">
+              <span>proofs.jsonl</span>
+              <strong>safe_with_additions</strong>
+              <small>Spec&lt;idempotent, deterministic&gt;</small>
+            </div>
+            <h3>Proof ledger</h3>
+            <p>
+              Each deploy records the proven facts, contract verdict, binary,
+              and git position.
+            </p>
+          </article>
+          <article>
+            <div class="z-mini-shot">
+              <span>witnesses/</span>
+              <strong>2 counterexamples</strong>
+              <small>replayed on every proof run</small>
+            </div>
+            <h3>Witness corpus</h3>
+            <p>
+              Compiler-discovered failures stay pinned so a fixed bug has to
+              stay fixed.
+            </p>
+          </article>
+        </div>
+        <div class="z-state-legend">
+          <span><i class="z-status-dot z-dot-safe"></i>safe</span>
+          <span><i
+              class="z-status-dot z-dot-review"
+            ></i>safe_with_additions</span>
+          <span><i class="z-status-dot z-dot-blocked"></i>blocked</span>
+          <span><i class="z-status-dot z-dot-idle"></i>needs_review</span>
+        </div>
+      </section>
+
+      <section class="z-section z-integrations">
+        <div class="z-section-heading">
+          <p class="z-section-kicker">Native modules</p>
+          <h2>No npm surface. Explicit capabilities.</h2>
+        </div>
+        <div class="z-module-grid" aria-label="zigttp native modules">
+          <span>auth</span><span>crypto</span><span>validate</span><span
+          >decode</span>
+          <span>sql</span><span>cache</span><span>durable</span><span
+          >http</span>
+          <span>io</span><span>router</span><span>compose</span><span>env</span>
+          <span>url</span><span>id</span><span>log</span><span>scope</span>
+        </div>
+        <p class="z-integration-note">
+          Each <code>zigttp:*</code> import is visible to the compiler, contract
+          extractor, and sandbox classifier.
+        </p>
+      </section>
+
+      <section class="z-final-cta" id="install">
+        <p class="z-section-kicker">Start proving</p>
+        <h2>Install zigttp, run studio, break a contract once.</h2>
+        <p>
+          The value is obvious the first time the page refuses to hot-swap a
+          handler whose behavior changed under your feet.
+        </p>
+        <div class="z-hero-actions center">
+          <a
+            class="z-button z-button-primary"
+            href="https://github.com/srdjan/zigttp#install"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Install zigttp</a>
+          <a
+            class="z-button z-button-secondary"
+            href="https://github.com/srdjan/zigttp/tree/main/docs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Quick start</a>
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container footer-inner">
-        <div class="footer-logo">
-          <img
-            src="/logo-circle.jpeg"
-            alt="zigttp logo"
-            class="footer-logo-img"
-            width="28"
-            height="28"
-          >
-          <span class="logo-zig">zigttp</span>
-        </div>
-        <div class="footer-links">
-          <a
-            href="https://github.com/srdjan/zigttp"
-            target="_blank"
-            rel="noopener noreferrer"
-          >GitHub</a>
-          <a
-            href="https://github.com/srdjan/zigttp/tree/main/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Docs</a>
-          <a href="/deck">Deck</a>
-          <a
-            href="https://ziglang.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Zig</a>
-        </div>
-        <p class="footer-meta">MIT License - v1.0.0-alpha</p>
+    <footer class="z-footer">
+      <a class="z-brand" href="/" aria-label="zigttp home">
+        <img src="/logo-circle.jpeg" alt="" width="34" height="34">
+        <span>zigttp</span>
+      </a>
+      <div>
+        <a
+          href="https://github.com/srdjan/zigttp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >GitHub</a>
+        <a
+          href="https://github.com/srdjan/zigttp/tree/main/docs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Docs</a>
+        <a href="/deck">Deck</a>
+        <a href="https://ziglang.org" target="_blank" rel="noopener noreferrer"
+        >Zig</a>
       </div>
     </footer>
 
-    <script src="/script.js?v=4" defer></script>
-    <script type="module" src="/anime-scenes.js?v=2"></script>
+    <script src="/script.js?v=5" defer></script>
   </body>
 </html>

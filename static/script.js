@@ -1,3 +1,55 @@
+// Landing page menu toggle
+const zMenuButton = document.querySelector(".z-menu-button");
+const zNavLinks = document.querySelector(".z-nav-links");
+if (zMenuButton && zNavLinks) {
+  const setMenuState = (open) => {
+    zMenuButton.setAttribute("aria-expanded", String(open));
+    zNavLinks.classList.toggle("open", open);
+  };
+
+  zMenuButton.addEventListener("click", () => {
+    setMenuState(!zNavLinks.classList.contains("open"));
+  });
+
+  zNavLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setMenuState(false));
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && zNavLinks.classList.contains("open")) {
+      setMenuState(false);
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (zNavLinks.classList.contains("open") && !e.target.closest(".z-nav")) {
+      setMenuState(false);
+    }
+  });
+}
+
+// Install command copy affordance.
+const copyInstall = document.getElementById("copy-install");
+const installCmd = document.getElementById("install-cmd");
+if (copyInstall && installCmd) {
+  const originalText = copyInstall.textContent;
+
+  copyInstall.addEventListener("click", async () => {
+    const command = installCmd.textContent.trim();
+    try {
+      await navigator.clipboard.writeText(command);
+      copyInstall.textContent = "Copied";
+    } catch {
+      globalThis.prompt("Copy install command", command);
+      copyInstall.textContent = "Copy";
+    }
+
+    setTimeout(() => {
+      copyInstall.textContent = originalText;
+    }, 1500);
+  });
+}
+
 // Burger menu toggle
 const burger = document.querySelector(".nav-burger");
 const navLinks = document.querySelector(".nav-links");
