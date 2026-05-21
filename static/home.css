@@ -1685,6 +1685,148 @@
   animation: zp-pulse 0.42s ease;
 }
 
+/* --- proof trace (expandable chip) --- */
+.zp-chip-cell {
+  list-style: none;
+  align-self: start;
+}
+
+button.zp-chip {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+}
+
+.zp-chevron {
+  margin-left: auto;
+  width: 0.42rem;
+  height: 0.42rem;
+  flex-shrink: 0;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  opacity: 0.5;
+  transition: transform 0.2s ease;
+}
+
+.zp-chip-cell.zp-open .zp-chevron {
+  transform: rotate(45deg);
+}
+
+.zp-trace {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.22s ease;
+}
+
+.zp-chip-cell.zp-open .zp-trace {
+  grid-template-rows: 1fr;
+}
+
+.zp-trace-inner {
+  overflow: hidden;
+}
+
+.zp-trace-body {
+  margin-top: 0.4rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+
+.zp-trace-body.ok {
+  background: rgb(47 138 79 / 0.1);
+  border-color: rgb(47 138 79 / 0.3);
+}
+
+.zp-trace-body.bad {
+  background: rgb(196 63 95 / 0.1);
+  border-color: rgb(196 63 95 / 0.35);
+}
+
+.zp-trace-body p {
+  margin: 0 0 0.35rem;
+}
+
+.zp-trace-body p:last-child {
+  margin-bottom: 0;
+}
+
+.zp-trace-head {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #8e99a6;
+}
+
+.zp-trace-summary {
+  color: #d6dee6;
+}
+
+.zp-trace-fact,
+.zp-trace-flow,
+.zp-trace-req,
+.zp-trace-code {
+  font-family: var(--z-mono);
+  font-size: 0.68rem;
+}
+
+.zp-trace-fact,
+.zp-trace-req {
+  color: #9aa6b2;
+}
+
+.zp-trace-arrow {
+  color: #6b7682;
+}
+
+.zp-trace-step {
+  color: #ffd0d0;
+}
+
+.zp-trace-loc {
+  color: #6b7682;
+  margin-right: 0.5rem;
+}
+
+.zp-trace-snip {
+  color: #ffd0d0;
+  background: rgb(196 63 95 / 0.16);
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+}
+
+.zp-trace-fix {
+  display: flex;
+  gap: 0.4rem;
+  color: #d6dee6;
+}
+
+.zp-trace-fix-tag {
+  flex-shrink: 0;
+  color: #7fd59b;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  padding-top: 0.1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zp-trace {
+    transition: none;
+  }
+
+  .zp-chevron {
+    transition: none;
+  }
+}
+
 .zp-specs {
   display: flex;
   flex-wrap: wrap;

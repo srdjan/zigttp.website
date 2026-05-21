@@ -3,7 +3,7 @@
 // script: the section ships a pre-rendered proven card and a plain editor.
 //
 // WASM_URL is patched by scripts/build-wasm-playground.sh on every build.
-const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
+const WASM_URL = "/zigts-analyzer.ce9304ff24a7.wasm";
 
 (function () {
   "use strict";
@@ -199,6 +199,9 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
   let prevState = {};
   let activeLens = "properties";
   let lastResult = null;
+  // The property key whose proof trace is expanded, or null. One open at a
+  // time (accordion). Tracked so a recompile rebuild restores the open chip.
+  let openChipKey = null;
 
   function el(tag, cls, text) {
     const e = document.createElement(tag);
@@ -246,12 +249,109 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
     }
   }
 
-  function chip(label, on, flipped) {
-    const li = el("li", "zp-chip " + (on ? "on" : "off"));
-    if (flipped && !reduceMotion) li.classList.add("zp-flip");
-    li.appendChild(el("span", "zp-glyph", on ? "+" : "-"));
-    li.appendChild(el("span", "zp-chip-label", label));
-    return li;
+  // Look up the proof trace for one property in the last analyzer result.
+  // Null when the analyzer is older than this feature (graceful degrade).
+  function traceFor(key) {
+    const pt = lastResult && lastResult.proof && lastResult.proof.proofTrace;
+    return (pt && pt[key]) || null;
+  }
+
+  // Build one property cell: a chip button plus a collapsible trace panel.
+  // The panel is rendered lazily - only when the chip is the open one.
+  function chip(p, on, flipped) {
+    const cell = el("li", "zp-chip-cell");
+    const btn = el("button", "zp-chip " + (on ? "on" : "off"));
+    btn.type = "button";
+    btn.setAttribute("data-prop", p.key);
+    if (flipped && !reduceMotion) btn.classList.add("zp-flip");
+    btn.appendChild(el("span", "zp-glyph", on ? "+" : "-"));
+    btn.appendChild(el("span", "zp-chip-label", p.label));
+
+    const trace = traceFor(p.key);
+    if (!trace) {
+      cell.appendChild(btn);
+      return cell;
+    }
+
+    const chev = el("span", "zp-chevron");
+    chev.setAttribute("aria-hidden", "true");
+    btn.appendChild(chev);
+    const panelId = "zp-trace-" + p.key;
+    btn.setAttribute("aria-expanded", openChipKey === p.key ? "true" : "false");
+    btn.setAttribute("aria-controls", panelId);
+
+    const panel = el("div", "zp-trace");
+    panel.id = panelId;
+    const inner = el("div", "zp-trace-inner");
+    panel.appendChild(inner);
+    cell.appendChild(btn);
+    cell.appendChild(panel);
+
+    if (openChipKey === p.key) {
+      cell.classList.add("zp-open");
+      renderTrace(inner, trace);
+    }
+    return cell;
+  }
+
+  // Render one property's reasoning into its trace panel. Branches on the
+  // counterexample shape: a flow chain for data-leak proofs, an offending
+  // node for structural proofs.
+  function renderTrace(inner, trace) {
+    inner.textContent = "";
+    const body = el("div", "zp-trace-body " + (trace.holds ? "ok" : "bad"));
+    body.appendChild(el(
+      "p",
+      "zp-trace-head",
+      trace.holds ? "How the compiler proved this" : "Counterexample",
+    ));
+    body.appendChild(el("p", "zp-trace-summary", trace.summary));
+
+    const f = trace.facts;
+    if (f && typeof f.pathsEnumerated === "number") {
+      let txt = f.pathsEnumerated + " path" +
+        (f.pathsEnumerated === 1 ? "" : "s") + " enumerated";
+      if (f.pathsExhaustive) txt += " (exhaustive)";
+      if (f.failableSites > 0) {
+        txt += " - " + f.coveredSites + "/" + f.failableSites +
+          " failable I/O sites covered";
+      }
+      body.appendChild(el("p", "zp-trace-fact", txt));
+    }
+
+    const cx = trace.counterexample;
+    if (cx && cx.kind === "flow-chain") {
+      const flow = el("p", "zp-trace-flow");
+      (cx.flow || []).forEach((step, i) => {
+        if (i > 0) flow.appendChild(el("span", "zp-trace-arrow", " -> "));
+        flow.appendChild(el("span", "zp-trace-step", step));
+      });
+      body.appendChild(flow);
+      if (cx.request) {
+        body.appendChild(el(
+          "p",
+          "zp-trace-req",
+          "triggered by " + cx.request.method + " " + cx.request.url +
+            (cx.request.hasAuthHeader ? " with an Authorization header" : ""),
+        ));
+      }
+    } else if (cx && cx.kind === "offending-node") {
+      const code = el("p", "zp-trace-code");
+      code.appendChild(el(
+        "span",
+        "zp-trace-loc",
+        "handler.ts:" + cx.location.line,
+      ));
+      code.appendChild(el("code", "zp-trace-snip", cx.snippet));
+      body.appendChild(code);
+    }
+    if (cx && cx.fix) {
+      const fix = el("p", "zp-trace-fix");
+      fix.appendChild(el("span", "zp-trace-fix-tag", "fix"));
+      fix.appendChild(el("span", undefined, cx.fix));
+      body.appendChild(fix);
+    }
+    inner.appendChild(body);
   }
 
   function renderProperties(props, proof) {
@@ -261,7 +361,7 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
       const on = props[p.key] === true;
       const flipped = prevState[p.key] !== undefined &&
         prevState[p.key] !== props[p.key];
-      ul.appendChild(chip(p.label, on, flipped));
+      ul.appendChild(chip(p, on, flipped));
     });
     // prevState tracks the last *Properties* render so the flip animation
     // fires for chips that changed since this lens was last shown.
@@ -363,6 +463,39 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
       renderLens(activeLens);
     });
   });
+
+  // --- proof trace expand/collapse ---------------------------------------
+  // One delegated listener on the chip list: the list element persists across
+  // renderProperties rebuilds, only its children are replaced.
+  const chipsList = card.querySelector(".zp-chips");
+  if (chipsList) {
+    chipsList.addEventListener("click", (ev) => {
+      const btn = ev.target.closest(".zp-chip");
+      if (!btn || !chipsList.contains(btn)) return;
+      const cell = btn.parentElement;
+      const panel = cell.querySelector(".zp-trace");
+      if (!panel) return; // chip has no trace (older analyzer)
+      engage();
+      const key = btn.getAttribute("data-prop");
+      const wasOpen = cell.classList.contains("zp-open");
+      // Accordion: close every open cell first.
+      chipsList.querySelectorAll(".zp-chip-cell.zp-open").forEach((c) => {
+        c.classList.remove("zp-open");
+        const b = c.querySelector(".zp-chip");
+        if (b) b.setAttribute("aria-expanded", "false");
+      });
+      if (wasOpen) {
+        openChipKey = null;
+        return;
+      }
+      openChipKey = key;
+      cell.classList.add("zp-open");
+      btn.setAttribute("aria-expanded", "true");
+      const inner = panel.querySelector(".zp-trace-inner");
+      const trace = traceFor(key);
+      if (inner && trace && !inner.firstChild) renderTrace(inner, trace);
+    });
+  }
 
   const copyBtn = card.querySelector(".zp-copy");
   if (copyBtn) {
@@ -475,8 +608,15 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
       if (datenowBtn) datenowBtn.classList.add("zp-hint");
       applyPerturb("datenow");
     }, DEMO_INJECT_MS));
+    // Unfurl the broken proof's trace so a passive viewer sees the
+    // counterexample, not just a red chip.
+    demoTimers.push(setTimeout(() => {
+      openChipKey = "deterministic";
+      renderLens("properties");
+    }, DEMO_INJECT_MS + 560));
     demoTimers.push(setTimeout(() => {
       clearHints();
+      openChipKey = null;
       applyPerturb(null);
     }, DEMO_REVERT_MS));
   }
