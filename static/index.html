@@ -156,6 +156,7 @@
           <span aria-hidden="true"></span>
         </button>
         <div class="z-nav-links" id="z-nav-links">
+          <a href="#playground">Playground</a>
           <a href="#compare">Compare</a>
           <a href="#proofs">Proofs</a>
           <a href="#runtime">Runtime</a>
@@ -191,7 +192,9 @@
             blocks unsafe hot swaps.
           </p>
           <div class="z-hero-actions">
-            <a class="z-button z-button-primary" href="#install"
+            <a class="z-button z-button-primary" href="#playground"
+            >Try it live</a>
+            <a class="z-button z-button-secondary" href="#install"
             >Install zigttp</a>
             <a
               class="z-button z-button-secondary"
@@ -313,6 +316,117 @@ hot swap: allowed</code></pre>
             The proof workbench, contract diff, and runtime surface in one loop.
           </figcaption>
         </figure>
+      </section>
+
+      <section class="z-section z-playground" id="playground">
+        <p class="z-section-kicker">
+          <span class="z-status-dot z-dot-safe"></span>
+          Live in your browser
+        </p>
+        <div class="z-heading-wide">
+          <h2>Break the proof yourself.</h2>
+          <p>
+            This is the real <code>zigts</code> compiler, built to WebAssembly
+            and running on this page. Edit the handler or click a perturbation:
+            the proof card is exactly what <code>zigttp dev</code> prints in
+            your terminal. No install, no server, no sign-up.
+          </p>
+        </div>
+
+        <div class="zp-grid">
+          <div class="zp-editor-col">
+            <div class="zp-toolbar">
+              <span class="zp-file">
+                <span class="z-status-dot z-dot-idle"></span> handler.ts
+              </span>
+              <div class="zp-perturbations" role="group" aria-label="Perturbations">
+                <button type="button" data-perturb="datenow" data-label="Inject Date.now()">Inject Date.now()</button>
+                <button type="button" data-perturb="secret" data-label="Leak a secret">Leak a secret</button>
+                <button type="button" data-perturb="while" data-label="Add a while loop">Add a while loop</button>
+              </div>
+            </div>
+            <div class="zp-editor">
+              <pre class="zp-highlight" aria-hidden="true"><code id="zp-hl"></code></pre>
+              <textarea
+                id="zp-src"
+                class="zp-src"
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="off"
+                readonly
+                aria-label="Handler source code"
+>import type { Spec } from "zigttp:types";
+
+// Every obligation below is discharged by the compiler
+// on each keystroke. Break one and the card flips red.
+type Guarantees = Spec&lt;
+  "deterministic" | "no_secret_leakage" | "injection_safe"
+&gt;;
+
+function handler(req: Request): Response &amp; Guarantees {
+  return Response.json({ ok: true });
+}
+</textarea>
+            </div>
+          </div>
+
+          <figure class="zp-card zp-ok" id="zp-card">
+            <div class="zp-head zp-ok">
+              <span class="zp-verdict">PROVEN</span>
+              <strong class="zp-count">6 / 7 properties</strong>
+              <span class="zp-status">compiled from source</span>
+            </div>
+
+            <div class="zp-lensbar" role="tablist" aria-label="Proof lens">
+              <button type="button" data-lens="properties" class="active">Properties</button>
+              <button type="button" data-lens="trade">Trade</button>
+              <button type="button" data-lens="handover">Handover</button>
+              <button type="button" data-lens="caller">Caller view</button>
+            </div>
+
+            <div class="zp-lens" data-lens="properties">
+              <ul class="zp-chips">
+                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">deterministic</span></li>
+                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">read-only</span></li>
+                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">state-isolated</span></li>
+                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">injection-safe</span></li>
+                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">retry-safe</span></li>
+                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">idempotent</span></li>
+                <li class="zp-chip off"><span class="zp-glyph">-</span><span class="zp-chip-label">fault-covered</span></li>
+              </ul>
+              <div class="zp-specs">
+                <span class="zp-specs-label">declared Spec&lt;&gt;</span>
+                <span class="zp-spec on">deterministic</span>
+                <span class="zp-spec on">no_secret_leakage</span>
+                <span class="zp-spec on">injection_safe</span>
+              </div>
+            </div>
+
+            <ul class="zp-lens zp-trade" data-lens="trade" hidden></ul>
+
+            <div class="zp-lens" data-lens="handover" hidden>
+              <pre class="zp-cert">Press a perturbation, then read the certificate here.</pre>
+              <button type="button" class="zp-copy">Copy certificate</button>
+            </div>
+
+            <div class="zp-lens" data-lens="caller" hidden>
+              <p class="zp-caller-note">
+                What a third party sees when they verify your deploy:
+              </p>
+              <pre class="zp-caller-block">HTTP/1.1 200 OK
+Zigttp-Proofs: deterministic, read_only, injection_safe
+Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
+              <pre class="zp-caller-block">$ zigttp verify https://your-service.dev
+  Verified  key 9f2c..a1  3 proven chips</pre>
+              <p class="zp-caller-foot">
+                The signature is checked against the public key at
+                <code>/.well-known/zigttp-attest</code>.
+              </p>
+            </div>
+
+            <p class="zp-why" hidden></p>
+          </figure>
+        </div>
       </section>
 
       <section class="z-section z-intro" id="proofs">
@@ -704,5 +818,6 @@ hot swap allowed</code></pre>
     </footer>
 
     <script src="/script.js?v=5" defer></script>
+    <script src="/playground.js?v=1" defer></script>
   </body>
 </html>

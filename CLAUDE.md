@@ -6,7 +6,7 @@ Marketing site for zigttp - a restricted-TypeScript ("zigts") toolchain with a c
 
 - Runtime: Deno (see `deno.json`). No npm, no bundler.
 - Server: single file `main.ts` - serves `static/` with security headers and a 301 from `/deck.html` to `/deck`.
-- Frontend: hand-written HTML, vanilla CSS (`static/style.css`), tiny JS (`static/script.js`, `static/anime-scenes.js`).
+- Frontend: hand-written HTML, vanilla CSS (`static/style.css`, `static/home.css`), vanilla JS (`static/script.js`, `static/playground.js`, `static/anime-scenes.js`). No framework, no build step.
 - Hosting: Deno Deploy (`deno task deploy` runs `deployctl deploy --prod`).
 
 ## Layout
@@ -14,8 +14,11 @@ Marketing site for zigttp - a restricted-TypeScript ("zigts") toolchain with a c
 - `main.ts` - HTTP server, CSP, content-type and cache-control rules. Edit here for routing or headers.
 - `static/index.html` - landing page.
 - `static/deck.html` - pitch deck. Served at `/deck` (the `.html` form 301s to `/deck`); keep that invariant when adding routes.
-- `static/style.css` - single stylesheet for both pages. After the recent redesign, pre-v3 hero/CTA, features, modules, CLI, deck warning, and entrance-animation styles were dropped. Do not reintroduce dead selectors; remove rather than comment out.
+- `static/style.css` - shared stylesheet (deck plus the homepage base). After the recent redesign, pre-v3 hero/CTA, features, modules, CLI, deck warning, and entrance-animation styles were dropped. Do not reintroduce dead selectors; remove rather than comment out.
+- `static/home.css` - homepage-scoped styles, including the `.zp-*` proof-playground component.
 - `static/script.js`, `static/anime-scenes.js` - progressive enhancement only. The page must work without JS (the `<script>document.documentElement.classList.add("js")</script>` gate in index.html signals JS availability to CSS).
+- `static/playground.js` - drives the homepage proof playground: loads the wasm analyzer, runs it on editor input, renders the proof card. The section degrades to a static pre-rendered card without it.
+- `static/zigts-analyzer.*.wasm` - the zigts analyzer compiled to WebAssembly. Built in the zigttp repo by `zig build wasm` and published here by its `scripts/build-wasm-playground.sh`; the content hash in the filename is patched into `playground.js`. Do not hand-edit.
 - `static/*.mp4`, `*.png`, `*.jpg` - media. Cache-busted via `cache-control: public, max-age=31536000, immutable`.
 - `static/robots.txt`, `static/sitemap.xml`, `static/manifest.json` - SEO and PWA. Update sitemap when adding routes.
 - `docs/` - design.md, plan.md, evolution-log.md. Reference these for product intent before reshaping copy or layout.

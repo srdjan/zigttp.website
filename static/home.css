@@ -1348,3 +1348,460 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Live proof playground (#playground). The editor and proof card mirror the
+   `zigttp dev` terminal HUD; the real zigts analyzer runs in WebAssembly.
+   --------------------------------------------------------------------------- */
+
+.z-playground .zp-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 430px);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.zp-editor-col {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(18 77 73 / 0.28);
+  border-radius: var(--z-radius-lg);
+  overflow: hidden;
+  background: var(--z-terminal);
+  box-shadow: var(--z-shadow);
+}
+
+.zp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: var(--z-terminal-2);
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+
+.zp-file {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #cbd7e3;
+  font-family: var(--z-mono);
+  font-size: 0.82rem;
+}
+
+.zp-perturbations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.zp-perturbations button {
+  padding: 0.34rem 0.7rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.04);
+  color: #cbd7e3;
+  font-family: var(--z-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.zp-perturbations button:hover {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+
+.zp-perturbations button.active {
+  background: var(--z-red);
+  border-color: var(--z-red);
+  color: #fff;
+}
+
+.zp-editor {
+  position: relative;
+  flex: 1;
+  min-height: 318px;
+}
+
+.zp-highlight,
+.zp-src {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  box-sizing: border-box;
+  font-family: var(--z-mono);
+  font-size: 13px;
+  line-height: 1.62;
+  white-space: pre;
+  overflow: auto;
+  tab-size: 2;
+}
+
+.zp-src {
+  z-index: 1;
+  resize: none;
+  color: #e8edf1;
+  background: transparent;
+  caret-color: #8ab4ff;
+  outline: none;
+}
+
+.zp-highlight {
+  z-index: 0;
+  display: none;
+  color: #e8edf1;
+  pointer-events: none;
+}
+
+.zp-highlight code {
+  font: inherit;
+  color: inherit;
+}
+
+.zp-js .zp-highlight {
+  display: block;
+}
+
+.zp-js .zp-src {
+  color: transparent;
+}
+
+.zp-com {
+  color: #6f7d8c;
+  font-style: italic;
+}
+
+/* --- proof card --- */
+.zp-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: 1px solid rgb(18 77 73 / 0.28);
+  border-radius: var(--z-radius-lg);
+  overflow: hidden;
+  background: var(--z-terminal);
+  box-shadow: var(--z-shadow);
+  color: #e8edf1;
+  font-family: var(--z-mono);
+}
+
+.zp-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.95rem 1.15rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+  transition: background-color 0.25s ease;
+}
+
+.zp-head.zp-ok {
+  background: linear-gradient(90deg, rgb(47 138 79 / 0.28), transparent);
+}
+
+.zp-head.zp-blocked {
+  background: linear-gradient(90deg, rgb(196 63 95 / 0.3), transparent);
+}
+
+.zp-verdict {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.zp-ok .zp-verdict {
+  color: #7fd59b;
+}
+
+.zp-blocked .zp-verdict {
+  color: #ff8497;
+}
+
+.zp-count {
+  color: #cbd7e3;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.zp-status {
+  margin-left: auto;
+  color: #8e99a6;
+  font-size: 0.72rem;
+}
+
+.zp-status-warn {
+  color: #e8c06b;
+}
+
+.zp-lensbar {
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.5rem 0.6rem 0;
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+
+.zp-lensbar button {
+  padding: 0.45rem 0.7rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #8e99a6;
+  font-family: var(--z-mono);
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.zp-lensbar button:hover {
+  color: #cbd7e3;
+}
+
+.zp-lensbar button.active {
+  color: #fff;
+  border-bottom-color: #7fd59b;
+}
+
+.zp-lens {
+  padding: 1rem 1.15rem;
+}
+
+/* --- properties lens --- */
+.zp-chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.zp-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.zp-chip.on {
+  background: rgb(47 138 79 / 0.16);
+  color: #aee6bd;
+}
+
+.zp-chip.off {
+  background: rgb(196 63 95 / 0.16);
+  color: #ffb3bf;
+}
+
+.zp-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 4px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.zp-chip.on .zp-glyph {
+  background: rgb(127 213 155 / 0.22);
+  color: #7fd59b;
+}
+
+.zp-chip.off .zp-glyph {
+  background: rgb(255 132 151 / 0.22);
+  color: #ff8497;
+}
+
+@keyframes zp-pulse {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.07); }
+  100% { transform: scale(1); }
+}
+
+.zp-chip.zp-flip {
+  animation: zp-pulse 0.42s ease;
+}
+
+.zp-specs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgb(255 255 255 / 0.06);
+}
+
+.zp-specs-label {
+  color: #8e99a6;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.zp-spec {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+}
+
+.zp-spec.on {
+  background: rgb(47 138 79 / 0.2);
+  color: #aee6bd;
+}
+
+.zp-spec.off {
+  background: rgb(196 63 95 / 0.2);
+  color: #ffb3bf;
+}
+
+/* --- trade lens --- */
+.zp-trade {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  list-style: none;
+}
+
+.zp-trade-row {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+
+.zp-trade-row:last-child {
+  border-bottom: 0;
+}
+
+.zp-trade-row.off {
+  opacity: 0.5;
+}
+
+.zp-trade-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+}
+
+.zp-trade-row.on .zp-glyph {
+  background: rgb(127 213 155 / 0.22);
+  color: #7fd59b;
+}
+
+.zp-trade-row.off .zp-glyph {
+  background: rgb(255 132 151 / 0.18);
+  color: #ff8497;
+}
+
+.zp-trade-line {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  color: #cbd7e3;
+  margin-left: 1.45rem;
+}
+
+.zp-trade-tag {
+  flex-shrink: 0;
+  width: 4.4rem;
+  color: #8e99a6;
+}
+
+/* --- handover + caller lenses --- */
+.zp-cert,
+.zp-caller-block {
+  margin: 0;
+  padding: 0.85rem 0.95rem;
+  border-radius: 10px;
+  background: rgb(0 0 0 / 0.28);
+  color: #cbd7e3;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.zp-copy {
+  margin-top: 0.7rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.04);
+  color: #cbd7e3;
+  font-family: var(--z-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.zp-copy:hover {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+
+.zp-caller-note,
+.zp-caller-foot {
+  margin: 0 0 0.6rem;
+  color: #8e99a6;
+  font-size: 0.74rem;
+}
+
+.zp-caller-foot {
+  margin: 0.6rem 0 0;
+}
+
+.zp-caller-block + .zp-caller-block {
+  margin-top: 0.6rem;
+}
+
+/* --- why row --- */
+.zp-why {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.85rem 1.15rem;
+  border-top: 1px solid rgb(255 255 255 / 0.06);
+  background: rgb(196 63 95 / 0.1);
+  font-size: 0.73rem;
+}
+
+.zp-why-code {
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: rgb(255 132 151 / 0.2);
+  color: #ff8497;
+  font-weight: 600;
+}
+
+.zp-why-msg {
+  color: #e8edf1;
+}
+
+.zp-why-loc {
+  color: #8ab4ff;
+}
+
+.zp-why-fix {
+  flex-basis: 100%;
+  color: #8e99a6;
+}
+
+@media (max-width: 880px) {
+  .z-playground .zp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .zp-chips {
+    grid-template-columns: 1fr;
+  }
+}
