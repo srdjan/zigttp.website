@@ -218,7 +218,10 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
 
     const head = card.querySelector(".zp-head");
     head.className = "zp-head " + (ok ? "zp-ok" : "zp-blocked");
-    head.querySelector(".zp-verdict").textContent = ok ? "PROVEN" : "BLOCKED";
+    const verdictEl = head.querySelector(".zp-verdict");
+    const verdict = ok ? "PROVEN" : "BLOCKED";
+    // Guarded so the aria-live region announces only on a real flip.
+    if (verdictEl.textContent !== verdict) verdictEl.textContent = verdict;
     head.querySelector(".zp-count").textContent = provenCount + " / " +
       PROPS.length + " properties";
 
@@ -348,6 +351,7 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
   // --- lens switching -----------------------------------------------------
   card.querySelectorAll("[data-lens]").forEach((btn) => {
     btn.addEventListener("click", () => {
+      engage();
       activeLens = btn.getAttribute("data-lens");
       card.querySelectorAll("[data-lens]").forEach((b) =>
         b.classList.toggle("active", b === btn)
@@ -375,13 +379,24 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
 
   // --- run loop -----------------------------------------------------------
   let debounce = 0;
+
+  function fmtMs(ms) {
+    return (ms < 10 ? ms.toFixed(1) : String(Math.round(ms))) + " ms";
+  }
+
   function runAnalysis() {
     if (!wasm) return;
+    const t0 = performance.now();
     const result = analyze(editor.value);
-    if (result) render(result);
+    const elapsed = performance.now() - t0;
+    if (result) {
+      render(result);
+      setStatus("proved in " + fmtMs(elapsed), "");
+    }
   }
 
   function scheduleAnalysis() {
+    engage();
     syncHighlight();
     clearTimeout(debounce);
     debounce = setTimeout(runAnalysis, 160);
@@ -389,6 +404,7 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
 
   editor.addEventListener("input", scheduleAnalysis);
   editor.addEventListener("scroll", syncScroll);
+  editor.addEventListener("focus", engage);
   editor.addEventListener("keydown", (e) => {
     if (e.key !== "Tab") return;
     e.preventDefault();
@@ -401,35 +417,77 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
   // --- perturbation buttons ----------------------------------------------
   let activePerturb = null;
   const perturbBtns = section.querySelectorAll("[data-perturb]");
+
+  // Swap the editor to a perturbation variant - or back to the seed when
+  // `kind` is null - sync the button states, and re-prove. Shared by the
+  // buttons and the auto-demo. A direct editor.value write does not fire an
+  // `input` event, so this never trips the engage() interaction guard.
+  function applyPerturb(kind) {
+    activePerturb = kind;
+    editor.value = kind ? (VARIANTS[kind] || SEED) : SEED;
+    perturbBtns.forEach((b) => {
+      const k = b.getAttribute("data-perturb");
+      b.classList.toggle("active", k === kind);
+      b.textContent = k === kind ? "Revert" : b.getAttribute("data-label");
+    });
+    syncHighlight();
+    runAnalysis();
+  }
+
   perturbBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
+      engage();
       const kind = btn.getAttribute("data-perturb");
-      if (activePerturb === kind) {
-        editor.value = SEED;
-        activePerturb = null;
-      } else {
-        editor.value = VARIANTS[kind] || SEED;
-        activePerturb = kind;
-      }
-      perturbBtns.forEach((b) => {
-        const k = b.getAttribute("data-perturb");
-        b.classList.toggle("active", k === activePerturb);
-        b.textContent = k === activePerturb
-          ? "Revert"
-          : b.getAttribute("data-label");
-      });
-      syncHighlight();
-      runAnalysis();
+      applyPerturb(activePerturb === kind ? null : kind);
     });
   });
+
+  // --- attract demo -------------------------------------------------------
+  // Until the visitor touches the playground, run one scripted proof flip so
+  // a passive scroll-by sees the card move on its own. Any interaction - or a
+  // reduced-motion preference - cancels it.
+  const DEMO_INJECT_MS = 1400;
+  const DEMO_HOLD_MS = 1900;
+  const DEMO_REVERT_MS = DEMO_INJECT_MS + DEMO_HOLD_MS;
+  let userEngaged = false;
+  let demoTimers = [];
+
+  function clearHints() {
+    section.querySelectorAll(".zp-hint").forEach((b) =>
+      b.classList.remove("zp-hint")
+    );
+  }
+
+  // First real interaction cancels the demo. Clearing the timers is the whole
+  // cancellation - a cleared timer cannot fire, so the callbacks need no guard.
+  function engage() {
+    if (userEngaged) return;
+    userEngaged = true;
+    demoTimers.forEach(clearTimeout);
+    demoTimers = [];
+    clearHints();
+  }
+
+  function autoDemo() {
+    if (reduceMotion || userEngaged) return;
+    const datenowBtn = section.querySelector('[data-perturb="datenow"]');
+    demoTimers.push(setTimeout(() => {
+      if (datenowBtn) datenowBtn.classList.add("zp-hint");
+      applyPerturb("datenow");
+    }, DEMO_INJECT_MS));
+    demoTimers.push(setTimeout(() => {
+      clearHints();
+      applyPerturb(null);
+    }, DEMO_REVERT_MS));
+  }
 
   // --- boot ---------------------------------------------------------------
   function setStatus(text, kind) {
     const s = card.querySelector(".zp-status");
-    if (s) {
-      s.textContent = text;
-      s.className = "zp-status" + (kind ? " " + kind : "");
-    }
+    if (!s) return;
+    s.textContent = text;
+    const cls = "zp-status" + (kind ? " " + kind : "");
+    if (s.className !== cls) s.className = cls;
   }
 
   let booted = false;
@@ -453,10 +511,10 @@ const WASM_URL = "/zigts-analyzer.da9d8f5c69ad.wasm";
       );
       return;
     }
-    setStatus("", "");
     card.classList.add("zp-live");
     editor.removeAttribute("readonly");
     runAnalysis();
+    autoDemo();
   }
 
   // Lazy-load: only fetch the wasm once the section nears the viewport.

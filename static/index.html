@@ -339,14 +339,39 @@ hot swap: allowed</code></pre>
               <span class="zp-file">
                 <span class="z-status-dot z-dot-idle"></span> handler.ts
               </span>
-              <div class="zp-perturbations" role="group" aria-label="Perturbations">
-                <button type="button" data-perturb="datenow" data-label="Inject Date.now()">Inject Date.now()</button>
-                <button type="button" data-perturb="secret" data-label="Leak a secret">Leak a secret</button>
-                <button type="button" data-perturb="while" data-label="Add a while loop">Add a while loop</button>
+              <div
+                class="zp-perturbations"
+                role="group"
+                aria-label="Perturbations"
+              >
+                <button
+                  type="button"
+                  data-perturb="datenow"
+                  data-label="Inject Date.now()"
+                >
+                  Inject Date.now()
+                </button>
+                <button
+                  type="button"
+                  data-perturb="secret"
+                  data-label="Leak a secret"
+                >
+                  Leak a secret
+                </button>
+                <button
+                  type="button"
+                  data-perturb="while"
+                  data-label="Add a while loop"
+                >
+                  Add a while loop
+                </button>
               </div>
             </div>
             <div class="zp-editor">
-              <pre class="zp-highlight" aria-hidden="true"><code id="zp-hl"></code></pre>
+              <pre
+                class="zp-highlight"
+                aria-hidden="true"
+              ><code id="zp-hl"></code></pre>
               <textarea
                 id="zp-src"
                 class="zp-src"
@@ -355,7 +380,7 @@ hot swap: allowed</code></pre>
                 autocapitalize="off"
                 readonly
                 aria-label="Handler source code"
->import type { Spec } from "zigttp:types";
+              >import type { Spec } from "zigttp:types";
 
 // Every obligation below is discharged by the compiler
 // on each keystroke. Break one and the card flips red.
@@ -372,13 +397,21 @@ function handler(req: Request): Response &amp; Guarantees {
 
           <figure class="zp-card zp-ok" id="zp-card">
             <div class="zp-head zp-ok">
-              <span class="zp-verdict">PROVEN</span>
+              <span class="zp-verdict" aria-live="polite">PROVEN</span>
               <strong class="zp-count">6 / 7 properties</strong>
-              <span class="zp-status">compiled from source</span>
+              <span class="zp-live-readout">
+                <span
+                  class="z-status-dot z-dot-safe zp-live-dot"
+                  aria-hidden="true"
+                ></span>
+                <span class="zp-status">compiled from source</span>
+              </span>
             </div>
 
             <div class="zp-lensbar" role="tablist" aria-label="Proof lens">
-              <button type="button" data-lens="properties" class="active">Properties</button>
+              <button type="button" data-lens="properties" class="active">
+                Properties
+              </button>
               <button type="button" data-lens="trade">Trade</button>
               <button type="button" data-lens="handover">Handover</button>
               <button type="button" data-lens="caller">Caller view</button>
@@ -386,13 +419,34 @@ function handler(req: Request): Response &amp; Guarantees {
 
             <div class="zp-lens" data-lens="properties">
               <ul class="zp-chips">
-                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">deterministic</span></li>
-                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">read-only</span></li>
-                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">state-isolated</span></li>
-                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">injection-safe</span></li>
-                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">retry-safe</span></li>
-                <li class="zp-chip on"><span class="zp-glyph">+</span><span class="zp-chip-label">idempotent</span></li>
-                <li class="zp-chip off"><span class="zp-glyph">-</span><span class="zp-chip-label">fault-covered</span></li>
+                <li class="zp-chip on">
+                  <span class="zp-glyph">+</span><span class="zp-chip-label"
+                  >deterministic</span>
+                </li>
+                <li class="zp-chip on">
+                  <span class="zp-glyph">+</span><span class="zp-chip-label"
+                  >read-only</span>
+                </li>
+                <li class="zp-chip on">
+                  <span class="zp-glyph">+</span><span class="zp-chip-label"
+                  >state-isolated</span>
+                </li>
+                <li class="zp-chip on">
+                  <span class="zp-glyph">+</span><span class="zp-chip-label"
+                  >injection-safe</span>
+                </li>
+                <li class="zp-chip on">
+                  <span class="zp-glyph">+</span><span class="zp-chip-label"
+                  >retry-safe</span>
+                </li>
+                <li class="zp-chip on">
+                  <span class="zp-glyph">+</span><span class="zp-chip-label"
+                  >idempotent</span>
+                </li>
+                <li class="zp-chip off">
+                  <span class="zp-glyph">-</span><span class="zp-chip-label"
+                  >fault-covered</span>
+                </li>
               </ul>
               <div class="zp-specs">
                 <span class="zp-specs-label">declared Spec&lt;&gt;</span>
@@ -405,7 +459,9 @@ function handler(req: Request): Response &amp; Guarantees {
             <ul class="zp-lens zp-trade" data-lens="trade" hidden></ul>
 
             <div class="zp-lens" data-lens="handover" hidden>
-              <pre class="zp-cert">Press a perturbation, then read the certificate here.</pre>
+              <pre
+                class="zp-cert"
+              >Press a perturbation, then read the certificate here.</pre>
               <button type="button" class="zp-copy">Copy certificate</button>
             </div>
 
@@ -413,10 +469,14 @@ function handler(req: Request): Response &amp; Guarantees {
               <p class="zp-caller-note">
                 What a third party sees when they verify your deploy:
               </p>
-              <pre class="zp-caller-block">HTTP/1.1 200 OK
+              <pre
+                class="zp-caller-block"
+              >HTTP/1.1 200 OK
 Zigttp-Proofs: deterministic, read_only, injection_safe
 Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
-              <pre class="zp-caller-block">$ zigttp verify https://your-service.dev
+              <pre
+                class="zp-caller-block"
+              >$ zigttp verify https://your-service.dev
   Verified  key 9f2c..a1  3 proven chips</pre>
               <p class="zp-caller-foot">
                 The signature is checked against the public key at
