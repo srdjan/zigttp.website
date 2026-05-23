@@ -757,6 +757,9 @@ hot swap allowed</code></pre>
 <span class="z-cmd">zigttp</span> init api && cd api
 <span class="z-cmd">zigttp</span> studio
 
+<span class="z-muted"># enforce declared Spec&lt;&gt; obligations in CI</span>
+<span class="z-cmd">zigttp</span> ratchet check src/handler.ts
+
 <span class="z-muted"># deploy with a ledger entry</span>
 <span class="z-cmd">zigttp</span> deploy
 <span class="z-cmd">zigttp</span> proofs show HEAD
@@ -818,8 +821,11 @@ hot swap allowed</code></pre>
           >decode</span>
           <span>sql</span><span>cache</span><span>durable</span><span
           >http</span>
+          <span>fetch</span><span>service</span><span>websocket</span><span
+          >ratelimit</span>
           <span>io</span><span>router</span><span>compose</span><span>env</span>
           <span>url</span><span>id</span><span>log</span><span>scope</span>
+          <span>text</span><span>time</span>
         </div>
         <p class="z-integration-note">
           Each <code>zigttp:*</code> import is visible to the compiler, contract
