@@ -6,7 +6,7 @@
     <title>zigttp v0.1.0-beta - compile-time proof you can see</title>
     <meta
       name="description"
-      content="zigttp v0.1.0-beta slide deck: a serverless TypeScript runtime that discharges your handler's Spec obligations at compile time and keeps the proof flipping live in zigttp studio."
+      content="Slide deck for zigttp v0.1.0-beta: restricted TypeScript, live proof workbench, proven reloads, and contract-aware deploys."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7a41d">
@@ -34,12 +34,12 @@
       property="og:description"
       content="Slide deck for zigttp v0.1.0-beta: a restricted TypeScript subset, stacked compile-time proofs, a browser proof workbench, and a contract-aware deploy with a persistent proof ledger."
     >
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="327">
     <meta
       property="og:image"
       content="https://zigttp.timok.com/zigttp-logo.jpg"
     >
-    <meta property="og:image:width" content="600">
-    <meta property="og:image:height" content="327">
     <meta property="og:site_name" content="zigttp">
 
     <!-- Twitter Card -->
@@ -94,16 +94,22 @@
           >
           <span class="logo-zig">zigttp</span>
         </a>
-        <button class="nav-burger" aria-label="Toggle menu">
+        <button
+          class="nav-burger"
+          type="button"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="deck-nav-links"
+        >
           <span></span><span></span><span></span>
         </button>
-        <div class="nav-links">
-          <a href="/#expert">Loop</a>
-          <a href="/#features">Features</a>
-          <a href="/#code">Code</a>
-          <a href="/#modules">Modules</a>
-          <a href="/#get-started">Start</a>
-          <a href="/#questions">FAQ</a>
+        <div class="nav-links" id="deck-nav-links">
+          <a href="/#playground">Playground</a>
+          <a href="/#compare">Compare</a>
+          <a href="/#proofs">Proofs</a>
+          <a href="/#runtime">Runtime</a>
+          <a href="/#commands">Commands</a>
+          <a href="/#install">Install</a>
           <a
             href="https://github.com/srdjan/zigttp"
             class="nav-gh"

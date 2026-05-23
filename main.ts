@@ -43,19 +43,29 @@ function getContentType(path: string): string {
   return CONTENT_TYPES[ext] ?? "application/octet-stream";
 }
 
+function permanentRedirect(location: string): Response {
+  return new Response(null, {
+    status: 301,
+    headers: {
+      ...SECURITY_HEADERS,
+      "location": location,
+    },
+  });
+}
+
 Deno.serve({ port: 8000 }, async (req: Request) => {
   const url = new URL(req.url);
   let path = url.pathname;
 
-  if (path === "/") path = "/index.html";
-
-  // 301 redirect /deck.html to /deck to avoid duplicate content
-  if (path === "/deck.html") {
-    return new Response(null, {
-      status: 301,
-      headers: { "location": "/deck" },
-    });
+  // 301 redirect duplicate content paths to their canonical URLs.
+  if (path === "/index.html") {
+    return permanentRedirect("/");
   }
+  if (path === "/deck.html") {
+    return permanentRedirect("/deck");
+  }
+
+  if (path === "/") path = "/index.html";
   if (path === "/deck") path = "/deck.html";
 
   const headers: Record<string, string> = {
