@@ -131,8 +131,8 @@
     }
     </script>
 
-    <link rel="stylesheet" href="/style.css?v=5">
-    <link rel="stylesheet" href="/home.css?v=1">
+    <link rel="stylesheet" href="/style.css?v=10">
+    <link rel="stylesheet" href="/home.css?v=9">
   </head>
   <body class="zigttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -159,6 +159,7 @@
           <a href="#playground">Playground</a>
           <a href="#compare">Compare</a>
           <a href="#proofs">Proofs</a>
+          <a href="#expert">Expert</a>
           <a href="#runtime">Runtime</a>
           <a href="#commands">Commands</a>
           <a
@@ -166,11 +167,6 @@
             target="_blank"
             rel="noopener noreferrer"
           >Docs</a>
-          <a
-            href="https://github.com/srdjan/zigttp/releases/tag/v0.1.0-beta"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Download v0.1.0-beta</a>
           <a
             href="https://github.com/srdjan/zigttp"
             target="_blank"
@@ -660,6 +656,55 @@ hot swap allowed</code></pre>
         </div>
       </section>
 
+      <section class="z-section z-expert" id="expert">
+        <div
+          class="z-code-card z-expert-terminal"
+          aria-label="zigttp expert agent writing, compiling, and proving a handler"
+        >
+          <div class="z-pane-title">
+            <span>zigttp expert</span><em>compiler in the loop</em>
+          </div>
+          <pre><code><span class="z-cmd">$</span> zigttp expert <span class="z-str">"add a health check endpoint"</span>
+
+<span class="z-agent">[agent]</span> Writing handler...
+<span class="z-agent">[agent]</span> Compiling handler.ts
+
+  <span class="z-err">error[E0003]: try/catch is not supported in zigts</span>
+    <span class="z-muted">--&gt; handler.ts:12:5</span>
+    <span class="z-muted">= help: use Result types</span>
+
+<span class="z-agent">[agent]</span> Rewriting with Result types...
+<span class="z-agent">[agent]</span> Compiling handler.ts
+
+  <span class="z-safe">PROVEN 7/7 proofs</span>
+  <span class="z-safe">Handler ready: health-check (1.2MB)</span></code></pre>
+        </div>
+        <div class="z-expert-copy">
+          <p class="z-section-kicker">
+            <span class="z-status-dot z-dot-safe"></span>
+            Compiler-in-the-loop agent
+          </p>
+          <h2>
+            The first agent that writes against the compiler, not around it.
+          </h2>
+          <p>
+            Most coding agents generate, then hope tests catch what they got
+            wrong. <code>zigttp expert</code> calls the same verifier that gates
+            your deploys: it writes a handler, compiles it, reads the proof
+            errors, and rewrites until every obligation is discharged. The loop
+            closes before the code reaches you.
+          </p>
+          <ul class="z-check-list">
+            <li>Every patch is compiled and proven, never just generated.</li>
+            <li>
+              Unsupported or unsafe patterns are rejected at the source, with
+              the compiler's own errors as the feedback signal.
+            </li>
+            <li>You review proven handlers, not plausible drafts.</li>
+          </ul>
+        </div>
+      </section>
+
       <section
         class="z-section z-pillars"
         id="runtime"
@@ -878,25 +923,19 @@ hot swap allowed</code></pre>
     </main>
 
     <footer class="z-footer">
-      <a class="z-brand" href="/" aria-label="zigttp home">
-        <img src="/logo-circle.jpeg" alt="" width="34" height="34">
-        <span>zigttp</span>
-      </a>
-      <div>
-        <a
-          href="https://github.com/srdjan/zigttp"
-          target="_blank"
-          rel="noopener noreferrer"
-        >GitHub</a>
-        <a
-          href="https://github.com/srdjan/zigttp/tree/main/docs"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Docs</a>
-        <a href="/deck">Deck</a>
-        <a href="https://ziglang.org" target="_blank" rel="noopener noreferrer"
-        >Zig</a>
-      </div>
+      <a
+        href="https://github.com/srdjan/zigttp"
+        target="_blank"
+        rel="noopener noreferrer"
+      >GitHub</a>
+      <a
+        href="https://github.com/srdjan/zigttp/tree/main/docs"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Docs</a>
+      <a href="/deck">Deck</a>
+      <a href="https://ziglang.org" target="_blank" rel="noopener noreferrer"
+      >Zig</a>
     </footer>
 
     <script src="/script.js?v=5" defer></script>

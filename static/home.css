@@ -14,16 +14,20 @@
   --z-terminal: #151a21;
   --z-terminal-2: #202731;
   --z-terminal-3: #2a3340;
-  --z-accent: #1f6f68;
-  --z-accent-dark: #124d49;
-  --z-accent-soft: #d9eee9;
+  --z-accent: #6eaddb;
+  --z-accent-dark: #2a6796;
+  --z-accent-soft: #e1eef8;
   --z-blue: #2563eb;
   --z-green: #2f8a4f;
   --z-yellow: #9a6a00;
   --z-red: #c43f5f;
-  --z-shadow: 0 24px 80px rgb(35 29 21 / 0.12);
-  --z-radius-lg: 28px;
-  --z-radius-md: 18px;
+  --z-shadow-sm: 0 6px 18px rgb(35 29 21 / 0.06);
+  --z-shadow-md: 0 14px 40px rgb(35 29 21 / 0.09);
+  --z-shadow-lg: 0 24px 80px rgb(35 29 21 / 0.12);
+  --z-shadow: var(--z-shadow-lg);
+  --z-radius-lg: 24px;
+  --z-radius-md: 16px;
+  --z-radius-sm: 10px;
   --z-max: 1160px;
   --z-mono: "JetBrains Mono", "SF Mono", Consolas, ui-monospace, monospace;
   --z-sans:
@@ -38,13 +42,17 @@
   min-width: 320px;
   margin: 0;
   background:
-    radial-gradient(circle at 12% 0%, rgb(47 138 79 / 0.17), transparent 30rem),
+    radial-gradient(
+      circle at 12% 0%,
+      rgb(110 173 219 / 0.14),
+      transparent 30rem
+    ),
     radial-gradient(
     circle at 92% 4rem,
-    rgb(37 99 235 / 0.1),
+    rgb(110 173 219 / 0.12),
     transparent 28rem
   ),
-    linear-gradient(180deg, #fbf8f1 0%, var(--z-bg) 36rem, #e3f3d0 100%);
+    linear-gradient(180deg, #fbf8f1 0%, var(--z-bg) 36rem, #f3e7d3 100%);
   color: var(--z-ink);
   font-family: var(--z-sans);
   font-size: 16px;
@@ -71,7 +79,7 @@
   text-decoration: none;
 }
 
-.zigttp-home a:hover {
+.zigttp-home a:not(.z-button):hover {
   color: var(--z-accent-dark);
 }
 
@@ -181,7 +189,7 @@
 }
 
 .z-nav-cta:hover {
-  border-color: var(--z-accent);
+  border-color: var(--z-accent-dark);
   background: var(--z-accent-soft);
 }
 
@@ -259,7 +267,7 @@
 .z-hero-field::after {
   content: "{ proof }";
   position: absolute;
-  color: rgb(31 111 104 / 0.08);
+  color: rgb(110 173 219 / 0.08);
   font-family: var(--z-mono);
   font-size: clamp(4rem, 10vw, 9rem);
   font-weight: 700;
@@ -301,7 +309,7 @@
   width: 0.64rem;
   height: 0.64rem;
   border-radius: 999px;
-  box-shadow: 0 0 0 4px rgb(31 111 104 / 0.1);
+  box-shadow: 0 0 0 4px rgb(110 173 219 / 0.1);
   vertical-align: middle;
 }
 
@@ -386,7 +394,7 @@
 .z-button-primary {
   border: 1px solid var(--z-accent-dark);
   background: var(--z-accent);
-  color: #fffdf8;
+  color: #10243a;
 }
 
 .z-button-primary:hover {
@@ -401,7 +409,7 @@
 }
 
 .z-button-secondary:hover {
-  border-color: var(--z-accent);
+  border-color: var(--z-accent-dark);
   background: var(--z-accent-soft);
 }
 
@@ -413,9 +421,9 @@
   max-width: 46rem;
   margin-top: 1.15rem;
   border: 1px solid var(--z-line-strong);
-  border-radius: 18px;
+  border-radius: var(--z-radius-md);
   background: rgb(255 253 248 / 0.85);
-  box-shadow: 0 18px 44px rgb(35 29 21 / 0.08);
+  box-shadow: var(--z-shadow-md);
   padding: 0.72rem 0.8rem;
 }
 
@@ -428,7 +436,7 @@
 }
 
 .z-prompt {
-  color: var(--z-accent);
+  color: var(--z-accent-dark);
   font-family: var(--z-mono);
   font-weight: 800;
 }
@@ -474,7 +482,7 @@
   grid-template-columns: 190px minmax(0, 1fr);
   min-height: 490px;
   overflow: hidden;
-  border: 1px solid rgb(18 77 73 / 0.28);
+  border: 1px solid rgb(42 103 150 / 0.28);
   border-radius: var(--z-radius-lg);
   background: var(--z-terminal);
   box-shadow: var(--z-shadow);
@@ -659,6 +667,16 @@
   color: #7fd59b;
 }
 
+.z-err {
+  color: #ff8b96;
+  font-weight: 700;
+}
+
+.z-agent {
+  color: #8ab4ff;
+  font-weight: 700;
+}
+
 .z-verdict-pane {
   display: flex;
   flex-direction: column;
@@ -723,6 +741,18 @@
   gap: 3rem;
   align-items: end;
   margin-bottom: 2.25rem;
+}
+
+/* The playground is the centerpiece: give its heading a clean, single-column
+   runway instead of the two-column heading layout, which left dead space above
+   the title when the intro paragraph ran longer than the heading. */
+.z-playground .z-heading-wide {
+  display: block;
+  max-width: 760px;
+}
+
+.z-playground .z-heading-wide p {
+  margin-top: 1rem;
 }
 
 .z-section-heading {
@@ -843,6 +873,13 @@
   font-weight: 850;
 }
 
+/* De-emphasize the competitor columns so the proven zigttp column carries
+   the eye. The first column (capability) and last column (zigttp) keep their
+   weight; the middle three read as muted. */
+.z-table-wrap td:not(:first-child):not(:last-child) {
+  color: var(--z-muted);
+}
+
 .z-compare-cards {
   display: none;
 }
@@ -853,6 +890,25 @@
   grid-template-columns: minmax(0, 0.8fr) minmax(420px, 1fr);
   gap: 3rem;
   align-items: center;
+}
+
+/* Expert agent: inverted two-column (terminal left, copy right) so this
+   flagship beat reads differently from the prose-left sections around it. */
+.z-expert {
+  display: grid;
+  grid-template-columns: minmax(420px, 1fr) minmax(0, 0.82fr);
+  gap: 3rem;
+  align-items: center;
+}
+
+.z-expert-terminal {
+  background:
+    radial-gradient(
+      circle at 12% 0%,
+      rgb(110 173 219 / 0.22),
+      transparent 16rem
+    ),
+    var(--z-terminal);
 }
 
 .z-check-list {
@@ -913,7 +969,7 @@
 .z-card-index {
   display: block;
   margin-bottom: 4.5rem;
-  color: var(--z-accent);
+  color: var(--z-accent-dark);
   font-family: var(--z-mono);
   font-size: 0.78rem;
   font-weight: 900;
@@ -1033,7 +1089,7 @@
 
 .z-module-grid span {
   border: 1px solid var(--z-line);
-  border-radius: 15px;
+  border-radius: var(--z-radius-md);
   background: rgb(255 253 248 / 0.75);
   color: var(--z-ink-soft);
   font-family: var(--z-mono);
@@ -1055,30 +1111,51 @@
   font-weight: 800;
 }
 
+/* Dark closing slab: a deliberate punctuation against the cream sections, using
+   the same terminal ink as the studio mock and playground so the page ends on a
+   strong, on-brand beat instead of one more soft panel. */
 .z-final-cta {
   margin-bottom: 4rem;
-  border: 1px solid var(--z-line-strong);
+  border: 1px solid var(--z-terminal-3);
   border-radius: var(--z-radius-lg);
   background:
     radial-gradient(
       circle at 80% 0%,
-      rgb(31 111 104 / 0.15),
-      transparent 20rem
+      rgb(110 173 219 / 0.3),
+      transparent 22rem
     ),
-    rgb(255 253 248 / 0.82);
-  box-shadow: var(--z-shadow);
+    var(--z-terminal);
+  box-shadow: var(--z-shadow-lg);
   padding-top: 4rem;
   padding-bottom: 4rem;
   text-align: center;
 }
 
+.z-final-cta h2 {
+  color: #f4f7fb;
+}
+
 .z-final-cta p {
   max-width: 40rem;
   margin: 1rem auto 0;
+  color: #aeb7c2;
 }
 
 .z-final-cta .z-section-kicker {
   justify-content: center;
+  color: #7fd59b;
+}
+
+/* Secondary CTA reads as a light outline on the dark slab. */
+.z-final-cta .z-button-secondary {
+  border-color: rgb(255 255 255 / 0.22);
+  background: rgb(255 255 255 / 0.04);
+  color: #e8edf1;
+}
+
+.z-final-cta .z-button-secondary:hover {
+  border-color: var(--z-accent-dark);
+  background: rgb(110 173 219 / 0.3);
 }
 
 .z-footer {
@@ -1105,8 +1182,14 @@
   .z-hero,
   .z-feature-split,
   .z-api-section,
+  .z-expert,
   .z-heading-wide {
     grid-template-columns: 1fr;
+  }
+
+  /* Lead with the heading, not the terminal, when the expert section stacks. */
+  .z-expert .z-expert-copy {
+    order: -1;
   }
 
   .z-hero {
@@ -1195,6 +1278,13 @@
 
   .z-install-card {
     grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  /* On narrow screens the install command no longer fits; let it scroll
+     horizontally so it stays readable instead of truncating mid-word. */
+  .z-install-card code {
+    overflow-x: auto;
+    text-overflow: clip;
   }
 
   .z-install-card button {
@@ -1364,7 +1454,7 @@
 .zp-editor-col {
   display: flex;
   flex-direction: column;
-  border: 1px solid rgb(18 77 73 / 0.28);
+  border: 1px solid rgb(42 103 150 / 0.28);
   border-radius: var(--z-radius-lg);
   overflow: hidden;
   background: var(--z-terminal);
@@ -1484,7 +1574,7 @@
   display: flex;
   flex-direction: column;
   margin: 0;
-  border: 1px solid rgb(18 77 73 / 0.28);
+  border: 1px solid rgb(42 103 150 / 0.28);
   border-radius: var(--z-radius-lg);
   overflow: hidden;
   background: var(--z-terminal);

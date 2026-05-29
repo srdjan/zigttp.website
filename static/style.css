@@ -22,10 +22,10 @@
   --text: #181b22;
   --text-muted: #4f5665;
   --text-dim: #7b8190;
-  --accent: #d98600;
-  --accent-dim: #b86f00;
-  --accent-glow: rgba(217, 134, 0, 0.12);
-  --accent-border: rgba(217, 134, 0, 0.28);
+  --accent: #6eaddb;
+  --accent-dim: #2a6796;
+  --accent-glow: rgba(110, 173, 219, 0.12);
+  --accent-border: rgba(110, 173, 219, 0.28);
   --accent-secondary: #2e829a;
   --green: #168a4a;
   --red: #c2413b;
@@ -33,7 +33,12 @@
   --teal: #0f8d7d;
   --cyan: #2e829a;
   --cyan-dim: rgba(46, 130, 154, 0.1);
-  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-display:
+    "Outfit",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   --font-body:
     "Outfit",
     -apple-system,
@@ -93,7 +98,7 @@ body::before {
 }
 
 ::selection {
-  background: rgba(247, 164, 29, 0.25);
+  background: rgba(110, 173, 219, 0.25);
   color: var(--text);
 }
 
@@ -107,7 +112,7 @@ body::before {
 }
 
 a {
-  color: var(--accent);
+  color: var(--accent-dim);
   text-decoration: none;
   transition: color 0.15s;
 }
@@ -183,7 +188,7 @@ code {
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 
 .section-lead {
@@ -229,7 +234,7 @@ code {
 }
 
 .logo-zig {
-  color: var(--accent);
+  color: var(--accent-dim);
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.04em;
@@ -327,7 +332,7 @@ code {
 }
 
 .nav-links a.active {
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 
 .nav-links a.active::after {
@@ -358,7 +363,7 @@ code {
   inset: 0;
   background: radial-gradient(
     ellipse 68% 56% at 50% 16%,
-    rgba(247, 164, 29, 0.08),
+    rgba(110, 173, 219, 0.08),
     rgba(10, 10, 15, 0.2) 55%,
     transparent 78%
   );
@@ -394,7 +399,7 @@ code {
   font-weight: 400;
   letter-spacing: -0.06em;
   line-height: 0.82;
-  color: var(--accent);
+  color: var(--accent-dim);
   margin-bottom: 10px;
 }
 
@@ -413,7 +418,7 @@ code {
 }
 
 .accent {
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 
 .hero-sub {
@@ -454,23 +459,23 @@ code {
 
 .cta-primary {
   background: var(--accent);
-  color: #17120a;
+  color: #10243a;
   box-shadow:
-    0 0 20px rgba(247, 164, 29, 0.2),
-    0 4px 12px rgba(247, 164, 29, 0.15);
+    0 0 20px rgba(110, 173, 219, 0.2),
+    0 4px 12px rgba(110, 173, 219, 0.15);
 }
 
 .cta-primary:hover {
   background: var(--accent-dim);
-  color: #17120a;
+  color: #fffdf8;
   box-shadow:
-    0 0 30px rgba(247, 164, 29, 0.3),
-    0 6px 16px rgba(247, 164, 29, 0.2);
+    0 0 30px rgba(110, 173, 219, 0.3),
+    0 6px 16px rgba(110, 173, 219, 0.2);
 }
 
 .cta-btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(247, 164, 29, 0.5);
+  box-shadow: 0 0 0 3px rgba(110, 173, 219, 0.5);
 }
 
 /* --- Hero Terminal --- */
@@ -490,7 +495,7 @@ code {
     var(--bg-code);
   box-shadow:
     0 32px 80px rgba(0, 0, 0, 0.34),
-    0 0 80px rgba(247, 164, 29, 0.06);
+    0 0 80px rgba(110, 173, 219, 0.06);
 }
 
 .hero-terminal .terminal-bar {
@@ -531,7 +536,7 @@ code {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.18em;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 
 .feature-row-body h3 {
@@ -624,7 +629,7 @@ code {
 }
 
 .t-prompt {
-  color: var(--accent);
+  color: var(--accent-dim);
   font-weight: 700;
 }
 .t-string {
@@ -666,8 +671,8 @@ code {
 }
 
 .expert-prose code {
-  color: var(--accent);
-  background: rgba(247, 164, 29, 0.08);
+  color: var(--accent-dim);
+  background: rgba(110, 173, 219, 0.08);
   padding: 2px 6px;
   border-radius: 3px;
 }
@@ -675,7 +680,9 @@ code {
 .expert-terminal .terminal {
   max-width: none;
   border-color: var(--accent-border);
-  box-shadow: 0 16px 44px rgba(99, 77, 35, 0.16), 0 0 60px rgba(217, 134, 0, 0.08);
+  box-shadow:
+    0 16px 44px rgba(99, 77, 35, 0.16),
+    0 0 60px rgba(110, 173, 219, 0.08);
 }
 
 .expert-terminal .terminal-bar {
@@ -758,8 +765,8 @@ code {
 }
 
 .tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--accent-dim);
+  border-bottom-color: var(--accent-dim);
 }
 
 .tabs-body {
@@ -802,7 +809,7 @@ code {
 }
 
 .module-name {
-  color: var(--accent);
+  color: var(--accent-dim);
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.6;
@@ -822,7 +829,7 @@ code {
 
 .faq-item[aria-expanded="true"],
 details[open].faq-item {
-  border-left-color: var(--accent);
+  border-left-color: var(--accent-dim);
   padding-left: 16px;
 }
 
@@ -844,7 +851,7 @@ details[open].faq-item {
   content: "+";
   display: inline-block;
   width: 24px;
-  color: var(--accent);
+  color: var(--accent-dim);
   font-weight: 700;
   font-size: 1.25rem;
 }
@@ -1035,7 +1042,7 @@ button.faq-question {
 .deck-tag {
   font-family: var(--font-mono);
   font-size: clamp(9px, 0.9vw, 11px);
-  color: var(--accent);
+  color: var(--accent-dim);
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -1081,12 +1088,13 @@ button.faq-question {
 }
 
 .deck-hero-title {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: clamp(48px, 8vw, 96px);
-  color: var(--accent);
-  font-weight: 700;
+  color: var(--accent-dim);
+  font-weight: 800;
+  letter-spacing: -0.05em;
   margin: 0;
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .deck-hero-subtitle {
@@ -1119,7 +1127,7 @@ button.faq-question {
 .deck-stat-value {
   font-family: var(--font-mono);
   font-size: clamp(24px, 3.5vw, 42px);
-  color: var(--accent);
+  color: var(--accent-dim);
   font-weight: 700;
   display: block;
 }
@@ -1147,7 +1155,7 @@ button.faq-question {
 
 .deck-insight-highlight {
   font-size: clamp(14px, 1.6vw, 18px);
-  color: var(--accent);
+  color: var(--accent-dim);
   font-weight: 600;
   margin: 0 0 8px;
 }
@@ -1197,7 +1205,7 @@ button.faq-question {
 .deck-pipeline-arrow {
   font-family: var(--font-mono);
   font-size: clamp(16px, 2vw, 24px);
-  color: var(--accent);
+  color: var(--accent-dim);
   padding: 0 clamp(6px, 1vw, 16px);
 }
 
@@ -1287,6 +1295,10 @@ button.faq-question {
   margin-top: 20px;
 }
 
+.deck-check-list--spaced {
+  margin-top: 24px;
+}
+
 .deck-check-item {
   display: flex;
   align-items: flex-start;
@@ -1325,7 +1337,7 @@ button.faq-question {
 
 .deck-command-input {
   font-size: clamp(12px, 1.3vw, 15px);
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 
 .deck-command-output {
@@ -1344,7 +1356,7 @@ button.faq-question {
 .deck-contract-label {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--accent);
+  color: var(--accent-dim);
   text-align: center;
   margin-bottom: 12px;
 }
@@ -1395,7 +1407,7 @@ button.faq-question {
 
 .deck-card-header-title {
   font-size: clamp(14px, 1.4vw, 17px);
-  color: var(--accent);
+  color: var(--accent-dim);
   font-weight: 600;
 }
 
@@ -1428,7 +1440,7 @@ button.faq-question {
 
 .deck-evo-title {
   font-size: clamp(13px, 1.3vw, 16px);
-  color: var(--accent);
+  color: var(--accent-dim);
   font-weight: 600;
   margin-bottom: 14px;
 }
@@ -1511,10 +1523,10 @@ button.faq-question {
 }
 
 .deck-cmp-hero-hd {
-  color: var(--accent);
+  color: var(--accent-dim);
   font-family: var(--font-mono);
-  background: rgba(247, 164, 29, 0.06);
-  border-inline: 1px solid rgba(247, 164, 29, 0.12);
+  background: rgba(110, 173, 219, 0.06);
+  border-inline: 1px solid rgba(110, 173, 219, 0.12);
   position: relative;
 }
 
@@ -1540,8 +1552,8 @@ button.faq-question {
   font-size: clamp(8px, 0.8vw, 10px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(247, 164, 29, 0.04);
+  color: var(--accent-dim);
+  background: rgba(110, 173, 219, 0.04);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   font-weight: 600;
@@ -1566,11 +1578,11 @@ button.faq-question {
 }
 
 .deck-cmp-hero {
-  color: var(--accent) !important;
+  color: var(--accent-dim) !important;
   font-weight: 700;
   font-family: var(--font-mono);
-  background: rgba(247, 164, 29, 0.03);
-  border-inline: 1px solid rgba(247, 164, 29, 0.08);
+  background: rgba(110, 173, 219, 0.03);
+  border-inline: 1px solid rgba(110, 173, 219, 0.08);
 }
 
 .deck-cmp-yes {
@@ -1600,7 +1612,7 @@ button.faq-question {
 .deck-closing-title {
   font-family: var(--font-mono);
   font-size: clamp(40px, 6vw, 72px);
-  color: var(--accent);
+  color: var(--accent-dim);
   font-weight: 700;
   margin: 0 0 4px;
   line-height: 1.1;
@@ -1627,7 +1639,7 @@ button.faq-question {
 
 .deck-summary-label {
   font-size: clamp(11px, 1.2vw, 14px);
-  color: var(--accent);
+  color: var(--accent-dim);
   min-width: 120px;
 }
 
@@ -1796,7 +1808,6 @@ button.faq-question {
   .tab-panel code {
     font-size: 0.75rem;
   }
-
 }
 
 /* --------------------------------------------------------
@@ -1986,8 +1997,8 @@ button.faq-question {
   padding: 2px 8px;
   border: 1px solid var(--accent-border);
   border-radius: var(--radius-pill);
-  background: rgba(247, 164, 29, 0.08);
-  color: var(--accent);
+  background: rgba(110, 173, 219, 0.08);
+  color: var(--accent-dim);
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 500;
@@ -1995,7 +2006,9 @@ button.faq-question {
   white-space: nowrap;
 }
 @media (max-width: 480px) {
-  .nav-version { display: none; }
+  .nav-version {
+    display: none;
+  }
 }
 
 /* Full-bleed hero proof circuit. */
@@ -2004,20 +2017,19 @@ button.faq-question {
   background:
     radial-gradient(
       circle at 66% 47%,
-      rgba(217, 134, 0, 0.14),
-      rgba(217, 134, 0, 0.04) 35%,
+      rgba(110, 173, 219, 0.14),
+      rgba(110, 173, 219, 0.04) 35%,
       transparent 62%
     ),
     linear-gradient(180deg, #fffaf0 0%, #f4ead8 72%, var(--bg) 100%);
 }
 .hero::before {
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(46, 130, 154, 0.08),
-      transparent
-    );
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(46, 130, 154, 0.08),
+    transparent
+  );
   opacity: 0.75;
 }
 .hero .hero-inner {
@@ -2193,7 +2205,7 @@ button.faq-question {
   will-change: opacity, transform;
 }
 .hero-title .hero-line.accent {
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 
 /* Hero typed command - characters revealed by anime.js. */
@@ -2219,7 +2231,9 @@ button.faq-question {
   opacity: 0.7;
 }
 @keyframes cursor-blink {
-  to { visibility: hidden; }
+  to {
+    visibility: hidden;
+  }
 }
 
 /* Subtle text link variant alongside the primary CTA. */
@@ -2237,8 +2251,8 @@ button.faq-question {
   transition: color 0.15s, border-color 0.15s;
 }
 .cta-link:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--accent-dim);
+  border-bottom-color: var(--accent-dim);
 }
 
 /* Hero replay button - quiet, sits below the terminal. */
@@ -2263,7 +2277,7 @@ button.faq-question {
   font-size: 0.9rem;
 }
 .hero-replay:hover {
-  color: var(--accent);
+  color: var(--accent-dim);
   border-color: var(--accent-border);
 }
 
@@ -2326,17 +2340,21 @@ button.faq-question {
   gap: 10px;
   transition: color 0.15s;
 }
-.expert-demo-details > summary::-webkit-details-marker { display: none; }
+.expert-demo-details > summary::-webkit-details-marker {
+  display: none;
+}
 .expert-demo-details > summary::before {
   content: "\25B6";
   font-size: 0.7rem;
-  color: var(--accent);
+  color: var(--accent-dim);
   transition: transform 0.2s;
 }
 .expert-demo-details[open] > summary::before {
   transform: rotate(90deg);
 }
-.expert-demo-details > summary:hover { color: var(--text); }
+.expert-demo-details > summary:hover {
+  color: var(--text);
+}
 .expert-demo-details .expert-demo {
   padding: 0 20px 20px;
 }
@@ -2367,7 +2385,9 @@ button.faq-question {
   font-size: 0.75rem;
 }
 @media (max-width: 640px) {
-  .feature-row-modules { padding-left: 0; }
+  .feature-row-modules {
+    padding-left: 0;
+  }
 }
 
 /* Install footnote replaces the old CLI reference column. */
@@ -2385,7 +2405,7 @@ button.faq-question {
   transition: color 0.15s, border-color 0.15s;
 }
 .install-footnote a:hover {
-  color: var(--accent);
+  color: var(--accent-dim);
   border-color: var(--accent-border);
 }
 
