@@ -132,7 +132,7 @@
     </script>
 
     <link rel="stylesheet" href="/style.css?v=10">
-    <link rel="stylesheet" href="/home.css?v=9">
+    <link rel="stylesheet" href="/home.css?v=10">
   </head>
   <body class="zigttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -157,9 +157,9 @@
         </button>
         <div class="z-nav-links" id="z-nav-links">
           <a href="#playground">Playground</a>
-          <a href="#compare">Compare</a>
           <a href="#proofs">Proofs</a>
           <a href="#expert">Expert</a>
+          <a href="#compare">Compare</a>
           <a href="#runtime">Runtime</a>
           <a href="#commands">Commands</a>
           <a
@@ -522,6 +522,157 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         </div>
       </section>
 
+      <section class="z-section z-feature-split">
+        <div class="z-feature-copy">
+          <p class="z-section-kicker">Proof loop</p>
+          <h2>Same handler, live verdicts, no separate spec file.</h2>
+          <p>
+            The handler declares its obligations in the type surface. Every save
+            recompiles, narrows Results, checks match coverage, extracts the
+            contract, and compares the new surface to the running version.
+          </p>
+          <ul class="z-check-list">
+            <li>
+              Studio shows verdict, active Spec set, contract diff, and
+              witnesses.
+            </li>
+            <li>
+              Unsafe changes block hot swap and print the contract difference.
+            </li>
+            <li>
+              Counterexamples persist so regressions replay instead of
+              rediscovering.
+            </li>
+          </ul>
+        </div>
+        <div class="z-code-card" aria-label="zigttp proof command output">
+          <pre><code><span class="z-muted"># every save runs the same proof path</span>
+<span class="z-cmd">$</span> zigttp dev --watch --prove
+compile src/handler.ts
+verify returns reachability result-narrowing
+verify match-coverage property-access dead-code
+contract extracted: order.accept
+
+<span class="z-safe">PROVEN Spec&lt;idempotent, deterministic, no_secret_leakage&gt;</span>
+verdict safe_with_additions
+hot swap allowed</code></pre>
+        </div>
+      </section>
+
+      <section class="z-section z-expert-section" id="expert">
+        <div class="z-section-heading">
+          <p class="z-section-kicker">
+            <span class="z-status-dot z-dot-safe"></span>
+            Compiler-in-the-loop agent
+          </p>
+          <h2>
+            The first agent that writes against the compiler, not around it.
+          </h2>
+        </div>
+        <div class="z-expert">
+          <div
+            class="z-code-card z-expert-terminal"
+            aria-label="zigttp expert agent writing, compiling, and proving a handler"
+          >
+            <div class="z-pane-title">
+              <span>zigttp expert</span><em>compiler in the loop</em>
+            </div>
+            <pre><code><span class="z-cmd">$</span> zigttp expert <span class="z-str">"add a health check endpoint"</span>
+
+<span class="z-agent">[agent]</span> Writing handler...
+<span class="z-agent">[agent]</span> Compiling handler.ts
+
+  <span class="z-err">error[E0003]: try/catch is not supported in zigts</span>
+    <span class="z-muted">--&gt; handler.ts:12:5</span>
+    <span class="z-muted">= help: use Result types</span>
+
+<span class="z-agent">[agent]</span> Rewriting with Result types...
+<span class="z-agent">[agent]</span> Compiling handler.ts
+
+  <span class="z-safe">PROVEN 7/7 proofs</span>
+  <span class="z-safe">Handler ready: health-check (1.2MB)</span></code></pre>
+          </div>
+          <div class="z-expert-copy">
+            <p>
+              Most coding agents generate, then hope tests catch what they got
+              wrong. <code>zigttp expert</code> calls the same verifier that
+              gates your deploys: it writes a handler, compiles it, reads the
+              proof errors, and rewrites until every obligation is discharged.
+              The loop closes before the code reaches you.
+            </p>
+            <ul class="z-check-list">
+              <li>Every patch is compiled and proven, never just generated.</li>
+              <li>
+                Unsupported or unsafe patterns are rejected at the source, with
+                the compiler's own errors as the feedback signal.
+              </li>
+              <li>You review proven handlers, not plausible drafts.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="z-loop">
+          <h3 class="z-loop-head">How the loop closes</h3>
+          <ol class="z-loop-flow" aria-label="How the compiler-in-the-loop closes">
+            <li class="z-loop-step">
+              <span class="z-loop-num">01</span>
+              <strong>Write</strong>
+              <p>The agent drafts a handler in zigts from your request.</p>
+            </li>
+            <li class="z-loop-step">
+              <span class="z-loop-num">02</span>
+              <strong>Compile</strong>
+              <p>It runs the real zigttp compiler, not a linter approximation.</p>
+            </li>
+            <li class="z-loop-step">
+              <span class="z-loop-num">03</span>
+              <strong>Read proof errors</strong>
+              <p>Unsupported or unproven patterns return as compiler errors.</p>
+            </li>
+            <li class="z-loop-step">
+              <span class="z-loop-num">04</span>
+              <strong>Rewrite</strong>
+              <p>It edits against those errors and recompiles until they clear.</p>
+            </li>
+            <li class="z-loop-step z-loop-step-proven">
+              <span class="z-status-dot z-dot-safe"></span>
+              <strong>Proven</strong>
+              <p>Every obligation discharged before the code reaches you.</p>
+            </li>
+          </ol>
+          <p class="z-loop-cycle">
+            compile, read, rewrite - repeat until proven
+          </p>
+        </div>
+
+        <div
+          class="z-contrast-grid z-expert-contrast"
+          aria-label="Ordinary agent versus compiler-in-the-loop"
+        >
+          <article class="z-contrast-weak">
+            <span><i class="z-status-dot z-dot-blocked"></i>ordinary agent</span>
+            <p>
+              Generates code, then hopes tests catch what it got wrong. The gaps
+              surface in production.
+            </p>
+          </article>
+          <article class="z-contrast-strong">
+            <span><i class="z-status-dot z-dot-safe"></i>zigttp expert</span>
+            <p>
+              Compiles every draft and fixes against the compiler's own proof
+              errors. The gaps surface before review.
+            </p>
+          </article>
+        </div>
+
+        <p class="z-expert-note">
+          <code>zigttp expert</code> is a terminal coding agent with native
+          tool-use into the zigttp compiler, token accounting, and per-session
+          budgets. It writes only inside zigts, so every patch stays in the
+          provable subset.
+        </p>
+      </section>
+
       <section class="z-section z-compare" id="compare">
         <div class="z-heading-wide">
           <div>
@@ -619,92 +770,6 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         </div>
       </section>
 
-      <section class="z-section z-feature-split">
-        <div class="z-feature-copy">
-          <p class="z-section-kicker">Proof loop</p>
-          <h2>Same handler, live verdicts, no separate spec file.</h2>
-          <p>
-            The handler declares its obligations in the type surface. Every save
-            recompiles, narrows Results, checks match coverage, extracts the
-            contract, and compares the new surface to the running version.
-          </p>
-          <ul class="z-check-list">
-            <li>
-              Studio shows verdict, active Spec set, contract diff, and
-              witnesses.
-            </li>
-            <li>
-              Unsafe changes block hot swap and print the contract difference.
-            </li>
-            <li>
-              Counterexamples persist so regressions replay instead of
-              rediscovering.
-            </li>
-          </ul>
-        </div>
-        <div class="z-code-card" aria-label="zigttp proof command output">
-          <pre><code><span class="z-muted"># every save runs the same proof path</span>
-<span class="z-cmd">$</span> zigttp dev --watch --prove
-compile src/handler.ts
-verify returns reachability result-narrowing
-verify match-coverage property-access dead-code
-contract extracted: order.accept
-
-<span class="z-safe">PROVEN Spec&lt;idempotent, deterministic, no_secret_leakage&gt;</span>
-verdict safe_with_additions
-hot swap allowed</code></pre>
-        </div>
-      </section>
-
-      <section class="z-section z-expert" id="expert">
-        <div
-          class="z-code-card z-expert-terminal"
-          aria-label="zigttp expert agent writing, compiling, and proving a handler"
-        >
-          <div class="z-pane-title">
-            <span>zigttp expert</span><em>compiler in the loop</em>
-          </div>
-          <pre><code><span class="z-cmd">$</span> zigttp expert <span class="z-str">"add a health check endpoint"</span>
-
-<span class="z-agent">[agent]</span> Writing handler...
-<span class="z-agent">[agent]</span> Compiling handler.ts
-
-  <span class="z-err">error[E0003]: try/catch is not supported in zigts</span>
-    <span class="z-muted">--&gt; handler.ts:12:5</span>
-    <span class="z-muted">= help: use Result types</span>
-
-<span class="z-agent">[agent]</span> Rewriting with Result types...
-<span class="z-agent">[agent]</span> Compiling handler.ts
-
-  <span class="z-safe">PROVEN 7/7 proofs</span>
-  <span class="z-safe">Handler ready: health-check (1.2MB)</span></code></pre>
-        </div>
-        <div class="z-expert-copy">
-          <p class="z-section-kicker">
-            <span class="z-status-dot z-dot-safe"></span>
-            Compiler-in-the-loop agent
-          </p>
-          <h2>
-            The first agent that writes against the compiler, not around it.
-          </h2>
-          <p>
-            Most coding agents generate, then hope tests catch what they got
-            wrong. <code>zigttp expert</code> calls the same verifier that gates
-            your deploys: it writes a handler, compiles it, reads the proof
-            errors, and rewrites until every obligation is discharged. The loop
-            closes before the code reaches you.
-          </p>
-          <ul class="z-check-list">
-            <li>Every patch is compiled and proven, never just generated.</li>
-            <li>
-              Unsupported or unsafe patterns are rejected at the source, with
-              the compiler's own errors as the feedback signal.
-            </li>
-            <li>You review proven handlers, not plausible drafts.</li>
-          </ul>
-        </div>
-      </section>
-
       <section
         class="z-section z-pillars"
         id="runtime"
@@ -743,7 +808,7 @@ hot swap allowed</code></pre>
             <span class="z-card-index">04</span>
             <h3>Agent-ready loop</h3>
             <p>
-              <code>zigts expert</code> writes against the same verifier that
+              <code>zigttp expert</code> writes against the same verifier that
               rejects unsupported or unsafe patches.
             </p>
           </article>
@@ -831,7 +896,7 @@ hot swap allowed</code></pre>
 
 <span class="z-muted"># keep regressions pinned</span>
 <span class="z-cmd">zigttp</span> witnesses replay
-<span class="z-cmd">zigts</span> expert <span class="z-str">"add health check"</span></code></pre>
+<span class="z-cmd">zigttp</span> expert <span class="z-str">"add health check"</span></code></pre>
         </div>
       </section>
 

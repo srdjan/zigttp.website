@@ -911,6 +911,171 @@
     var(--z-terminal);
 }
 
+/* Compiler-in-the-loop: the loop diagram and the generate-vs-prove contrast
+   sit below the lead split so the expert reads as one flagship section. */
+.z-loop {
+  margin-top: 3.25rem;
+}
+
+.z-loop-head {
+  margin: 0 0 1.4rem;
+  color: var(--z-muted);
+  font-family: var(--z-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.z-loop-flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.z-loop-step {
+  position: relative;
+  padding: 1.15rem;
+  border-radius: var(--z-radius-md);
+  background: var(--z-paper);
+  box-shadow:
+    0 1px 0 rgb(35 29 21 / 0.04),
+    0 14px 34px rgb(35 29 21 / 0.07);
+}
+
+/* Forward connector between steps, sitting in the column gap. */
+.z-loop-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -1.08rem;
+  transform: translateY(-50%);
+  color: var(--z-line-strong);
+  font-weight: 900;
+}
+
+/* The step that hands off to Proven reads as a gate, not just another arrow.
+   Keyed off the proven step's class, so adding or removing a step can't
+   silently misplace the gate. */
+.z-loop-step:has(+ .z-loop-step-proven)::after {
+  content: "✓";
+  color: var(--z-accent-dark);
+}
+
+.z-loop-num {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--z-accent-dark);
+  font-family: var(--z-mono);
+  font-size: 0.75rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.z-loop-step strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--z-ink);
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.z-loop-step p {
+  margin: 0;
+  color: var(--z-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.z-loop-step-proven {
+  background:
+    radial-gradient(
+      circle at 80% 0%,
+      rgb(110 173 219 / 0.28),
+      transparent 11rem
+    ),
+    var(--z-accent-soft);
+  box-shadow:
+    0 1px 0 rgb(42 103 150 / 0.12),
+    0 18px 40px rgb(42 103 150 / 0.16);
+}
+
+.z-loop-step-proven .z-status-dot {
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.z-loop-cycle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+  color: var(--z-muted);
+  font-family: var(--z-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+}
+
+.z-loop-cycle::before {
+  content: "↺";
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--z-accent-dark);
+}
+
+.z-expert-contrast {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 2.5rem;
+}
+
+/* Differentiate the two outcomes by weight, not color alone: the dot plus the
+   label carry the meaning, the surface treatment reinforces it. */
+.z-expert-contrast span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.z-contrast-weak {
+  background: rgb(246 240 230 / 0.6);
+}
+
+.z-contrast-weak p {
+  color: var(--z-muted);
+}
+
+.z-contrast-strong {
+  border-color: var(--z-accent);
+  background:
+    radial-gradient(
+      circle at 88% 0%,
+      rgb(110 173 219 / 0.18),
+      transparent 13rem
+    ),
+    var(--z-accent-soft);
+  box-shadow: var(--z-shadow-md);
+}
+
+.z-expert-note {
+  max-width: 60rem;
+  margin-top: 1.75rem;
+  color: var(--z-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.z-expert-note code {
+  color: var(--z-accent-dark);
+}
+
 .z-check-list {
   display: grid;
   gap: 0.75rem;
@@ -1190,6 +1355,15 @@
   /* Lead with the heading, not the terminal, when the expert section stacks. */
   .z-expert .z-expert-copy {
     order: -1;
+  }
+
+  .z-loop-flow,
+  .z-expert-contrast {
+    grid-template-columns: 1fr;
+  }
+
+  .z-loop-step:not(:last-child)::after {
+    display: none;
   }
 
   .z-hero {
