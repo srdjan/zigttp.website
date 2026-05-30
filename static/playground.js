@@ -3,7 +3,7 @@
 // script: the section ships a pre-rendered proven card and a plain editor.
 //
 // WASM_URL is patched by scripts/build-wasm-playground.sh on every build.
-const WASM_URL = "/zigts-analyzer.ce9304ff24a7.wasm";
+const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
 
 (function () {
   "use strict";
@@ -317,6 +317,29 @@ const WASM_URL = "/zigts-analyzer.ce9304ff24a7.wasm";
           " failable I/O sites covered";
       }
       body.appendChild(el("p", "zp-trace-fact", txt));
+    }
+
+    // Resisted evidence: the attack a passing flow proof defeats. Present only
+    // when the property holds; turns a green check into a source -> guard ->
+    // sink chain. Reuses the flow-chain element pattern; degrades to nothing
+    // against an older wasm that does not emit `resisted`.
+    const r = trace.resisted;
+    if (trace.holds && r) {
+      if (r.attackInput) {
+        body.appendChild(el("p", "zp-trace-req", "tried: " + r.attackInput));
+      }
+      const chain = el("p", "zp-trace-flow");
+      (r.chain || []).forEach((step, i) => {
+        if (i > 0) chain.appendChild(el("span", "zp-trace-arrow", " -> "));
+        chain.appendChild(el("span", "zp-trace-step", step));
+      });
+      body.appendChild(chain);
+      if (r.conclusion) {
+        const c = el("p", "zp-trace-fix");
+        c.appendChild(el("span", "zp-trace-fix-tag", "safe"));
+        c.appendChild(el("span", undefined, r.conclusion));
+        body.appendChild(c);
+      }
     }
 
     const cx = trace.counterexample;
