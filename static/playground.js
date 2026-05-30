@@ -25,8 +25,8 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   const SEED = [
     IMPORT_LINE,
     "",
-    "// Every obligation below is discharged by the compiler",
-    "// on each keystroke. Break one and the card flips red.",
+    "// All guarantees are enforced by default. This Spec<...>",
+    "// narrows enforcement to these three; break one and the card flips red.",
     "type Guarantees = Spec<",
     '  "deterministic" | "no_secret_leakage" | "injection_safe"',
     ">;",

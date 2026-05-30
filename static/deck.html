@@ -6,7 +6,7 @@
     <title>zigttp v0.1.0-beta - compile-time proof you can see</title>
     <meta
       name="description"
-      content="Slide deck for zigttp v0.1.0-beta: restricted TypeScript, live proof workbench, proven reloads, and contract-aware deploys."
+      content="Slide deck for zigttp v0.1.0-beta: restricted TypeScript, stacked compile-time proofs, proven live reload, and contract-aware local deploys."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7f3ea">
@@ -32,7 +32,7 @@
     >
     <meta
       property="og:description"
-      content="Slide deck for zigttp v0.1.0-beta: a restricted TypeScript subset, stacked compile-time proofs, a browser proof workbench, and a contract-aware deploy with a persistent proof ledger."
+      content="Slide deck for zigttp v0.1.0-beta: a restricted TypeScript subset, stacked compile-time proofs, proven live reload, and a contract-aware local deploy with a persistent proof ledger."
     >
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="327">
@@ -50,7 +50,7 @@
     >
     <meta
       name="twitter:description"
-      content="Slide deck for zigttp v0.1.0-beta: a restricted TypeScript subset, stacked compile-time proofs, a browser proof workbench, and a contract-aware deploy with a persistent proof ledger."
+      content="Slide deck for zigttp v0.1.0-beta: a restricted TypeScript subset, stacked compile-time proofs, proven live reload, and a contract-aware local deploy with a persistent proof ledger."
     >
     <meta
       name="twitter:image"
@@ -105,10 +105,9 @@
         </button>
         <div class="nav-links" id="deck-nav-links">
           <a href="/#playground">Playground</a>
+          <a href="/#expert">Expert</a>
           <a href="/#compare">Compare</a>
-          <a href="/#proofs">Proofs</a>
           <a href="/#runtime">Runtime</a>
-          <a href="/#commands">Commands</a>
           <a href="/#install">Install</a>
           <a
             href="https://github.com/srdjan/zigttp"
@@ -131,7 +130,7 @@
               v0.1.0-beta: compile-time proof you can see
             </p>
             <p class="deck-hero-caption">
-              zigts subset - studio + proven live reload - contract-aware deploy
+              zigts subset - proven live reload - contract-aware local deploy
             </p>
           </div>
           <div class="deck-stats-bar">
@@ -158,9 +157,10 @@
               v0.1.0-beta turns the subset into a live proof loop
             </h2>
             <p class="deck-slide-subtitle">
-              Install once. Edit your handler. Watch <code>zigttp studio</code>
-              flip the proof chips on every save. Ship only what the verifier
-              and contract diff both keep green.
+              Install once. Edit your handler. Run
+              <code>zigttp dev --watch --prove</code> and watch the proof chips
+              flip on every save. Ship only what the verifier and contract diff
+              both keep green.
             </p>
             <div class="deck-columns deck-columns--mt deck-columns--fill">
               <div class="deck-card">
@@ -177,14 +177,13 @@
               <div class="deck-card">
                 <div class="deck-card-header">
                   <span class="deck-card-header-icon">&#128279;</span>
-                  <span class="deck-card-header-title"
-                  >Studio + proven live reload</span>
+                  <span class="deck-card-header-title">Proven live reload</span>
                 </div>
                 <p class="deck-card-body">
-                  <code>zigttp studio</code> re-verifies on save.
-                  <code>dev --watch --prove</code> hot-swaps only on
-                  <code>safe</code> / <code>safe_with_additions</code> and
-                  blocks breaking diffs in place.
+                  <code>zigttp dev --watch --prove</code> re-verifies on every
+                  save and hot-swaps only on <code>safe</code> /
+                  <code>safe_with_additions</code>, blocking breaking diffs in
+                  place.
                 </p>
               </div>
               <div class="deck-card">
@@ -194,10 +193,9 @@
                   >Compiler-native coding loop</span>
                 </div>
                 <p class="deck-card-body">
-                  <code>zigttp expert</code> writes only inside zigts, reruns the
-                  verifier, discharges declared <code>Spec&lt;...&gt;</code>
-                  obligations, and persists every counterexample to the witness
-                  corpus.
+                  <code>zigttp expert</code> writes only inside zigts, reruns
+                  the verifier, satisfies every guarantee enforced by default,
+                  and persists every counterexample to the witness corpus.
                 </p>
               </div>
             </div>
@@ -217,9 +215,10 @@
               </p>
               <p class="deck-insight-desc">
                 No back-edges, no exceptions, no hidden I/O. The compiler walks
-                every path in finite time, discharges your declared
-                <code>Spec&lt;...&gt;</code> obligations, and emits a behavioral
-                contract small enough to diff between versions.
+                every path in finite time, enforces every guarantee by default
+                (narrow with <code>Spec&lt;...&gt;</code> when you need only a
+                few), and emits a behavioral contract small enough to diff
+                between versions.
               </p>
             </div>
             <div class="deck-pipeline">
@@ -316,7 +315,7 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Verification</span>
             <h2 class="deck-slide-title">
-              Stacked proofs: paths, sound mode, contract, Spec discharge
+              Stacked proofs: paths, sound mode, contract, guarantees by default
             </h2>
             <div class="deck-check-list">
               <div class="deck-check-item">
@@ -528,7 +527,7 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Developer Experience</span>
             <h2 class="deck-slide-title">
-              Three binaries. Studio in the browser. Expert in the terminal.
+              Three binaries. Proof loop in the terminal. Expert in the loop.
             </h2>
             <div class="deck-card deck-card--mt">
               <div class="deck-card-header">
@@ -537,8 +536,8 @@
                 >zigttp CLI v0.1.0-beta</span>
               </div>
               <code class="deck-guard-code"
-              >install &#8594; init &#8594; studio &#8594; build &#8594; deploy
-                &#8594; proofs</code>
+              >init &#8594; dev &#8594; test &#8594; expert &#8594;
+                deploy</code>
             </div>
             <div class="deck-check-list deck-check-list--spaced">
               <div class="deck-check-item">
@@ -553,10 +552,10 @@
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
-                  <span class="deck-check-title">zigttp studio</span>
+                  <span class="deck-check-title">zigttp test</span>
                   <span class="deck-check-desc"
-                  >Browser proof workbench - verdict, proven surface, Spec
-                    chips, witness corpus on every save</span>
+                  >Run handler tests as golden request/response cases against
+                    the proven handler</span>
                 </div>
               </div>
               <div class="deck-check-item">
@@ -883,16 +882,15 @@
                 >Diff contracts, classify changes into four verdicts</span>
               </div>
               <div class="deck-summary-row">
-                <code class="deck-summary-label">Author-declared Spec</code>
+                <code class="deck-summary-label">Guarantees by default</code>
                 <span class="deck-summary-value"
-                >Obligations on the return type, discharged by the
-                  compiler</span>
+                >All enforced by default; <code>Spec&lt;...&gt;</code> narrows
+                  to a chosen few</span>
               </div>
               <div class="deck-summary-row">
-                <code class="deck-summary-label">Studio + proof ledger</code>
+                <code class="deck-summary-label">Proof ledger</code>
                 <span class="deck-summary-value"
-                >Browser proof workbench plus a persistent verdict
-                  timeline</span>
+                >A persistent verdict timeline for every deploy</span>
               </div>
               <div class="deck-summary-row">
                 <code class="deck-summary-label">Witness corpus</code>

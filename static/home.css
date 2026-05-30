@@ -762,17 +762,14 @@
 
 .z-heading-wide h2,
 .z-section-heading h2,
-.z-feature-copy h2,
 .z-api-copy h2,
 .z-final-cta h2 {
   font-size: clamp(2.5rem, 5.8vw, 5.2rem);
 }
 
 .z-heading-wide p,
-.z-feature-copy p,
 .z-api-copy p,
-.z-final-cta p,
-.z-integration-note {
+.z-final-cta p {
   margin: 0;
   color: var(--z-ink-soft);
   font-size: 1.05rem;
@@ -780,10 +777,7 @@
 }
 
 .z-contrast-grid,
-.z-pillar-grid,
-.z-access-grid,
-.z-awareness-grid,
-.z-module-grid {
+.z-pillar-grid {
   display: grid;
   gap: 1rem;
 }
@@ -793,9 +787,7 @@
 }
 
 .z-contrast-grid article,
-.z-pillar-grid article,
-.z-access-grid article,
-.z-awareness-grid article {
+.z-pillar-grid article {
   border: 1px solid var(--z-line);
   border-radius: var(--z-radius-md);
   background: rgb(255 253 248 / 0.76);
@@ -806,8 +798,7 @@
   padding: 1.15rem;
 }
 
-.z-contrast-grid span,
-.z-access-grid span {
+.z-contrast-grid span {
   display: block;
   margin-bottom: 0.65rem;
   color: var(--z-accent-dark);
@@ -819,9 +810,7 @@
 }
 
 .z-contrast-grid p,
-.z-pillar-grid p,
-.z-access-grid p,
-.z-awareness-grid p {
+.z-pillar-grid p {
   margin: 0;
   color: var(--z-muted);
   font-size: 0.96rem;
@@ -884,7 +873,6 @@
   display: none;
 }
 
-.z-feature-split,
 .z-api-section {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(420px, 1fr);
@@ -941,9 +929,7 @@
   padding: 1.15rem;
   border-radius: var(--z-radius-md);
   background: var(--z-paper);
-  box-shadow:
-    0 1px 0 rgb(35 29 21 / 0.04),
-    0 14px 34px rgb(35 29 21 / 0.07);
+  box-shadow: 0 1px 0 rgb(35 29 21 / 0.04), 0 14px 34px rgb(35 29 21 / 0.07);
 }
 
 /* Forward connector between steps, sitting in the column gap. */
@@ -1140,9 +1126,7 @@
   font-weight: 900;
 }
 
-.z-pillar-grid h3,
-.z-access-grid h3,
-.z-awareness-grid h3 {
+.z-pillar-grid h3 {
   margin: 0 0 0.7rem;
   color: var(--z-ink);
   font-size: 1.2rem;
@@ -1153,31 +1137,6 @@
 .z-pillar-grid code {
   color: var(--z-accent-dark);
   font-size: 0.86em;
-}
-
-.z-access-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.z-access-grid article {
-  display: flex;
-  min-height: 18rem;
-  flex-direction: column;
-  padding: 1.2rem;
-}
-
-.z-access-grid pre {
-  margin: auto 0 0;
-  overflow: auto;
-  border-radius: 14px;
-  background: var(--z-terminal);
-  color: #edf2f7;
-  padding: 0.85rem;
-}
-
-.z-access-grid code {
-  color: #e8edf1;
-  font-size: 0.78rem;
 }
 
 .z-api-copy {
@@ -1197,40 +1156,6 @@
   font-weight: 800;
 }
 
-.z-awareness-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.z-awareness-grid article {
-  padding: 1.1rem;
-}
-
-.z-mini-shot {
-  display: grid;
-  gap: 0.45rem;
-  margin-bottom: 1rem;
-  border-radius: 18px;
-  background: var(--z-terminal);
-  color: #edf2f7;
-  font-family: var(--z-mono);
-  padding: 1rem;
-}
-
-.z-mini-shot span {
-  color: #9da7b3;
-  font-size: 0.72rem;
-  font-weight: 800;
-}
-
-.z-mini-shot strong {
-  color: #8ef1ad;
-  font-size: 1.15rem;
-}
-
-.z-mini-shot small {
-  color: #c7d0dc;
-}
-
 .z-state-legend {
   display: flex;
   flex-wrap: wrap;
@@ -1246,34 +1171,6 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-}
-
-.z-module-grid {
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-}
-
-.z-module-grid span {
-  border: 1px solid var(--z-line);
-  border-radius: var(--z-radius-md);
-  background: rgb(255 253 248 / 0.75);
-  color: var(--z-ink-soft);
-  font-family: var(--z-mono);
-  font-size: 0.78rem;
-  font-weight: 850;
-  padding: 0.8rem 0.65rem;
-  text-align: center;
-}
-
-.z-integration-note {
-  max-width: 44rem;
-  margin: 1.25rem auto 0;
-  text-align: center;
-}
-
-.z-integration-note code {
-  color: var(--z-accent-dark);
-  font-size: 0.9em;
-  font-weight: 800;
 }
 
 /* Dark closing slab: a deliberate punctuation against the cream sections, using
@@ -1345,7 +1242,6 @@
 
 @media (max-width: 1080px) {
   .z-hero,
-  .z-feature-split,
   .z-api-section,
   .z-expert,
   .z-heading-wide {
@@ -1378,10 +1274,6 @@
 
   .z-pillar-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .z-module-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1487,17 +1379,13 @@
 
   .z-heading-wide h2,
   .z-section-heading h2,
-  .z-feature-copy h2,
   .z-api-copy h2,
   .z-final-cta h2 {
     font-size: clamp(2.25rem, 10.5vw, 3rem);
   }
 
   .z-contrast-grid,
-  .z-pillar-grid,
-  .z-access-grid,
-  .z-awareness-grid,
-  .z-module-grid {
+  .z-pillar-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1552,8 +1440,7 @@
     color: var(--z-accent-dark);
   }
 
-  .z-pillar-grid article,
-  .z-access-grid article {
+  .z-pillar-grid article {
     min-height: auto;
   }
 
