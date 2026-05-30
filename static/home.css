@@ -1522,6 +1522,47 @@
   box-shadow: var(--z-shadow);
 }
 
+.zp-tabs {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.7rem 1rem 0;
+  background: var(--z-terminal);
+}
+
+.zp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.04);
+  color: #9da7b3;
+  font-family: var(--z-mono);
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.zp-tab code {
+  color: inherit;
+  font-size: 0.95em;
+}
+
+.zp-tab:hover {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+
+.zp-tab.active {
+  background: var(--z-accent-soft);
+  border-color: var(--z-accent);
+  color: var(--z-terminal);
+}
+
 .zp-toolbar {
   display: flex;
   flex-wrap: wrap;

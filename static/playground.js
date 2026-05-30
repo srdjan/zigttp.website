@@ -16,14 +16,26 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   section.classList.add("zp-js");
 
   // --- demo sources -------------------------------------------------------
-  // The seed is fully proven. Each variant breaks exactly one proof so a
-  // visitor who never types still watches the card flip red and back. The
-  // anchor lines are named constants so the seed and the variant edits that
-  // target them cannot drift apart.
-  const IMPORT_LINE = 'import type { Spec } from "zigttp:types";';
+  // Two seeds back the editor tabs. Both share one handler body, so they
+  // prove the same properties; they differ only in whether a Spec<...> is
+  // declared - which is the whole point: every guarantee is enforced by
+  // default, and Spec<...> only narrows the *declared* set. Each variant
+  // breaks exactly one proof so a passive visitor still watches the card
+  // flip. RETURN_LINE is the shared anchor the variant edits target, so the
+  // seeds and their variants cannot drift apart.
   const RETURN_LINE = "  return Response.json({ ok: true });";
-  const SEED = [
-    IMPORT_LINE,
+
+  const SEED_DEFAULT = [
+    "// No Spec<...> here, so every guarantee is enforced by",
+    "// default. Break one below and the card flips red.",
+    "function handler(req: Request): Response {",
+    RETURN_LINE,
+    "}",
+    "",
+  ].join("\n");
+
+  const SEED_SPEC = [
+    'import type { Spec } from "zigttp:types";',
     "",
     "// All guarantees are enforced by default. This Spec<...>",
     "// narrows enforcement to these three; break one and the card flips red.",
@@ -37,22 +49,26 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     "",
   ].join("\n");
 
-  const VARIANTS = {
-    datenow: SEED.replace(
-      RETURN_LINE,
-      "  const stamp = Date.now();\n  return Response.json({ ok: true, stamp });",
-    ),
-    secret: SEED
-      .replace(IMPORT_LINE, IMPORT_LINE + '\nimport { env } from "zigttp:env";')
-      .replace(
+  // Derive the three perturbation variants from whichever seed is active.
+  function variantsFor(seed) {
+    return {
+      datenow: seed.replace(
+        RETURN_LINE,
+        "  const stamp = Date.now();\n  return Response.json({ ok: true, stamp });",
+      ),
+      secret: ('import { env } from "zigttp:env";\n' + seed).replace(
         RETURN_LINE,
         '  return Response.json({ apiKey: env("SECRET_KEY") });',
       ),
-    while: SEED.replace(
-      RETURN_LINE,
-      "  while (true) {}\n" + RETURN_LINE,
-    ),
-  };
+      while: seed.replace(RETURN_LINE, "  while (true) {}\n" + RETURN_LINE),
+    };
+  }
+
+  // The Spec<...> tab is first and active on load - it proves green, so the
+  // attract demo and first impression stay green. The no-Spec tab is strict
+  // (it enforces every guarantee, including unearned fault-coverage).
+  let activeSeed = SEED_SPEC;
+  let VARIANTS = variantsFor(activeSeed);
 
   // --- property model -----------------------------------------------------
   // The seven properties `zigts check --json` reports under proof.properties,
@@ -392,8 +408,16 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
 
     const specWrap = card.querySelector(".zp-specs");
     specWrap.textContent = "";
+    // Only show the declared-Spec row when the handler actually declares a
+    // Spec<...> (comments stripped first). With no Spec, every guarantee is
+    // enforced by default and the analyzer reports the full active set - that
+    // is not an author declaration, so the row stays empty. This is the whole
+    // point of the two tabs: default enforces all; Spec<...> narrows.
+    const declaresSpec = /Spec\s*</.test(
+      editor.value.replace(/\/\/[^\n]*/g, ""),
+    );
     const specs = (proof && proof.declared_specs) || [];
-    if (specs.length) {
+    if (declaresSpec && specs.length) {
       specWrap.appendChild(el("span", "zp-specs-label", "declared Spec<>"));
       const undischarged = new Set(
         ((proof && proof.spec_diagnostics) || []).map((d) => d.spec_name),
@@ -580,7 +604,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   // `input` event, so this never trips the engage() interaction guard.
   function applyPerturb(kind) {
     activePerturb = kind;
-    editor.value = kind ? (VARIANTS[kind] || SEED) : SEED;
+    editor.value = kind ? (VARIANTS[kind] || activeSeed) : activeSeed;
     perturbBtns.forEach((b) => {
       const k = b.getAttribute("data-perturb");
       b.classList.toggle("active", k === kind);
@@ -595,6 +619,38 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
       engage();
       const kind = btn.getAttribute("data-perturb");
       applyPerturb(activePerturb === kind ? null : kind);
+    });
+  });
+
+  // --- seed tabs ----------------------------------------------------------
+  // Switch the editor between the no-Spec default and the Spec<...> example.
+  // Both prove the same properties; only the declared-Spec chip row differs.
+  // Switching resets any active perturbation and collapses an open trace.
+  const seedTabs = section.querySelectorAll("[data-seed]");
+
+  function selectSeed(which) {
+    activeSeed = which === "spec" ? SEED_SPEC : SEED_DEFAULT;
+    VARIANTS = variantsFor(activeSeed);
+    activePerturb = null;
+    perturbBtns.forEach((b) => {
+      b.classList.remove("active");
+      b.textContent = b.getAttribute("data-label");
+    });
+    openChipKey = null;
+    editor.value = activeSeed;
+    syncHighlight();
+    runAnalysis();
+  }
+
+  seedTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      engage();
+      seedTabs.forEach((t) => {
+        const on = t === tab;
+        t.classList.toggle("active", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      selectSeed(tab.getAttribute("data-seed"));
     });
   });
 
@@ -657,7 +713,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   async function boot() {
     if (booted) return;
     booted = true;
-    editor.value = SEED;
+    editor.value = activeSeed;
     syncHighlight();
     if (typeof WebAssembly === "undefined") {
       setStatus("playground needs WebAssembly", "zp-status-warn");

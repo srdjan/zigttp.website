@@ -132,7 +132,7 @@
     </script>
 
     <link rel="stylesheet" href="/style.css?v=10">
-    <link rel="stylesheet" href="/home.css?v=10">
+    <link rel="stylesheet" href="/home.css?v=11">
   </head>
   <body class="zigttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -326,12 +326,36 @@ hot swap: allowed</code></pre>
             enumerated, the input flows it traced, and for a property that
             holds, the attack it tried and the guard chain that resisted it.
             Edit the handler or break a property and the proof updates on every
-            keystroke. No install, no server, no sign-up.
+            keystroke. No install, no server, no sign-up. The two tabs show the
+            trade: a <code>Spec&lt;...&gt;</code> narrows enforcement to a
+            chosen few and proves; with no Spec every guarantee is enforced,
+            including a fault-coverage obligation this handler has not earned
+            yet.
           </p>
         </div>
 
         <div class="zp-grid">
           <div class="zp-editor-col">
+            <div class="zp-tabs" role="tablist" aria-label="Example handler">
+              <button
+                type="button"
+                class="zp-tab active"
+                data-seed="spec"
+                role="tab"
+                aria-selected="true"
+              >
+                With <code>Spec&lt;...&gt;</code>
+              </button>
+              <button
+                type="button"
+                class="zp-tab"
+                data-seed="default"
+                role="tab"
+                aria-selected="false"
+              >
+                No Spec (all enforced)
+              </button>
+            </div>
             <div class="zp-toolbar">
               <span class="zp-file">
                 <span class="z-status-dot z-dot-idle"></span> handler.ts
@@ -861,7 +885,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
       >Zig</a>
     </footer>
 
-    <script src="/script.js?v=5" defer></script>
-    <script src="/playground.js?v=1" defer></script>
+    <script src="/script.js?v=6" defer></script>
+    <script src="/playground.js?v=4" defer></script>
   </body>
 </html>

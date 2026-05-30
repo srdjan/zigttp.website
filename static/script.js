@@ -88,6 +88,9 @@ if (burger && navLinks) {
 document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
   const tabs = [...tablist.querySelectorAll('[role="tab"]')];
   const container = tablist.closest(".code-tabs");
+  // Only own .code-tabs tablists. Others (e.g. the playground seed tabs and
+  // proof-lens bar) drive their own activation in playground.js.
+  if (!container) return;
 
   function activateTab(tab) {
     const target = tab.dataset.tab;
