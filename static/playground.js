@@ -241,13 +241,34 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     const verdict = ok ? "PROVEN" : "BLOCKED";
     // Guarded so the aria-live region announces only on a real flip.
     if (verdictEl.textContent !== verdict) verdictEl.textContent = verdict;
-    head.querySelector(".zp-count").textContent = provenCount + " / " +
-      PROPS.length + " properties";
+    head.querySelector(".zp-count").textContent = proofSummary(
+      provenCount,
+      proof,
+      editor.value,
+    );
 
     // The verdict header and Why row are always visible; only the active
     // lens pane needs rebuilding. The other panes render on tab switch.
     renderWhy(errors);
     renderLens(activeLens);
+  }
+
+  function sourceDeclaresSpec(source) {
+    return /Spec\s*</.test(source.replace(/\/\/[^\n]*/g, ""));
+  }
+
+  function proofSummary(provenCount, proof, source) {
+    if (!proof) return "proof blocked before props";
+    const declaresSpec = sourceDeclaresSpec(source);
+    const specs = (proof && proof.declared_specs) || [];
+    const specDiagnostics = (proof && proof.spec_diagnostics) || [];
+    if (declaresSpec && specs.length) {
+      const undischarged = new Set(specDiagnostics.map((d) => d.spec_name));
+      const provenSpecs = specs.filter((s) => !undischarged.has(s)).length;
+      return provenSpecs + "/" + specs.length + " specs | " +
+        provenCount + "/" + PROPS.length + " props";
+    }
+    return "all enforced | " + provenCount + "/" + PROPS.length + " props";
   }
 
   // Rebuild one lens pane from the cached last result. The Caller view is
@@ -413,9 +434,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     // enforced by default and the analyzer reports the full active set - that
     // is not an author declaration, so the row stays empty. This is the whole
     // point of the two tabs: default enforces all; Spec<...> narrows.
-    const declaresSpec = /Spec\s*</.test(
-      editor.value.replace(/\/\/[^\n]*/g, ""),
-    );
+    const declaresSpec = sourceDeclaresSpec(editor.value);
     const specs = (proof && proof.declared_specs) || [];
     if (declaresSpec && specs.length) {
       specWrap.appendChild(el("span", "zp-specs-label", "declared Spec<>"));
@@ -643,8 +662,12 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     editor.value = kind ? (VARIANTS[kind] || activeSeed) : activeSeed;
     perturbBtns.forEach((b) => {
       const k = b.getAttribute("data-perturb");
-      b.classList.toggle("active", k === kind);
-      b.textContent = k === kind ? "Revert" : b.getAttribute("data-label");
+      const active = k === kind;
+      b.classList.toggle("active", active);
+      b.setAttribute("aria-pressed", String(active));
+      b.textContent = active
+        ? (b.getAttribute("data-revert-label") || "Revert")
+        : b.getAttribute("data-label");
     });
     syncHighlight();
     runAnalysis();
@@ -671,6 +694,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     activePerturb = null;
     perturbBtns.forEach((b) => {
       b.classList.remove("active");
+      b.setAttribute("aria-pressed", "false");
       b.textContent = b.getAttribute("data-label");
     });
     openChipKey = null;
@@ -704,6 +728,13 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   const DEMO_REVERT_MS = DEMO_INJECT_MS + DEMO_HOLD_MS;
   let userEngaged = false;
   let demoTimers = [];
+  let demoRunId = 0;
+  const demoState = section.querySelector(".zp-demo-state");
+  const demoReplay = section.querySelector(".zp-demo-replay");
+
+  function setDemoState(text) {
+    if (demoState) demoState.textContent = text;
+  }
 
   function clearHints() {
     section.querySelectorAll(".zp-hint").forEach((b) =>
@@ -711,34 +742,64 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     );
   }
 
-  // First real interaction cancels the demo. Clearing the timers is the whole
-  // cancellation - a cleared timer cannot fire, so the callbacks need no guard.
-  function engage() {
-    if (userEngaged) return;
-    userEngaged = true;
+  function clearDemoTimers() {
+    demoRunId += 1;
     demoTimers.forEach(clearTimeout);
     demoTimers = [];
     clearHints();
   }
 
-  function autoDemo() {
-    if (reduceMotion || userEngaged) return;
+  // Any real interaction cancels pending demo work, including a replay that
+  // started after the visitor had already taken manual control.
+  function engage() {
+    const hadDemoTimers = demoTimers.length > 0;
+    const firstInteraction = !userEngaged;
+    if (hadDemoTimers) clearDemoTimers();
+    if (firstInteraction) userEngaged = true;
+    if (hadDemoTimers || firstInteraction) setDemoState("manual control");
+  }
+
+  function runProofFlipDemo(manual) {
+    if (reduceMotion) {
+      setDemoState("motion reduced");
+      return;
+    }
+    if (!manual && userEngaged) return;
+    clearDemoTimers();
+    const runId = demoRunId;
+    setDemoState(manual ? "replaying sample flip" : "auto demo running");
     const datenowBtn = section.querySelector('[data-perturb="datenow"]');
     demoTimers.push(setTimeout(() => {
+      if (runId !== demoRunId) return;
       if (datenowBtn) datenowBtn.classList.add("zp-hint");
       applyPerturb("datenow");
     }, DEMO_INJECT_MS));
     // Unfurl the broken proof's trace so a passive viewer sees the
     // counterexample, not just a red chip.
     demoTimers.push(setTimeout(() => {
+      if (runId !== demoRunId) return;
       openChipKey = "deterministic";
       renderLens("properties");
     }, DEMO_INJECT_MS + 560));
     demoTimers.push(setTimeout(() => {
+      if (runId !== demoRunId) return;
       clearHints();
       openChipKey = null;
       applyPerturb(null);
+      demoTimers = [];
+      setDemoState(manual ? "sample reset" : "auto demo complete");
     }, DEMO_REVERT_MS));
+  }
+
+  function autoDemo() {
+    runProofFlipDemo(false);
+  }
+
+  if (demoReplay) {
+    demoReplay.addEventListener("click", () => {
+      userEngaged = true;
+      runProofFlipDemo(true);
+    });
   }
 
   // --- boot ---------------------------------------------------------------
@@ -758,9 +819,11 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     syncHighlight();
     if (typeof WebAssembly === "undefined") {
       setStatus("playground needs WebAssembly", "zp-status-warn");
+      setDemoState("WebAssembly unavailable");
       return;
     }
     setStatus("loading proof engine...", "");
+    setDemoState("loading proof engine");
     try {
       await loadWasm();
     } catch (err) {
@@ -769,11 +832,13 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
         "proof engine unavailable - install zigttp to try it locally",
         "zp-status-warn",
       );
+      setDemoState("proof engine unavailable");
       return;
     }
     card.classList.add("zp-live");
     editor.removeAttribute("readonly");
     runAnalysis();
+    setDemoState("proof engine ready");
     autoDemo();
   }
 

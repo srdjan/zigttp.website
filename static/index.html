@@ -195,12 +195,14 @@
           </p>
           <div class="z-hero-actions">
             <a class="z-button z-button-primary" href="#playground"
-            >Break a proof</a>
+            >Try the proof loop</a>
             <a class="z-button z-button-secondary" href="#install">Install</a>
           </div>
           <div class="z-install-card" aria-label="Install command">
             <span class="z-prompt">$</span>
-            <code id="install-cmd"
+            <code
+              id="install-cmd"
+              data-command="curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh"
             >curl -fsSL
               https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh |
               sh</code>
@@ -319,13 +321,20 @@ hot swap: allowed</code></pre>
           Live in your browser
         </p>
         <div class="z-heading-wide">
-          <h2>Break a proof in the browser.</h2>
+          <h2>Watch the proof loop.</h2>
           <p>
-            The playground runs the real <code>zigts</code> analyzer in
-            WebAssembly. Change the handler, inject <code>Date.now()</code>,
-            leak a secret, or add a <code>while</code> loop. The card shows
-            which guarantee failed and why.
+            The playground runs the real <code>zigts</code> analyzer quietly in
+            WebAssembly. Safe code stays green. Use a perturbation when you want
+            to see the compiler escalate into a concrete diagnostic.
           </p>
+        </div>
+
+        <div class="z-calm-strip" aria-label="Playground trust boundaries">
+          <span><i class="z-status-dot z-dot-safe"></i>WASM analyzer</span>
+          <span><i class="z-status-dot z-dot-idle"></i>Source stays in
+            page</span>
+          <span><i class="z-status-dot z-dot-review"></i>Diagnostics on
+            anomaly</span>
         </div>
 
         <div class="zp-grid">
@@ -369,6 +378,8 @@ hot swap: allowed</code></pre>
                   type="button"
                   data-perturb="datenow"
                   data-label="Inject Date.now()"
+                  data-revert-label="Revert Date.now()"
+                  aria-pressed="false"
                 >
                   Inject Date.now()
                 </button>
@@ -376,6 +387,8 @@ hot swap: allowed</code></pre>
                   type="button"
                   data-perturb="secret"
                   data-label="Leak a secret"
+                  data-revert-label="Undo secret leak"
+                  aria-pressed="false"
                 >
                   Leak a secret
                 </button>
@@ -383,8 +396,17 @@ hot swap: allowed</code></pre>
                   type="button"
                   data-perturb="while"
                   data-label="Add a while loop"
+                  data-revert-label="Remove while loop"
+                  aria-pressed="false"
                 >
                   Add a while loop
+                </button>
+              </div>
+              <div class="zp-demo-controls">
+                <span class="zp-demo-state" aria-live="polite"
+                >proof engine idle</span>
+                <button type="button" class="zp-demo-replay">
+                  Replay sample flip
                 </button>
               </div>
             </div>
@@ -424,7 +446,7 @@ function handler(req: Request): Response &amp; Guarantees {
           <figure class="zp-card zp-ok" id="zp-card">
             <div class="zp-head zp-ok">
               <span class="zp-verdict" aria-live="polite">PROVEN</span>
-              <strong class="zp-count">6 / 7 properties</strong>
+              <strong class="zp-count">3/3 specs | 6/7 props</strong>
               <span class="zp-live-readout">
                 <span
                   class="z-status-dot z-dot-safe zp-live-dot"
@@ -593,43 +615,6 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             The compiler drives the agent.
           </h2>
         </div>
-        <div class="z-expert">
-          <div
-            class="z-code-card z-expert-terminal"
-            aria-label="zigttp expert agent writing, compiling, and proving a handler"
-          >
-            <div class="z-pane-title">
-              <span>zigttp expert</span><em>compiler in the loop</em>
-            </div>
-            <pre><code><span class="z-cmd">$</span> zigttp expert <span class="z-str">"add a health check endpoint"</span>
-
-<span class="z-agent">[agent]</span> Writing handler...
-<span class="z-agent">[agent]</span> Compiling handler.ts
-
-  <span class="z-err">error[E0003]: try/catch is not supported in zigts</span>
-    <span class="z-muted">--&gt; handler.ts:12:5</span>
-    <span class="z-muted">= help: use Result types</span>
-
-<span class="z-agent">[agent]</span> Rewriting with Result types...
-<span class="z-agent">[agent]</span> Compiling handler.ts
-
-  <span class="z-safe">PROVEN 7/7 proofs</span>
-  <span class="z-safe">Handler ready: health-check (1.2MB)</span></code></pre>
-          </div>
-          <div class="z-expert-copy">
-            <p>
-              <code>zigttp expert</code> writes code, runs the compiler, reads
-              diagnostics, and rewrites. The compiler keeps the agent inside the
-              limited TypeScript profile instead of trusting a generated patch.
-            </p>
-            <ul class="z-check-list">
-              <li>Draft a handler from your request.</li>
-              <li>Compile every patch before review.</li>
-              <li>Repair against diagnostics, not guesses.</li>
-            </ul>
-          </div>
-        </div>
-
         <div class="z-loop">
           <h3 class="z-loop-head">How the loop runs</h3>
           <ol
@@ -670,6 +655,43 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             compile, read, rewrite - repeat until proven
           </p>
         </div>
+        <div class="z-expert">
+          <details class="z-code-card z-expert-terminal">
+            <summary>
+              <span>Compiler transcript</span>
+              <em>show diagnostic loop</em>
+            </summary>
+            <div class="z-pane-title">
+              <span>zigttp expert</span><em>compiler in the loop</em>
+            </div>
+            <pre><code><span class="z-cmd">$</span> zigttp expert <span class="z-str">"add a health check endpoint"</span>
+
+<span class="z-agent">[agent]</span> Writing handler...
+<span class="z-agent">[agent]</span> Compiling handler.ts
+
+  <span class="z-err">error[E0003]: try/catch is not supported in zigts</span>
+    <span class="z-muted">--&gt; handler.ts:12:5</span>
+    <span class="z-muted">= help: use Result types</span>
+
+<span class="z-agent">[agent]</span> Rewriting with Result types...
+<span class="z-agent">[agent]</span> Compiling handler.ts
+
+  <span class="z-safe">PROVEN 7/7 proofs</span>
+  <span class="z-safe">Handler ready: health-check (1.2MB)</span></code></pre>
+          </details>
+          <div class="z-expert-copy">
+            <p>
+              <code>zigttp expert</code> writes code, runs the compiler, reads
+              diagnostics, and rewrites. The compiler keeps the agent inside the
+              limited TypeScript profile instead of trusting a generated patch.
+            </p>
+            <ul class="z-check-list">
+              <li>Draft a handler from your request.</li>
+              <li>Compile every patch before review.</li>
+              <li>Repair against diagnostics, not guesses.</li>
+            </ul>
+          </div>
+        </div>
 
         <div
           class="z-contrast-grid z-expert-contrast"
@@ -695,6 +717,17 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           <code>zigttp expert</code> supports Anthropic and OpenAI keys, resume,
           read-only mode, and non-interactive prompts.
         </p>
+        <div
+          class="z-calm-strip z-expert-trust"
+          aria-label="Agent trust boundaries"
+        >
+          <span><i class="z-status-dot z-dot-safe"></i>Compiler runs
+            locally</span>
+          <span><i class="z-status-dot z-dot-idle"></i>Provider keys from
+            env</span>
+          <span><i class="z-status-dot z-dot-review"></i>Read-only mode
+            available</span>
+        </div>
       </section>
 
       <section class="z-section z-compare" id="compare">
@@ -768,26 +801,43 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         </div>
         <div class="z-compare-cards" aria-label="Mobile comparison">
           <article>
-            <h3>Compile-time path proofs</h3><span>Node/Deno/Bun <b
-              >-</b></span><span>Serverless <b>-</b></span><span
+            <h3>Runs TypeScript handlers</h3><span>Node/Deno/Bun <b
+              >✓</b></span><span>Serverless <b>✓</b></span><span>Type checks
+              <b>partial</b></span><span
               class="zigttp"
             >zigttp <b>✓</b></span>
           </article>
           <article>
-            <h3>Limited TypeScript for proofs</h3><span>Node/Deno/Bun <b
-              >-</b></span><span>Type checks <b>partial</b></span><span
+            <h3>Compile-time path proofs</h3><span>Node/Deno/Bun <b
+              >-</b></span><span>Serverless <b>-</b></span><span>Type checks
+              <b>limited</b></span><span
+              class="zigttp"
+            >zigttp <b>✓</b></span>
+          </article>
+          <article>
+            <h3>Guarantees enforced by default</h3><span>Node/Deno/Bun <b
+              >-</b></span><span>Serverless <b>-</b></span><span>Type checks
+              <b>-</b></span><span
               class="zigttp"
             >zigttp <b>✓</b></span>
           </article>
           <article>
             <h3>Compiler-guided agent</h3><span>Node/Deno/Bun <b
-              >-</b></span><span>Type checks <b>-</b></span><span
+              >-</b></span><span>Serverless <b>-</b></span><span>Type checks
+              <b>-</b></span><span
               class="zigttp"
             >zigttp <b>✓</b></span>
           </article>
           <article>
             <h3>Small Zig binary</h3><span>Node/Deno/Bun <b>-</b></span><span
-            >Serverless <b>-</b></span><span
+            >Serverless <b>-</b></span><span>Type checks <b>-</b></span><span
+              class="zigttp"
+            >zigttp <b>✓</b></span>
+          </article>
+          <article>
+            <h3>Proof ledger and witness replay</h3><span>Node/Deno/Bun <b
+              >-</b></span><span>Serverless <b>-</b></span><span>Type checks
+              <b>-</b></span><span
               class="zigttp"
             >zigttp <b>✓</b></span>
           </article>

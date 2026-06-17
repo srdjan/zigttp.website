@@ -173,6 +173,11 @@
   transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
 }
 
+.z-nav-links a.active {
+  color: var(--z-accent-dark);
+  font-weight: 750;
+}
+
 .z-nav-cta {
   display: inline-flex;
   align-items: center;
@@ -904,10 +909,10 @@
     var(--z-terminal);
 }
 
-/* Compiler-in-the-loop: the loop diagram and the generate-vs-prove contrast
-   sit below the lead split so the expert reads as one flagship section. */
+/* Compiler-in-the-loop: the loop diagram leads, while the transcript stays
+   available on demand for visitors who want the full compiler exchange. */
 .z-loop {
-  margin-top: 3.25rem;
+  margin: 0 0 3.25rem;
 }
 
 .z-loop-head {
@@ -1067,6 +1072,51 @@
   color: var(--z-accent-dark);
 }
 
+.z-expert-trust {
+  margin: 1.25rem 0 0;
+}
+
+.z-expert-terminal summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  color: #e8edf1;
+  cursor: pointer;
+  font-family: var(--z-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  list-style: none;
+}
+
+.z-expert-terminal summary::-webkit-details-marker {
+  display: none;
+}
+
+.z-expert-terminal summary::after {
+  content: "+";
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 999px;
+  color: #9da7b3;
+}
+
+.z-expert-terminal[open] summary::after {
+  content: "-";
+}
+
+.z-expert-terminal summary em {
+  margin-left: auto;
+  color: #8e99a6;
+  font-style: normal;
+  font-weight: 700;
+}
+
 .z-check-list {
   display: grid;
   gap: 0.75rem;
@@ -1176,6 +1226,33 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+}
+
+.z-calm-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: -0.6rem 0 2rem;
+  color: var(--z-muted);
+  font-family: var(--z-mono);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.z-calm-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--z-line);
+  border-radius: 999px;
+  background: rgb(255 253 248 / 0.7);
+  padding: 0.42rem 0.65rem;
+}
+
+.z-calm-strip .z-status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  box-shadow: none;
 }
 
 /* Dark closing slab: a deliberate punctuation against the cream sections, using
@@ -1466,7 +1543,7 @@
 
   .z-compare-cards article {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.5rem;
     border: 1px solid var(--z-line);
     border-radius: var(--z-radius-md);
@@ -1530,6 +1607,7 @@
 
   .zp-tab,
   .zp-perturbations button,
+  .zp-demo-replay,
   .zp-lensbar button,
   button.zp-chip {
     min-height: 2.75rem;
@@ -1683,6 +1761,13 @@
   border-bottom: 1px solid rgb(255 255 255 / 0.06);
 }
 
+.zp-demo-controls {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
 .zp-file {
   display: inline-flex;
   align-items: center;
@@ -1716,8 +1801,34 @@
     color 0.15s ease;
 }
 
+.zp-demo-replay {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0.34rem 0.8rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(110 173 219 / 0.1);
+  color: #cbd7e3;
+  font-family: var(--z-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.zp-demo-state {
+  color: #8e99a6;
+  font-family: var(--z-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
 .zp-perturbations button:hover {
   background: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+
+.zp-demo-replay:hover {
+  background: rgb(110 173 219 / 0.18);
   color: #fff;
 }
 

@@ -35,7 +35,9 @@ if (copyInstall && installCmd) {
   const originalText = copyInstall.textContent;
 
   copyInstall.addEventListener("click", async () => {
-    const command = installCmd.textContent.trim();
+    const command = (installCmd.dataset.command || installCmd.textContent)
+      .replace(/\s+/g, " ")
+      .trim();
     try {
       await navigator.clipboard.writeText(command);
       copyInstall.textContent = "Copied";
@@ -134,7 +136,9 @@ document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
 });
 
 // Scroll spy for active nav indicator
-const spyLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const spyLinks = document.querySelectorAll(
+  '.nav-links a[href^="#"], .z-nav-links a[href^="#"]',
+);
 const spySections = [...spyLinks].map((link) =>
   document.querySelector(link.getAttribute("href"))
 ).filter(Boolean);
@@ -146,7 +150,8 @@ if (spySections.length) {
         if (entry.isIntersecting) {
           spyLinks.forEach((link) => link.classList.remove("active"));
           const active = document.querySelector(
-            `.nav-links a[href="#${entry.target.id}"]`,
+            `.nav-links a[href="#${entry.target.id}"], ` +
+              `.z-nav-links a[href="#${entry.target.id}"]`,
           );
           if (active) active.classList.add("active");
         }
