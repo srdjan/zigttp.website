@@ -103,7 +103,9 @@ body::before {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  /* accent-dim (#2a6796) clears WCAG 2.2 SC 1.4.11 (>=3:1) against the cream
+     surfaces on both the home page and the deck; the lighter --accent did not. */
+  outline: 2px solid var(--accent-dim);
   outline-offset: 2px;
 }
 
@@ -475,7 +477,9 @@ code {
 
 .cta-btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(110, 173, 219, 0.5);
+  /* A bg-colored gap then a dark accent ring: both edges sit against a
+     >=3:1 neighbor, so the indicator stays visible on the filled button. */
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-dim);
 }
 
 /* --- Hero Terminal --- */

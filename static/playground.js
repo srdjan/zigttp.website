@@ -495,21 +495,57 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     ].join("\n");
   }
 
-  // --- lens switching -----------------------------------------------------
-  card.querySelectorAll("[data-lens]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      engage();
-      activeLens = btn.getAttribute("data-lens");
-      card.querySelectorAll("[data-lens]").forEach((b) =>
-        b.classList.toggle("active", b === btn)
-      );
-      card.querySelectorAll(".zp-lens").forEach((pane) => {
-        pane.hidden = pane.getAttribute("data-lens") !== activeLens;
-      });
-      // The newly-shown pane may be stale - rebuild it from the last result.
-      renderLens(activeLens);
+  function wireTabs(tabs, activate) {
+    const tablist = tabs[0] && tabs[0].closest('[role="tablist"]');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => activate(tab));
     });
-  });
+
+    if (!tablist) return;
+    tablist.addEventListener("keydown", (e) => {
+      const current = tabs.indexOf(document.activeElement);
+      if (current < 0) return;
+
+      let next = null;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        next = tabs[(current + 1) % tabs.length];
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        next = tabs[(current - 1 + tabs.length) % tabs.length];
+      } else if (e.key === "Home") {
+        next = tabs[0];
+      } else if (e.key === "End") {
+        next = tabs[tabs.length - 1];
+      }
+
+      if (!next) return;
+      e.preventDefault();
+      activate(next);
+      next.focus();
+    });
+  }
+
+  // --- lens switching -----------------------------------------------------
+  const lensTabs = [...card.querySelectorAll(".zp-lensbar [data-lens]")];
+  const lensPanes = [...card.querySelectorAll(".zp-lens")];
+
+  function selectLensTab(btn) {
+    engage();
+    activeLens = btn.getAttribute("data-lens");
+    lensTabs.forEach((tab) => {
+      const on = tab === btn;
+      tab.classList.toggle("active", on);
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+      tab.setAttribute("tabindex", on ? "0" : "-1");
+    });
+    lensPanes.forEach((pane) => {
+      pane.hidden = pane.getAttribute("data-lens") !== activeLens;
+    });
+    // The newly-shown pane may be stale - rebuild it from the last result.
+    renderLens(activeLens);
+  }
+
+  wireTabs(lensTabs, selectLensTab);
 
   // --- proof trace expand/collapse ---------------------------------------
   // One delegated listener on the chip list: the list element persists across
@@ -626,7 +662,8 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   // Switch the editor between the no-Spec default and the Spec<...> example.
   // Both prove the same properties; only the declared-Spec chip row differs.
   // Switching resets any active perturbation and collapses an open trace.
-  const seedTabs = section.querySelectorAll("[data-seed]");
+  const seedTabs = [...section.querySelectorAll("[data-seed]")];
+  const editorPanel = document.getElementById("zp-editor-panel");
 
   function selectSeed(which) {
     activeSeed = which === "spec" ? SEED_SPEC : SEED_DEFAULT;
@@ -642,17 +679,21 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     runAnalysis();
   }
 
-  seedTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      engage();
-      seedTabs.forEach((t) => {
-        const on = t === tab;
-        t.classList.toggle("active", on);
-        t.setAttribute("aria-selected", on ? "true" : "false");
-      });
-      selectSeed(tab.getAttribute("data-seed"));
+  function selectSeedTab(tab) {
+    engage();
+    seedTabs.forEach((t) => {
+      const on = t === tab;
+      t.classList.toggle("active", on);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.setAttribute("tabindex", on ? "0" : "-1");
     });
-  });
+    if (editorPanel) {
+      editorPanel.setAttribute("aria-labelledby", tab.id);
+    }
+    selectSeed(tab.getAttribute("data-seed"));
+  }
+
+  wireTabs(seedTabs, selectSeedTab);
 
   // --- attract demo -------------------------------------------------------
   // Until the visitor touches the playground, run one scripted proof flip so

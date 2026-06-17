@@ -7,8 +7,7 @@
   --z-paper-muted: #f6f0e6;
   --z-ink: #151a21;
   --z-ink-soft: #303944;
-  --z-muted: #687381;
-  --z-muted-2: #8a928f;
+  --z-muted: #5c6573;
   --z-line: #ded6c8;
   --z-line-strong: #c9bdad;
   --z-terminal: #151a21;
@@ -442,6 +441,9 @@
 }
 
 .z-install-card button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
   border: 1px solid var(--z-line);
   border-radius: 999px;
   background: var(--z-paper-muted);
@@ -449,7 +451,7 @@
   cursor: pointer;
   font-size: 0.78rem;
   font-weight: 800;
-  padding: 0.42rem 0.7rem;
+  padding: 0.42rem 0.85rem;
 }
 
 .z-install-card button:hover {
@@ -602,12 +604,14 @@
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
   gap: 0.8rem;
+  min-width: 0;
   padding: 0.9rem;
 }
 
 .z-code-pane,
 .z-verdict-pane,
 .z-code-card {
+  min-width: 0;
   border: 1px solid rgb(255 255 255 / 0.08);
   border-radius: var(--z-radius-md);
   background: var(--z-terminal-2);
@@ -1338,17 +1342,26 @@
     font-size: clamp(3rem, 13.5vw, 4.1rem);
   }
 
+  .z-eyebrow,
+  .z-section-kicker {
+    max-width: 100%;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
   .z-hero-lede {
     font-size: 1rem;
   }
 
   .z-install-card {
     grid-template-columns: auto minmax(0, 1fr);
+    overflow: hidden;
   }
 
   /* On narrow screens the install command no longer fits; let it scroll
      horizontally so it stays readable instead of truncating mid-word. */
   .z-install-card code {
+    min-width: 0;
     overflow-x: auto;
     text-overflow: clip;
   }
@@ -1356,6 +1369,14 @@
   .z-install-card button {
     grid-column: 1 / -1;
     justify-self: start;
+    min-height: 2.75rem;
+  }
+
+  .z-product-shot,
+  .z-studio-mock {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .z-studio-mock {
@@ -1370,6 +1391,24 @@
 
   .z-studio-panes {
     grid-template-columns: 1fr;
+  }
+
+  .z-code-pane,
+  .z-verdict-pane {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .z-pane-title {
+    min-width: 0;
+  }
+
+  .z-pane-title span,
+  .z-pane-title em {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .z-section {
@@ -1387,6 +1426,18 @@
   .z-contrast-grid,
   .z-pillar-grid {
     grid-template-columns: 1fr;
+  }
+
+  .z-expert {
+    gap: 1.5rem;
+  }
+
+  .z-expert .z-expert-copy {
+    order: 0;
+  }
+
+  .z-expert-terminal {
+    order: -1;
   }
 
   .z-table-wrap {
@@ -1460,6 +1511,38 @@
 
   .z-footer div {
     justify-content: flex-start;
+  }
+
+  .zp-tab,
+  .zp-perturbations button,
+  .zp-lensbar button,
+  button.zp-chip {
+    min-height: 2.75rem;
+  }
+
+  .zp-tabs,
+  .zp-lensbar {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .zp-tabs::-webkit-scrollbar,
+  .zp-lensbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .zp-tab,
+  .zp-lensbar button {
+    flex: 0 0 auto;
+  }
+
+  .zp-head {
+    flex-wrap: wrap;
+  }
+
+  .zp-live-readout {
+    margin-left: 0;
   }
 }
 
@@ -1590,7 +1673,10 @@
 }
 
 .zp-perturbations button {
-  padding: 0.34rem 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0.34rem 0.8rem;
   border: 1px solid rgb(255 255 255 / 0.14);
   border-radius: 999px;
   background: rgb(255 255 255 / 0.04);
@@ -2055,7 +2141,7 @@ button.zp-chip {
 /* --- trade lens --- */
 .zp-trade {
   margin: 0;
-  padding: 1rem 1.15rem;
+  padding: 0;
   list-style: none;
 }
 
@@ -2119,8 +2205,11 @@ button.zp-chip {
 }
 
 .zp-copy {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
   margin-top: 0.7rem;
-  padding: 0.4rem 0.8rem;
+  padding: 0.4rem 0.9rem;
   border: 1px solid rgb(255 255 255 / 0.14);
   border-radius: 8px;
   background: rgb(255 255 255 / 0.04);

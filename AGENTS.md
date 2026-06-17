@@ -1,8 +1,8 @@
-# CLAUDE.md
+# AGENTS.md
 
 Marketing site for zigttp - a restricted-TypeScript ("zigts") toolchain with a
-compiler-in-the-loop agent for Claude Code. Deno-served static assets, no build
-step, no framework.
+compiler-in-the-loop agent for Codex. Deno-served static assets, no build step,
+no framework.
 
 ## Stack
 

@@ -1,0 +1,6 @@
+[mcp_servers.efecto]
+command = "npx"
+args = [
+    "-y",
+    "@efectoapp/mcp",
+]

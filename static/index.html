@@ -131,8 +131,8 @@
     }
     </script>
 
-    <link rel="stylesheet" href="/style.css?v=10">
-    <link rel="stylesheet" href="/home.css?v=11">
+    <link rel="stylesheet" href="/style.css?v=11">
+    <link rel="stylesheet" href="/home.css?v=12">
   </head>
   <body class="zigttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -206,8 +206,8 @@
             <button type="button" id="copy-install">Copy</button>
           </div>
           <p class="z-hero-note">
-            One binary · no npm surface · native Zig modules · macOS and Linux ·
-            contract-aware local deploy
+            One binary · no npm surface · native Zig modules · macOS and
+            Linux · contract-aware local deploy
           </p>
         </div>
 
@@ -321,16 +321,12 @@ hot swap: allowed</code></pre>
           <h2>See the proof, not just the verdict.</h2>
           <p>
             This is the real <code>zigts</code> compiler, built to WebAssembly
-            and running on this page. Every chip on the proof card is a compiler
-            guarantee: click one to see how it was proved - the paths it
-            enumerated, the input flows it traced, and for a property that
-            holds, the attack it tried and the guard chain that resisted it.
-            Edit the handler or break a property and the proof updates on every
-            keystroke. No install, no server, no sign-up. The two tabs show the
-            trade: a <code>Spec&lt;...&gt;</code> narrows enforcement to a
-            chosen few and proves; with no Spec every guarantee is enforced,
-            including a fault-coverage obligation this handler has not earned
-            yet.
+            and running on this page. Edit the handler or break a property and
+            the proof updates on every keystroke. Each chip is a compiler
+            guarantee you can open to see the paths, flows, counterexample, and
+            fix. The two examples show the trade: a
+            <code>Spec&lt;...&gt;</code> narrows enforcement to chosen
+            guarantees; no Spec enforces the full set.
           </p>
         </div>
 
@@ -341,8 +337,11 @@ hot swap: allowed</code></pre>
                 type="button"
                 class="zp-tab active"
                 data-seed="spec"
+                id="zp-seed-tab-spec"
                 role="tab"
                 aria-selected="true"
+                aria-controls="zp-editor-panel"
+                tabindex="0"
               >
                 With <code>Spec&lt;...&gt;</code>
               </button>
@@ -350,8 +349,11 @@ hot swap: allowed</code></pre>
                 type="button"
                 class="zp-tab"
                 data-seed="default"
+                id="zp-seed-tab-default"
                 role="tab"
                 aria-selected="false"
+                aria-controls="zp-editor-panel"
+                tabindex="-1"
               >
                 No Spec (all enforced)
               </button>
@@ -388,7 +390,12 @@ hot swap: allowed</code></pre>
                 </button>
               </div>
             </div>
-            <div class="zp-editor">
+            <div
+              class="zp-editor"
+              id="zp-editor-panel"
+              role="tabpanel"
+              aria-labelledby="zp-seed-tab-spec"
+            >
               <pre
                 class="zp-highlight"
                 aria-hidden="true"
@@ -430,15 +437,60 @@ function handler(req: Request): Response &amp; Guarantees {
             </div>
 
             <div class="zp-lensbar" role="tablist" aria-label="Proof lens">
-              <button type="button" data-lens="properties" class="active">
+              <button
+                type="button"
+                data-lens="properties"
+                id="zp-lens-tab-properties"
+                class="active"
+                role="tab"
+                aria-selected="true"
+                aria-controls="zp-lens-properties"
+                tabindex="0"
+              >
                 Properties
               </button>
-              <button type="button" data-lens="trade">Trade</button>
-              <button type="button" data-lens="handover">Handover</button>
-              <button type="button" data-lens="caller">Caller view</button>
+              <button
+                type="button"
+                data-lens="trade"
+                id="zp-lens-tab-trade"
+                role="tab"
+                aria-selected="false"
+                aria-controls="zp-lens-trade"
+                tabindex="-1"
+              >
+                Trade
+              </button>
+              <button
+                type="button"
+                data-lens="handover"
+                id="zp-lens-tab-handover"
+                role="tab"
+                aria-selected="false"
+                aria-controls="zp-lens-handover"
+                tabindex="-1"
+              >
+                Handover
+              </button>
+              <button
+                type="button"
+                data-lens="caller"
+                id="zp-lens-tab-caller"
+                role="tab"
+                aria-selected="false"
+                aria-controls="zp-lens-caller"
+                tabindex="-1"
+              >
+                Caller view
+              </button>
             </div>
 
-            <div class="zp-lens" data-lens="properties">
+            <div
+              class="zp-lens"
+              data-lens="properties"
+              id="zp-lens-properties"
+              role="tabpanel"
+              aria-labelledby="zp-lens-tab-properties"
+            >
               <ul class="zp-chips">
                 <li class="zp-chip on">
                   <span class="zp-glyph">+</span><span class="zp-chip-label"
@@ -477,16 +529,39 @@ function handler(req: Request): Response &amp; Guarantees {
               </div>
             </div>
 
-            <ul class="zp-lens zp-trade" data-lens="trade" hidden></ul>
+            <div
+              class="zp-lens"
+              data-lens="trade"
+              id="zp-lens-trade"
+              role="tabpanel"
+              aria-labelledby="zp-lens-tab-trade"
+              hidden
+            >
+              <ul class="zp-trade"></ul>
+            </div>
 
-            <div class="zp-lens" data-lens="handover" hidden>
+            <div
+              class="zp-lens"
+              data-lens="handover"
+              id="zp-lens-handover"
+              role="tabpanel"
+              aria-labelledby="zp-lens-tab-handover"
+              hidden
+            >
               <pre
                 class="zp-cert"
               >Press a perturbation, then read the certificate here.</pre>
               <button type="button" class="zp-copy">Copy certificate</button>
             </div>
 
-            <div class="zp-lens" data-lens="caller" hidden>
+            <div
+              class="zp-lens"
+              data-lens="caller"
+              id="zp-lens-caller"
+              role="tabpanel"
+              aria-labelledby="zp-lens-tab-caller"
+              hidden
+            >
               <p class="zp-caller-note">
                 What a third party sees when they verify your deploy:
               </p>
@@ -886,6 +961,6 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
     </footer>
 
     <script src="/script.js?v=6" defer></script>
-    <script src="/playground.js?v=4" defer></script>
+    <script src="/playground.js?v=5" defer></script>
   </body>
 </html>
