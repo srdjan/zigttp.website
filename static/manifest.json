@@ -1,7 +1,7 @@
 {
-  "name": "zigttp - Proof-first TypeScript handlers",
+  "name": "zigttp - TypeScript handlers the compiler can prove",
   "short_name": "zigttp",
-  "description": "Run TypeScript and TSX HTTP handlers in one Zig binary, with live proof cards, contract-aware hot swaps, and signed local deploy receipts.",
+  "description": "Limited TypeScript for HTTP handlers. Prove code on save, let zigttp expert repair compiler errors, and deploy a 4.8 MB Zig binary.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f4f7f1",

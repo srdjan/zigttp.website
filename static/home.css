@@ -1114,7 +1114,7 @@
 }
 
 .z-pillar-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .z-pillar-grid article {
@@ -1369,12 +1369,12 @@
     overflow: hidden;
   }
 
-  /* On narrow screens the install command no longer fits; let it scroll
-     horizontally so it stays readable instead of truncating mid-word. */
   .z-install-card code {
     min-width: 0;
-    overflow-x: auto;
+    overflow: visible;
+    overflow-wrap: anywhere;
     text-overflow: clip;
+    white-space: normal;
   }
 
   .z-install-card button {
