@@ -1,11 +1,11 @@
 {
-  "name": "zigttp - Compile-time proof you can see",
+  "name": "zigttp - Proof-first TypeScript handlers",
   "short_name": "zigttp",
-  "description": "Serverless TypeScript runtime built in Zig. The compiler discharges your handler's Spec obligations on every save and ships only what stays proven.",
+  "description": "Run TypeScript and TSX HTTP handlers in one Zig binary, with live proof cards, contract-aware hot swaps, and signed local deploy receipts.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0f",
-  "theme_color": "#f7a41d",
+  "background_color": "#f4f7f1",
+  "theme_color": "#f4f7f1",
   "icons": [
     { "src": "/favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
     { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }

@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp - Compile-time proof you can see</title>
+    <title>zigttp - Proof-first TypeScript handlers</title>
     <meta
       name="description"
-      content="Edit a TypeScript handler and watch zigttp prove every guarantee live, all enforced by default, before hot swaps or deploys. One binary, no npm surface."
+      content="Run TypeScript and TSX HTTP handlers in one Zig binary. Try the live proof card, then use zigttp dev, test, expert, and deploy to keep changes proven."
     >
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#f7f3ea">
+    <meta name="theme-color" content="#f4f7f1">
     <link rel="canonical" href="https://zigttp.timok.com/">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -25,10 +25,13 @@
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://zigttp.timok.com/">
-    <meta property="og:title" content="zigttp - Compile-time proof you can see">
+    <meta
+      property="og:title"
+      content="zigttp - Proof-first TypeScript handlers"
+    >
     <meta
       property="og:description"
-      content="Edit your handler. Watch the proof flip live. zigttp enforces every guarantee at compile time by default, on every save."
+      content="Run TypeScript HTTP handlers in one Zig binary. Try the live proof card, then keep changes proven through dev, test, expert, and deploy."
     >
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="327">
@@ -41,11 +44,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp - Compile-time proof you can see"
+      content="zigttp - Proof-first TypeScript handlers"
     >
     <meta
       name="twitter:description"
-      content="Edit your handler. Watch the proof flip live. zigttp enforces every guarantee at compile time by default, on every save."
+      content="Run TypeScript HTTP handlers in one Zig binary. Try the live proof card, then keep changes proven through dev, test, expert, and deploy."
     >
     <meta
       name="twitter:image"
@@ -57,11 +60,11 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "zigttp is a serverless TypeScript runtime where the compiler enforces every handler guarantee at compile time by default; declare Spec<...> only to narrow to a chosen few. Edit, save, watch the proof flip live in the browser playground. Proven live reload, least-privilege sandbox, contract-aware local deploy.",
+      "description": "zigttp runs restricted TypeScript and TSX HTTP handlers in one Zig binary. The compiler proves response paths, Result and optional checks, state isolation, security flows, and contract-safe changes before hot swaps or local deploys.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Serverless Runtime, TypeScript Compiler, CLI Tool",
-      "keywords": "compile-time proof, serverless runtime, TypeScript runtime, Zig runtime, compile-time verification, zigts, Spec obligations, proof ledger, witness corpus, virtual modules",
+      "keywords": "TypeScript runtime, HTTP handlers, Zig runtime, compile-time verification, zigts, proof ledger, virtual modules, least-privilege sandbox",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -100,15 +103,15 @@
           "name": "How is zigttp different from Node.js, Deno, and Bun?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Node.js, Deno, and Bun run the full language. zigttp uses zigts, a restricted subset, so the compiler can prove handlers, derive least-privilege sandboxes, and replay runs deterministically."
+            "text": "Node.js, Deno, and Bun run the full language. zigttp runs a restricted TypeScript and TSX handler profile so the compiler can prove paths, derive sandbox policy, and replay behavior deterministically."
           }
         },
         {
           "@type": "Question",
-          "name": "What does proves your code correct mean?",
+          "name": "What does compile-time proof mean?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Three stacked layers. -Dverify proves seven path properties. Sound mode catches arithmetic and comparison bugs at compile time. -Dcontract extracts a behavioral contract that zigttp deploy diffs against the prior version. Every guarantee is enforced by default; a Spec<...> on the return type narrows that set to a chosen few."
+            "text": "zigttp checks that handlers return a Response on every path, guard Result and optional values, avoid cross-request state leaks, satisfy declared Spec properties, and keep visible secret and injection flows contained before hot swap or deploy."
           }
         },
         {
@@ -116,7 +119,7 @@
           "name": "Can I use npm packages with zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. zigttp ships native zigttp:* modules in Zig. If a module does not cover what you need, call the external API with fetch."
+            "text": "No. zigttp avoids a Node and npm runtime. Use built-in zigttp:* modules for env, crypto, routing, validation, cache, SQL, fetch, WebSocket, and more, or call external services through configured egress."
           }
         },
         {
@@ -124,15 +127,15 @@
           "name": "How do I install zigttp?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Run curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh. Pre-built binaries for macOS and Linux on x86_64 and aarch64 are published on the v0.1.0-beta release at https://github.com/srdjan/zigttp/releases/tag/v0.1.0-beta."
+            "text": "Run curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh. Pre-built v0.1.0-beta binaries are available for macOS and Linux on x86_64 and aarch64."
           }
         }
       ]
     }
     </script>
 
-    <link rel="stylesheet" href="/style.css?v=11">
-    <link rel="stylesheet" href="/home.css?v=12">
+    <link rel="stylesheet" href="/style.css?v=12">
+    <link rel="stylesheet" href="/home.css?v=13">
   </head>
   <body class="zigttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -156,8 +159,8 @@
           <span aria-hidden="true"></span>
         </button>
         <div class="z-nav-links" id="z-nav-links">
-          <a href="#playground">Playground</a>
-          <a href="#expert">Expert</a>
+          <a href="#playground">Try</a>
+          <a href="#expert">Agent</a>
           <a href="#compare">Compare</a>
           <a href="#runtime">Runtime</a>
           <a
@@ -181,21 +184,18 @@
         <div class="z-hero-copy">
           <p class="z-eyebrow">
             <span class="z-status-dot z-dot-safe"></span>
-            Serverless TypeScript with compile-time contracts
+            Proof-first TypeScript handlers
           </p>
-          <h1>zigttp proves your handler before it runs.</h1>
+          <h1>Prove your handler before it runs.</h1>
           <p class="z-hero-lede">
-            Edit TypeScript, save, and run <code>zigttp dev --watch
-              --prove</code>
-            to watch the verdict flip. Every guarantee is enforced by default;
-            declare <code>Spec&lt;...&gt;</code> only to narrow to a chosen few.
-            The compiler extracts a contract and blocks unsafe hot swaps.
+            Write TypeScript or TSX HTTP handlers in one Zig binary. On every
+            save, zigttp checks paths, Result guards, state isolation, security
+            flows, and contract changes before a hot swap or local deploy.
           </p>
           <div class="z-hero-actions">
             <a class="z-button z-button-primary" href="#playground"
-            >Try it live</a>
-            <a class="z-button z-button-secondary" href="#install"
-            >Install zigttp</a>
+            >Try the proof</a>
+            <a class="z-button z-button-secondary" href="#install">Install</a>
           </div>
           <div class="z-install-card" aria-label="Install command">
             <span class="z-prompt">$</span>
@@ -206,8 +206,8 @@
             <button type="button" id="copy-install">Copy</button>
           </div>
           <p class="z-hero-note">
-            One binary · no npm surface · native Zig modules · macOS and
-            Linux · contract-aware local deploy
+            No Node runtime. No npm surface. Native <code>zigttp:*</code>
+            modules. macOS and Linux. Signed local deploy receipts.
           </p>
         </div>
 
@@ -307,7 +307,7 @@ hot swap: allowed</code></pre>
             </section>
           </div>
           <figcaption>
-            The proof loop: verdict, contract diff, and ledger on every save.
+            Verdict, contract diff, and proof ledger update on every save.
           </figcaption>
         </figure>
       </section>
@@ -318,15 +318,12 @@ hot swap: allowed</code></pre>
           Live in your browser
         </p>
         <div class="z-heading-wide">
-          <h2>See the proof, not just the verdict.</h2>
+          <h2>Break the handler. Watch the proof change.</h2>
           <p>
-            This is the real <code>zigts</code> compiler, built to WebAssembly
-            and running on this page. Edit the handler or break a property and
-            the proof updates on every keystroke. Each chip is a compiler
-            guarantee you can open to see the paths, flows, counterexample, and
-            fix. The two examples show the trade: a
-            <code>Spec&lt;...&gt;</code> narrows enforcement to chosen
-            guarantees; no Spec enforces the full set.
+            This page runs the real <code>zigts</code> analyzer in WebAssembly.
+            Start green, inject <code>Date.now()</code>, leak a secret, or add a
+            <code>while</code> loop. Then open a chip to see the path, trade,
+            counterexample, and fix.
           </p>
         </div>
 
@@ -592,7 +589,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             Compiler-in-the-loop agent
           </p>
           <h2>
-            The first agent that writes against the compiler, not around it.
+            A coding agent with the compiler in the loop.
           </h2>
         </div>
         <div class="z-expert">
@@ -620,19 +617,16 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           </div>
           <div class="z-expert-copy">
             <p>
-              Most coding agents generate, then hope tests catch what they got
-              wrong. <code>zigttp expert</code> calls the same verifier that
-              gates your deploys: it writes a handler, compiles it, reads the
-              proof errors, and rewrites until every obligation is discharged.
-              The loop closes before the code reaches you.
+              <code>zigttp expert</code> writes inside the provable zigts
+              subset. Each draft is compiled, proof errors become the next
+              repair step, and verified patches are handed back for review.
             </p>
             <ul class="z-check-list">
-              <li>Every patch is compiled and proven, never just generated.</li>
+              <li>Every patch is compiled and proven, not just generated.</li>
               <li>
-                Unsupported or unsafe patterns are rejected at the source, with
-                the compiler's own errors as the feedback signal.
+                Unsupported patterns return as compiler errors with fixes.
               </li>
-              <li>You review proven handlers, not plausible drafts.</li>
+              <li>You review handlers that already passed the proof loop.</li>
             </ul>
           </div>
         </div>
@@ -646,25 +640,25 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <li class="z-loop-step">
               <span class="z-loop-num">01</span>
               <strong>Write</strong>
-              <p>The agent drafts a handler in zigts from your request.</p>
+              <p>The agent drafts a zigts handler from your request.</p>
             </li>
             <li class="z-loop-step">
               <span class="z-loop-num">02</span>
               <strong>Compile</strong>
               <p>
-                It runs the real zigttp compiler, not a linter approximation.
+                It runs the same compiler that gates local deploys.
               </p>
             </li>
             <li class="z-loop-step">
               <span class="z-loop-num">03</span>
               <strong>Read proof errors</strong>
-              <p>Unsupported or unproven patterns return as compiler errors.</p>
+              <p>Unsupported or unproven code returns as diagnostics.</p>
             </li>
             <li class="z-loop-step">
               <span class="z-loop-num">04</span>
               <strong>Rewrite</strong>
               <p>
-                It edits against those errors and recompiles until they clear.
+                It edits against diagnostics and recompiles until clear.
               </p>
             </li>
             <li class="z-loop-step z-loop-step-proven">
@@ -711,12 +705,12 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         <div class="z-heading-wide">
           <div>
             <p class="z-section-kicker">Positioning</p>
-            <h2>Runtime, compiler, proof ledger, and sandbox in one binary.</h2>
+            <h2>What zigttp trades for proofs.</h2>
           </div>
           <p>
-            Keep TypeScript; add compiler-enforced contracts. zigttp trades the
-            full npm surface for compile-time guarantees: fewer moving parts,
-            more facts available before a handler ships.
+            Keep TypeScript handlers, but drop the ambient Node and npm surface.
+            The smaller runtime lets the compiler enumerate paths, capabilities,
+            and behavior before a handler ships.
           </p>
         </div>
         <div class="z-table-wrap">
@@ -811,40 +805,39 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
       >
         <div class="z-section-heading">
           <p class="z-section-kicker">Core pillars</p>
-          <h2 id="runtime-title">Why proof-first handlers ship differently.</h2>
+          <h2 id="runtime-title">The product in four parts.</h2>
         </div>
         <div class="z-pillar-grid">
           <article>
             <span class="z-card-index">01</span>
             <h3>Provable subset</h3>
             <p>
-              zigts keeps the TypeScript surface small enough for exhaustive
-              compile-time analysis.
+              zigts keeps TypeScript small enough for exhaustive compile-time
+              analysis.
             </p>
           </article>
           <article>
             <span class="z-card-index">02</span>
             <h3>Native module surface</h3>
             <p>
-              20+ native <code>zigttp:*</code> modules, capability-scoped and
-              implemented in Zig instead of hidden in npm. Every import is
-              visible to the compiler, contract extractor, and sandbox.
+              22 native <code>zigttp:*</code> modules expose env, crypto,
+              routing, validation, cache, SQL, fetch, WebSocket, and more.
             </p>
           </article>
           <article>
             <span class="z-card-index">03</span>
             <h3>Contract-aware deploy</h3>
             <p>
-              Deploy emits a self-contained binary locally, appends a proof
-              ledger row, and classifies behavior against the prior version.
+              Deploy emits a local self-contained binary, appends a proof ledger
+              row, and signs an attestation by default.
             </p>
           </article>
           <article>
             <span class="z-card-index">04</span>
             <h3>Agent-ready loop</h3>
             <p>
-              <code>zigttp expert</code> writes against the same verifier that
-              rejects unsupported or unsafe patches.
+              <code>zigttp expert</code> repairs code against the same verifier
+              that blocks unsafe patches.
             </p>
           </article>
         </div>
@@ -852,15 +845,15 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 
       <section class="z-section z-api-section">
         <div class="z-api-copy">
-          <p class="z-section-kicker">Runtime surface</p>
-          <h2>The CLI is also the proof surface.</h2>
+          <p class="z-section-kicker">CLI surface</p>
+          <h2>One workflow from first save to review.</h2>
           <p>
-            The same commands drive local development, agent feedback loops,
-            deployment, witness replay, and proof-ledger inspection.
+            Use the same CLI to scaffold, prove on save, test, deploy locally,
+            inspect the ledger, replay witnesses, and run the agent.
           </p>
           <div class="z-inline-links">
             <a
-              href="https://github.com/srdjan/zigttp/blob/main/docs/user-guide.md#quick-start"
+              href="https://github.com/srdjan/zigttp/blob/main/docs/user-guide.md#first-project"
               target="_blank"
               rel="noopener noreferrer"
             >Getting started</a>
@@ -920,12 +913,11 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
       <section class="z-final-cta" id="install">
         <p class="z-section-kicker">Start proving</p>
         <h2>
-          Install zigttp, run <code>dev --watch --prove</code>, break a contract
-          once.
+          Install zigttp. Run <code>zigttp dev</code>. Break one guarantee.
         </h2>
         <p>
-          The value is obvious the first time the page refuses to hot-swap a
-          handler whose behavior changed under your feet.
+          The first blocked hot swap shows the whole point: the compiler found a
+          behavior change before your handler served it.
         </p>
         <div class="z-hero-actions center">
           <a
@@ -936,7 +928,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           >Download v0.1.0-beta</a>
           <a
             class="z-button z-button-secondary"
-            href="https://github.com/srdjan/zigttp/blob/main/docs/user-guide.md#quick-start"
+            href="https://github.com/srdjan/zigttp/blob/main/docs/user-guide.md#first-project"
             target="_blank"
             rel="noopener noreferrer"
           >Quick start</a>
