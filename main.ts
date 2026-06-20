@@ -17,6 +17,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   "x-frame-options": "DENY",
   "referrer-policy": "strict-origin-when-cross-origin",
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  "strict-transport-security": "max-age=31536000; includeSubDomains",
   "content-security-policy": CONTENT_SECURITY_POLICY,
 };
 
