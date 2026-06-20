@@ -10,8 +10,8 @@ no framework.
 - Server: single file `main.ts` - serves `static/` with security headers and a
   301 from `/deck.html` to `/deck`.
 - Frontend: hand-written HTML, vanilla CSS (`static/style.css`,
-  `static/home.css`), vanilla JS (`static/script.js`, `static/playground.js`,
-  `static/anime-scenes.js`). No framework, no build step.
+  `static/home.css`), vanilla JS (`static/script.js`, `static/playground.js`).
+  No framework, no build step.
 - Hosting: Deno Deploy (`deno task deploy` runs `deployctl deploy --prod`).
 
 ## Layout
@@ -27,12 +27,11 @@ no framework.
   remove rather than comment out.
 - `static/home.css` - homepage-scoped styles, including the `.zp-*`
   proof-playground component.
-- `static/script.js`, `static/anime-scenes.js` - progressive enhancement only.
+- `static/script.js` - progressive enhancement only.
   The page must work without JS. On the homepage the no-JS contract is concrete:
   the playground editor ships `readonly` with a pre-rendered proof card, and
   `playground.js` adds the `zp-js` class to upgrade it to an editable,
-  syntax-highlighted state. (`script.js` sets `anim-ready` to release entrance
-  animations.)
+  syntax-highlighted state.
 - `static/playground.js` - drives the homepage proof playground: loads the wasm
   analyzer, runs it on editor input, renders the proof card. The section
   degrades to a static pre-rendered card without it.

@@ -84,57 +84,6 @@ if (burger && navLinks) {
   });
 }
 
-// Tab switching with keyboard navigation.
-// anime-scenes.js handles the visual cross-fade; this owns activation
-// state, focus, and a11y attributes.
-document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
-  const tabs = [...tablist.querySelectorAll('[role="tab"]')];
-  const container = tablist.closest(".code-tabs");
-  // Only own .code-tabs tablists. Others (e.g. the playground seed tabs and
-  // proof-lens bar) drive their own activation in playground.js.
-  if (!container) return;
-
-  function activateTab(tab) {
-    const target = tab.dataset.tab;
-    tabs.forEach((t) => {
-      t.classList.remove("active");
-      t.setAttribute("aria-selected", "false");
-      t.setAttribute("tabindex", "-1");
-    });
-    container
-      .querySelectorAll(".tab-panel")
-      .forEach((p) => {
-        p.classList.remove("active");
-        p.hidden = true;
-      });
-
-    tab.classList.add("active");
-    tab.setAttribute("aria-selected", "true");
-    tab.setAttribute("tabindex", "0");
-    tab.focus();
-    const panel = container.querySelector(`#tab-${target}`);
-    panel.classList.add("active");
-    panel.hidden = false;
-  }
-
-  tabs.forEach((tab) => tab.addEventListener("click", () => activateTab(tab)));
-
-  tablist.addEventListener("keydown", (e) => {
-    const idx = tabs.indexOf(document.activeElement);
-    if (idx < 0) return;
-    let next;
-    if (e.key === "ArrowRight") next = tabs[(idx + 1) % tabs.length];
-    else if (e.key === "ArrowLeft") {
-      next = tabs[(idx - 1 + tabs.length) % tabs.length];
-    } else if (e.key === "Home") next = tabs[0];
-    else if (e.key === "End") next = tabs[tabs.length - 1];
-    if (next) {
-      e.preventDefault();
-      activateTab(next);
-    }
-  });
-});
-
 // Scroll spy for active nav indicator
 const spyLinks = document.querySelectorAll(
   '.nav-links a[href^="#"], .z-nav-links a[href^="#"]',
@@ -179,13 +128,6 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     }
   });
 });
-
-// Safety net: if anime-scenes.js fails to load (CDN blocked, JS error,
-// no ESM support), reveal every .pre-anim element after 3 seconds so
-// content is never permanently hidden.
-setTimeout(() => {
-  document.documentElement.classList.add("anim-ready");
-}, 3000);
 
 // Slide deck navigation
 const deck = document.getElementById("deck");
