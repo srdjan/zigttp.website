@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp - TypeScript handlers the compiler can prove</title>
+    <title>zigttp - Serverless handlers the compiler proves and signs</title>
     <meta
       name="description"
-      content="Limited TypeScript for HTTP handlers. Prove code on save, let zigttp expert repair compiler errors, and deploy a 4.8 MB Zig binary."
+      content="zigttp is a serverless TypeScript runtime in pure Zig. Every handler is capability-sandboxed, proven on save, and deployed with a signed proof receipt."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f4f7f1">
@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="manifest" href="/manifest.json">
     <link rel="dns-prefetch" href="https://github.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,32 +28,40 @@
     <meta property="og:url" content="https://zigttp.timok.com/">
     <meta
       property="og:title"
-      content="zigttp - TypeScript handlers the compiler can prove"
+      content="zigttp - Serverless handlers the compiler proves and signs"
     >
     <meta
       property="og:description"
-      content="Limited TypeScript for HTTP handlers. Prove code on save, let zigttp expert repair compiler errors, and deploy a 4.8 MB Zig binary."
+      content="zigttp is a serverless TypeScript runtime in pure Zig. Every handler is capability-sandboxed, proven on save, and deployed with a signed proof receipt."
     >
-    <meta property="og:image:width" content="600">
-    <meta property="og:image:height" content="327">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta
       property="og:image"
-      content="https://zigttp.timok.com/zigttp-logo.jpg"
+      content="https://zigttp.timok.com/zigttp-og.jpg"
+    >
+    <meta
+      property="og:image:alt"
+      content="zigttp - serverless handlers the compiler proves and signs: capability-sandboxed, proven on save, signed receipt"
     >
     <meta property="og:site_name" content="zigttp">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp - TypeScript handlers the compiler can prove"
+      content="zigttp - Serverless handlers the compiler proves and signs"
     >
     <meta
       name="twitter:description"
-      content="Limited TypeScript for HTTP handlers. Prove code on save, let zigttp expert repair compiler errors, and deploy a 4.8 MB Zig binary."
+      content="zigttp is a serverless TypeScript runtime in pure Zig. Every handler is capability-sandboxed, proven on save, and deployed with a signed proof receipt."
     >
     <meta
       name="twitter:image"
-      content="https://zigttp.timok.com/zigttp-logo.jpg"
+      content="https://zigttp.timok.com/zigttp-og.jpg"
+    >
+    <meta
+      name="twitter:image:alt"
+      content="zigttp - serverless handlers the compiler proves and signs: capability-sandboxed, proven on save, signed receipt"
     >
 
     <script type="application/ld+json">
@@ -60,11 +69,11 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "zigttp runs HTTP handlers in a limited TypeScript and TSX profile. The compiler proves handler paths on save, zigttp expert repairs code against compiler diagnostics, and deploy emits a small Zig binary with a signed proof receipt.",
+      "description": "zigttp is a serverless TypeScript runtime in pure Zig. Handlers run capability-sandboxed, the compiler proves handler paths on save, and each deploy ships a signed proof receipt that callers can verify.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Serverless Runtime, TypeScript Compiler, CLI Tool",
-      "keywords": "limited TypeScript, HTTP handlers, Zig runtime, compile-time verification, zigts, compiler agent, proof ledger, small executables",
+      "keywords": "serverless runtime, capability sandbox, proof receipt, signed attestation, TypeScript, zigts, Zig runtime, compiler agent, compile-time verification",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -91,46 +100,6 @@
           "url": "https://zigttp.timok.com/logo-circle.jpeg"
         }
       }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Why does zigttp limit TypeScript?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "zigttp removes language features that hide control flow or state, such as while, try/catch, class, var, and loose equality. That gives the compiler a handler it can analyze path by path."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What does compile-time proof mean?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "zigttp checks that every handler path returns a Response, Result and optional values are guarded, request state does not leak across calls, and declared Spec properties hold before hot swap or deploy."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is zigttp expert?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "zigttp expert is a terminal coding agent that writes code, runs the zigttp compiler, reads diagnostics, and rewrites until the handler passes the proof loop."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I install zigttp?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Run curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh. Pre-built v0.1.0-beta binaries are available for macOS and Linux on x86_64 and aarch64."
-          }
-        }
-      ]
     }
     </script>
 
@@ -184,19 +153,23 @@
         <div class="z-hero-copy">
           <p class="z-eyebrow">
             <span class="z-status-dot z-dot-safe"></span>
-            Limited TypeScript. Proven handlers.
+            Capability-sandboxed. Proof-signed.
           </p>
-          <h1>TypeScript handlers the compiler can prove.</h1>
+          <h1>Serverless handlers the compiler proves and signs.</h1>
           <p class="z-hero-lede">
-            zigttp runs HTTP handlers in a smaller TypeScript profile. The
-            compiler proves paths on save, and zigttp expert can generate
-            handlers until proof passes. Deploy the result as a small Zig binary
-            without Node or npm.
+            zigttp runs TypeScript in pure Zig, sandboxes every capability a
+            handler can touch, and ships each deploy with a signed proof receipt
+            anyone can verify.
           </p>
           <div class="z-hero-actions">
             <a class="z-button z-button-primary" href="#playground"
             >Try the proof loop</a>
-            <a class="z-button z-button-secondary" href="#install">Install</a>
+            <a
+              class="z-button z-button-secondary"
+              href="https://github.com/srdjan/zigttp/blob/main/docs/contracts-and-sandboxing.md"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Verify a deploy</a>
           </div>
           <div class="z-install-card" aria-label="Install command">
             <span class="z-prompt">$</span>
@@ -209,8 +182,7 @@
             <button type="button" id="copy-install">Copy</button>
           </div>
           <p class="z-hero-note">
-            3.5 ms cold-start floor. 7-15 ms typical. 4.8 MB local binary. macOS
-            and Linux.
+            3.5 ms cold-start floor. 4.8 MB signed binary. macOS and Linux.
           </p>
         </div>
 
