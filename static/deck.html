@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp v0.1.0-beta - Serverless handlers, proven and signed</title>
+    <title>
+      zigttp v0.1.0-beta - TypeScript handlers proven at compile time
+    </title>
     <meta
       name="description"
-      content="Slide deck for zigttp v0.1.0-beta: a serverless TypeScript runtime in pure Zig with capability sandboxing, proof receipts, and a compiler-guided agent."
+      content="Slide deck for zigttp v0.1.0-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f4f7f1">
@@ -29,11 +31,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/deck">
     <meta
       property="og:title"
-      content="zigttp v0.1.0-beta Presentation - Serverless handlers, proven and signed"
+      content="zigttp v0.1.0-beta Presentation - TypeScript handlers proven at compile time"
     >
     <meta
       property="og:description"
-      content="Slide deck for zigttp v0.1.0-beta: a serverless TypeScript runtime in pure Zig with capability sandboxing, proof receipts, and a compiler-guided agent."
+      content="Slide deck for zigttp v0.1.0-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -43,7 +45,7 @@
     >
     <meta
       property="og:image:alt"
-      content="zigttp - serverless handlers the compiler proves and signs: capability-sandboxed, proven on save, signed receipt"
+      content="zigttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
     >
     <meta property="og:site_name" content="zigttp">
 
@@ -51,11 +53,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp v0.1.0-beta Presentation - Serverless handlers, proven and signed"
+      content="zigttp v0.1.0-beta Presentation - TypeScript handlers proven at compile time"
     >
     <meta
       name="twitter:description"
-      content="Slide deck for zigttp v0.1.0-beta: a serverless TypeScript runtime in pure Zig with capability sandboxing, proof receipts, and a compiler-guided agent."
+      content="Slide deck for zigttp v0.1.0-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta
       name="twitter:image"
@@ -63,7 +65,7 @@
     >
     <meta
       name="twitter:image:alt"
-      content="zigttp - serverless handlers the compiler proves and signs: capability-sandboxed, proven on save, signed receipt"
+      content="zigttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
     >
 
     <!-- Structured Data -->
@@ -136,10 +138,10 @@
           <div class="deck-title-content">
             <h1 class="deck-hero-title">zigttp</h1>
             <p class="deck-hero-subtitle">
-              v0.1.0-beta: proof-first TypeScript handlers
+              v0.1.0-beta: TypeScript handlers proven at compile time
             </p>
             <p class="deck-hero-caption">
-              zigts subset - proven live reload - contract-aware local deploy
+              zigts subset - compile-time proof - compiler-in-the-loop agent
             </p>
           </div>
           <div class="deck-stats-bar">
@@ -163,13 +165,13 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">The Product</span>
             <h2 class="deck-slide-title">
-              v0.1.0-beta turns the subset into a live proof loop
+              v0.1.0-beta turns the compiler into a proof loop
             </h2>
             <p class="deck-slide-subtitle">
               Install once. Edit your handler. Run
-              <code>zigttp dev --watch --prove</code> and watch the proof chips
-              flip on every save. Ship only what the verifier and contract diff
-              both keep green.
+              <code>zigttp dev --watch --prove</code> and watch the compile-time
+              proofs update on every save. Ship only code the compiler can prove
+              and the contract diff keeps green.
             </p>
             <div class="deck-columns deck-columns--mt deck-columns--fill">
               <div class="deck-card">
@@ -186,25 +188,25 @@
               <div class="deck-card">
                 <div class="deck-card-header">
                   <span class="deck-card-header-icon">&#128279;</span>
-                  <span class="deck-card-header-title">Proven live reload</span>
+                  <span class="deck-card-header-title"
+                  >Compile-time proof on save</span>
                 </div>
                 <p class="deck-card-body">
-                  <code>zigttp dev --watch --prove</code> re-verifies on every
-                  save and hot-swaps only on <code>safe</code> /
-                  <code>safe_with_additions</code>, blocking breaking diffs in
-                  place.
+                  <code>zigttp dev --watch --prove</code> re-runs path and
+                  guarantee proofs on every save, then hot-swaps only on
+                  <code>safe</code> / <code>safe_with_additions</code>.
                 </p>
               </div>
               <div class="deck-card">
                 <div class="deck-card-header">
                   <span class="deck-card-header-icon">&#9881;&#65039;</span>
                   <span class="deck-card-header-title"
-                  >Compiler-native coding loop</span>
+                  >Compiler-in-the-loop agent</span>
                 </div>
                 <p class="deck-card-body">
-                  <code>zigttp expert</code> writes only inside zigts, reruns
-                  the verifier, satisfies every guarantee enforced by default,
-                  and persists every counterexample to the witness corpus.
+                  <code>zigttp expert</code> writes a patch, runs the proof
+                  pass, reads diagnostics, and repairs until the compiler
+                  accepts the handler.
                 </p>
               </div>
             </div>
@@ -216,16 +218,16 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">The Insight</span>
             <h2 class="deck-slide-title">
-              The subset is what makes proof tractable
+              The subset is what makes compile-time proof tractable
             </h2>
             <div class="deck-insight-text">
               <p class="deck-insight-highlight">
-                Your handler code is the spec.
+                Your handler code is checked as the spec.
               </p>
               <p class="deck-insight-desc">
                 No back-edges, no exceptions, no hidden I/O. The compiler walks
-                every path in finite time, enforces every guarantee by default
-                (narrow with <code>Spec&lt;...&gt;</code> when you need only a
+                every path in finite time, enforces guarantees by default
+                (narrow with <code>Spec&lt;...&gt;</code> when you need a chosen
                 few), and emits a behavioral contract small enough to diff
                 between versions.
               </p>
@@ -259,7 +261,7 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Language Design</span>
             <h2 class="deck-slide-title">
-              TypeScript, narrowed until it can be proved
+              TypeScript, narrowed until the compiler can prove it
             </h2>
             <div class="deck-columns deck-columns--mt">
               <div class="deck-card">
@@ -324,7 +326,7 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Verification</span>
             <h2 class="deck-slide-title">
-              Stacked proofs: paths, sound mode, contract, guarantees by default
+              Compile-time proof for paths, types, and guarantees
             </h2>
             <div class="deck-check-list">
               <div class="deck-check-item">
@@ -391,7 +393,7 @@
               Automatic least-privilege sandboxing
             </h2>
             <p class="deck-slide-subtitle">
-              The compiler extracts a contract of what the handler does - then
+              The compiler extracts a contract of what the handler does, then
               restricts runtime access to exactly those proven values.
             </p>
             <div class="deck-security-layout">
@@ -491,7 +493,7 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Evolution</span>
             <h2 class="deck-slide-title">
-              Ship with confidence - prove before deploy
+              Prove before deploy
             </h2>
             <div class="deck-columns deck-columns--mt deck-columns--fill">
               <div class="deck-card deck-card--col">
@@ -536,7 +538,8 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Developer Experience</span>
             <h2 class="deck-slide-title">
-              Three binaries. Proof loop in the terminal. Expert in the loop.
+              Three binaries. Proof loop in the terminal. Agent in the compiler
+              loop.
             </h2>
             <div class="deck-card deck-card--mt">
               <div class="deck-card-header">
@@ -592,8 +595,8 @@
                 <div class="deck-item-row deck-item-row--tight">
                   <span class="deck-check-title">zigttp expert</span>
                   <span class="deck-check-desc"
-                  >Interactive coding agent with token accounting, session
-                    fork/compact, skills, and Route Forge</span>
+                  >Writes a patch, compiles it, reads diagnostics, and repairs
+                    until proof clears</span>
                 </div>
               </div>
               <div class="deck-check-item">
@@ -817,7 +820,7 @@
               </div>
               <div class="deck-cmp-row">
                 <div class="deck-cmp-label">AI agents</div>
-                <div class="deck-cmp-hero">Built-in</div>
+                <div class="deck-cmp-hero">Compiler loop</div>
                 <div class="deck-cmp-other">Generic</div>
                 <div class="deck-cmp-other">Generic</div>
                 <div class="deck-cmp-other">Generic</div>
@@ -839,8 +842,8 @@
             </div>
 
             <p class="deck-footnote deck-footnote--pushed">
-              zigttp trades generality for verification, security, and
-              deployment automation.
+              zigttp trades generality for compile-time proof, least privilege,
+              and deployment automation.
             </p>
           </div>
         </div>
@@ -851,7 +854,7 @@
           <div class="deck-title-content">
             <h2 class="deck-closing-title">zigttp</h2>
             <p class="deck-closing-tagline">
-              Write handlers. Prove them. Ship them.
+              Write handlers. Prove them at compile time. Ship them.
             </p>
             <div class="deck-summary-list">
               <div class="deck-summary-row">
@@ -864,6 +867,12 @@
                 >Compile-time verification</code>
                 <span class="deck-summary-value"
                 >Every path, every type, every boolean</span>
+              </div>
+              <div class="deck-summary-row">
+                <code class="deck-summary-label"
+                >Compiler-in-the-loop agent</code>
+                <span class="deck-summary-value"
+                >Writes, compiles, and repairs before review</span>
               </div>
               <div class="deck-summary-row">
                 <code class="deck-summary-label">Automatic sandboxing</code>

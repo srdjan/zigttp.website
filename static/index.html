@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>zigttp - Serverless handlers the compiler proves and signs</title>
+    <title>zigttp - TypeScript handlers proven at compile time</title>
     <meta
       name="description"
-      content="zigttp is a serverless TypeScript runtime in pure Zig. Every handler is capability-sandboxed, proven on save, and deployed with a signed proof receipt."
+      content="zigttp is a restricted TypeScript runtime in pure Zig. The compiler proves handler paths and guarantees on save, while zigttp expert repairs generated code against those diagnostics."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f4f7f1">
@@ -28,11 +28,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/">
     <meta
       property="og:title"
-      content="zigttp - Serverless handlers the compiler proves and signs"
+      content="zigttp - TypeScript handlers proven at compile time"
     >
     <meta
       property="og:description"
-      content="zigttp is a serverless TypeScript runtime in pure Zig. Every handler is capability-sandboxed, proven on save, and deployed with a signed proof receipt."
+      content="zigttp is a restricted TypeScript runtime in pure Zig. The compiler proves handler paths and guarantees on save, while zigttp expert repairs generated code against those diagnostics."
     >
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -42,18 +42,18 @@
     >
     <meta
       property="og:image:alt"
-      content="zigttp - serverless handlers the compiler proves and signs: capability-sandboxed, proven on save, signed receipt"
+      content="zigttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
     >
     <meta property="og:site_name" content="zigttp">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp - Serverless handlers the compiler proves and signs"
+      content="zigttp - TypeScript handlers proven at compile time"
     >
     <meta
       name="twitter:description"
-      content="zigttp is a serverless TypeScript runtime in pure Zig. Every handler is capability-sandboxed, proven on save, and deployed with a signed proof receipt."
+      content="zigttp is a restricted TypeScript runtime in pure Zig. The compiler proves handler paths and guarantees on save, while zigttp expert repairs generated code against those diagnostics."
     >
     <meta
       name="twitter:image"
@@ -61,7 +61,7 @@
     >
     <meta
       name="twitter:image:alt"
-      content="zigttp - serverless handlers the compiler proves and signs: capability-sandboxed, proven on save, signed receipt"
+      content="zigttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
     >
 
     <script type="application/ld+json">
@@ -69,11 +69,11 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "zigttp is a serverless TypeScript runtime in pure Zig. Handlers run capability-sandboxed, the compiler proves handler paths on save, and each deploy ships a signed proof receipt that callers can verify.",
+      "description": "zigttp is a restricted TypeScript runtime in pure Zig. Handlers run capability-sandboxed, the compiler proves handler paths and guarantees on save, and zigttp expert repairs generated code against those diagnostics.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Serverless Runtime, TypeScript Compiler, CLI Tool",
-      "keywords": "serverless runtime, capability sandbox, proof receipt, signed attestation, TypeScript, zigts, Zig runtime, compiler agent, compile-time verification",
+      "keywords": "serverless runtime, capability sandbox, compile-time proof, provably correct TypeScript, TypeScript, zigts, Zig runtime, compiler agent, compiler-in-the-loop, compile-time verification",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -153,23 +153,21 @@
         <div class="z-hero-copy">
           <p class="z-eyebrow">
             <span class="z-status-dot z-dot-safe"></span>
-            Capability-sandboxed. Proof-signed.
+            Compile-time proofs. Compiler-guided agent.
           </p>
-          <h1>Serverless handlers the compiler proves and signs.</h1>
+          <h1>TypeScript handlers proven before they run.</h1>
           <p class="z-hero-lede">
-            zigttp runs TypeScript in pure Zig, sandboxes every capability a
-            handler can touch, and ships each deploy with a signed proof receipt
-            anyone can verify.
+            zigttp narrows TypeScript to a subset the compiler can prove: every
+            path returns, declared guarantees hold, and generated patches are
+            repaired against the same diagnostics that gate deploys.
           </p>
           <div class="z-hero-actions">
             <a class="z-button z-button-primary" href="#playground"
-            >Try the proof loop</a>
+            >Try compile-time proof</a>
             <a
               class="z-button z-button-secondary"
-              href="https://github.com/srdjan/zigttp/blob/main/docs/contracts-and-sandboxing.md"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Verify a deploy</a>
+              href="#expert"
+            >Watch the agent loop</a>
           </div>
           <div class="z-install-card" aria-label="Install command">
             <span class="z-prompt">$</span>
@@ -182,7 +180,9 @@
             <button type="button" id="copy-install">Copy</button>
           </div>
           <p class="z-hero-note">
-            3.5 ms cold-start floor. 4.8 MB signed binary. macOS and Linux.
+            Break <code>while</code>, <code>try/catch</code>, or
+            <code>Date.now()</code> and the compiler tells you why the proof
+            failed.
           </p>
         </div>
 
@@ -282,7 +282,7 @@ hot swap: allowed</code></pre>
             </section>
           </div>
           <figcaption>
-            Proof card, contract diff, and local deploy receipt in one loop.
+            Compiler proof, contract diff, and local deploy receipt in one loop.
           </figcaption>
         </figure>
       </section>
@@ -293,19 +293,20 @@ hot swap: allowed</code></pre>
           Live in your browser
         </p>
         <div class="z-heading-wide">
-          <h2>Watch the proof loop.</h2>
+          <h2>Prove code before it runs.</h2>
           <p>
-            The playground runs the real <code>zigts</code> analyzer quietly in
-            WebAssembly. Safe code stays green. Use a perturbation when you want
-            to see the compiler escalate into a concrete diagnostic.
+            The playground runs the real <code>zigts</code> analyzer in
+            WebAssembly. It proves the handler from source, then shows the exact
+            diagnostic when you add code the compiler cannot prove.
           </p>
         </div>
 
         <div class="z-calm-strip" aria-label="Playground trust boundaries">
-          <span><i class="z-status-dot z-dot-safe"></i>WASM analyzer</span>
+          <span><i class="z-status-dot z-dot-safe"></i>Compile-time
+            analyzer</span>
           <span><i class="z-status-dot z-dot-idle"></i>Source stays in
             page</span>
-          <span><i class="z-status-dot z-dot-review"></i>Diagnostics on
+          <span><i class="z-status-dot z-dot-review"></i>Proof blocks
             anomaly</span>
         </div>
 
@@ -584,7 +585,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             Compiler-in-the-loop agent
           </p>
           <h2>
-            The compiler drives the agent.
+            The compiler reviews the agent's code.
           </h2>
         </div>
         <div class="z-loop">
@@ -596,19 +597,19 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <li class="z-loop-step">
               <span class="z-loop-num">01</span>
               <strong>Write</strong>
-              <p>The agent drafts a handler in the zigts subset.</p>
+              <p>The agent drafts a handler from your request.</p>
             </li>
             <li class="z-loop-step">
               <span class="z-loop-num">02</span>
               <strong>Compile</strong>
               <p>
-                It runs the same compiler that gates deploys.
+                It runs the same proof pass that gates deploys.
               </p>
             </li>
             <li class="z-loop-step">
               <span class="z-loop-num">03</span>
               <strong>Read diagnostics</strong>
-              <p>Unsupported code comes back with a concrete reason.</p>
+              <p>Unsupported code comes back with a file, line, and fix.</p>
             </li>
             <li class="z-loop-step">
               <span class="z-loop-num">04</span>
@@ -620,18 +621,18 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <li class="z-loop-step z-loop-step-proven">
               <span class="z-status-dot z-dot-safe"></span>
               <strong>Proven</strong>
-              <p>The handler clears the proof loop before review.</p>
+              <p>The handler clears the proof loop before you review it.</p>
             </li>
           </ol>
           <p class="z-loop-cycle">
-            compile, read, rewrite - repeat until proven
+            write, compile, repair - repeat until proven
           </p>
         </div>
         <div class="z-expert">
           <details class="z-code-card z-expert-terminal">
             <summary>
               <span>Compiler transcript</span>
-              <em>show diagnostic loop</em>
+              <em>show compiler loop</em>
             </summary>
             <div class="z-pane-title">
               <span>zigttp expert</span><em>compiler in the loop</em>
@@ -653,14 +654,15 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           </details>
           <div class="z-expert-copy">
             <p>
-              <code>zigttp expert</code> writes code, runs the compiler, reads
+              <code>zigttp expert</code> writes code, runs the proof pass, reads
               diagnostics, and rewrites. The compiler keeps the agent inside the
-              limited TypeScript profile instead of trusting a generated patch.
+              TypeScript subset instead of asking you to trust a generated
+              patch.
             </p>
             <ul class="z-check-list">
               <li>Draft a handler from your request.</li>
-              <li>Compile every patch before review.</li>
-              <li>Repair against diagnostics, not guesses.</li>
+              <li>Compile every patch against the proof rules.</li>
+              <li>Repair from compiler diagnostics, not guesses.</li>
             </ul>
           </div>
         </div>
@@ -679,7 +681,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           <article class="z-contrast-strong">
             <span><i class="z-status-dot z-dot-safe"></i>zigttp expert</span>
             <p>
-              Compiles each draft and repairs against proof errors before
+              Compiles each draft, reads proof errors, and repairs before
               review.
             </p>
           </article>
@@ -706,12 +708,12 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         <div class="z-heading-wide">
           <div>
             <p class="z-section-kicker">Positioning</p>
-            <h2>The trade that makes proof work.</h2>
+            <h2>The trade that makes compile-time proof work.</h2>
           </div>
           <p>
             zigttp gives up the full JavaScript and npm surface so the compiler
-            can enumerate handler paths, capabilities, and behavior before
-            deploy.
+            can enumerate handler paths, capabilities, and declared guarantees
+            before deploy.
           </p>
         </div>
         <div class="z-table-wrap">
@@ -734,7 +736,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
                 <td>✓</td>
               </tr>
               <tr>
-                <td>Compile-time path proofs</td>
+                <td>Compile-time path and guarantee proofs</td>
                 <td>-</td>
                 <td>-</td>
                 <td>limited</td>
@@ -780,8 +782,8 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             >zigttp <b>✓</b></span>
           </article>
           <article>
-            <h3>Compile-time path proofs</h3><span>Node/Deno/Bun <b
-              >-</b></span><span>Serverless <b>-</b></span><span>Type checks
+            <h3>Compile-time path and guarantee proofs</h3><span>Node/Deno/Bun
+              <b>-</b></span><span>Serverless <b>-</b></span><span>Type checks
               <b>limited</b></span><span
               class="zigttp"
             >zigttp <b>✓</b></span>
@@ -837,10 +839,10 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           </article>
           <article>
             <span class="z-card-index">02</span>
-            <h3>Compiler agent</h3>
+            <h3>Compiler-in-the-loop agent</h3>
             <p>
-              <code>zigttp expert</code> writes, compiles, reads diagnostics,
-              and rewrites until the proof clears.
+              <code>zigttp expert</code> writes a patch, runs the proof pass,
+              reads diagnostics, and rewrites until the compiler accepts it.
             </p>
           </article>
           <article>
@@ -857,10 +859,10 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
       <section class="z-section z-api-section">
         <div class="z-api-copy">
           <p class="z-section-kicker">CLI surface</p>
-          <h2>Five commands cover the loop.</h2>
+          <h2>Five commands cover the proof loop.</h2>
           <p>
-            Init a handler, prove it on save, test it, ask the agent for edits,
-            then deploy a signed local binary.
+            Init a handler, prove it on save, test it, ask the compiler-guided
+            agent for edits, then deploy a signed local binary.
           </p>
           <div class="z-inline-links">
             <a
@@ -923,12 +925,12 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
       <section class="z-final-cta" id="install">
         <p class="z-section-kicker">Start proving</p>
         <h2>
-          Install zigttp. Break one proof.
+          Install zigttp. Watch proof fail clearly.
         </h2>
         <p>
           The quickest demo is one unsupported feature. Add
           <code>while</code> or <code>try/catch</code> and watch the compiler
-          explain which proof it would break.
+          point to the proof it cannot discharge.
         </p>
         <div class="z-hero-actions center">
           <a
