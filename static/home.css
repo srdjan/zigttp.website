@@ -449,7 +449,7 @@
 .z-install-card button {
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
+  min-height: 2.75rem;
   border: 1px solid var(--z-line);
   border-radius: 999px;
   background: var(--z-paper-muted);
@@ -1457,7 +1457,6 @@
   .z-install-card button {
     grid-column: 1 / -1;
     justify-self: start;
-    min-height: 2.75rem;
   }
 
   .z-product-shot,
@@ -1606,10 +1605,7 @@
   }
 
   .zp-tab,
-  .zp-perturbations button,
-  .zp-demo-replay,
   .zp-lensbar button,
-  .zp-copy,
   button.zp-chip {
     min-height: 2.75rem;
   }
@@ -1795,7 +1791,7 @@
 .zp-perturbations button {
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
+  min-height: 2.75rem;
   padding: 0.34rem 0.8rem;
   border: 1px solid rgb(255 255 255 / 0.14);
   border-radius: 999px;
@@ -1813,7 +1809,7 @@
 .zp-demo-replay {
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
+  min-height: 2.75rem;
   padding: 0.34rem 0.8rem;
   border: 1px solid rgb(255 255 255 / 0.14);
   border-radius: 999px;
@@ -2353,7 +2349,7 @@ button.zp-chip {
 .zp-copy {
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
+  min-height: 2.75rem;
   margin-top: 0.7rem;
   padding: 0.4rem 0.9rem;
   border: 1px solid rgb(255 255 255 / 0.14);

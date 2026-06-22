@@ -21,7 +21,7 @@
   --border-light: rgba(27, 32, 43, 0.18);
   --text: #181b22;
   --text-muted: #4f5665;
-  --text-dim: #7b8190;
+  --text-dim: #686f7e; /* clears WCAG 1.4.3 (>=4.5:1) on --bg for small deck text */
   --accent: #6eaddb;
   --accent-dim: #2a6796;
   --accent-glow: rgba(110, 173, 219, 0.12);
@@ -53,15 +53,6 @@
     monospace;
   --radius-panel: 14px;
   --radius-pill: 999px;
-
-  /* syntax colors */
-  --syn-keyword: #8b3fc7;
-  --syn-string: #198754;
-  --syn-fn: #1d63b7;
-  --syn-number: #c46b13;
-  --syn-attr: #9a6a00;
-  --syn-param: #616978;
-  --syn-comment: #8d94a3;
 }
 
 html {
