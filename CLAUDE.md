@@ -27,11 +27,10 @@ step, no framework.
   remove rather than comment out.
 - `static/home.css` - homepage-scoped styles, including the `.zp-*`
   proof-playground component.
-- `static/script.js` - progressive enhancement only.
-  The page must work without JS. On the homepage the no-JS contract is concrete:
-  the playground editor ships `readonly` with a pre-rendered proof card, and
-  `playground.js` adds the `zp-js` class to upgrade it to an editable,
-  syntax-highlighted state.
+- `static/script.js` - progressive enhancement only. The page must work without
+  JS. On the homepage the no-JS contract is concrete: the playground editor
+  ships `readonly` with a pre-rendered proof card, and `playground.js` adds the
+  `zp-js` class to upgrade it to an editable, syntax-highlighted state.
 - `static/playground.js` - drives the homepage proof playground: loads the wasm
   analyzer, runs it on editor input, renders the proof card. The section
   degrades to a static pre-rendered card without it.
@@ -65,8 +64,11 @@ No tests, no linter config beyond Deno defaults. Run `deno fmt` and
   script/style/font/media origin, update the matching CSP directive in the same
   change; do not loosen CSP wholesale.
 - HTML and XML and `manifest.json` are served `no-cache`; everything else is
-  immutable-cached. Rename assets when content changes rather than busting via
-  query string.
+  immutable-cached. First-party CSS and JS are versioned with a `?v=N` query in
+  the HTML references (`main.ts` serves them dynamically, so the browser keys
+  its cache on the full URL and a bumped query reliably busts the immutable
+  copy); bump the number when the file changes. Rename media and wasm assets on
+  content change (content-hash the wasm) rather than query-busting them.
 - CSS: redesign is current. Recent commits have been pruning pre-redesign rules
   (see `git log --oneline`). When touching styles, prefer deletion over
   additions; if a selector has no matching markup, drop it.
