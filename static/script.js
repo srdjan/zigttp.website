@@ -1,32 +1,42 @@
-// Landing page menu toggle
-const zMenuButton = document.querySelector(".z-menu-button");
-const zNavLinks = document.querySelector(".z-nav-links");
-if (zMenuButton && zNavLinks) {
+// Menu toggle: the button opens/closes the menu; a link click, Escape, or a
+// click outside `outsideSelector` closes it. Shared by the homepage nav and
+// the deck burger, which differ only in selectors and whether the button
+// carries an active class.
+function initMenuToggle(button, links, outsideSelector, buttonActiveClass) {
+  if (!button || !links) return;
+
   const setMenuState = (open) => {
-    zMenuButton.setAttribute("aria-expanded", String(open));
-    zNavLinks.classList.toggle("open", open);
+    if (buttonActiveClass) button.classList.toggle(buttonActiveClass, open);
+    links.classList.toggle("open", open);
+    button.setAttribute("aria-expanded", String(open));
   };
 
-  zMenuButton.addEventListener("click", () => {
-    setMenuState(!zNavLinks.classList.contains("open"));
+  button.addEventListener("click", () => {
+    setMenuState(!links.classList.contains("open"));
   });
-
-  zNavLinks.querySelectorAll("a").forEach((link) => {
+  links.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => setMenuState(false));
   });
-
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && zNavLinks.classList.contains("open")) {
+    if (e.key === "Escape" && links.classList.contains("open")) {
       setMenuState(false);
     }
   });
-
   document.addEventListener("click", (e) => {
-    if (zNavLinks.classList.contains("open") && !e.target.closest(".z-nav")) {
+    if (
+      links.classList.contains("open") && !e.target.closest(outsideSelector)
+    ) {
       setMenuState(false);
     }
   });
 }
+
+// Landing page nav menu.
+initMenuToggle(
+  document.querySelector(".z-menu-button"),
+  document.querySelector(".z-nav-links"),
+  ".z-nav",
+);
 
 // Install command copy affordance.
 const copyInstall = document.getElementById("copy-install");
@@ -52,37 +62,13 @@ if (copyInstall && installCmd) {
   });
 }
 
-// Burger menu toggle
-const burger = document.querySelector(".nav-burger");
-const navLinks = document.querySelector(".nav-links");
-if (burger && navLinks) {
-  const setMenuState = (open) => {
-    burger.classList.toggle("active", open);
-    navLinks.classList.toggle("open", open);
-    burger.setAttribute("aria-expanded", String(open));
-  };
-
-  burger.addEventListener("click", () => {
-    setMenuState(!navLinks.classList.contains("open"));
-  });
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      setMenuState(false);
-    });
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && navLinks.classList.contains("open")) {
-      setMenuState(false);
-    }
-  });
-  document.addEventListener("click", (e) => {
-    if (
-      navLinks.classList.contains("open") && !e.target.closest(".nav-inner")
-    ) {
-      setMenuState(false);
-    }
-  });
-}
+// Deck burger menu.
+initMenuToggle(
+  document.querySelector(".nav-burger"),
+  document.querySelector(".nav-links"),
+  ".nav-inner",
+  "active",
+);
 
 // Scroll spy for active nav indicator
 const spyLinks = document.querySelectorAll(
@@ -93,15 +79,17 @@ const spySections = [...spyLinks].map((link) =>
 ).filter(Boolean);
 
 if (spySections.length) {
+  const linkForId = new Map();
+  spyLinks.forEach((link) => {
+    const id = link.getAttribute("href").slice(1);
+    if (!linkForId.has(id)) linkForId.set(id, link);
+  });
   const scrollSpy = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           spyLinks.forEach((link) => link.classList.remove("active"));
-          const active = document.querySelector(
-            `.nav-links a[href="#${entry.target.id}"], ` +
-              `.z-nav-links a[href="#${entry.target.id}"]`,
-          );
+          const active = linkForId.get(entry.target.id);
           if (active) active.classList.add("active");
         }
       });

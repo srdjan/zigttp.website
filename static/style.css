@@ -24,34 +24,23 @@
   --text-dim: #686f7e; /* clears WCAG 1.4.3 (>=4.5:1) on --bg for small deck text */
   --accent: #6eaddb;
   --accent-dim: #2a6796;
-  --accent-glow: rgba(110, 173, 219, 0.12);
-  --accent-border: rgba(110, 173, 219, 0.28);
-  --accent-secondary: #2e829a;
   --green: #168a4a;
   --red: #c2413b;
   --blue: #2563eb;
   --teal: #0f8d7d;
-  --cyan: #2e829a;
-  --cyan-dim: rgba(46, 130, 154, 0.1);
   --font-display:
     "Outfit",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  --font-body:
-    "Outfit",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  --font-body: var(--font-display);
   --font-mono:
     "JetBrains Mono",
     "SF Mono",
     "Cascadia Code",
     Consolas,
     monospace;
-  --radius-panel: 14px;
   --radius-pill: 999px;
 }
 
@@ -108,10 +97,6 @@ a {
   color: var(--accent-dim);
   text-decoration: none;
   transition: color 0.15s;
-}
-
-a:hover {
-  color: var(--accent-dim);
 }
 
 code {
@@ -258,20 +243,11 @@ code {
   color: var(--text);
 }
 
-.nav-links a.active {
-  color: var(--accent-dim);
-}
-
-.nav-links a.active::after {
-  width: 100%;
-  left: 0;
-}
-
-.nav-gh {
+.nav-links .nav-gh {
   padding: 6px 14px;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-pill);
-  font-size: 0.8125rem !important;
+  font-size: 0.8125rem;
 }
 
 .nav-gh:hover {
@@ -1002,7 +978,7 @@ code {
   border: none;
   cursor: pointer;
   background: var(--bg-elevated);
-  transition: all 0.3s ease;
+  transition: width 0.3s ease, background-color 0.3s ease;
   padding: 0;
 }
 
@@ -1065,185 +1041,14 @@ code {
   .container {
     padding: 0 20px;
   }
-
-  .section {
-    padding: 64px 0;
-  }
-
-  .section-title {
-    margin-bottom: 28px;
-  }
-
-  /* Hero */
-  .hero {
-    min-height: auto;
-    padding: 0;
-  }
-
-  .hero-inner {
-    min-height: auto;
-    padding: 32px 20px 24px;
-  }
-
-  .hero-title {
-    max-width: 12ch;
-  }
-
-  .hero-terminal {
-    width: 100%;
-  }
-
-  .cta-btn {
-    padding: 10px 24px;
-    font-size: 0.9375rem;
-  }
-
-  .expert-video {
-    width: 100%;
-  }
-
-  /* Feature + Expert */
-  .expert-layout {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .feature-row {
-    padding: 22px 0 20px;
-  }
-
-  .feature-row-head {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .feature-row-index {
-    padding-top: 0;
-  }
-
-  /* Code tabs */
-  .tab {
-    padding: 12px 16px;
-  }
-
-  .tabs-body {
-    padding: 16px;
-  }
-
-  .terminal-body {
-    padding: 16px;
-  }
-
-  .terminal-body code,
-  .tab-panel code {
-    font-size: 0.75rem;
-  }
 }
 
 /* --------------------------------------------------------
    Responsive: small phones (max 480px)
    -------------------------------------------------------- */
 @media (max-width: 480px) {
-  .container,
-  .container--wide {
+  .container {
     padding: 0 16px;
-  }
-
-  .section {
-    padding: 48px 0;
-  }
-
-  .section-title {
-    font-size: clamp(1.75rem, 6vw, 2.25rem);
-    margin-bottom: 24px;
-  }
-
-  /* Hero */
-  .hero-inner {
-    padding: 28px 16px 24px;
-  }
-
-  .hero-brand {
-    font-size: clamp(3.5rem, 18vw, 5rem);
-  }
-
-  .hero-title {
-    font-size: clamp(1.9rem, 8vw, 2.8rem);
-  }
-
-  .hero-sub {
-    font-size: 0.9375rem;
-    margin-bottom: 24px;
-  }
-
-  .hero-ctas {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .cta-btn {
-    padding: 12px 24px;
-    font-size: 0.9375rem;
-    text-align: center;
-  }
-
-  .expert-prose p,
-  .section-lead {
-    font-size: 0.9375rem;
-  }
-
-  .feature-row-body h3 {
-    font-size: 1.375rem;
-  }
-
-  .feature-row-summary {
-    font-size: 0.9375rem;
-  }
-
-  /* Code tabs */
-  .tab {
-    padding: 10px 12px;
-    font-size: 0.75rem;
-  }
-
-  .tabs-body {
-    padding: 12px;
-  }
-
-  .terminal-body code,
-  .tab-panel code {
-    font-size: 0.6875rem;
-  }
-
-  .terminal-body {
-    padding: 12px;
-  }
-
-  /* Modules */
-  .module-name {
-    font-size: 0.75rem;
-  }
-
-  /* FAQ */
-  .faq-question {
-    font-size: 0.9375rem;
-    padding: 16px 0;
-  }
-
-  .faq-answer {
-    font-size: 0.875rem;
-    padding-left: 24px;
-  }
-
-  /* Footer */
-  .footer-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-  }
-
-  .section-ctas {
-    flex-direction: column;
   }
 }
 

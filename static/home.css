@@ -1323,15 +1323,6 @@
   padding-bottom: 3rem;
 }
 
-.z-footer div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: flex-end;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
 @media (max-width: 1080px) {
   .z-hero,
   .z-api-section,
@@ -2235,16 +2226,6 @@ button.zp-chip {
   font-size: 0.6rem;
   letter-spacing: 0.06em;
   padding-top: 0.1rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .zp-trace {
-    transition: none;
-  }
-
-  .zp-chevron {
-    transition: none;
-  }
 }
 
 .zp-specs {

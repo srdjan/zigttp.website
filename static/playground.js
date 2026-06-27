@@ -210,6 +210,18 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   }
 
   // --- proof card rendering ----------------------------------------------
+  // The card's structural elements are server-rendered and never replaced;
+  // each render only mutates their text or children. Resolve them once.
+  const cardHead = card.querySelector(".zp-head");
+  const cardVerdict = card.querySelector(".zp-verdict");
+  const cardCount = card.querySelector(".zp-count");
+  const cardWhy = card.querySelector(".zp-why");
+  const cardChips = card.querySelector(".zp-chips");
+  const cardSpecs = card.querySelector(".zp-specs");
+  const cardTrade = card.querySelector(".zp-trade");
+  const cardCert = card.querySelector(".zp-cert");
+  const cardStatus = card.querySelector(".zp-status");
+
   const reduceMotion = globalThis.matchMedia &&
     globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let prevState = {};
@@ -235,13 +247,12 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     const errors = diags.filter((d) => d.severity === "error");
     const provenCount = PROPS.filter((p) => props[p.key] === true).length;
 
-    const head = card.querySelector(".zp-head");
-    head.className = "zp-head " + (ok ? "zp-ok" : "zp-blocked");
-    const verdictEl = head.querySelector(".zp-verdict");
+    const headClass = "zp-head " + (ok ? "zp-ok" : "zp-blocked");
+    if (cardHead.className !== headClass) cardHead.className = headClass;
     const verdict = ok ? "PROVEN" : "BLOCKED";
     // Guarded so the aria-live region announces only on a real flip.
-    if (verdictEl.textContent !== verdict) verdictEl.textContent = verdict;
-    head.querySelector(".zp-count").textContent = proofSummary(
+    if (cardVerdict.textContent !== verdict) cardVerdict.textContent = verdict;
+    cardCount.textContent = proofSummary(
       provenCount,
       proof,
       editor.value,
@@ -415,7 +426,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   }
 
   function renderProperties(props, proof) {
-    const ul = card.querySelector(".zp-chips");
+    const ul = cardChips;
     ul.textContent = "";
     PROPS.forEach((p) => {
       const on = props[p.key] === true;
@@ -427,7 +438,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     // fires for chips that changed since this lens was last shown.
     prevState = Object.assign({}, props);
 
-    const specWrap = card.querySelector(".zp-specs");
+    const specWrap = cardSpecs;
     specWrap.textContent = "";
     // Only show the declared-Spec row when the handler actually declares a
     // Spec<...> (comments stripped first). With no Spec, every guarantee is
@@ -449,7 +460,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   }
 
   function renderWhy(errors) {
-    const why = card.querySelector(".zp-why");
+    const why = cardWhy;
     if (!errors.length) {
       why.hidden = true;
       return;
@@ -469,7 +480,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   }
 
   function renderTrade(props) {
-    const ul = card.querySelector(".zp-trade");
+    const ul = cardTrade;
     ul.textContent = "";
     PROPS.forEach((p) => {
       const on = props[p.key] === true;
@@ -493,7 +504,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   }
 
   function renderHandover(ok, props, proof) {
-    const pre = card.querySelector(".zp-cert");
+    const pre = cardCert;
     const proven = PROPS.filter((p) => props[p.key] === true).map((p) =>
       p.label
     );
@@ -569,7 +580,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   // --- proof trace expand/collapse ---------------------------------------
   // One delegated listener on the chip list: the list element persists across
   // renderProperties rebuilds, only its children are replaced.
-  const chipsList = card.querySelector(".zp-chips");
+  const chipsList = cardChips;
   if (chipsList) {
     chipsList.addEventListener("click", (ev) => {
       const btn = ev.target.closest(".zp-chip");
@@ -602,7 +613,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   const copyBtn = card.querySelector(".zp-copy");
   if (copyBtn) {
     copyBtn.addEventListener("click", () => {
-      const text = card.querySelector(".zp-cert").textContent;
+      const text = cardCert.textContent;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(text).then(() => {
           copyBtn.textContent = "Copied";
@@ -725,6 +736,8 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   // reduced-motion preference - cancels it.
   const DEMO_INJECT_MS = 1400;
   const DEMO_HOLD_MS = 1900;
+  // Delay after the perturbation is injected before the proof trace unfurls.
+  const DEMO_TRACE_OPEN_MS = 560;
   const DEMO_REVERT_MS = DEMO_INJECT_MS + DEMO_HOLD_MS;
   let userEngaged = false;
   let demoTimers = [];
@@ -780,7 +793,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
       if (runId !== demoRunId) return;
       openChipKey = "deterministic";
       renderLens("properties");
-    }, DEMO_INJECT_MS + 560));
+    }, DEMO_INJECT_MS + DEMO_TRACE_OPEN_MS));
     demoTimers.push(setTimeout(() => {
       if (runId !== demoRunId) return;
       clearHints();
@@ -804,7 +817,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
 
   // --- boot ---------------------------------------------------------------
   function setStatus(text, kind) {
-    const s = card.querySelector(".zp-status");
+    const s = cardStatus;
     if (!s) return;
     s.textContent = text;
     const cls = "zp-status" + (kind ? " " + kind : "");
