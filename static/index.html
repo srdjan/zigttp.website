@@ -8,7 +8,7 @@
     </title>
     <meta
       name="description"
-      content="zigttp is a restricted TypeScript runtime in pure Zig. The compiler proves handler paths and guarantees on save, while zigttp expert repairs generated code against those diagnostics."
+      content="For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f4f7f1">
@@ -34,7 +34,7 @@
     >
     <meta
       property="og:description"
-      content="zigttp is a restricted TypeScript runtime in pure Zig. The compiler proves handler paths and guarantees on save, while zigttp expert repairs generated code against those diagnostics."
+      content="For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt."
     >
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -55,7 +55,7 @@
     >
     <meta
       name="twitter:description"
-      content="zigttp is a restricted TypeScript runtime in pure Zig. The compiler proves handler paths and guarantees on save, while zigttp expert repairs generated code against those diagnostics."
+      content="For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt."
     >
     <meta
       name="twitter:image"
@@ -71,7 +71,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zigttp",
-      "description": "zigttp is a restricted TypeScript runtime in pure Zig. Handlers run capability-sandboxed, the compiler proves handler paths and guarantees on save, and zigttp expert repairs generated code against those diagnostics.",
+      "description": "For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Serverless Runtime, TypeScript Compiler, CLI Tool",
@@ -293,14 +293,15 @@ hot swap: allowed</code></pre>
       <section class="z-section z-playground" id="playground">
         <p class="z-section-kicker">
           <span class="z-status-dot z-dot-safe"></span>
-          Live in your browser
+          The real compiler, in your browser
         </p>
         <div class="z-heading-wide">
           <h2>Prove code before it runs.</h2>
           <p>
             The playground runs the real <code>zigts</code> analyzer in
-            WebAssembly. It proves the handler from source, then shows the exact
-            diagnostic when you add code the compiler cannot prove.
+            WebAssembly, not a mockup. It proves the handler from source, then
+            shows the exact file, line, and reason the moment you add code it
+            cannot prove.
           </p>
         </div>
 
@@ -658,9 +659,10 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           <div class="z-expert-copy">
             <p>
               <code>zigttp expert</code> writes code, runs the proof pass, reads
-              diagnostics, and rewrites. The compiler keeps the agent inside the
-              TypeScript subset instead of asking you to trust a generated
-              patch.
+              the diagnostics, and rewrites. You don't review a wall of
+              generated code: every draft that can't be proven is rejected
+              before you see it, so the patch on your screen has already cleared
+              the gate that gates deploy.
             </p>
             <ul class="z-check-list">
               <li>Draft a handler from your request.</li>
@@ -835,9 +837,10 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <span class="z-card-index">01</span>
             <h3>Provable TypeScript</h3>
             <p>
-              zigts removes features that hide control flow, including
+              <code>zigts</code> removes the features that hide control flow:
               <code>while</code>, <code>try/catch</code>, <code>class</code>,
-              and <code>var</code>.
+              <code>var</code>. That buys the compiler up to 13 properties per
+              handler, from every path returns to no secret leaks.
             </p>
           </article>
           <article>
