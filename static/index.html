@@ -106,7 +106,7 @@
     </script>
 
     <link rel="stylesheet" href="/style.css?v=15">
-    <link rel="stylesheet" href="/home.css?v=17">
+    <link rel="stylesheet" href="/home.css?v=18">
   </head>
   <body class="zigttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -116,7 +116,7 @@
         <a class="z-brand" href="/" aria-label="zigttp home">
           <img src="/logo-circle.jpeg" alt="" width="38" height="38">
           <span>zigttp</span>
-          <small>v0.1.0-beta</small>
+          <small>v0.1.1-beta</small>
         </a>
         <button
           class="z-menu-button"
@@ -150,6 +150,23 @@
     </header>
 
     <main id="main">
+      <aside class="z-release-banner" aria-label="Release announcement">
+        <div>
+          <span>New release</span>
+          <strong>v0.1.1-beta: expert asks before guessing.</strong>
+          <p>
+            Ambiguous prompts now get one clarifying question, and
+            <code>/ledger</code> shows live proof-loop metrics before the
+            session summary is written.
+          </p>
+        </div>
+        <a
+          href="https://github.com/srdjan/zigttp/releases/tag/v0.1.1-beta"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Release notes</a>
+      </aside>
+
       <section class="z-hero" id="hero">
         <div class="z-hero-field" aria-hidden="true"></div>
         <div class="z-hero-copy">
@@ -591,6 +608,11 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           <h2>
             The compiler won't let the agent guess.
           </h2>
+          <p class="z-section-intro">
+            New in v0.1.1-beta: <code>zigttp expert</code> asks for the missing
+            detail when a request is materially ambiguous, then records the
+            proof-loop metrics that show how quickly it reached green.
+          </p>
         </div>
         <div class="z-loop">
           <h3 class="z-loop-head">How the loop runs</h3>
@@ -600,26 +622,29 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           >
             <li class="z-loop-step">
               <span class="z-loop-num">01</span>
-              <strong>Write</strong>
-              <p>The agent drafts a handler from your request.</p>
+              <strong>Clarify</strong>
+              <p>
+                If intent is ambiguous, the agent asks one question instead of
+                guessing.
+              </p>
             </li>
             <li class="z-loop-step">
               <span class="z-loop-num">02</span>
+              <strong>Write</strong>
+              <p>The agent drafts a handler from your confirmed request.</p>
+            </li>
+            <li class="z-loop-step">
+              <span class="z-loop-num">03</span>
               <strong>Compile</strong>
               <p>
                 It runs the same proof pass that gates deploys.
               </p>
             </li>
             <li class="z-loop-step">
-              <span class="z-loop-num">03</span>
-              <strong>Read diagnostics</strong>
-              <p>Unsupported code comes back with a file, line, and fix.</p>
-            </li>
-            <li class="z-loop-step">
               <span class="z-loop-num">04</span>
-              <strong>Rewrite</strong>
+              <strong>Repair</strong>
               <p>
-                It edits against the compiler output and tries again.
+                It edits against compiler diagnostics and tries again.
               </p>
             </li>
             <li class="z-loop-step z-loop-step-proven">
@@ -629,7 +654,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             </li>
           </ol>
           <p class="z-loop-cycle">
-            write, compile, repair - repeat until proven
+            clarify, write, compile, repair - repeat until proven
           </p>
         </div>
         <div class="z-expert">
@@ -641,7 +666,10 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <div class="z-pane-title">
               <span>zigttp expert</span><em>compiler in the loop</em>
             </div>
-            <pre><code><span class="z-cmd">$</span> zigttp expert <span class="z-str">"add a health check endpoint"</span>
+            <pre><code><span class="z-cmd">$</span> zigttp expert <span class="z-str">"add auth to the webhook"</span>
+
+<span class="z-agent">[agent]</span> Need one detail: Bearer token, HMAC, or mTLS?
+<span class="z-agent">[you]</span> Bearer token
 
 <span class="z-agent">[agent]</span> Writing handler...
 <span class="z-agent">[agent]</span> Compiling handler.ts
@@ -654,20 +682,26 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 <span class="z-agent">[agent]</span> Compiling handler.ts
 
   <span class="z-safe">PROVEN 7/7 proofs</span>
-  <span class="z-safe">Handler ready: health-check (1.2MB)</span></code></pre>
+  <span class="z-safe">Handler ready: webhook-auth (1.2MB)</span>
+
+<span class="z-cmd">$</span> /ledger
+  turns: 3
+  round-trips to first green proof: 2
+  verified edits: 1
+  proven-path ratio: 1.00</code></pre>
           </details>
           <div class="z-expert-copy">
             <p>
-              <code>zigttp expert</code> writes code, runs the proof pass, reads
-              the diagnostics, and rewrites. You don't review a wall of
-              generated code: every draft that can't be proven is rejected
-              before you see it, so the patch on your screen has already cleared
-              the gate that gates deploy.
+              <code>zigttp expert</code> now stops for one clarifying question
+              when the request is materially ambiguous. After that, it writes
+              code, runs the proof pass, reads the diagnostics, rewrites, and
+              records session metrics so you can see the path to green instead
+              of trusting a transcript by feel.
             </p>
             <ul class="z-check-list">
-              <li>Draft a handler from your request.</li>
+              <li>Ask once before spending proof cycles on a misread.</li>
               <li>Compile every patch against the proof rules.</li>
-              <li>Repair from compiler diagnostics, not guesses.</li>
+              <li>Show turn count, verified edits, and proven-path ratio.</li>
             </ul>
           </div>
         </div>
@@ -680,21 +714,23 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <span><i class="z-status-dot z-dot-blocked"></i>ordinary
               agent</span>
             <p>
-              Generates code and waits for tests or review to find the mismatch.
+              Guesses through ambiguous requirements and waits for tests or
+              review to find the mismatch.
             </p>
           </article>
           <article class="z-contrast-strong">
             <span><i class="z-status-dot z-dot-safe"></i>zigttp expert</span>
             <p>
-              Compiles each draft, reads proof errors, and repairs before
-              review.
+              Asks one question, compiles each draft, reads proof errors, and
+              reports the proof-loop metrics.
             </p>
           </article>
         </div>
 
         <p class="z-expert-note">
           <code>zigttp expert</code> supports Anthropic and OpenAI keys, resume,
-          read-only mode, and non-interactive prompts.
+          read-only mode, non-interactive prompts, and per-session
+          <code>session_summary</code> metrics.
         </p>
         <div
           class="z-calm-strip z-expert-trust"
@@ -848,7 +884,8 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <h3>Compiler-in-the-loop agent</h3>
             <p>
               <code>zigttp expert</code> writes a patch, runs the proof pass,
-              reads diagnostics, and rewrites until the compiler accepts it.
+              asks when the prompt is ambiguous, and rewrites until the compiler
+              accepts it.
             </p>
           </article>
           <article>
@@ -941,10 +978,10 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         <div class="z-hero-actions center">
           <a
             class="z-button z-button-primary"
-            href="https://github.com/srdjan/zigttp/releases/tag/v0.1.0-beta"
+            href="https://github.com/srdjan/zigttp/releases/tag/v0.1.1-beta"
             target="_blank"
             rel="noopener noreferrer"
-          >Download v0.1.0-beta</a>
+          >Download v0.1.1-beta</a>
           <a
             class="z-button z-button-secondary"
             href="https://github.com/srdjan/zigttp/blob/main/docs/user-guide.md#first-project"

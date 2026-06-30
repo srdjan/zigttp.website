@@ -233,11 +233,76 @@
 
 .z-hero,
 .z-section,
+.z-release-banner,
 .z-footer,
 .z-final-cta {
   max-width: var(--z-max);
   margin: 0 auto;
   padding-inline: 1.25rem;
+}
+
+.z-release-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--z-line);
+  border-bottom: 1px solid var(--z-line);
+  background: rgb(255 253 248 / 0.58);
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+.z-release-banner div {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.z-release-banner span {
+  color: var(--z-accent-dark);
+  font-family: var(--z-mono);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.z-release-banner strong {
+  color: var(--z-ink);
+  font-size: 1rem;
+  letter-spacing: 0;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.z-release-banner p {
+  margin: 0;
+  color: var(--z-muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.z-release-banner code {
+  color: var(--z-accent-dark);
+  font-size: 0.86em;
+}
+
+.z-release-banner a {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.45rem;
+  border: 1px solid var(--z-line-strong);
+  border-radius: 999px;
+  background: var(--z-paper);
+  color: var(--z-ink-soft);
+  font-size: 0.86rem;
+  font-weight: 800;
+  padding: 0.52rem 0.9rem;
 }
 
 .z-hero {
@@ -768,6 +833,19 @@
 .z-section-heading {
   max-width: 760px;
   margin-bottom: 2.25rem;
+}
+
+.z-section-intro {
+  max-width: 46rem;
+  margin: 1rem 0 0;
+  color: var(--z-ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.68;
+}
+
+.z-section-intro code {
+  color: var(--z-accent-dark);
+  font-size: 0.86em;
 }
 
 .z-heading-wide h2,
@@ -1406,9 +1484,36 @@
 
   .z-hero,
   .z-section,
+  .z-release-banner,
   .z-footer,
   .z-final-cta {
+    width: 100%;
+    max-width: 100vw;
     padding-inline: 1rem;
+  }
+
+  .z-release-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 0;
+  }
+
+  .z-release-banner div,
+  .z-hero-copy,
+  .z-hero-actions,
+  .z-hero-lede,
+  .z-hero-note,
+  .z-install-card {
+    width: 100%;
+    max-width: calc(100vw - 2rem);
+  }
+
+  .z-release-banner code {
+    word-break: break-word;
+  }
+
+  .z-release-banner a {
+    width: 100%;
   }
 
   .z-hero {
@@ -1417,8 +1522,14 @@
     padding-bottom: 2.5rem;
   }
 
+  .z-hero-copy {
+    min-width: 0;
+  }
+
   .z-hero h1 {
+    max-width: 100%;
     font-size: 3.25rem;
+    overflow-wrap: anywhere;
   }
 
   .z-eyebrow,
@@ -1430,9 +1541,32 @@
 
   .z-hero-lede {
     font-size: 1rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .z-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .z-hero-actions.center {
+    justify-content: stretch;
+  }
+
+  .z-button {
+    width: 100%;
+    max-width: calc(100vw - 2rem);
+    text-align: center;
+    white-space: normal;
+  }
+
+  .z-hero-note {
+    overflow-wrap: anywhere;
   }
 
   .z-install-card {
+    max-width: 100%;
     grid-template-columns: auto minmax(0, 1fr);
     overflow: hidden;
   }
