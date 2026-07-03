@@ -106,7 +106,7 @@
     </script>
 
     <link rel="stylesheet" href="/style.css?v=15">
-    <link rel="stylesheet" href="/home.css?v=18">
+    <link rel="stylesheet" href="/home.css?v=19">
   </head>
   <body class="zigttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -132,6 +132,7 @@
         <div class="z-nav-links" id="z-nav-links">
           <a href="#playground">Try</a>
           <a href="#expert">Agent</a>
+          <a href="#workflows">Workflows</a>
           <a href="#compare">Compare</a>
           <a href="#runtime">Runtime</a>
           <a
@@ -152,19 +153,20 @@
     <main id="main">
       <aside class="z-release-banner" aria-label="Release announcement">
         <div>
-          <span>New release</span>
-          <strong>v0.1.1-beta: expert asks before guessing.</strong>
+          <span>New</span>
+          <strong>Durable workflows, proven fault-tolerant.</strong>
           <p>
-            Ambiguous prompts now get one clarifying question, and
-            <code>/ledger</code> shows live proof-loop metrics before the
-            session summary is written.
+            Compose handlers in-process with <code>zigttp:workflow</code>, and
+            the compiler proves which runs are safe to replay. Unproven retries
+            fail closed with a readable <code>599</code> - never a silent
+            re-run.
           </p>
         </div>
         <a
-          href="https://github.com/srdjan/zigttp/releases/tag/v0.1.1-beta"
+          href="https://github.com/srdjan/zigttp/blob/main/docs/durable-workflows.md"
           target="_blank"
           rel="noopener noreferrer"
-        >Release notes</a>
+        >Read the guide</a>
       </aside>
 
       <section class="z-hero" id="hero">
@@ -541,6 +543,11 @@ function handler(req: Request): Response &amp; Guarantees {
                 <span class="zp-spec on">no_secret_leakage</span>
                 <span class="zp-spec on">injection_safe</span>
               </div>
+              <p class="zp-foot-note">
+                <code>fault-covered</code> stays off until a handler has a proven
+                durable recovery path -
+                <a href="#workflows">see durable workflows</a>.
+              </p>
             </div>
 
             <div
@@ -745,6 +752,203 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         </div>
       </section>
 
+      <section class="z-section z-workflows" id="workflows">
+        <div class="z-section-heading">
+          <p class="z-section-kicker">
+            <span class="z-status-dot z-dot-safe"></span>
+            Durable workflows
+          </p>
+          <h2>Compose handlers. Prove the recovery.</h2>
+          <p class="z-section-intro">
+            <code>zigttp:workflow</code> composes co-located handlers
+            in-process: <code>call</code>, <code>saga</code>, <code>fanout</code>,
+            resolved by name at compile time, no HTTP hop. <code>zigttp:durable</code>
+            gives a run a stable key, an oplog, timers, and signals. The compiler
+            proves which runs are safe to replay - the runtime refuses the ones
+            it can't.
+          </p>
+        </div>
+
+        <div class="z-expert z-wf-compose">
+          <div class="z-code-card" aria-label="Durable workflow orchestrator">
+            <div class="z-pane-title">
+              <span>orchestrator.ts</span><em>one process, no network</em>
+            </div>
+            <pre><code><span class="z-token-key">import</span> { run } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:durable"</span>;
+<span class="z-token-key">import</span> { call } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:workflow"</span>;
+<span class="z-token-key">import type</span> { Spec } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:types"</span>;
+
+<span class="z-token-key">type</span> Guarantees = Spec&lt;
+  <span class="z-token-str">"deterministic"</span> | <span class="z-token-str">"retry_safe"</span> | <span class="z-token-str">"idempotent"</span> |
+  <span class="z-token-str">"fault_covered"</span> | <span class="z-token-str">"state_isolated"</span> | <span class="z-token-str">"no_secret_leakage"</span>
+&gt;;
+
+<span class="z-token-key">function</span> handler(req: Request): Response &amp; Guarantees {
+  <span class="z-token-key">const</span> key = req.headers.get(<span class="z-token-str">"idempotency-key"</span>) ?? <span class="z-token-str">"demo"</span>;
+  <span class="z-token-key">return</span> run(key, () =&gt; {
+    <span class="z-token-key">const</span> res = call(<span class="z-token-str">"greet"</span>, { method: <span class="z-token-str">"GET"</span>, path: <span class="z-token-str">"/hello"</span> });
+    <span class="z-token-key">return</span> Response.json({ runKey: key, subStatus: res.status, sub: res.json() });
+  });
+}
+
+<span class="z-muted"># resolve every call target by name, then serve durably</span>
+<span class="z-cmd">$</span> zigttp link system.json
+<span class="z-cmd">$</span> zigttp serve orchestrator.ts --system system.json \
+    --durable ./.durable --workflow-queue</code></pre>
+          </div>
+          <div class="z-expert-copy">
+            <p>
+              There is no workflow DSL - just disciplined naming over primitives.
+              <code>call("greet", ...)</code> runs another handler in an isolated
+              pooled runtime and copies its <code>Response</code> back.
+              <code>run(key, ...)</code> owns the parent workflow and writes every
+              step to an oplog. The <code>Idempotency-Key</code> header becomes the
+              run key; each <code>workflow.call()</code> is a child boundary.
+              Timers and signals are primitives too: <code>sleep</code>,
+              <code>sleepUntil</code>, <code>waitSignal</code>,
+              <code>signalAt</code>.
+            </p>
+            <ul class="z-check-list">
+              <li>
+                <span><code>zigttp link system.json</code> resolves every call,
+                  saga, and fanout target by name at compile time.</span>
+              </li>
+              <li>
+                <span><code>saga([...])</code> rolls back completed steps in
+                  reverse order when a step returns status 400 or above - each
+                  step carries its own compensate.</span>
+              </li>
+              <li>
+                <span>A panicking sub-handler surfaces as
+                  <code>subStatus 599</code> - the orchestrator answers instead
+                  of crashing.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="z-loop">
+          <h3 class="z-loop-head">When a step fails</h3>
+          <ol class="z-loop-flow" aria-label="How a durable run recovers">
+            <li class="z-loop-step">
+              <span class="z-loop-num">01</span>
+              <strong>Isolate</strong>
+              <p>
+                A panic stops at the handler boundary: the caller gets 500, the
+                pool slot is quarantined, every other worker keeps serving.
+              </p>
+            </li>
+            <li class="z-loop-step">
+              <span class="z-loop-num">02</span>
+              <strong>Prove</strong>
+              <p>
+                Reusing a completed response needs <code>idempotent</code>;
+                retrying an incomplete run needs <code>retry_safe</code> - or a
+                client <code>Idempotency-Key</code>. Unproven replay gets a soft
+                599, never a silent re-run.
+              </p>
+            </li>
+            <li class="z-loop-step">
+              <span class="z-loop-num">03</span>
+              <strong>Retry</strong>
+              <p>
+                A background scheduler replays the incomplete oplog with jittered
+                exponential backoff.
+              </p>
+            </li>
+            <li class="z-loop-step">
+              <span class="z-loop-num">04</span>
+              <strong>Quarantine</strong>
+              <p>
+                Ten consecutive failures move the run to
+                <code>dead-runs/&lt;id&gt;.json</code>. It survives restart and
+                waits for a human.
+              </p>
+            </li>
+            <li class="z-loop-step z-loop-step-proven">
+              <span class="z-status-dot z-dot-safe"></span>
+              <strong>Recovered</strong>
+              <p>
+                The run resumes from its oplog - replayed from the log, not
+                re-guessed.
+              </p>
+            </li>
+          </ol>
+          <p class="z-loop-cycle">
+            isolate, prove, retry, quarantine - no silent re-run
+          </p>
+        </div>
+
+        <p class="z-wf-lead">Most of it is settled before the server starts.</p>
+        <div class="z-pillar-grid">
+          <article>
+            <span class="z-card-index">01</span>
+            <h3>ZTS509: no calls inside steps</h3>
+            <p>
+              <code>workflow.call</code>, <code>saga</code>, and
+              <code>fanout</code> are rejected inside a <code>durable.step()</code>
+              callback - nesting that would silently lose durability.
+            </p>
+          </article>
+          <article>
+            <span class="z-card-index">02</span>
+            <h3>ZTS510: no rollback holes</h3>
+            <p>
+              A static saga must carry a compensate on every step except possibly
+              the last - the structural signature of a partial rollback.
+            </p>
+          </article>
+          <article>
+            <span class="z-card-index">03</span>
+            <h3>Proofs in the contract</h3>
+            <p>
+              <code>contract.json</code> records <code>retrySafe</code>,
+              <code>idempotent</code>, <code>faultCovered</code>. The proof receipt
+              carries <code>durableWorkflowProofLevel</code>.
+            </p>
+          </article>
+        </div>
+
+        <div
+          class="z-contrast-grid z-expert-contrast"
+          aria-label="Ordinary retry versus a proven durable run"
+        >
+          <article class="z-contrast-weak">
+            <span><i class="z-status-dot z-dot-blocked"></i>ordinary retry</span>
+            <p>
+              Retries on failure and hopes the handler was idempotent. The
+              duplicate side effect shows up later, in the logs.
+            </p>
+          </article>
+          <article class="z-contrast-strong">
+            <span><i class="z-status-dot z-dot-safe"></i>zigttp durable run</span>
+            <p>
+              Fails closed. Without a <code>retry_safe</code> proof or an
+              <code>Idempotency-Key</code>, replay is refused with a 599 the client
+              can read: <code>DurableRetryUnproven</code>, not a silent second run.
+            </p>
+          </article>
+        </div>
+
+        <p class="z-expert-note">
+          You have already met the missing proof. In
+          <a href="#playground">the playground above</a>, the
+          <code>fault-covered</code> chip sits off: a plain handler has no durable
+          recovery path for its effects, so the compiler will not claim one.
+          <code>fault_covered</code> is what <code>durable.run()</code> and proven
+          saga compensates earn.
+        </p>
+
+        <div class="z-calm-strip" aria-label="Durable workflow boundaries">
+          <span><i class="z-status-dot z-dot-idle"></i>fanout dispatches
+            sequentially, not in parallel</span>
+          <span><i class="z-status-dot z-dot-review"></i>a failing compensate is a
+            terminal 500, manual intervention</span>
+          <span><i class="z-status-dot z-dot-review"></i>beta: throughput ships
+            with receipt-backed measurement</span>
+        </div>
+      </section>
+
       <section class="z-section z-compare" id="compare">
         <div class="z-heading-wide">
           <div>
@@ -787,6 +991,13 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
                 <td>Guarantees enforced by default</td>
                 <td>-</td>
                 <td>-</td>
+                <td>-</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Durable workflows with proven-safe replay</td>
+                <td>-</td>
+                <td>partial</td>
                 <td>-</td>
                 <td>✓</td>
               </tr>
@@ -837,6 +1048,13 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             >zigttp <b>✓</b></span>
           </article>
           <article>
+            <h3>Durable workflows with proven-safe replay</h3><span>Node/Deno/Bun
+              <b>-</b></span><span>Serverless <b>partial</b></span><span>Type
+              checks <b>-</b></span><span
+              class="zigttp"
+            >zigttp <b>✓</b></span>
+          </article>
+          <article>
             <h3>Compiler-guided agent</h3><span>Node/Deno/Bun <b
               >-</b></span><span>Serverless <b>-</b></span><span>Type checks
               <b>-</b></span><span
@@ -876,7 +1094,8 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
               <code>zigts</code> removes the features that hide control flow:
               <code>while</code>, <code>try/catch</code>, <code>class</code>,
               <code>var</code>. That buys the compiler up to 13 properties per
-              handler, from every path returns to no secret leaks.
+              handler - every path returns, no secret leaks, safe-to-replay
+              durable runs.
             </p>
           </article>
           <article>

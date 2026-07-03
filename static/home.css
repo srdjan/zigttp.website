@@ -1154,6 +1154,26 @@
   margin: 1.25rem 0 0;
 }
 
+/* Durable workflows: reuses .z-expert (compose row), .z-loop (failure ladder),
+   .z-pillar-grid (compile-time trio), and .z-contrast-grid (before/after). Only
+   the inter-block spacing is section-specific; every visual treatment is shared. */
+.z-wf-compose {
+  margin-bottom: 3.5rem;
+}
+
+.z-wf-lead {
+  max-width: 46rem;
+  margin: 0 0 1.4rem;
+  color: var(--z-ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.68;
+}
+
+.z-workflows .z-calm-strip {
+  margin-top: 1.75rem;
+  margin-bottom: 0;
+}
+
 .z-expert-terminal summary {
   display: flex;
   align-items: center;
@@ -2393,6 +2413,20 @@ button.zp-chip {
 .zp-spec.off {
   background: rgb(196 63 95 / 0.2);
   color: #ffb3bf;
+}
+
+/* Footnote under the property chips: explains why fault-covered reads off and
+   links to the durable-workflows section. On the dark card, so light ink. */
+.zp-foot-note {
+  margin: 0.9rem 0 0;
+  color: #8e99a6;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.zp-foot-note a {
+  color: #8ab4ff;
+  border-bottom: 1px solid rgb(138 180 255 / 0.4);
 }
 
 /* --- trade lens --- */
