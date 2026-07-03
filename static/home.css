@@ -1161,12 +1161,10 @@
   margin-bottom: 3.5rem;
 }
 
+/* Reuses .z-section-intro's type treatment; only the margin flips to sit above
+   the trio grid instead of under a heading. */
 .z-wf-lead {
-  max-width: 46rem;
   margin: 0 0 1.4rem;
-  color: var(--z-ink-soft);
-  font-size: 1.05rem;
-  line-height: 1.68;
 }
 
 .z-workflows .z-calm-strip {
