@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-      zigttp v0.1.1-beta - TypeScript handlers proven at compile time
+      zttp v0.1.1-beta - TypeScript handlers proven at compile time
     </title>
     <meta
       name="description"
-      content="Slide deck for zigttp v0.1.1-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
+      content="Slide deck for zttp v0.1.1-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f4f7f1">
@@ -31,41 +31,41 @@
     <meta property="og:url" content="https://zigttp.timok.com/deck">
     <meta
       property="og:title"
-      content="zigttp v0.1.1-beta Presentation - TypeScript handlers proven at compile time"
+      content="zttp v0.1.1-beta Presentation - TypeScript handlers proven at compile time"
     >
     <meta
       property="og:description"
-      content="Slide deck for zigttp v0.1.1-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
+      content="Slide deck for zttp v0.1.1-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta
       property="og:image"
-      content="https://zigttp.timok.com/zigttp-og.jpg"
+      content="https://zigttp.timok.com/zttp-og.jpg"
     >
     <meta
       property="og:image:alt"
-      content="zigttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
+      content="zttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
     >
-    <meta property="og:site_name" content="zigttp">
+    <meta property="og:site_name" content="zttp">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp v0.1.1-beta Presentation - TypeScript handlers proven at compile time"
+      content="zttp v0.1.1-beta Presentation - TypeScript handlers proven at compile time"
     >
     <meta
       name="twitter:description"
-      content="Slide deck for zigttp v0.1.1-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
+      content="Slide deck for zttp v0.1.1-beta: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta
       name="twitter:image"
-      content="https://zigttp.timok.com/zigttp-og.jpg"
+      content="https://zigttp.timok.com/zttp-og.jpg"
     >
     <meta
       name="twitter:image:alt"
-      content="zigttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
+      content="zttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
     >
 
     <!-- Structured Data -->
@@ -98,12 +98,12 @@
         <a href="/" class="nav-logo">
           <img
             src="/logo-circle.jpeg"
-            alt="zigttp logo"
+            alt="zttp logo"
             class="nav-logo-img"
             width="48"
             height="48"
           >
-          <span class="logo-zig">zigttp</span>
+          <span class="logo-zig">zttp</span>
         </a>
         <button
           class="nav-burger"
@@ -136,12 +136,12 @@
         <div class="deck-slide active" data-slide="0">
           <div class="deck-accent-bar"></div>
           <div class="deck-title-content">
-            <h1 class="deck-hero-title">zigttp</h1>
+            <h1 class="deck-hero-title">zttp</h1>
             <p class="deck-hero-subtitle">
               v0.1.1-beta: TypeScript handlers proven at compile time
             </p>
             <p class="deck-hero-caption">
-              zigts subset - compile-time proof - compiler-in-the-loop agent
+              zts subset - compile-time proof - compiler-in-the-loop agent
             </p>
           </div>
           <div class="deck-stats-bar">
@@ -169,7 +169,7 @@
             </h2>
             <p class="deck-slide-subtitle">
               Install once. Edit your handler. Run
-              <code>zigttp dev --watch --prove</code> and watch the compile-time
+              <code>zttp dev --watch --prove</code> and watch the compile-time
               proofs update on every save. Ship only code the compiler can prove
               and the contract diff keeps green.
             </p>
@@ -192,7 +192,7 @@
                   >Compile-time proof on save</span>
                 </div>
                 <p class="deck-card-body">
-                  <code>zigttp dev --watch --prove</code> re-runs path and
+                  <code>zttp dev --watch --prove</code> re-runs path and
                   guarantee proofs on every save, then hot-swaps only on
                   <code>safe</code> / <code>safe_with_additions</code>.
                 </p>
@@ -204,7 +204,7 @@
                   >Compiler-in-the-loop agent</span>
                 </div>
                 <p class="deck-card-body">
-                  <code>zigttp expert</code> asks when intent is ambiguous, runs
+                  <code>zttp expert</code> asks when intent is ambiguous, runs
                   the proof pass, reads diagnostics, and repairs until the
                   compiler accepts the handler.
                 </p>
@@ -266,7 +266,7 @@
             <div class="deck-columns deck-columns--mt">
               <div class="deck-card">
                 <div class="deck-subset-header deck-subset-header-removed">
-                  REMOVED (zigts)
+                  REMOVED (zts)
                 </div>
                 <div class="deck-subset-item deck-subset-removed">
                   &#10005; classes / this / new
@@ -289,7 +289,7 @@
               </div>
               <div class="deck-card">
                 <div class="deck-subset-header deck-subset-header-kept">
-                  KEPT + ADDED (zigts)
+                  KEPT + ADDED (zts)
                 </div>
                 <div class="deck-subset-item deck-subset-kept">
                   &#10003; arrow functions + destructuring
@@ -377,7 +377,7 @@
             </div>
             <div class="deck-command-bar">
               <code class="deck-command-input"
-              >$ zigts check handler.ts --json --contract</code>
+              >$ zts check handler.ts --json --contract</code>
               <code class="deck-command-output"
               >&#8594; PROVEN 7/7 paths + Spec&lt;idempotent, deterministic&gt;
                 &#10003;</code>
@@ -459,7 +459,7 @@
                   >Structured Concurrent I/O</span>
                 </div>
                 <p class="deck-card-bold">
-                  parallel() and race() from zigttp:io
+                  parallel() and race() from zttp:io
                 </p>
                 <p class="deck-card-body">
                   Handler code stays synchronous and linear. Concurrency happens
@@ -514,19 +514,19 @@
                   <code>needs_review</code> - with a proof certificate.
                 </p>
                 <div class="deck-cmd-tag">
-                  <code>zigts prove old.json new.json</code>
+                  <code>zts prove old.json new.json</code>
                 </div>
               </div>
               <div class="deck-card deck-card--col">
                 <div class="deck-evo-title">Proof Ledger</div>
                 <p class="deck-evo-body">
                   Every successful deploy and proven hot-swap appends one row to
-                  <code>.zigttp/proofs.jsonl</code> with verdicts, proven facts,
+                  <code>.zttp/proofs.jsonl</code> with verdicts, proven facts,
                   and contract sha. Export as markdown, HTML, or an SVG verdict
                   badge for the PR description.
                 </p>
                 <div class="deck-cmd-tag">
-                  <code>zigttp proofs list | show | diff | export</code>
+                  <code>zttp proofs list | show | diff | export</code>
                 </div>
               </div>
             </div>
@@ -545,7 +545,7 @@
               <div class="deck-card-header">
                 <span class="deck-card-header-icon">&#9654;</span>
                 <span class="deck-card-header-title"
-                >zigttp CLI v0.1.1-beta</span>
+                >zttp CLI v0.1.1-beta</span>
               </div>
               <code class="deck-guard-code"
               >init &#8594; dev &#8594; test &#8594; expert &#8594;
@@ -555,16 +555,16 @@
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
-                  <span class="deck-check-title">zigttp init my-app</span>
+                  <span class="deck-check-title">zttp init my-app</span>
                   <span class="deck-check-desc"
-                  >Scaffold a project with a handler, zigttp.json, and
-                    zigts-ready defaults</span>
+                  >Scaffold a project with a handler, zttp.json, and
+                    zts-ready defaults</span>
                 </div>
               </div>
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
-                  <span class="deck-check-title">zigttp test</span>
+                  <span class="deck-check-title">zttp test</span>
                   <span class="deck-check-desc"
                   >Run handler tests as golden request/response cases against
                     the proven handler</span>
@@ -574,7 +574,7 @@
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
                   <span class="deck-check-title"
-                  >zigttp dev --watch --prove</span>
+                  >zttp dev --watch --prove</span>
                   <span class="deck-check-desc"
                   >Proven live reload - hot-swap only on safe /
                     safe_with_additions verdicts</span>
@@ -583,17 +583,17 @@
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
-                  <span class="deck-check-title">zigttp deploy</span>
+                  <span class="deck-check-title">zttp deploy</span>
                   <span class="deck-check-desc"
                   >Self-contained binary + one proof-ledger row; verify with
-                    <code>zigttp verify</code> against the embedded Ed25519
+                    <code>zttp verify</code> against the embedded Ed25519
                     key</span>
                 </div>
               </div>
               <div class="deck-check-item">
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
-                  <span class="deck-check-title">zigttp expert</span>
+                  <span class="deck-check-title">zttp expert</span>
                   <span class="deck-check-desc"
                   >Asks one clarifying question when needed, compiles the patch,
                     and reports proof-loop metrics</span>
@@ -603,7 +603,7 @@
                 <span class="deck-check-icon">$</span>
                 <div class="deck-item-row deck-item-row--tight">
                   <span class="deck-check-title"
-                  >zigttp proofs / witnesses</span>
+                  >zttp proofs / witnesses</span>
                   <span class="deck-check-desc"
                   >Browse the proof ledger; manage the per-handler witness
                     corpus that defends against regressions</span>
@@ -650,83 +650,83 @@
               </div>
               <div class="deck-modules-grid">
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:auth</code>
+                  <code class="deck-module-name">zttp:auth</code>
                   <span class="deck-module-desc">JWT + webhooks</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:crypto</code>
+                  <code class="deck-module-name">zttp:crypto</code>
                   <span class="deck-module-desc">SHA/HMAC/B64</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:validate</code>
+                  <code class="deck-module-name">zttp:validate</code>
                   <span class="deck-module-desc">JSON Schema</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:decode</code>
+                  <code class="deck-module-name">zttp:decode</code>
                   <span class="deck-module-desc">Parse + validate</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:cache</code>
+                  <code class="deck-module-name">zttp:cache</code>
                   <span class="deck-module-desc">KV store + TTL</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:sql</code>
+                  <code class="deck-module-name">zttp:sql</code>
                   <span class="deck-module-desc">SQLite</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:io</code>
+                  <code class="deck-module-name">zttp:io</code>
                   <span class="deck-module-desc">Parallel I/O</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:durable</code>
+                  <code class="deck-module-name">zttp:durable</code>
                   <span class="deck-module-desc">Crash recovery</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:compose</code>
+                  <code class="deck-module-name">zttp:compose</code>
                   <span class="deck-module-desc">Guards + pipe</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:router</code>
+                  <code class="deck-module-name">zttp:router</code>
                   <span class="deck-module-desc">Route matching</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:env</code>
+                  <code class="deck-module-name">zttp:env</code>
                   <span class="deck-module-desc">Environment</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:http</code>
+                  <code class="deck-module-name">zttp:http</code>
                   <span class="deck-module-desc">Cookies + CORS</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:url</code>
+                  <code class="deck-module-name">zttp:url</code>
                   <span class="deck-module-desc">URL parsing</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:id</code>
+                  <code class="deck-module-name">zttp:id</code>
                   <span class="deck-module-desc">UUID/ULID/nano</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:log</code>
+                  <code class="deck-module-name">zttp:log</code>
                   <span class="deck-module-desc">Structured logs</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:text</code>
+                  <code class="deck-module-name">zttp:text</code>
                   <span class="deck-module-desc">Escape + slug</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:time</code>
+                  <code class="deck-module-name">zttp:time</code>
                   <span class="deck-module-desc">ISO/HTTP dates</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:ratelimit</code>
+                  <code class="deck-module-name">zttp:ratelimit</code>
                   <span class="deck-module-desc">Token bucket</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:service</code>
+                  <code class="deck-module-name">zttp:service</code>
                   <span class="deck-module-desc">Service calls</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zigttp:scope</code>
+                  <code class="deck-module-name">zttp:scope</code>
                   <span class="deck-module-desc">Resource scopes</span>
                 </div>
               </div>
@@ -742,13 +742,13 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">Comparison</span>
             <h2 class="deck-slide-title">
-              zigttp vs the general-purpose runtimes
+              zttp vs the general-purpose runtimes
             </h2>
 
             <div class="deck-cmp">
               <div class="deck-cmp-headers">
                 <div class="deck-cmp-label-hd"></div>
-                <div class="deck-cmp-hero-hd">zigttp</div>
+                <div class="deck-cmp-hero-hd">zttp</div>
                 <div class="deck-cmp-other-hd">Node.js</div>
                 <div class="deck-cmp-other-hd">Deno</div>
                 <div class="deck-cmp-other-hd">Bun</div>
@@ -827,7 +827,7 @@
               </div>
               <div class="deck-cmp-row">
                 <div class="deck-cmp-label">Language</div>
-                <div class="deck-cmp-hero deck-cmp-tradeoff">zigts subset</div>
+                <div class="deck-cmp-hero deck-cmp-tradeoff">zts subset</div>
                 <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
                 <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
                 <div class="deck-cmp-other deck-cmp-other-yes">Yes</div>
@@ -842,7 +842,7 @@
             </div>
 
             <p class="deck-footnote deck-footnote--pushed">
-              zigttp trades generality for compile-time proof, least privilege,
+              zttp trades generality for compile-time proof, least privilege,
               and deployment automation.
             </p>
           </div>
@@ -852,7 +852,7 @@
         <div class="deck-slide" data-slide="11">
           <div class="deck-accent-bar"></div>
           <div class="deck-title-content">
-            <h2 class="deck-closing-title">zigttp</h2>
+            <h2 class="deck-closing-title">zttp</h2>
             <p class="deck-closing-tagline">
               Write handlers. Prove them at compile time. Ship them.
             </p>

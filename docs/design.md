@@ -1,8 +1,8 @@
-# zigts Expert Section + Design Polish
+# zts Expert Section + Design Polish
 
 ## Problem Statement
 
-The zigttp website's redesign consolidated the "Compiler-in-the-Loop for Claude" feature into a single sentence of prose. The zigts expert agent is a differentiating capability: Claude Code gets native tool-use access to the zigttp compiler, enabling an automated write-verify-fix loop that produces proven-correct handlers. This deserves a dedicated section with a visual demo, not a buried mention.
+The zttp website's redesign consolidated the "Compiler-in-the-Loop for Claude" feature into a single sentence of prose. The zts expert agent is a differentiating capability: Claude Code gets native tool-use access to the zttp compiler, enabling an automated write-verify-fix loop that produces proven-correct handlers. This deserves a dedicated section with a visual demo, not a buried mention.
 
 Additionally, the fresh redesign needs a polish pass to catch rough edges in typography, spacing, motion, and responsiveness.
 
@@ -14,7 +14,7 @@ Additionally, the fresh redesign needs a polish pass to catch rough edges in typ
 
 ## Goals
 
-1. Add a zigts expert coding agent section between Code and Modules (position 4 of 6)
+1. Add a zts expert coding agent section between Code and Modules (position 4 of 6)
 2. Show an agent workflow demo via a terminal that depicts the full loop
 3. Identify and fix design rough edges across the entire page
 
@@ -31,12 +31,12 @@ Additionally, the fresh redesign needs a polish pass to catch rough edges in typ
 One section title, one brief description (1-2 sentences), one terminal showing:
 
 ```
-$ zigttp expert "add a health check endpoint"
+$ zttp expert "add a health check endpoint"
 
 [agent] Writing handler...
 [agent] Compiling handler.ts
 
-  error[E0003]: try/catch is not supported in zigts
+  error[E0003]: try/catch is not supported in zts
     --> handler.ts:12:5
     = help: use Result types
 

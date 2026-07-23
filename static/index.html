@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-      zigttp - AI writes your TypeScript handler, the compiler proves it
+      zttp - AI writes your TypeScript handler, the compiler proves it
     </title>
     <meta
       name="description"
@@ -30,7 +30,7 @@
     <meta property="og:url" content="https://zigttp.timok.com/">
     <meta
       property="og:title"
-      content="zigttp - AI writes your TypeScript handler, the compiler proves it"
+      content="zttp - AI writes your TypeScript handler, the compiler proves it"
     >
     <meta
       property="og:description"
@@ -40,18 +40,18 @@
     <meta property="og:image:height" content="630">
     <meta
       property="og:image"
-      content="https://zigttp.timok.com/zigttp-og.jpg"
+      content="https://zigttp.timok.com/zttp-og.jpg"
     >
     <meta
       property="og:image:alt"
-      content="zigttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
+      content="zttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
     >
-    <meta property="og:site_name" content="zigttp">
+    <meta property="og:site_name" content="zttp">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zigttp - AI writes your TypeScript handler, the compiler proves it"
+      content="zttp - AI writes your TypeScript handler, the compiler proves it"
     >
     <meta
       name="twitter:description"
@@ -59,23 +59,23 @@
     >
     <meta
       name="twitter:image"
-      content="https://zigttp.timok.com/zigttp-og.jpg"
+      content="https://zigttp.timok.com/zttp-og.jpg"
     >
     <meta
       name="twitter:image:alt"
-      content="zigttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
+      content="zttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
     >
 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "zigttp",
+      "name": "zttp",
       "description": "For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Serverless Runtime, TypeScript Compiler, CLI Tool",
-      "keywords": "serverless runtime, capability sandbox, compile-time proof, provably correct TypeScript, TypeScript, zigts, Zig runtime, compiler agent, compiler-in-the-loop, compile-time verification",
+      "keywords": "serverless runtime, capability sandbox, compile-time proof, provably correct TypeScript, TypeScript, zts, Zig runtime, compiler agent, compiler-in-the-loop, compile-time verification",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -91,11 +91,11 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "zigttp",
+      "name": "zttp",
       "url": "https://zigttp.timok.com",
       "publisher": {
         "@type": "Organization",
-        "name": "zigttp",
+        "name": "zttp",
         "url": "https://zigttp.timok.com",
         "logo": {
           "@type": "ImageObject",
@@ -108,14 +108,14 @@
     <link rel="stylesheet" href="/style.css?v=15">
     <link rel="stylesheet" href="/home.css?v=19">
   </head>
-  <body class="zigttp-home">
+  <body class="zttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
 
     <header class="z-header">
       <nav class="z-nav" aria-label="Primary navigation">
-        <a class="z-brand" href="/" aria-label="zigttp home">
+        <a class="z-brand" href="/" aria-label="zttp home">
           <img src="/logo-circle.jpeg" alt="" width="38" height="38">
-          <span>zigttp</span>
+          <span>zttp</span>
           <small>v0.1.1-beta</small>
         </a>
         <button
@@ -156,7 +156,7 @@
           <span>New</span>
           <strong>Durable workflows, proven fault-tolerant.</strong>
           <p>
-            Compose handlers in-process with <code>zigttp:workflow</code>, and
+            Compose handlers in-process with <code>zttp:workflow</code>, and
             the compiler proves which runs are safe to replay. Unproven retries
             fail closed with a readable <code>599</code> - never a silent
             re-run.
@@ -178,7 +178,7 @@
           </p>
           <h1>The AI writes your handler. The compiler proves it's safe.</h1>
           <p class="z-hero-lede">
-            Describe the handler you want. zigttp's agent writes it in a
+            Describe the handler you want. zttp's agent writes it in a
             TypeScript subset narrow enough for the compiler to prove - every
             path returns, every declared guarantee holds - and rejects any draft
             that fails. You approve only code that passes.
@@ -212,7 +212,7 @@
           <div
             class="z-studio-mock"
             role="img"
-            aria-label="Stylized zigttp proof loop showing proof state, handler code, contract verdict, and witness corpus"
+            aria-label="Stylized zttp proof loop showing proof state, handler code, contract verdict, and witness corpus"
           >
             <aside class="z-studio-sidebar">
               <div class="z-sidebar-title">surfaces</div>
@@ -267,8 +267,8 @@
                   <div class="z-pane-title">
                     <span>src/handler.ts</span><em>saved 14ms ago</em>
                   </div>
-                  <pre><code><span class="z-token-key">import</span> { decodeJson } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:decode"</span>;
-<span class="z-token-key">import type</span> { Spec } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:types"</span>;
+                  <pre><code><span class="z-token-key">import</span> { decodeJson } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:decode"</span>;
+<span class="z-token-key">import type</span> { Spec } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:types"</span>;
 
 <span class="z-token-key">type</span> Guardrails = Spec&lt;
   <span class="z-token-str">"idempotent"</span> | <span class="z-token-str">"deterministic"</span> |
@@ -283,7 +283,7 @@
                 </div>
                 <div class="z-verdict-pane">
                   <div class="z-pane-title">
-                    <span>zigttp dev --watch</span><em>live</em>
+                    <span>zttp dev --watch</span><em>live</em>
                   </div>
                   <div class="z-verdict z-verdict-safe">
                     <span>PROVEN</span>
@@ -295,9 +295,9 @@
                     <span>binary</span><strong>4.8MB</strong>
                     <span>cold start</span><strong>~7ms</strong>
                   </div>
-                  <pre><code>$ zigttp dev --watch --prove
+                  <pre><code>$ zttp dev --watch --prove
 verdict: safe_with_additions
-ledger: .zigttp/proofs.jsonl
+ledger: .zttp/proofs.jsonl
 hot swap: allowed</code></pre>
                 </div>
               </div>
@@ -317,7 +317,7 @@ hot swap: allowed</code></pre>
         <div class="z-heading-wide">
           <h2>Prove code before it runs.</h2>
           <p>
-            The playground runs the real <code>zigts</code> analyzer in
+            The playground runs the real <code>zts</code> analyzer in
             WebAssembly, not a mockup. It proves the handler from source, then
             shows the exact file, line, and reason the moment you add code it
             cannot prove.
@@ -424,7 +424,7 @@ hot swap: allowed</code></pre>
                 autocapitalize="off"
                 readonly
                 aria-label="Handler source code"
-              >import type { Spec } from "zigttp:types";
+              >import type { Spec } from "zttp:types";
 
 // All guarantees are enforced by default. This Spec&lt;...&gt;
 // narrows enforcement to these three; break one and the card flips red.
@@ -589,15 +589,15 @@ function handler(req: Request): Response &amp; Guarantees {
               <pre
                 class="zp-caller-block"
               >HTTP/1.1 200 OK
-Zigttp-Proofs: deterministic, read_only, injection_safe
-Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
+Zttp-Proofs: deterministic, read_only, injection_safe
+Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
               <pre
                 class="zp-caller-block"
-              >$ zigttp verify https://your-service.dev
+              >$ zttp verify https://your-service.dev
   Verified  key 9f2c..a1  3 proven chips</pre>
               <p class="zp-caller-foot">
                 The signature is checked against the public key at
-                <code>/.well-known/zigttp-attest</code>.
+                <code>/.well-known/zttp-attest</code>.
               </p>
             </div>
 
@@ -616,7 +616,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             The compiler won't let the agent guess.
           </h2>
           <p class="z-section-intro">
-            New in v0.1.1-beta: <code>zigttp expert</code> asks for the missing
+            New in v0.1.1-beta: <code>zttp expert</code> asks for the missing
             detail when a request is materially ambiguous, then records the
             proof-loop metrics that show how quickly it reached green.
           </p>
@@ -671,9 +671,9 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
               <em>show compiler loop</em>
             </summary>
             <div class="z-pane-title">
-              <span>zigttp expert</span><em>compiler in the loop</em>
+              <span>zttp expert</span><em>compiler in the loop</em>
             </div>
-            <pre><code><span class="z-cmd">$</span> zigttp expert <span class="z-str">"add auth to the webhook"</span>
+            <pre><code><span class="z-cmd">$</span> zttp expert <span class="z-str">"add auth to the webhook"</span>
 
 <span class="z-agent">[agent]</span> Need one detail: Bearer token, HMAC, or mTLS?
 <span class="z-agent">[you]</span> Bearer token
@@ -681,7 +681,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 <span class="z-agent">[agent]</span> Writing handler...
 <span class="z-agent">[agent]</span> Compiling handler.ts
 
-  <span class="z-err">error[E0003]: try/catch is not supported in zigts</span>
+  <span class="z-err">error[E0003]: try/catch is not supported in zts</span>
     <span class="z-muted">--&gt; handler.ts:12:5</span>
     <span class="z-muted">= help: use Result types</span>
 
@@ -699,7 +699,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           </details>
           <div class="z-expert-copy">
             <p>
-              <code>zigttp expert</code> now stops for one clarifying question
+              <code>zttp expert</code> now stops for one clarifying question
               when the request is materially ambiguous. After that, it writes
               code, runs the proof pass, reads the diagnostics, rewrites, and
               records session metrics so you can see the path to green instead
@@ -726,7 +726,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             </p>
           </article>
           <article class="z-contrast-strong">
-            <span><i class="z-status-dot z-dot-safe"></i>zigttp expert</span>
+            <span><i class="z-status-dot z-dot-safe"></i>zttp expert</span>
             <p>
               Asks one question, compiles each draft, reads proof errors, and
               reports the proof-loop metrics.
@@ -735,7 +735,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         </div>
 
         <p class="z-expert-note">
-          <code>zigttp expert</code> supports Anthropic and OpenAI keys, resume,
+          <code>zttp expert</code> supports Anthropic and OpenAI keys, resume,
           read-only mode, non-interactive prompts, and per-session
           <code>session_summary</code> metrics.
         </p>
@@ -760,9 +760,9 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           </p>
           <h2>Compose handlers. Prove the recovery.</h2>
           <p class="z-section-intro">
-            <code>zigttp:workflow</code> composes co-located handlers
+            <code>zttp:workflow</code> composes co-located handlers
             in-process: <code>call</code>, <code>saga</code>, <code>fanout</code>,
-            resolved by name at compile time, no HTTP hop. <code>zigttp:durable</code>
+            resolved by name at compile time, no HTTP hop. <code>zttp:durable</code>
             gives a run a stable key, an oplog, timers, and signals. The compiler
             proves which runs are safe to replay - the runtime refuses the ones
             it can't.
@@ -774,9 +774,9 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <div class="z-pane-title">
               <span>orchestrator.ts</span><em>one process, no network</em>
             </div>
-            <pre><code><span class="z-token-key">import</span> { run } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:durable"</span>;
-<span class="z-token-key">import</span> { call } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:workflow"</span>;
-<span class="z-token-key">import type</span> { Spec } <span class="z-token-key">from</span> <span class="z-token-str">"zigttp:types"</span>;
+            <pre><code><span class="z-token-key">import</span> { run } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:durable"</span>;
+<span class="z-token-key">import</span> { call } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:workflow"</span>;
+<span class="z-token-key">import type</span> { Spec } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:types"</span>;
 
 <span class="z-token-key">type</span> Guarantees = Spec&lt;
   <span class="z-token-str">"deterministic"</span> | <span class="z-token-str">"retry_safe"</span> | <span class="z-token-str">"idempotent"</span> |
@@ -792,8 +792,8 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 }
 
 <span class="z-muted"># resolve every call target by name, then serve durably</span>
-<span class="z-cmd">$</span> zigttp link system.json
-<span class="z-cmd">$</span> zigttp serve orchestrator.ts --system system.json \
+<span class="z-cmd">$</span> zttp link system.json
+<span class="z-cmd">$</span> zttp serve orchestrator.ts --system system.json \
     --durable ./.durable --workflow-queue</code></pre>
           </div>
           <div class="z-expert-copy">
@@ -810,7 +810,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             </p>
             <ul class="z-check-list">
               <li>
-                <span><code>zigttp link system.json</code> resolves every call,
+                <span><code>zttp link system.json</code> resolves every call,
                   saga, and fanout target by name at compile time.</span>
               </li>
               <li>
@@ -922,7 +922,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             </p>
           </article>
           <article class="z-contrast-strong">
-            <span><i class="z-status-dot z-dot-safe"></i>zigttp durable run</span>
+            <span><i class="z-status-dot z-dot-safe"></i>zttp durable run</span>
             <p>
               Fails closed. Without a <code>retry_safe</code> proof or an
               <code>Idempotency-Key</code>, replay is refused with a 599 the client
@@ -957,7 +957,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <h2>The trade that makes compile-time proof work.</h2>
           </div>
           <p>
-            zigttp gives up the full JavaScript and npm surface so the compiler
+            zttp gives up the full JavaScript and npm surface so the compiler
             can enumerate handler paths, capabilities, and declared guarantees
             before deploy.
           </p>
@@ -970,7 +970,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
                 <th>Node / Deno / Bun</th>
                 <th>Serverless platforms</th>
                 <th>Static type checks</th>
-                <th>zigttp</th>
+                <th>zttp</th>
               </tr>
             </thead>
             <tbody>
@@ -1031,49 +1031,49 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <h3>Runs TypeScript handlers</h3><span>Node/Deno/Bun <b
               >✓</b></span><span>Serverless <b>✓</b></span><span>Type checks
               <b>partial</b></span><span
-              class="zigttp"
-            >zigttp <b>✓</b></span>
+              class="zttp"
+            >zttp <b>✓</b></span>
           </article>
           <article>
             <h3>Compile-time path and guarantee proofs</h3><span>Node/Deno/Bun
               <b>-</b></span><span>Serverless <b>-</b></span><span>Type checks
               <b>limited</b></span><span
-              class="zigttp"
-            >zigttp <b>✓</b></span>
+              class="zttp"
+            >zttp <b>✓</b></span>
           </article>
           <article>
             <h3>Guarantees enforced by default</h3><span>Node/Deno/Bun <b
               >-</b></span><span>Serverless <b>-</b></span><span>Type checks
               <b>-</b></span><span
-              class="zigttp"
-            >zigttp <b>✓</b></span>
+              class="zttp"
+            >zttp <b>✓</b></span>
           </article>
           <article>
             <h3>Durable workflows with proven-safe replay</h3><span>Node/Deno/Bun
               <b>-</b></span><span>Serverless <b>partial</b></span><span>Type
               checks <b>-</b></span><span
-              class="zigttp"
-            >zigttp <b>✓</b></span>
+              class="zttp"
+            >zttp <b>✓</b></span>
           </article>
           <article>
             <h3>Compiler-guided agent</h3><span>Node/Deno/Bun <b
               >-</b></span><span>Serverless <b>-</b></span><span>Type checks
               <b>-</b></span><span
-              class="zigttp"
-            >zigttp <b>✓</b></span>
+              class="zttp"
+            >zttp <b>✓</b></span>
           </article>
           <article>
             <h3>Small Zig binary</h3><span>Node/Deno/Bun <b>-</b></span><span
             >Serverless <b>-</b></span><span>Type checks <b>-</b></span><span
-              class="zigttp"
-            >zigttp <b>✓</b></span>
+              class="zttp"
+            >zttp <b>✓</b></span>
           </article>
           <article>
             <h3>Proof ledger and witness replay</h3><span>Node/Deno/Bun <b
               >-</b></span><span>Serverless <b>-</b></span><span>Type checks
               <b>-</b></span><span
-              class="zigttp"
-            >zigttp <b>✓</b></span>
+              class="zttp"
+            >zttp <b>✓</b></span>
           </article>
         </div>
       </section>
@@ -1092,7 +1092,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <span class="z-card-index">01</span>
             <h3>Provable TypeScript</h3>
             <p>
-              <code>zigts</code> removes the features that hide control flow:
+              <code>zts</code> removes the features that hide control flow:
               <code>while</code>, <code>try/catch</code>, <code>class</code>,
               <code>var</code>. That buys the compiler up to 13 properties per
               handler - every path returns, no secret leaks, safe-to-replay
@@ -1103,7 +1103,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <span class="z-card-index">02</span>
             <h3>Compiler-in-the-loop agent</h3>
             <p>
-              <code>zigttp expert</code> writes a patch, runs the proof pass,
+              <code>zttp expert</code> writes a patch, runs the proof pass,
               asks when the prompt is ambiguous, and rewrites until the compiler
               accepts it.
             </p>
@@ -1112,7 +1112,7 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <span class="z-card-index">03</span>
             <h3>Small Zig binaries</h3>
             <p>
-              <code>zigttp deploy</code> emits a local self-contained binary.
+              <code>zttp deploy</code> emits a local self-contained binary.
               Current public baseline: 4.8 MB and 7-15 ms typical cold start.
             </p>
           </article>
@@ -1168,27 +1168,27 @@ Zigttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <span><i class="z-status-dot z-dot-idle"></i>needs_review</span>
           </div>
         </div>
-        <div class="z-code-card" aria-label="zigttp CLI workflow">
+        <div class="z-code-card" aria-label="zttp CLI workflow">
           <pre><code><span class="z-muted"># create a handler project</span>
-<span class="z-cmd">zigttp</span> init api && cd api
-<span class="z-cmd">zigttp</span> dev
+<span class="z-cmd">zttp</span> init api && cd api
+<span class="z-cmd">zttp</span> dev
 
 <span class="z-muted"># run handler tests</span>
-<span class="z-cmd">zigttp</span> test
+<span class="z-cmd">zttp</span> test
 
 <span class="z-muted"># ask the compiler-guided agent for a patch</span>
-<span class="z-cmd">zigttp</span> expert <span class="z-str">"add health check"</span>
+<span class="z-cmd">zttp</span> expert <span class="z-str">"add health check"</span>
 
 <span class="z-muted"># build a signed local binary</span>
-<span class="z-cmd">zigttp</span> deploy
-<span class="z-cmd">zigttp</span> proofs show HEAD</code></pre>
+<span class="z-cmd">zttp</span> deploy
+<span class="z-cmd">zttp</span> proofs show HEAD</code></pre>
         </div>
       </section>
 
       <section class="z-final-cta" id="install">
         <p class="z-section-kicker">Start proving</p>
         <h2>
-          Install zigttp. Break a proof on purpose.
+          Install zttp. Break a proof on purpose.
         </h2>
         <p>
           The quickest demo is one unsupported feature. Add

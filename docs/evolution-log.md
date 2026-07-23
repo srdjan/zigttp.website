@@ -1,6 +1,6 @@
 # Evolution Log
 
-## Iteration 1: zigts Expert Agent Section + Design Polish
+## Iteration 1: zts Expert Agent Section + Design Polish
 
 - What changed:
   - Added new "Expert Agent" section between Code and Modules showing
@@ -28,8 +28,8 @@
 - What changed:
   - Added a `#playground` section below the hero: a code editor beside a proof
     card
-  - The card runs the real zigts analyzer, compiled to WebAssembly and served
-    from `static/`, so the verdict matches `zigttp dev` rather than
+  - The card runs the real zts analyzer, compiled to WebAssembly and served
+    from `static/`, so the verdict matches `zttp dev` rather than
     approximating it
   - Three perturbation buttons (inject `Date.now()`, leak a secret, add a
     `while` loop) flip the card red and back for visitors who do not type

@@ -1,9 +1,9 @@
-// Live proof playground. Loads the real zigts analyzer (compiled to wasm)
+// Live proof playground. Loads the real zts analyzer (compiled to wasm)
 // and drives the proof card from its output. The page works without this
 // script: the section ships a pre-rendered proven card and a plain editor.
 //
 // WASM_URL is patched by scripts/build-wasm-playground.sh on every build.
-const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
+const WASM_URL = "/zts-analyzer.5af8cd83c269.wasm";
 
 (function () {
   "use strict";
@@ -35,7 +35,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   ].join("\n");
 
   const SEED_SPEC = [
-    'import type { Spec } from "zigttp:types";',
+    'import type { Spec } from "zttp:types";',
     "",
     "// All guarantees are enforced by default. This Spec<...>",
     "// narrows enforcement to these three; break one and the card flips red.",
@@ -56,7 +56,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
         RETURN_LINE,
         "  const stamp = Date.now();\n  return Response.json({ ok: true, stamp });",
       ),
-      secret: ('import { env } from "zigttp:env";\n' + seed).replace(
+      secret: ('import { env } from "zttp:env";\n' + seed).replace(
         RETURN_LINE,
         '  return Response.json({ apiKey: env("SECRET_KEY") });',
       ),
@@ -71,7 +71,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
   let VARIANTS = variantsFor(activeSeed);
 
   // --- property model -----------------------------------------------------
-  // The seven properties `zigts check --json` reports under proof.properties,
+  // The seven properties `zts check --json` reports under proof.properties,
   // each paired with the substrate restrictions that earned it (Trade lens).
   // `gave`/`earned` text mirrors TRADE_TABLE in packages/runtime/src/studio.zig
   // (itself a mirror of proof_to_restrictions) - keep the wording in sync.
@@ -510,7 +510,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     );
     const specs = (proof && proof.declared_specs) || [];
     pre.textContent = [
-      "zigttp proof certificate",
+      "zttp proof certificate",
       "------------------------",
       "verdict:  " + (ok ? "proven" : "blocked"),
       "proven:   " + (proven.join(", ") || "(none)"),
@@ -842,7 +842,7 @@ const WASM_URL = "/zigts-analyzer.5af8cd83c269.wasm";
     } catch (err) {
       console.error("playground: proof engine failed to load", err);
       setStatus(
-        "proof engine unavailable - install zigttp to try it locally",
+        "proof engine unavailable - install zttp to try it locally",
         "zp-status-warn",
       );
       setDemoState("proof engine unavailable");

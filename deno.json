@@ -1,5 +1,5 @@
 {
-  "name": "@srdjan/zigttp-website",
+  "name": "@srdjan/zttp-website",
   "version": "0.2.0",
   "exports": "./main.ts",
   "tasks": {
