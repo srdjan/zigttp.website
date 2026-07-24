@@ -106,7 +106,7 @@
     </script>
 
     <link rel="stylesheet" href="/style.css?v=15">
-    <link rel="stylesheet" href="/home.css?v=19">
+    <link rel="stylesheet" href="/home.css?v=20">
   </head>
   <body class="zttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -116,7 +116,7 @@
         <a class="z-brand" href="/" aria-label="zttp home">
           <img src="/logo-circle.jpeg" alt="" width="38" height="38">
           <span>zttp</span>
-          <small>v0.1.1-beta</small>
+          <small>v0.18.0</small>
         </a>
         <button
           class="z-menu-button"
@@ -133,6 +133,7 @@
           <a href="#playground">Try</a>
           <a href="#expert">Agent</a>
           <a href="#workflows">Workflows</a>
+          <a href="#hypermedia">Hypermedia</a>
           <a href="#compare">Compare</a>
           <a href="#runtime">Runtime</a>
           <a
@@ -153,20 +154,21 @@
     <main id="main">
       <aside class="z-release-banner" aria-label="Release announcement">
         <div>
-          <span>New</span>
-          <strong>Durable workflows, proven fault-tolerant.</strong>
+          <span>v0.18.0</span>
+          <strong>The receipt now signs the sandbox policy.</strong>
           <p>
-            Compose handlers in-process with <code>zttp:workflow</code>, and
-            the compiler proves which runs are safe to replay. Unproven retries
-            fail closed with a readable <code>599</code> - never a silent
-            re-run.
+            The proof receipt committed to your contract and bytecode but not to
+            the egress, env, cache, and SQL allowlist the sandbox enforces. A
+            <code>runtime_policy_sha256</code> claim pins those exact bytes and
+            startup fails closed on a mismatch. Binaries built before v0.18.0
+            are refused: rebuild and redeploy.
           </p>
         </div>
         <a
-          href="https://github.com/srdjan/zttp/blob/main/docs/durable-workflows.md"
+          href="https://github.com/srdjan/zttp/releases/tag/v0.18.0"
           target="_blank"
           rel="noopener noreferrer"
-        >Read the guide</a>
+        >Read the release notes</a>
       </aside>
 
       <section class="z-hero" id="hero">
@@ -176,7 +178,7 @@
             <span class="z-status-dot z-dot-safe"></span>
             Agent-written. Compiler-proven.
           </p>
-          <h1>The AI writes your handler. The compiler proves it's safe.</h1>
+          <h1>The AI writes your code. The compiler proves it's safe.</h1>
           <p class="z-hero-lede">
             Describe the handler you want. zttp's agent writes it in a
             TypeScript subset narrow enough for the compiler to prove - every
@@ -195,9 +197,9 @@
             <span class="z-prompt">$</span>
             <code
               id="install-cmd"
-              data-command="curl -fsSL https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh | sh"
+              data-command="curl -fsSL https://raw.githubusercontent.com/srdjan/zttp/main/install.sh | sh"
             >curl -fsSL
-              https://raw.githubusercontent.com/srdjan/zigttp/main/install.sh |
+              https://raw.githubusercontent.com/srdjan/zttp/main/install.sh |
               sh</code>
             <button type="button" id="copy-install">Copy</button>
           </div>
@@ -594,10 +596,13 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
               <pre
                 class="zp-caller-block"
               >$ zttp verify https://your-service.dev
-  Verified  key 9f2c..a1  3 proven chips</pre>
+  Verified  key 9f2c..a1  3 proven chips
+  Policy    pinned by runtime_policy_sha256</pre>
               <p class="zp-caller-foot">
                 The signature is checked against the public key at
-                <code>/.well-known/zttp-attest</code>.
+                <code>/.well-known/zttp-attest</code>. Since v0.18.0 the
+                envelope also pins the egress, env, cache, and SQL allowlist the
+                sandbox enforces.
               </p>
             </div>
 
@@ -616,9 +621,9 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             The compiler won't let the agent guess.
           </h2>
           <p class="z-section-intro">
-            New in v0.1.1-beta: <code>zttp expert</code> asks for the missing
-            detail when a request is materially ambiguous, then records the
-            proof-loop metrics that show how quickly it reached green.
+            <code>zttp expert</code> asks for the missing detail when a request
+            is materially ambiguous, then records the proof-loop metrics that
+            show how quickly it reached green.
           </p>
         </div>
         <div class="z-loop">
@@ -761,8 +766,9 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           <h2>Compose handlers. Prove the recovery.</h2>
           <p class="z-section-intro">
             <code>zttp:workflow</code> composes co-located handlers
-            in-process: <code>call</code>, <code>saga</code>, <code>fanout</code>,
-            resolved by name at compile time, no HTTP hop. <code>zttp:durable</code>
+            in-process: <code>call</code>, <code>follow</code>,
+            <code>fanout</code>, <code>saga</code>, resolved by name at compile
+            time, no HTTP hop. <code>zttp:durable</code>
             gives a run a stable key, an oplog, timers, and signals. The compiler
             proves which runs are safe to replay - the runtime refuses the ones
             it can't.
@@ -811,7 +817,8 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <ul class="z-check-list">
               <li>
                 <span><code>zttp link system.json</code> resolves every call,
-                  saga, and fanout target by name at compile time.</span>
+                  follow, saga, and fanout target by name at compile time, and
+                  validates the bundle's single external entry point.</span>
               </li>
               <li>
                 <span><code>saga([...])</code> rolls back completed steps in
@@ -950,6 +957,103 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         </div>
       </section>
 
+      <section class="z-section z-workflows" id="hypermedia">
+        <div class="z-section-heading">
+          <p class="z-section-kicker">
+            <span class="z-status-dot z-dot-safe"></span>
+            Hypermedia resources
+          </p>
+          <h2>One declaration. HAL for services, HTMX for people.</h2>
+          <p class="z-section-intro">
+            <code>resource(data, affordances)</code> returns one value the
+            runtime renders two ways, chosen by the request's
+            <code>Accept</code> header. A service asking for
+            <code>application/hal+json</code> gets a HAL document. A browser
+            asking for <code>text/html</code> gets HTMX controls built from the
+            same affordances. You declare what the resource can do once.
+          </p>
+        </div>
+
+        <div class="z-expert z-wf-compose">
+          <div class="z-code-card" aria-label="Hypermedia resource handler">
+            <div class="z-pane-title">
+              <span>order.ts</span><em>one shape, two renderings</em>
+            </div>
+            <pre><code><span class="z-token-key">function</span> handler(req: Request): Response {
+  <span class="z-token-key">const</span> order = { id: <span class="z-token-str">42</span>, total: <span class="z-token-str">1999</span>, status: <span class="z-token-str">"pending"</span> };
+  <span class="z-token-key">return</span> resource(order, {
+    self: { href: <span class="z-token-str">"/orders/42"</span> },
+    pay: { href: <span class="z-token-str">"/orders/42/pay"</span>, method: <span class="z-token-str">"POST"</span>, title: <span class="z-token-str">"Pay now"</span>,
+           target: <span class="z-token-str">"#order"</span>, swap: <span class="z-token-str">"outerHTML"</span> },
+    cancel: { href: <span class="z-token-str">"/orders/42"</span>, method: <span class="z-token-str">"DELETE"</span>,
+              title: <span class="z-token-str">"Cancel"</span> },
+  });
+}
+
+<span class="z-muted"># same handler, two clients</span>
+<span class="z-cmd">$</span> zttp serve order.ts -p 3000
+<span class="z-cmd">$</span> curl -H <span class="z-str">'Accept: application/hal+json'</span> \
+    localhost:3000/orders/42
+<span class="z-cmd">$</span> curl -H <span class="z-str">'Accept: text/html'</span> -H <span class="z-str">'HX-Request: true'</span> \
+    localhost:3000/orders/42</code></pre>
+          </div>
+          <div class="z-expert-copy">
+            <p>
+              Each affordance is keyed by its link relation.
+              <code>href</code> is required; <code>method</code>,
+              <code>title</code>, <code>target</code>, <code>swap</code>, and
+              <code>fields</code> are optional. An affordance with no
+              <code>method</code>, or with <code>GET</code> or
+              <code>HEAD</code>, is a navigation link. Any other method is a
+              write action. The rendering follows from that shape - there is no
+              second template to keep in sync.
+            </p>
+            <ul class="z-check-list">
+              <li>
+                <span>HAL: your data plus <code>_links</code> for navigation and
+                  <code>_templates</code> for write actions, with
+                  <code>fields</code> as <code>properties</code>.</span>
+              </li>
+              <li>
+                <span>HTMX: a <code>&lt;dl&gt;</code> of the scalar data, then
+                  <code>&lt;a&gt;</code> links and
+                  <code>&lt;button hx-post&gt;</code> controls carrying
+                  <code>hx-target</code> and <code>hx-swap</code>. Without
+                  <code>HX-Request</code>, the same fragment arrives wrapped in a
+                  page that loads htmx.</span>
+              </li>
+              <li>
+                <span><code>follow(order, "pay")</code> from
+                  <code>zttp:workflow</code> dispatches an affordance by
+                  relation, resolved to a proven bundle route at compile
+                  time.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="z-expert-note">
+          Start from the scaffold with
+          <code>zttp init my-app --template htmx</code>. For a live walkthrough
+          of HATEOAS and HAL on an order whose affordances change with its
+          state, open the
+          <a
+            href="https://github.com/srdjan/zttp/blob/main/docs/hypermedia-explainer.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >interactive explainer</a>.
+        </p>
+
+        <div class="z-calm-strip" aria-label="Hypermedia boundaries">
+          <span><i class="z-status-dot z-dot-safe"></i>one affordance
+            declaration, two renderings</span>
+          <span><i class="z-status-dot z-dot-idle"></i>negotiated by
+            <code>Accept</code>, not by route</span>
+          <span><i class="z-status-dot z-dot-review"></i>v1 beta hypermedia
+            primitive</span>
+        </div>
+      </section>
+
       <section class="z-section z-compare" id="compare">
         <div class="z-heading-wide">
           <div>
@@ -999,6 +1103,13 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
                 <td>Durable workflows with proven-safe replay</td>
                 <td>-</td>
                 <td>partial</td>
+                <td>-</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>HAL and HTMX from one declaration</td>
+                <td>libraries</td>
+                <td>-</td>
                 <td>-</td>
                 <td>✓</td>
               </tr>
@@ -1056,6 +1167,13 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             >zttp <b>✓</b></span>
           </article>
           <article>
+            <h3>HAL and HTMX from one declaration</h3><span>Node/Deno/Bun <b
+              >libraries</b></span><span>Serverless <b>-</b></span><span>Type
+              checks <b>-</b></span><span
+              class="zttp"
+            >zttp <b>✓</b></span>
+          </article>
+          <article>
             <h3>Compiler-guided agent</h3><span>Node/Deno/Bun <b
               >-</b></span><span>Serverless <b>-</b></span><span>Type checks
               <b>-</b></span><span
@@ -1094,7 +1212,7 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
             <p>
               <code>zts</code> removes the features that hide control flow:
               <code>while</code>, <code>try/catch</code>, <code>class</code>,
-              <code>var</code>. That buys the compiler up to 13 properties per
+              <code>var</code>. That buys the compiler 14 proof chips per
               handler - every path returns, no secret leaks, safe-to-replay
               durable runs.
             </p>
@@ -1169,8 +1287,8 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           </div>
         </div>
         <div class="z-code-card" aria-label="zttp CLI workflow">
-          <pre><code><span class="z-muted"># create a handler project</span>
-<span class="z-cmd">zttp</span> init api && cd api
+          <pre><code><span class="z-muted"># scaffold: basic, api, or htmx</span>
+<span class="z-cmd">zttp</span> init api --template api && cd api
 <span class="z-cmd">zttp</span> dev
 
 <span class="z-muted"># run handler tests</span>
@@ -1179,9 +1297,10 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 <span class="z-muted"># ask the compiler-guided agent for a patch</span>
 <span class="z-cmd">zttp</span> expert <span class="z-str">"add health check"</span>
 
-<span class="z-muted"># build a signed local binary</span>
+<span class="z-muted"># build a signed local binary, then check what shipped</span>
 <span class="z-cmd">zttp</span> deploy
-<span class="z-cmd">zttp</span> proofs show HEAD</code></pre>
+<span class="z-cmd">zttp</span> proofs show HEAD
+<span class="z-cmd">zttp</span> verify http://127.0.0.1:8080</code></pre>
         </div>
       </section>
 
@@ -1198,10 +1317,10 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         <div class="z-hero-actions center">
           <a
             class="z-button z-button-primary"
-            href="https://github.com/srdjan/zttp/releases/tag/v0.1.1-beta"
+            href="https://github.com/srdjan/zttp/releases/tag/v0.18.0"
             target="_blank"
             rel="noopener noreferrer"
-          >Download v0.1.1-beta</a>
+          >Download v0.18.0</a>
           <a
             class="z-button z-button-secondary"
             href="https://github.com/srdjan/zttp/blob/main/docs/user-guide.md#first-project"
@@ -1229,6 +1348,6 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
     </footer>
 
     <script src="/script.js?v=8" defer></script>
-    <script src="/playground.js?v=6" defer></script>
+    <script src="/playground.js?v=7" defer></script>
   </body>
 </html>

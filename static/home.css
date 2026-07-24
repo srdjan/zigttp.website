@@ -42,10 +42,10 @@
   margin: 0;
   background:
     radial-gradient(
-      circle at 12% 0%,
-      rgb(110 173 219 / 0.14),
-      transparent 30rem
-    ),
+    circle at 12% 0%,
+    rgb(110 173 219 / 0.14),
+    transparent 30rem
+  ),
     radial-gradient(
     circle at 92% 4rem,
     rgb(110 173 219 / 0.12),
@@ -980,10 +980,10 @@
 .z-expert-terminal {
   background:
     radial-gradient(
-      circle at 12% 0%,
-      rgb(110 173 219 / 0.22),
-      transparent 16rem
-    ),
+    circle at 12% 0%,
+    rgb(110 173 219 / 0.22),
+    transparent 16rem
+  ),
     var(--z-terminal);
 }
 
@@ -1070,10 +1070,10 @@
 .z-loop-step-proven {
   background:
     radial-gradient(
-      circle at 80% 0%,
-      rgb(110 173 219 / 0.28),
-      transparent 11rem
-    ),
+    circle at 80% 0%,
+    rgb(110 173 219 / 0.28),
+    transparent 11rem
+  ),
     var(--z-accent-soft);
   box-shadow:
     0 1px 0 rgb(42 103 150 / 0.12),
@@ -1129,10 +1129,10 @@
   border-color: var(--z-accent);
   background:
     radial-gradient(
-      circle at 88% 0%,
-      rgb(110 173 219 / 0.18),
-      transparent 13rem
-    ),
+    circle at 88% 0%,
+    rgb(110 173 219 / 0.18),
+    transparent 13rem
+  ),
     var(--z-accent-soft);
   box-shadow: var(--z-shadow-md);
 }
@@ -1148,6 +1148,15 @@
 
 .z-expert-note code {
   color: var(--z-accent-dark);
+}
+
+.z-expert-note a {
+  color: var(--z-accent-dark);
+  border-bottom: 1px solid rgb(42 103 150 / 0.4);
+}
+
+.z-expert-note a:hover {
+  border-bottom-color: var(--z-accent-dark);
 }
 
 .z-expert-trust {
@@ -1360,10 +1369,10 @@
   border-radius: var(--z-radius-lg);
   background:
     radial-gradient(
-      circle at 80% 0%,
-      rgb(110 173 219 / 0.3),
-      transparent 22rem
-    ),
+    circle at 80% 0%,
+    rgb(110 173 219 / 0.3),
+    transparent 22rem
+  ),
     var(--z-terminal);
   box-shadow: var(--z-shadow-lg);
   padding-top: 4rem;
@@ -2113,7 +2122,8 @@
 
 /* Opacity-only: compositor-friendly, no per-frame box-shadow repaint. */
 @keyframes zp-breathe {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -2137,7 +2147,8 @@
 }
 
 @keyframes zp-hint-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgb(255 132 151 / 0);
   }
   50% {
