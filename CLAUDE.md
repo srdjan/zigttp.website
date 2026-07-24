@@ -55,6 +55,11 @@ deno task start  # plain run
 No tests, no linter config beyond Deno defaults. Run `deno fmt` and
 `deno check main.ts` before committing TypeScript changes.
 
+Always tear down after testing. When a session starts the server or drives a
+browser, kill the server process, close the browser, and confirm the port is
+free (`lsof -nP -iTCP:8000 -sTCP:LISTEN`) before reporting the work done. Never
+leave `:8000` bound or a browser session open between turns.
+
 ## Conventions
 
 - Server file is intentionally one file. Do not split it into modules unless
