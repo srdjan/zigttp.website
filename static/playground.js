@@ -736,15 +736,10 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
   editor.addEventListener("input", scheduleAnalysis);
   editor.addEventListener("scroll", syncScroll);
   editor.addEventListener("focus", engage);
-  editor.addEventListener("keydown", (e) => {
-    if (e.key !== "Tab" || e.shiftKey) return;
-    if (editor.readOnly) return;
-    e.preventDefault();
-    const s = editor.selectionStart, end = editor.selectionEnd;
-    editor.value = editor.value.slice(0, s) + "  " + editor.value.slice(end);
-    editor.selectionStart = editor.selectionEnd = s + 2;
-    scheduleAnalysis();
-  });
+  // Tab is deliberately not intercepted. The seed ships correctly indented and
+  // visitors break the proof with the perturbation buttons, so indent-on-Tab
+  // earned nothing while costing a keyboard trap (WCAG 2.1.2) and a write that
+  // bypassed `readonly`.
 
   // --- perturbation buttons ----------------------------------------------
   let activePerturb = null;

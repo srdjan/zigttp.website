@@ -226,7 +226,7 @@ Deno.test("a load failure clears the pre-rendered verdict", async () => {
   );
 });
 
-Deno.test("a read-only editor rejects the indent handler", () => {
+Deno.test("Tab moves focus onward before the analyzer boots", () => {
   const page = load();
   const before = page.editor.value;
 
@@ -234,32 +234,34 @@ Deno.test("a read-only editor rejects the indent handler", () => {
   const event = page.keydown("Tab", false);
 
   assert(
+    !event.defaultPrevented,
+    "Tab must reach the browser so focus can leave the editor",
+  );
+  assert(
     page.editor.value === before,
     "a read-only editor must not be written through",
   );
   assert(
-    !event.defaultPrevented,
-    "a read-only editor must let Tab move focus onward",
-  );
-  assert(
     page.text(".zp-demo-state") !== "manual control",
-    "a rejected keystroke must not count as taking manual control",
+    "a keystroke the page ignores must not count as taking manual control",
   );
 });
 
-Deno.test("Shift+Tab is never intercepted", async () => {
+Deno.test("Tab moves focus onward once the playground is live", async () => {
   const page = load();
   await page.boot();
   const before = page.editor.value;
 
-  const event = page.keydown("Tab", true);
+  for (const shift of [false, true]) {
+    const event = page.keydown("Tab", shift);
+    assert(
+      !event.defaultPrevented,
+      `Tab${shift ? " with Shift" : ""} must always leave the editor`,
+    );
+  }
 
   assert(
-    !event.defaultPrevented,
-    "Shift+Tab must always leave the editor rather than indent it",
-  );
-  assert(
     page.editor.value === before,
-    "Shift+Tab must not write to the editor",
+    "Tab must not write to the editor in any direction",
   );
 });

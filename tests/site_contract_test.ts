@@ -201,16 +201,12 @@ Deno.test("a failed analysis cannot retain a proven verdict", async () => {
   );
 });
 
-Deno.test("the editor never traps keyboard focus and never writes when read-only", async () => {
+Deno.test("the editor registers no keydown handler at all", async () => {
   const playground = await source("static/playground.js");
 
   assert(
-    playground.includes('if (e.key !== "Tab" || e.shiftKey) return;'),
-    "Shift+Tab must always leave the editor",
-  );
-  assert(
-    playground.includes("if (editor.readOnly) return;"),
-    "a read-only editor must reject the indent handler",
+    !/editor\.addEventListener\(\s*"keydown"/.test(playground),
+    "intercepting keys in the editor risks a keyboard trap; leave Tab alone",
   );
 });
 
