@@ -45,7 +45,9 @@ step, no framework.
 - `static/*.png`, `*.jpg`, `*.jpeg`, `*.ico` - media. Cache-busted via
   `cache-control: public, max-age=31536000, immutable`.
 - `static/robots.txt`, `static/sitemap.xml`, `static/manifest.json` - SEO and
-  PWA. Update sitemap when adding routes.
+  PWA. Update the sitemap when adding routes, and update `lastmod` in
+  `static/sitemap.xml` when the content of a listed page changes, not only when
+  a route is added.
 - `tests/site_contract_test.ts` - server and markup contracts: routing, cache
   and security headers, and the no-JS enhancement contract.
 - `tests/playground_behavior_test.ts` - boots `static/playground.js` against a
