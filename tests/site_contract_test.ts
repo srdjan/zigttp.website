@@ -158,6 +158,21 @@ Deno.test("playground static enhancement stays visible and truthful", async () =
   );
 });
 
+Deno.test("an optional enhancement cannot abort deck navigation", async () => {
+  const script = await source("static/script.js");
+  const spyIndex = script.indexOf("new IntersectionObserver");
+  const deckIndex = script.indexOf('document.getElementById("deck")');
+
+  assert(
+    spyIndex !== -1 && deckIndex !== -1 && spyIndex < deckIndex,
+    "the scroll spy still precedes deck navigation in the same scope",
+  );
+  assert(
+    script.includes("scroll spy unavailable"),
+    "a failing scroll spy must be caught, not left to abort the file",
+  );
+});
+
 Deno.test("deck navigation exposes current and announced state", async () => {
   const [deck, script, sharedCss] = await Promise.all([
     source("static/deck.html"),

@@ -92,26 +92,34 @@ if (spySections.length && "IntersectionObserver" in globalThis) {
     const id = link.getAttribute("href").slice(1);
     if (!linkForId.has(id)) linkForId.set(id, link);
   });
-  const scrollSpy = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          spyLinks.forEach((link) => link.classList.remove("active"));
-          const active = linkForId.get(entry.target.id);
-          if (active) active.classList.add("active");
-        }
-      });
-    },
-    {
-      threshold: 0.3,
-      rootMargin: `${-parseInt(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--nav-height",
-        ),
-      )}px 0px -60% 0px`,
-    },
-  );
-  spySections.forEach((section) => scrollSpy.observe(section));
+  // The 56 fallback mirrors --nav-height in static/style.css. Without it an
+  // unresolved custom property yields NaN, and IntersectionObserver rejects a
+  // NaN rootMargin by throwing.
+  const navHeightRaw = getComputedStyle(document.documentElement)
+    .getPropertyValue("--nav-height");
+  const navHeight = Number.parseInt(navHeightRaw, 10) || 56;
+  // This is an optional indicator, so contain its failure. Everything below in
+  // this file, deck navigation included, shares one top-level scope.
+  try {
+    const scrollSpy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            spyLinks.forEach((link) => link.classList.remove("active"));
+            const active = linkForId.get(entry.target.id);
+            if (active) active.classList.add("active");
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: `${-navHeight}px 0px -60% 0px`,
+      },
+    );
+    spySections.forEach((section) => scrollSpy.observe(section));
+  } catch (err) {
+    console.error("script: scroll spy unavailable", err);
+  }
 }
 
 // Slide deck navigation
