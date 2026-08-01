@@ -16,7 +16,7 @@ plans cite.
 | Plan | Title                                                 | Priority | Effort | Depends on | Status                                               |
 | ---- | ----------------------------------------------------- | -------- | ------ | ---------- | ---------------------------------------------------- |
 | 001  | Playground fails closed on analyzer failure           | P1       | S      | —          | DONE                                                 |
-| 002  | Editor keydown respects `readonly` and releases focus | P1       | S      | —          | DONE (Step 3 hint deferred, no existing class fits)  |
+| 002  | Editor keydown respects `readonly` and releases focus | P1       | S      | —          | DONE (handler removed instead of hinted)             |
 | 003  | Tighten CSP to what the site actually loads           | P1       | S      | —          | DONE                                                 |
 | 004  | One failing enhancement cannot kill the rest          | P2       | S      | —          | DONE                                                 |
 | 005  | One `verify` task and a CI gate                       | P1       | S      | —          | DONE                                                 |
@@ -27,7 +27,7 @@ plans cite.
 | 010  | Remove unreferenced media and its server support      | P3       | S      | 003        | DONE                                                 |
 | 011  | One truth for agent guidance                          | P2       | S      | 005, 010   | DONE                                                 |
 | 012  | Sitemap `lastmod` reflects the content                | P3       | S      | —          | DONE                                                 |
-| 013  | `.gitignore` protects a fresh clone                   | P3       | S      | 010        | DONE (`.claude/settings.local.json` awaits operator) |
+| 013  | `.gitignore` protects a fresh clone                   | P3       | S      | 010        | DONE                                                 |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (reason) | REJECTED (reason)
 
