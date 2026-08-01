@@ -64,6 +64,50 @@ Deno.test("canonical routes retain redirect, cache, and security contracts", asy
   );
 });
 
+Deno.test("html revalidates with a 304 instead of resending the body", async () => {
+  const first = await handleRequest(new Request("https://zigttp.timok.com/"));
+  const etag = first.headers.get("etag");
+  await first.text();
+
+  assert(
+    etag !== null && etag.startsWith('"'),
+    "html must carry a quoted etag",
+  );
+
+  const second = await handleRequest(
+    new Request("https://zigttp.timok.com/", {
+      headers: { "if-none-match": etag },
+    }),
+  );
+
+  assert(second.status === 304, "a matching validator must produce a 304");
+  assert(second.body === null, "a 304 must not carry a body");
+  assert(
+    second.headers.get("cache-control") === "no-cache",
+    "a 304 must repeat the cache policy",
+  );
+  assert(
+    second.headers.get("content-security-policy") !== null,
+    "a 304 must still carry the security headers",
+  );
+  assert(
+    second.headers.get("etag") === etag,
+    "a 304 must repeat the validator it matched",
+  );
+});
+
+Deno.test("a stale validator still gets the full body", async () => {
+  const response = await handleRequest(
+    new Request("https://zigttp.timok.com/", {
+      headers: { "if-none-match": '"0000000000000000"' },
+    }),
+  );
+  const body = await response.text();
+
+  assert(response.status === 200, "a mismatched validator must not 304");
+  assert(body.length > 0, "a 200 must carry the body");
+});
+
 Deno.test("every static image is referenced by a document", async () => {
   const documents = (await Promise.all([
     source("static/index.html"),
