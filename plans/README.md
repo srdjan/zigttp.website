@@ -13,21 +13,21 @@ plans cite.
 
 ## Execution order and status
 
-| Plan | Title                                                 | Priority | Effort | Depends on | Status                                              |
-| ---- | ----------------------------------------------------- | -------- | ------ | ---------- | --------------------------------------------------- |
-| 001  | Playground fails closed on analyzer failure           | P1       | S      | —          | DONE                                                |
-| 002  | Editor keydown respects `readonly` and releases focus | P1       | S      | —          | DONE (Step 3 hint deferred, no existing class fits) |
-| 003  | Tighten CSP to what the site actually loads           | P1       | S      | —          | DONE                                                |
-| 004  | One failing enhancement cannot kill the rest          | P2       | S      | —          | DONE                                                |
-| 005  | One `verify` task and a CI gate                       | P1       | S      | —          | TODO                                                |
-| 006  | Type-check the client JavaScript for real             | P1       | S+     | 005        | TODO                                                |
-| 007  | Test playground behavior, not source text             | P2       | M      | 005        | TODO                                                |
-| 008  | Serve validators so HTML can revalidate               | P2       | M      | 005        | TODO                                                |
-| 009  | `aria-label`s land on elements that can carry them    | P3       | S      | —          | TODO                                                |
-| 010  | Remove unreferenced media and its server support      | P3       | S      | 003        | DONE                                                |
-| 011  | One truth for agent guidance                          | P2       | S      | 005, 010   | TODO                                                |
-| 012  | Sitemap `lastmod` reflects the content                | P3       | S      | —          | TODO                                                |
-| 013  | `.gitignore` protects a fresh clone                   | P3       | S      | 010        | TODO                                                |
+| Plan | Title                                                 | Priority | Effort | Depends on | Status                                               |
+| ---- | ----------------------------------------------------- | -------- | ------ | ---------- | ---------------------------------------------------- |
+| 001  | Playground fails closed on analyzer failure           | P1       | S      | —          | DONE                                                 |
+| 002  | Editor keydown respects `readonly` and releases focus | P1       | S      | —          | DONE (Step 3 hint deferred, no existing class fits)  |
+| 003  | Tighten CSP to what the site actually loads           | P1       | S      | —          | DONE                                                 |
+| 004  | One failing enhancement cannot kill the rest          | P2       | S      | —          | DONE                                                 |
+| 005  | One `verify` task and a CI gate                       | P1       | S      | —          | TODO                                                 |
+| 006  | Type-check the client JavaScript for real             | P1       | S+     | 005        | TODO                                                 |
+| 007  | Test playground behavior, not source text             | P2       | M      | 005        | TODO                                                 |
+| 008  | Serve validators so HTML can revalidate               | P2       | M      | 005        | TODO                                                 |
+| 009  | `aria-label`s land on elements that can carry them    | P3       | S      | —          | TODO                                                 |
+| 010  | Remove unreferenced media and its server support      | P3       | S      | 003        | DONE                                                 |
+| 011  | One truth for agent guidance                          | P2       | S      | 005, 010   | TODO                                                 |
+| 012  | Sitemap `lastmod` reflects the content                | P3       | S      | —          | TODO                                                 |
+| 013  | `.gitignore` protects a fresh clone                   | P3       | S      | 010        | DONE (`.claude/settings.local.json` awaits operator) |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (reason) | REJECTED (reason)
 

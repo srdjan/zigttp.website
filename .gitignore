@@ -2,3 +2,4 @@
 codedb.snapshot
 .codegraph
 .playwright-mcp/
+node_modules/
