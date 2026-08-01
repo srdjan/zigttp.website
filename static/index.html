@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-      zttp - AI writes your TypeScript handler, the compiler proves it
+      zttp - the agent writes only what the compiler can prove
     </title>
     <meta
       name="description"
-      content="For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt."
+      content="zttp is an agent-compiler: restricted TypeScript, a total proof engine, and an AI agent as one system. When the agent fails, the compiler writes the fix itself."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f4f7f1">
@@ -30,11 +30,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/">
     <meta
       property="og:title"
-      content="zttp - AI writes your TypeScript handler, the compiler proves it"
+      content="zttp - the agent writes only what the compiler can prove"
     >
     <meta
       property="og:description"
-      content="For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt."
+      content="zttp is an agent-compiler: a restricted TypeScript, a proof engine total over it, and an AI coding agent built as one system. Every draft is simulated before it touches disk; vetoed drafts get compiler-authored repairs with no model call."
     >
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -44,18 +44,18 @@
     >
     <meta
       property="og:image:alt"
-      content="zttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
+      content="zttp agent-compiler: a draft vetoed by the compiler, repaired with no model call, then proven"
     >
     <meta property="og:site_name" content="zttp">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zttp - AI writes your TypeScript handler, the compiler proves it"
+      content="zttp - the agent writes only what the compiler can prove"
     >
     <meta
       name="twitter:description"
-      content="For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt."
+      content="zttp is an agent-compiler: a restricted TypeScript, a proof engine total over it, and an AI coding agent built as one system. Every draft is simulated before it touches disk; vetoed drafts get compiler-authored repairs with no model call."
     >
     <meta
       name="twitter:image"
@@ -63,7 +63,7 @@
     >
     <meta
       name="twitter:image:alt"
-      content="zttp - TypeScript handlers proven at compile time with compiler-guided agent repair"
+      content="zttp agent-compiler: a draft vetoed by the compiler, repaired with no model call, then proven"
     >
 
     <script type="application/ld+json">
@@ -71,11 +71,11 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "zttp",
-      "description": "For solo builders shipping HTTP functions with no team to review the deploy. The agent writes the handler, the compiler proves the contract - response paths, Result handling, capability use - and deploy emits a 4.8 MB binary with a signed proof receipt.",
+      "description": "zttp is an agent-compiler: one system with three parts engineered against each other - a restricted TypeScript whose safety properties are decidable, a proof engine total over that language, and an AI coding agent that authors inside the proof boundary. Every draft is simulated before it touches disk. Vetoed drafts receive compiler-authored repairs with no model call. Proven handlers ship as one attested binary.",
       "url": "https://zigttp.timok.com",
       "applicationCategory": "DeveloperApplication",
-      "applicationSubCategory": "Serverless Runtime, TypeScript Compiler, CLI Tool",
-      "keywords": "serverless runtime, capability sandbox, compile-time proof, provably correct TypeScript, TypeScript, zts, Zig runtime, compiler agent, compiler-in-the-loop, compile-time verification",
+      "applicationSubCategory": "Agent-Compiler, TypeScript Proof Engine, CLI Tool",
+      "keywords": "agent-compiler, compiler-in-the-loop agent, provable TypeScript, model-free repair, typed counterexamples, zts, compile-time proof, AI code verification, proof receipt, capability sandbox, Zig runtime, serverless functions",
       "operatingSystem": "Linux, macOS",
       "license": "https://opensource.org/licenses/MIT",
       "programmingLanguage": ["Zig", "TypeScript"],
@@ -106,7 +106,7 @@
     </script>
 
     <link rel="stylesheet" href="/style.css?v=15">
-    <link rel="stylesheet" href="/home.css?v=20">
+    <link rel="stylesheet" href="/home.css?v=21">
   </head>
   <body class="zttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -132,10 +132,8 @@
         <div class="z-nav-links" id="z-nav-links">
           <a href="#playground">Try</a>
           <a href="#expert">Agent</a>
-          <a href="#workflows">Workflows</a>
-          <a href="#hypermedia">Hypermedia</a>
-          <a href="#compare">Compare</a>
-          <a href="#runtime">Runtime</a>
+          <a href="#evidence">Evidence</a>
+          <a href="#ship">Ship</a>
           <a
             href="https://github.com/srdjan/zttp/tree/main/docs"
             target="_blank"
@@ -157,11 +155,9 @@
           <span>v0.18.0</span>
           <strong>The receipt now signs the sandbox policy.</strong>
           <p>
-            The proof receipt committed to your contract and bytecode but not to
-            the egress, env, cache, and SQL allowlist the sandbox enforces. A
-            <code>runtime_policy_sha256</code> claim pins those exact bytes and
-            startup fails closed on a mismatch. Binaries built before v0.18.0
-            are refused: rebuild and redeploy.
+            A <code>runtime_policy_sha256</code> claim pins the exact egress,
+            env, cache, and SQL allowlist the sandbox enforces, and startup
+            fails closed on a mismatch.
           </p>
         </div>
         <a
@@ -172,26 +168,27 @@
       </aside>
 
       <section class="z-hero" id="hero">
-        <div class="z-hero-field" aria-hidden="true"></div>
         <div class="z-hero-copy">
           <p class="z-eyebrow">
             <span class="z-status-dot z-dot-safe"></span>
-            Agent-written. Compiler-proven.
+            zttp is an agent-compiler
           </p>
-          <h1>The AI writes your code. The compiler proves it's safe.</h1>
+          <h1>The agent writes only what the compiler can prove.</h1>
           <p class="z-hero-lede">
-            Describe what you want to build. zttp's agent writes it in a
-            TypeScript subset narrow enough for the compiler to prove - every
-            path returns, every declared guarantee holds - and rejects any draft
-            that fails. You approve only code that passes.
+            One system, three parts built against each other: a restricted
+            TypeScript the compiler can decide, a proof engine total over that
+            language, and a coding agent that authors inside the fence. Every
+            draft is simulated before it touches disk. A draft that adds
+            violations is vetoed. When the agent fails, the compiler writes the
+            fix itself.
           </p>
           <div class="z-hero-actions">
             <a class="z-button z-button-primary" href="#playground"
-            >Try compile-time proof</a>
+            >Break the proof yourself</a>
             <a
               class="z-button z-button-secondary"
               href="#expert"
-            >Watch the agent loop</a>
+            >Watch a veto</a>
           </div>
           <div class="z-install-card" aria-label="Install command">
             <span class="z-prompt">$</span>
@@ -203,110 +200,33 @@
               sh</code>
             <button type="button" id="copy-install">Copy</button>
           </div>
-          <p class="z-hero-note">
-            Break <code>while</code>, <code>try/catch</code>, or
-            <code>Date.now()</code> and the compiler tells you why the proof
-            failed.
-          </p>
         </div>
 
         <figure class="z-product-shot">
           <div
-            class="z-studio-mock"
-            role="img"
-            aria-label="Stylized zttp proof loop showing proof state, handler code, contract verdict, and witness corpus"
+            class="z-code-card"
+            aria-label="One zttp expert session: a vetoed draft, then a compiler-authored repair"
           >
-            <aside class="z-studio-sidebar">
-              <div class="z-sidebar-title">surfaces</div>
-              <div class="z-surface active">
-                <span class="z-status-dot z-dot-safe"></span>
-                <div><strong>handler.ts</strong><small>proven</small></div>
-              </div>
-              <div class="z-surface">
-                <span class="z-status-dot z-dot-review"></span>
-                <div>
-                  <strong>contract</strong><small>safe_with_additions</small>
-                </div>
-              </div>
-              <div class="z-surface">
-                <span class="z-status-dot z-dot-blocked"></span>
-                <div><strong>witnesses</strong><small>2 pinned</small></div>
-              </div>
-              <div class="z-sidebar-spacer"></div>
-              <div class="z-sidebar-row">
-                <span>proofs</span><span>7 / 7</span>
-              </div>
-              <div class="z-proof-item">
-                <span>✓</span><div>
-                  <strong>returns</strong><small>complete</small>
-                </div>
-              </div>
-              <div class="z-proof-item">
-                <span>✓</span><div>
-                  <strong>match coverage</strong><small>exhaustive</small>
-                </div>
-              </div>
-              <div class="z-proof-item">
-                <span>✓</span><div>
-                  <strong>no_secret_leakage</strong><small>discharged</small>
-                </div>
-              </div>
-              <div class="z-proof-item">
-                <span>●</span><div>
-                  <strong>ledger</strong><small>HEAD appended</small>
-                </div>
-              </div>
-            </aside>
-            <section class="z-studio-main">
-              <div class="z-studio-tabs">
-                <span>proof loop</span>
-                <span>handler.ts</span>
-                <span class="active">proof ledger</span>
-                <span>+</span>
-              </div>
-              <div class="z-studio-panes">
-                <div class="z-code-pane focused">
-                  <div class="z-pane-title">
-                    <span>src/handler.ts</span><em>saved 14ms ago</em>
-                  </div>
-                  <pre><code><span class="z-token-key">import</span> { decodeJson } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:decode"</span>;
-<span class="z-token-key">import type</span> { Spec } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:types"</span>;
+            <div class="z-pane-title">
+              <span>zttp expert</span><em>one write path</em>
+            </div>
+            <pre><code><span class="z-cmd">$</span> zttp expert <span class="z-str">"add auth to the webhook"</span>
 
-<span class="z-token-key">type</span> Guardrails = Spec&lt;
-  <span class="z-token-str">"idempotent"</span> | <span class="z-token-str">"deterministic"</span> |
-  <span class="z-token-str">"no_secret_leakage"</span>
-&gt;;
+<span class="z-agent">[agent]</span>    draft 1: simulating before write
+<span class="z-err">[veto]</span>     draft adds a violation
+  <span class="z-err">error[E0003]: try/catch is not supported in zts</span>
+    <span class="z-muted">--&gt; handler.ts:12:5</span>
 
-<span class="z-token-key">function</span> handler(req): Response &amp; Guardrails {
-  <span class="z-token-key">const</span> body = decodeJson(<span class="z-token-str">"order"</span>, req.body ?? <span class="z-token-str">""</span>);
-  assert(body.ok, Response.json({ errors: body.errors }, { status: 400 }));
-  <span class="z-token-key">return</span> Response.json({ status: <span class="z-token-str">"accepted"</span> });
-}</code></pre>
-                </div>
-                <div class="z-verdict-pane">
-                  <div class="z-pane-title">
-                    <span>zttp dev --watch</span><em>live</em>
-                  </div>
-                  <div class="z-verdict z-verdict-safe">
-                    <span>PROVEN</span>
-                    <strong>7/7</strong>
-                  </div>
-                  <div class="z-verdict-grid">
-                    <span>contract</span><strong>safe_with_additions</strong>
-                    <span>sandbox</span><strong>least privilege</strong>
-                    <span>binary</span><strong>4.8MB</strong>
-                    <span>cold start</span><strong>~7ms</strong>
-                  </div>
-                  <pre><code>$ zttp dev --watch --prove
-verdict: safe_with_additions
-ledger: .zttp/proofs.jsonl
-hot swap: allowed</code></pre>
-                </div>
-              </div>
-            </section>
+<span class="z-agent">[compiler]</span> canonicalize and re-simulate: still red
+<span class="z-agent">[compiler]</span> typed repair: try/catch -&gt; Result
+<span class="z-agent">[compiler]</span> applied with no model call
+           <span class="z-muted">edit recorded: compiler-authored</span>
+
+  <span class="z-safe">PROVEN  3/3 declared | 6/7 properties</span></code></pre>
           </div>
           <figcaption>
-            Compiler proof, contract diff, and local deploy receipt in one loop.
+            The draft is simulated before it touches disk. The fence is
+            load-bearing.
           </figcaption>
         </figure>
       </section>
@@ -317,12 +237,13 @@ hot swap: allowed</code></pre>
           The real compiler, in your browser
         </p>
         <div class="z-heading-wide">
-          <h2>Prove code before it runs.</h2>
+          <h2>This is the fence. Try to get past it.</h2>
           <p>
             The playground runs the real <code>zts</code> analyzer in
-            WebAssembly, not a mockup. It proves the handler from source, then
-            shows the exact file, line, and reason the moment you add code it
-            cannot prove.
+            WebAssembly, not a mockup. It proves the handler from source and
+            names the exact file, line, and reason the moment you add code it
+            cannot prove. The verdict you read here is the same typed data the
+            agent receives.
           </p>
         </div>
 
@@ -547,8 +468,9 @@ function handler(req: Request): Response &amp; Guarantees {
               </div>
               <p class="zp-foot-note">
                 <code>fault-covered</code> stays off until a handler has a proven
-                durable recovery path -
-                <a href="#workflows">see durable workflows</a>.
+                durable recovery path - <a href="#workflows">see durable
+                  workflows</a>. The compiler does not claim what it cannot
+                prove, here or anywhere.
               </p>
             </div>
 
@@ -606,142 +528,484 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
               </p>
             </div>
 
-            <p class="zp-why" hidden></p>
+            <div class="zp-why" hidden></div>
           </figure>
         </div>
+      </section>
+
+      <section class="z-section" id="boundary">
+        <div class="z-section-heading">
+          <p class="z-section-kicker">
+            <span class="z-status-dot z-dot-review"></span>
+            Why nothing else can do this
+          </p>
+          <h2>The failure is not the model. It is the boundary.</h2>
+          <p class="z-section-intro">
+            Every current tool bolts an agent onto a checker, or a checker onto
+            an agent. In the first shape the checker is heuristic and post-hoc.
+            In the second, the compiler is a passive oracle returning error
+            strings into an unbounded search. In both shapes the agent can emit
+            programs the checker cannot judge, because the language admits them.
+          </p>
+        </div>
+
+        <div
+          class="z-contrast-grid"
+          aria-label="Two bolt-on shapes against one engineered system"
+        >
+          <article class="z-contrast-weak">
+            <span><i class="z-status-dot z-dot-blocked"></i>agent, then
+              checker</span>
+            <p>
+              The model writes, a linter grades. A linter gives advice about an
+              unbounded language, the model routes around it, and "no findings"
+              proves nothing.
+            </p>
+          </article>
+          <article class="z-contrast-weak">
+            <span><i class="z-status-dot z-dot-blocked"></i>checker, then
+              agent</span>
+            <p>
+              The compiler is a passive oracle. It returns error strings into an
+              unbounded search and never constrains what the next draft may
+              contain.
+            </p>
+          </article>
+          <article class="z-contrast-strong">
+            <span><i class="z-status-dot z-dot-safe"></i>agent-compiler</span>
+            <p>
+              One write path, and the compiler sits on it. The language is
+              closed first, so every program the agent can emit is a program the
+              compiler can judge.
+            </p>
+          </article>
+        </div>
+
+        <figure class="z-fence" aria-labelledby="z-fence-cap">
+          <div class="z-fence-gate">
+            <span class="z-fence-draft">model draft</span>
+            <span class="z-fence-arrow" aria-hidden="true"></span>
+            <span class="z-fence-check">compiler</span>
+            <span class="z-fence-gate-label">
+              the compiler sits on the only write path
+            </span>
+          </div>
+          <div class="z-fence-provable">
+            <span class="z-fence-set-label">
+              programs the compiler can prove
+            </span>
+            <div class="z-fence-gap">
+              <span>the gap: open, measured, not claimed closed</span>
+            </div>
+            <div class="z-fence-agent">
+              <span class="z-fence-set-label">
+                programs the agent can write
+              </span>
+              <p class="z-fence-claim">
+                Contained by construction: no draft lands that the compiler
+                rejects.
+              </p>
+            </div>
+          </div>
+          <figcaption id="z-fence-cap">
+            One direction holds by construction. The other is measured, and
+            <a href="#evidence">graded below</a>.
+          </figcaption>
+        </figure>
+
+        <div class="z-boundary-why">
+          <h3>Why the language is restricted</h3>
+          <p>
+            Human languages reward expressiveness: more than one way to do it,
+            style as identity, sugar for every faction. For a model that
+            multiplicity is not a feature. Every extra way to write the same
+            loop widens the search space, and a wider search space is where
+            hallucination lives.
+          </p>
+          <p>
+            <code>zts</code> closes the space. Each removal below buys a proof,
+            which is why the restrictions are the product rather than a
+            limitation to grow out of. Re-admitting a construct un-ships proofs.
+          </p>
+          <ul class="z-cuts">
+            <li>
+              <details>
+                <summary><s>while</s></summary>
+                <p>
+                  No back-edge. The analyzer walks every path of every handler
+                  and terminates, so "no findings" is a theorem over the whole
+                  handler, not a sample of it.
+                </p>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><s>try/catch</s></summary>
+                <p>
+                  No invisible control-flow edge out of any statement. Failure
+                  becomes a <code>Result</code> the compiler can see, so every
+                  path still returns.
+                </p>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><s>async</s></summary>
+                <p>
+                  No hidden suspension points. Handler code stays linear, so
+                  determinism and replay are decidable and concurrency moves
+                  into the I/O layer.
+                </p>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><s>class</s></summary>
+                <p>
+                  No shared mutable receiver. Data flow is explicit, which is
+                  what makes <code>state_isolated</code> provable.
+                </p>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><s>this</s></summary>
+                <p>
+                  No binding that changes meaning with the call site. Every
+                  reference resolves statically.
+                </p>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><s>new</s></summary>
+                <p>
+                  No constructor-shaped identity. Values stay plain data the
+                  analyzer can track through a flow.
+                </p>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><s>regex</s></summary>
+                <p>
+                  No opaque matcher with unbounded backtracking. Input handling
+                  stays analyzable, so <code>injection_safe</code> can be a flow
+                  proof rather than a convention.
+                </p>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><s>==</s></summary>
+                <p>
+                  No coercion table between the value and the comparison. Types
+                  stay nominal, so boolean checks are enforceable everywhere.
+                </p>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><s>null</s></summary>
+                <p>
+                  One absent value instead of two. Absence becomes a case the
+                  match has to cover.
+                </p>
+              </details>
+            </li>
+          </ul>
+          <p class="z-boundary-guard">
+            This is not a compiler for agents. It is an agent and a compiler
+            built as one machine.
+          </p>
+        </div>
+
+        <details class="z-support-detail z-compare-details" id="compare">
+          <summary>
+            <span>Comparing runtimes instead?</span>
+            <em>show the table</em>
+          </summary>
+          <div class="z-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Capability</th>
+                  <th>Agent + Node / Deno / Bun</th>
+                  <th>Agent + serverless platform</th>
+                  <th>Agent + types and lint</th>
+                  <th>zttp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Agent writes TypeScript handlers</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Draft simulated before it touches disk</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Verdict total over the language</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>limited</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Failed check yields a replayable counterexample</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Compiler-authored repair, zero model calls</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>No unproven code ships behind a warning</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Durable workflows with proven-safe replay</td>
+                  <td>-</td>
+                  <td>partial</td>
+                  <td>-</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Signed proof receipt and <code>verify</code></td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>✓</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="z-compare-cards" aria-label="Mobile comparison">
+            <article>
+              <h4>Agent writes TypeScript handlers</h4><span>+ runtime <b
+                >✓</b></span><span>+ platform <b>✓</b></span><span>+ types
+                <b>✓</b></span><span class="zttp">zttp <b>✓</b></span>
+            </article>
+            <article>
+              <h4>Draft simulated before it touches disk</h4><span>+ runtime <b
+                >-</b></span><span>+ platform <b>-</b></span><span>+ types
+                <b>-</b></span><span class="zttp">zttp <b>✓</b></span>
+            </article>
+            <article>
+              <h4>Verdict total over the language</h4><span>+ runtime <b
+                >-</b></span><span>+ platform <b>-</b></span><span>+ types
+                <b>limited</b></span><span class="zttp">zttp <b>✓</b></span>
+            </article>
+            <article>
+              <h4>Failed check yields a replayable counterexample</h4><span>+
+                runtime <b>-</b></span><span>+ platform <b>-</b></span><span>+
+                types <b>-</b></span><span class="zttp">zttp <b>✓</b></span>
+            </article>
+            <article>
+              <h4>Compiler-authored repair, zero model calls</h4><span>+ runtime
+                <b>-</b></span><span>+ platform <b>-</b></span><span>+ types
+                <b>-</b></span><span class="zttp">zttp <b>✓</b></span>
+            </article>
+            <article>
+              <h4>No unproven code ships behind a warning</h4><span>+ runtime <b
+                >-</b></span><span>+ platform <b>-</b></span><span>+ types
+                <b>-</b></span><span class="zttp">zttp <b>✓</b></span>
+            </article>
+            <article>
+              <h4>Durable workflows with proven-safe replay</h4><span>+ runtime
+                <b>-</b></span><span>+ platform <b>partial</b></span><span>+
+                types <b>-</b></span><span class="zttp">zttp <b>✓</b></span>
+            </article>
+            <article>
+              <h4>Signed proof receipt and verify</h4><span>+ runtime <b
+                >-</b></span><span>+ platform <b>-</b></span><span>+ types
+                <b>-</b></span><span class="zttp">zttp <b>✓</b></span>
+            </article>
+          </div>
+        </details>
       </section>
 
       <section class="z-section z-expert-section" id="expert">
         <div class="z-section-heading">
           <p class="z-section-kicker">
             <span class="z-status-dot z-dot-safe"></span>
-            Compiler-in-the-loop agent
+            Inside the fence
           </p>
           <h2>
-            The compiler won't let the agent guess.
+            The compiler does not check the work. It co-authors it.
           </h2>
           <p class="z-section-intro">
-            <code>zttp expert</code> asks for the missing detail when a request
-            is materially ambiguous, then records the proof-loop metrics that
-            show how quickly it reached green.
+            The model in <code>zttp expert</code> has exactly one write path,
+            and the compiler sits on it. Every draft is simulated before it
+            touches disk. Nothing lands red.
           </p>
         </div>
-        <div class="z-loop">
-          <h3 class="z-loop-head">How the loop runs</h3>
-          <ol
-            class="z-loop-flow"
-            aria-label="How the compiler-in-the-loop closes"
-          >
-            <li class="z-loop-step">
-              <span class="z-loop-num">01</span>
-              <strong>Clarify</strong>
-              <p>
-                If intent is ambiguous, the agent asks one question instead of
-                guessing.
-              </p>
-            </li>
-            <li class="z-loop-step">
-              <span class="z-loop-num">02</span>
-              <strong>Write</strong>
-              <p>The agent drafts a handler from your confirmed request.</p>
-            </li>
-            <li class="z-loop-step">
-              <span class="z-loop-num">03</span>
-              <strong>Compile</strong>
-              <p>
-                It runs the same proof pass that gates deploys.
-              </p>
-            </li>
-            <li class="z-loop-step">
-              <span class="z-loop-num">04</span>
-              <strong>Repair</strong>
-              <p>
-                It edits against compiler diagnostics and tries again.
-              </p>
-            </li>
-            <li class="z-loop-step z-loop-step-proven">
-              <span class="z-status-dot z-dot-safe"></span>
-              <strong>Proven</strong>
-              <p>The handler clears the proof loop before you review it.</p>
-            </li>
-          </ol>
-          <p class="z-loop-cycle">
-            clarify, write, compile, repair - repeat until proven
+
+        <div class="z-lane" role="group" aria-label="What happens to a draft">
+          <div class="z-lane-track z-lane-model">
+            <span class="z-lane-tag">
+              <i class="z-status-dot z-dot-idle"></i>model lane
+            </span>
+            <ol class="z-lane-steps" aria-label="Model lane">
+              <li>
+                <strong>Draft</strong>
+                <p>
+                  The agent writes the handler. If the request is materially
+                  ambiguous, it asks one question first.
+                </p>
+              </li>
+              <li>
+                <strong>Simulate</strong>
+                <p>
+                  The compiler runs the draft through the full proof pass before
+                  it touches disk.
+                </p>
+              </li>
+              <li class="z-lane-veto">
+                <strong>Veto</strong>
+                <p>
+                  A draft that adds violations is refused, and drops to the
+                  compiler lane. Veto exhaustion ends the turn: it never ships
+                  the draft.
+                </p>
+              </li>
+            </ol>
+          </div>
+          <div class="z-lane-track z-lane-compiler">
+            <span class="z-lane-tag">
+              <i class="z-status-dot z-dot-safe"></i>compiler lane: zero model
+              calls
+            </span>
+            <ol class="z-lane-steps" aria-label="Compiler lane">
+              <li>
+                <strong>Salvage</strong>
+                <p>
+                  The compiler first tries to save the draft itself: canonicalize
+                  the source, then re-simulate.
+                </p>
+              </li>
+              <li>
+                <strong>Plan</strong>
+                <p>
+                  If salvage fails, it composes a typed repair plan. The plan
+                  names the property and carries a specific remedy.
+                </p>
+              </li>
+              <li>
+                <strong>Apply</strong>
+                <p>
+                  The edit lands with no model call. The session records it as
+                  compiler-authored.
+                </p>
+              </li>
+              <li>
+                <strong>Verify or roll back</strong>
+                <p>
+                  The result is re-proved. A regression rolls the edit back
+                  rather than shipping it.
+                </p>
+              </li>
+            </ol>
+          </div>
+          <p class="z-lane-note">
+            For three safety properties the whole loop runs with no model at
+            all: the compiler plans, applies, verifies, and rolls back on
+            regression. No tokens, no sampling, no drift. Each mechanical repair
+            moves authorship from the model to the compiler.
           </p>
         </div>
+
         <div class="z-expert">
-          <details class="z-code-card z-expert-terminal">
-            <summary>
-              <span>Compiler transcript</span>
-              <em>show compiler loop</em>
-            </summary>
+          <div class="z-code-card z-expert-terminal">
             <div class="z-pane-title">
-              <span>zttp expert</span><em>compiler in the loop</em>
+              <span>zttp expert</span><em>one session transcript</em>
             </div>
             <pre><code><span class="z-cmd">$</span> zttp expert <span class="z-str">"add auth to the webhook"</span>
 
-<span class="z-agent">[agent]</span> Need one detail: Bearer token, HMAC, or mTLS?
-<span class="z-agent">[you]</span> Bearer token
+<span class="z-agent">[agent]</span>    Need one detail: Bearer token, HMAC, or mTLS?
+<span class="z-agent">[you]</span>      Bearer token
 
-<span class="z-agent">[agent]</span> Writing handler...
-<span class="z-agent">[agent]</span> Compiling handler.ts
-
+<span class="z-agent">[agent]</span>    Draft 1: simulating before write...
+<span class="z-err">[veto]</span>     draft adds a violation
   <span class="z-err">error[E0003]: try/catch is not supported in zts</span>
     <span class="z-muted">--&gt; handler.ts:12:5</span>
-    <span class="z-muted">= help: use Result types</span>
 
-<span class="z-agent">[agent]</span> Rewriting with Result types...
-<span class="z-agent">[agent]</span> Compiling handler.ts
+<span class="z-agent">[compiler]</span> canonicalize and re-simulate: still red
+<span class="z-agent">[compiler]</span> typed repair: try/catch -&gt; Result
+<span class="z-agent">[compiler]</span> applied with no model call
+           <span class="z-muted">edit recorded: compiler-authored</span>
 
-  <span class="z-safe">PROVEN 7/7 proofs</span>
-  <span class="z-safe">Handler ready: webhook-auth (1.2MB)</span>
+  <span class="z-safe">PROVEN  3/3 declared | 6/7 properties</span>
+  <span class="z-safe">Handler ready: webhook-auth</span>
 
 <span class="z-cmd">$</span> /ledger
   turns: 3
-  round-trips to first green proof: 2
-  verified edits: 1
+  compiler-authored edits: 1
+  round-trips to first green: 2
   proven-path ratio: 1.00</code></pre>
-          </details>
+          </div>
           <div class="z-expert-copy">
+            <p class="z-sample-caption">
+              One recorded session, not an average. Aggregates ship when the
+              ledger aggregates: see <a href="#evidence">the evidence</a>.
+            </p>
             <p>
-              <code>zttp expert</code> now stops for one clarifying question
-              when the request is materially ambiguous. After that, it writes
-              code, runs the proof pass, reads the diagnostics, rewrites, and
-              records session metrics so you can see the path to green instead
-              of trusting a transcript by feel.
+              The session ledger records who authored each edit. When the counter
+              says compiler-authored, no model was involved: the fix came from a
+              typed repair plan, not a retry. That counter is the health number
+              of the whole design, and it rises as the compiler takes over
+              authorship.
             </p>
             <ul class="z-check-list">
-              <li>Ask once before spending proof cycles on a misread.</li>
-              <li>Compile every patch against the proof rules.</li>
-              <li>Show turn count, verified edits, and proven-path ratio.</li>
+              <li>Every draft is simulated before it touches disk.</li>
+              <li>Vetoed drafts get canonicalize-and-salvage, then typed
+                repair.</li>
+              <li>The ledger names the author of every edit.</li>
             </ul>
           </div>
         </div>
 
-        <div
-          class="z-contrast-grid z-expert-contrast"
-          aria-label="Ordinary agent versus compiler-in-the-loop"
-        >
-          <article class="z-contrast-weak">
-            <span><i class="z-status-dot z-dot-blocked"></i>ordinary
-              agent</span>
-            <p>
-              Guesses through ambiguous requirements and waits for tests or
-              review to find the mismatch.
-            </p>
-          </article>
-          <article class="z-contrast-strong">
-            <span><i class="z-status-dot z-dot-safe"></i>zttp expert</span>
-            <p>
-              Asks one question, compiles each draft, reads proof errors, and
-              reports the proof-loop metrics.
-            </p>
-          </article>
+        <div class="z-code-card z-feedback-card" aria-label="Typed feedback">
+          <div class="z-pane-title">
+            <span>counterexample</span><em>typed data, not prose</em>
+          </div>
+          <pre><code><span class="z-muted"># a failed property produces a witness, not a sentence</span>
+{
+  <span class="z-token-str">"property"</span>: <span class="z-token-str">"no_secret_leakage"</span>,
+  <span class="z-token-str">"request"</span>: { <span class="z-token-str">"method"</span>: <span class="z-token-str">"GET"</span>, <span class="z-token-str">"url"</span>: <span class="z-token-str">"/orders/42"</span> },
+  <span class="z-token-str">"stubs"</span>:   { <span class="z-token-str">"env:SECRET_KEY"</span>: <span class="z-token-str">"sk_live_..."</span> },
+  <span class="z-token-str">"flow"</span>:    [<span class="z-token-str">"env()"</span>, <span class="z-token-str">"body.apiKey"</span>, <span class="z-token-str">"response"</span>],
+  <span class="z-token-str">"remedy"</span>:  <span class="z-token-str">"redact-header"</span>
+}</code></pre>
         </div>
+        <p class="z-expert-note">
+          A failed proof names the property and carries a specific remedy. The
+          witness is a real request plus I/O stubs, stored in the same trace
+          format the runtime records, so it replays against the production
+          engine with no translation. Goal, feedback, repair, and reward all
+          speak the proof system's vocabulary.
+        </p>
 
         <p class="z-expert-note">
-          <code>zttp expert</code> supports Anthropic and OpenAI keys, resume,
-          read-only mode, non-interactive prompts, and per-session
+          <code>zttp expert</code> needs an Anthropic or OpenAI key. Everything
+          else on this page runs without one. It also supports resume, read-only
+          mode, non-interactive prompts, and per-session
           <code>session_summary</code> metrics.
         </p>
         <div
@@ -757,43 +1021,379 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         </div>
       </section>
 
-      <section class="z-section z-workflows" id="workflows">
+      <section class="z-section" id="evidence">
         <div class="z-section-heading">
           <p class="z-section-kicker">
-            <span class="z-status-dot z-dot-safe"></span>
-            Durable workflows
+            <span class="z-status-dot z-dot-review"></span>
+            State of the evidence
           </p>
-          <h2>Compose handlers. Prove the recovery.</h2>
+          <h2>Convergence: measured, not claimed.</h2>
           <p class="z-section-intro">
-            <code>zttp:workflow</code> composes co-located handlers
-            in-process: <code>call</code>, <code>follow</code>,
-            <code>fanout</code>, <code>saga</code>, resolved by name at compile
-            time, no HTTP hop. <code>zttp:durable</code>
-            gives a run a stable key, an oplog, timers, and signals. The compiler
-            proves which runs are safe to replay - the runtime refuses the ones
-            it can't.
+            The design pulls two sets toward each other: the programs the agent
+            can write, and the programs the compiler can prove. One direction
+            holds today by construction, because the agent cannot land a draft
+            the compiler rejects: the veto is on the only write path. The other
+            direction, that the agent can reach everything the compiler can
+            prove, is open. Nothing measures it yet. We measure the gap. We do
+            not claim it is closed.
           </p>
         </div>
 
-        <div class="z-expert z-wf-compose">
-          <div class="z-code-card" aria-label="Durable workflow orchestrator">
-            <div class="z-pane-title">
-              <span>orchestrator.ts</span><em>one process, no network</em>
-            </div>
-            <pre><code><span class="z-token-key">import</span> { run } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:durable"</span>;
-<span class="z-token-key">import</span> { call } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:workflow"</span>;
-<span class="z-token-key">import type</span> { Spec } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:types"</span>;
+        <p class="z-evidence-lead">
+          zttp sells verdicts over vibes. A product that grades your code has to
+          grade its own claims the same way, so here is the current ledger. It
+          is versioned with the repo and it will change before it flatters.
+        </p>
 
-<span class="z-token-key">type</span> Guarantees = Spec&lt;
-  <span class="z-token-str">"deterministic"</span> | <span class="z-token-str">"retry_safe"</span> | <span class="z-token-str">"idempotent"</span> |
-  <span class="z-token-str">"fault_covered"</span> | <span class="z-token-str">"state_isolated"</span> | <span class="z-token-str">"no_secret_leakage"</span>
-&gt;;
+        <section class="z-ledger" aria-labelledby="z-ledger-title">
+          <header class="z-ledger-head">
+            <h3 id="z-ledger-title">The claim ledger</h3>
+            <span class="z-ledger-stamp">self-graded</span>
+          </header>
+
+          <article class="z-ledger-tier" data-tier="construction">
+            <h4>
+              <span class="z-status-dot z-dot-safe" aria-hidden="true"></span>
+              Holds by construction
+            </h4>
+            <p class="z-tier-def">
+              proven properties of the system itself, true by how it is built
+            </p>
+            <ul class="z-tier-items">
+              <li>
+                <details>
+                  <summary>single fenced write path</summary>
+                  <p>
+                    The compiler sits on the only path a draft can take to disk.
+                    There is no second route by which a model edit reaches a
+                    file.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>veto with canonicalize-and-salvage</summary>
+                  <p>
+                    A draft that adds violations is refused before it lands. On
+                    the veto the compiler canonicalizes the source and
+                    re-simulates before anything else runs.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>model-free repair lane</summary>
+                  <p>
+                    A typed repair plan is composed and applied with zero model
+                    calls, and the session records the edit as
+                    compiler-authored.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>autoloop rollback on regression</summary>
+                  <p>
+                    For three safety properties the compiler plans, applies,
+                    verifies, and rolls back with no model in the loop at all.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>replayable counterexamples</summary>
+                  <p>
+                    A failed property yields a real request plus I/O stubs in
+                    the same trace format the runtime records, so the witness
+                    replays against the production engine with no translation.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>registry hashes on every agent response</summary>
+                  <p>
+                    Each response is bound to the exact rule, idiom, and
+                    restriction set in force when it was produced.
+                  </p>
+                </details>
+              </li>
+            </ul>
+          </article>
+
+          <article class="z-ledger-tier" data-tier="thin">
+            <h4>
+              <span class="z-status-dot z-dot-review" aria-hidden="true"></span>
+              Thin today
+            </h4>
+            <p class="z-tier-def">
+              real, but narrower than the claim deserves
+            </p>
+            <ul class="z-tier-items">
+              <li>
+                <details>
+                  <summary>wire protocol missing its three agent verbs</summary>
+                  <p>
+                    An outside client can ask what is wrong. It cannot yet ask
+                    the compiler to simulate, repair, or verify, so on that wire
+                    every rewrite grades as a proposed refactor and none is a
+                    mechanical repair.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>most repair intents do not lower to an edit</summary>
+                  <p>
+                    Mechanical repair lives only inside the agent package, and
+                    only a minority of typed repair intents lower to a real
+                    source edit.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>no canonical formatter</summary>
+                  <p>
+                    Every rewrite splices byte spans instead of reprinting from
+                    a canonical form.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>capability ceilings are per module</summary>
+                  <p>
+                    Ceilings are declared per module rather than per export, so
+                    every ceiling is coarser than the code it describes.
+                  </p>
+                </details>
+              </li>
+            </ul>
+          </article>
+
+          <article class="z-ledger-tier" data-tier="unmeasured">
+            <h4>
+              <span class="z-status-dot z-dot-idle" aria-hidden="true"></span>
+              Unmeasured
+            </h4>
+            <p class="z-tier-def">
+              no honest denominator exists yet, so no number is published
+            </p>
+            <ul class="z-tier-items">
+              <li>
+                <details>
+                  <summary>first-draft-correct rate</summary>
+                  <p>
+                    The share of agent drafts that clear the veto with no retry
+                    is the most direct reading of convergence, and it has no
+                    honest denominator today.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>the convergence gap</summary>
+                  <p>
+                    Given a reference suite the compiler certifies green, the
+                    fraction the agent reproduces to green inside a fixed budget.
+                    Nothing measures it today.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>ledger aggregates</summary>
+                  <p>
+                    The session ledger is local, per-workspace, and empty by
+                    default, so round-trips to first green proof cannot be
+                    stated honestly yet.
+                  </p>
+                </details>
+              </li>
+              <li>
+                <details>
+                  <summary>intent coverage in the eval corpus</summary>
+                  <p>
+                    The current corpus checks compiler compliance, not intent.
+                    The one agent number ever published is stale, which is why it
+                    does not appear on this page.
+                  </p>
+                </details>
+              </li>
+            </ul>
+          </article>
+        </section>
+
+        <p class="z-evidence-rule">
+          No number leaves the repo without a versioned eval behind it. That is
+          why this section shows grades, not scores. Every count sits in the
+          roadmap beside the file that owns it, so you can recount it instead of
+          trusting a number that rots on a landing page.
+        </p>
+
+        <h3 class="z-refusals-head">What zttp refuses to build</h3>
+        <ul class="z-refusals">
+          <li>
+            <span class="z-refusal-tag" data-kind="refused">refused</span>
+            <div>
+              <strong>Full Node and V8 language fidelity</strong>
+              <p>
+                The permanent non-goal. Full fidelity is what makes these proofs
+                intractable everywhere else.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="z-refusal-tag" data-kind="refused">refused</span>
+            <div>
+              <strong>Any unproven escape hatch</strong>
+              <p>
+                No mode ships unrestricted code behind a warning label. Veto
+                exhaustion ends the turn; it never ships the draft.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="z-refusal-tag" data-kind="refused">refused</span>
+            <div>
+              <strong>Re-admitting restricted constructs</strong>
+              <p>
+                Each restriction maps to a proof it unlocks, so re-admitting one
+                under adoption pressure un-ships proofs.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="z-refusal-tag" data-kind="refused">refused</span>
+            <div>
+              <strong>A general-purpose coding agent</strong>
+              <p>
+                <code>zttp expert</code> does not compete on breadth. It wins
+                inside the fence, and only there.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="z-refusal-tag" data-kind="refused">refused</span>
+            <div>
+              <strong>Learned checkers in the verdict path</strong>
+              <p>
+                No model-as-judge ever gates a ship. The verdict stays
+                deterministic and total.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="z-refusal-tag" data-kind="refused">refused</span>
+            <div>
+              <strong>Unmeasured or stale numbers</strong>
+              <p>
+                No number leaves the repo without a versioned eval behind it.
+                That is why this page carries fewer numbers than most.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="z-refusal-tag" data-kind="deferred">deferred</span>
+            <div>
+              <strong>A local-model training flywheel</strong>
+              <p>
+                The narrow grammar is a real reason to think a small model could
+                author inside the fence, but that is a hypothesis with no
+                measurement behind it yet.
+              </p>
+            </div>
+          </li>
+        </ul>
+
+        <p class="z-evidence-weapon">
+          Ask this of any tool that checks AI-written code: which of its claims
+          hold by construction, which are thin, and which are unmeasured. A tool
+          that cannot produce this list is asking you to ship on vibes.
+        </p>
+        <div class="z-inline-links">
+          <a
+            href="https://github.com/srdjan/zttp/blob/main/docs/roadmap.md#agent-compiler-agenda"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Recount the claims</a>
+          <a
+            href="https://github.com/srdjan/zttp/blob/main/STRATEGY.md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Read the strategy</a>
+        </div>
+      </section>
+
+      <section class="z-section" id="ship">
+        <div class="z-section-heading">
+          <p class="z-section-kicker">
+            <span class="z-status-dot z-dot-safe"></span>
+            Proof carrier
+          </p>
+          <h2>The runtime exists to carry what the compiler proves.</h2>
+          <p class="z-section-intro">
+            It replays the compiler's counterexamples, runs the proven handler,
+            and ships it as one attested binary. It is also the only part of the
+            system that can falsify the compiler, because witnesses replay
+            against the real engine in the format the compiler wrote them.
+          </p>
+        </div>
+
+        <div class="z-calm-strip" aria-label="Runtime baseline">
+          <span><i class="z-status-dot z-dot-safe"></i>one self-contained
+            binary: 4.8 MB public baseline for v0.18.0</span>
+          <span><i class="z-status-dot z-dot-idle"></i>7-15 ms cold start,
+            measured in zttp-bench. A floor, never a headline</span>
+          <span><i class="z-status-dot z-dot-review"></i>attestation on by
+            default, zttp verify &lt;url&gt; for anyone downstream</span>
+        </div>
+
+        <div class="z-support-grid">
+          <details class="z-support-detail" id="workflows">
+            <summary>
+              <span>Durable workflows</span>
+              <em>show detail</em>
+            </summary>
+            <div class="z-support-body">
+              <ul class="z-check-list">
+                <li>
+                  <span>Replay safety is a compiler verdict and the runtime is
+                    its carrier: it refuses the runs the compiler could not
+                    prove. Reusing a completed response needs
+                    <code>idempotent</code>; retrying an incomplete run needs
+                    <code>retry_safe</code>, or a client
+                    <code>Idempotency-Key</code>.</span>
+                </li>
+                <li>
+                  <span>Unproven replay fails closed with a soft 599 the client
+                    can read, <code>DurableRetryUnproven</code>, never a silent
+                    second run.</span>
+                </li>
+                <li>
+                  <span><code>ZTS509</code> rejects a
+                    <code>workflow.call</code>, <code>saga</code>, or
+                    <code>fanout</code> inside a <code>durable.step()</code>
+                    callback. <code>ZTS510</code> rejects a static saga missing
+                    a <code>compensate</code> on any step but the last.</span>
+                </li>
+              </ul>
+              <div
+                class="z-code-card"
+                aria-label="Durable workflow orchestrator"
+              >
+                <div class="z-pane-title">
+                  <span>orchestrator.ts</span><em>one process, no network</em>
+                </div>
+                <pre><code><span class="z-token-key">import</span> { run } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:durable"</span>;
+<span class="z-token-key">import</span> { call } <span class="z-token-key">from</span> <span class="z-token-str">"zttp:workflow"</span>;
 
 <span class="z-token-key">function</span> handler(req: Request): Response &amp; Guarantees {
   <span class="z-token-key">const</span> key = req.headers.get(<span class="z-token-str">"idempotency-key"</span>) ?? <span class="z-token-str">"demo"</span>;
   <span class="z-token-key">return</span> run(key, () =&gt; {
     <span class="z-token-key">const</span> res = call(<span class="z-token-str">"greet"</span>, { method: <span class="z-token-str">"GET"</span>, path: <span class="z-token-str">"/hello"</span> });
-    <span class="z-token-key">return</span> Response.json({ runKey: key, subStatus: res.status, sub: res.json() });
+    <span class="z-token-key">return</span> Response.json({ runKey: key, sub: res.json() });
   });
 }
 
@@ -801,500 +1401,133 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 <span class="z-cmd">$</span> zttp link system.json
 <span class="z-cmd">$</span> zttp serve orchestrator.ts --system system.json \
     --durable ./.durable --workflow-queue</code></pre>
-          </div>
-          <div class="z-expert-copy">
-            <p>
-              There is no workflow DSL - just disciplined naming over primitives.
-              <code>call("greet", ...)</code> runs another handler in an isolated
-              pooled runtime and copies its <code>Response</code> back.
-              <code>run(key, ...)</code> owns the parent workflow and writes every
-              step to an oplog. The <code>Idempotency-Key</code> header becomes the
-              run key; each <code>workflow.call()</code> is a child boundary.
-              Timers and signals are primitives too: <code>sleep</code>,
-              <code>sleepUntil</code>, <code>waitSignal</code>,
-              <code>signalAt</code>.
-            </p>
-            <ul class="z-check-list">
-              <li>
-                <span><code>zttp link system.json</code> resolves every call,
-                  follow, saga, and fanout target by name at compile time, and
-                  validates the bundle's single external entry point.</span>
-              </li>
-              <li>
-                <span><code>saga([...])</code> rolls back completed steps in
-                  reverse order when a step returns status 400 or above - each
-                  step carries its own compensate.</span>
-              </li>
-              <li>
-                <span>A panicking sub-handler surfaces as
-                  <code>subStatus 599</code> - the orchestrator answers instead
-                  of crashing.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="z-loop">
-          <h3 class="z-loop-head">When a step fails</h3>
-          <ol class="z-loop-flow" aria-label="How a durable run recovers">
-            <li class="z-loop-step">
-              <span class="z-loop-num">01</span>
-              <strong>Isolate</strong>
-              <p>
-                A panic stops at the handler boundary: the caller gets 500, the
-                pool slot is quarantined, every other worker keeps serving.
+              </div>
+              <p class="z-support-note">
+                You have already met the missing proof. In
+                <a href="#playground">the playground</a>, the
+                <code>fault-covered</code> chip sits off: a plain handler has no
+                durable recovery path for its effects, so the compiler will not
+                claim one. <code>fault_covered</code> is what
+                <code>durable.run()</code> and proven saga compensates earn.
               </p>
-            </li>
-            <li class="z-loop-step">
-              <span class="z-loop-num">02</span>
-              <strong>Prove</strong>
-              <p>
-                Reusing a completed response needs <code>idempotent</code>;
-                retrying an incomplete run needs <code>retry_safe</code> - or a
-                client <code>Idempotency-Key</code>. Unproven replay gets a soft
-                599, never a silent re-run.
-              </p>
-            </li>
-            <li class="z-loop-step">
-              <span class="z-loop-num">03</span>
-              <strong>Retry</strong>
-              <p>
-                A background scheduler replays the incomplete oplog with jittered
-                exponential backoff.
-              </p>
-            </li>
-            <li class="z-loop-step">
-              <span class="z-loop-num">04</span>
-              <strong>Quarantine</strong>
-              <p>
-                Ten consecutive failures move the run to
-                <code>dead-runs/&lt;id&gt;.json</code>. It survives restart and
-                waits for a human.
-              </p>
-            </li>
-            <li class="z-loop-step z-loop-step-proven">
-              <span class="z-status-dot z-dot-safe"></span>
-              <strong>Recovered</strong>
-              <p>
-                The run resumes from its oplog - replayed from the log, not
-                re-guessed.
-              </p>
-            </li>
-          </ol>
-          <p class="z-loop-cycle">
-            isolate, prove, retry, quarantine - no silent re-run
-          </p>
-        </div>
-
-        <p class="z-section-intro z-wf-lead">Most of it is settled before the
-          server starts.</p>
-        <div class="z-pillar-grid">
-          <article>
-            <span class="z-card-index">01</span>
-            <h3>ZTS509: no calls inside steps</h3>
-            <p>
-              <code>workflow.call</code>, <code>saga</code>, and
-              <code>fanout</code> are rejected inside a <code>durable.step()</code>
-              callback - nesting that would silently lose durability.
-            </p>
-          </article>
-          <article>
-            <span class="z-card-index">02</span>
-            <h3>ZTS510: no rollback holes</h3>
-            <p>
-              A static saga must carry a compensate on every step except possibly
-              the last - the structural signature of a partial rollback.
-            </p>
-          </article>
-          <article>
-            <span class="z-card-index">03</span>
-            <h3>Proofs in the contract</h3>
-            <p>
-              <code>contract.json</code> records <code>retrySafe</code>,
-              <code>idempotent</code>, <code>faultCovered</code>. The proof receipt
-              carries <code>durableWorkflowProofLevel</code>.
-            </p>
-          </article>
-        </div>
-
-        <div
-          class="z-contrast-grid z-expert-contrast"
-          aria-label="Ordinary retry versus a proven durable run"
-        >
-          <article class="z-contrast-weak">
-            <span><i class="z-status-dot z-dot-blocked"></i>ordinary retry</span>
-            <p>
-              Retries on failure and hopes the handler was idempotent. The
-              duplicate side effect shows up later, in the logs.
-            </p>
-          </article>
-          <article class="z-contrast-strong">
-            <span><i class="z-status-dot z-dot-safe"></i>zttp durable run</span>
-            <p>
-              Fails closed. Without a <code>retry_safe</code> proof or an
-              <code>Idempotency-Key</code>, replay is refused with a 599 the client
-              can read: <code>DurableRetryUnproven</code>, not a silent second run.
-            </p>
-          </article>
-        </div>
-
-        <p class="z-expert-note">
-          You have already met the missing proof. In
-          <a href="#playground">the playground above</a>, the
-          <code>fault-covered</code> chip sits off: a plain handler has no durable
-          recovery path for its effects, so the compiler will not claim one.
-          <code>fault_covered</code> is what <code>durable.run()</code> and proven
-          saga compensates earn.
-        </p>
-
-        <div class="z-calm-strip" aria-label="Durable workflow boundaries">
-          <span><i class="z-status-dot z-dot-idle"></i>fanout dispatches
-            sequentially, not in parallel</span>
-          <span><i class="z-status-dot z-dot-review"></i>a failing compensate is a
-            terminal 500, manual intervention</span>
-          <span><i class="z-status-dot z-dot-review"></i>beta: throughput ships
-            with receipt-backed measurement</span>
-        </div>
-      </section>
-
-      <section class="z-section z-workflows" id="hypermedia">
-        <div class="z-section-heading">
-          <p class="z-section-kicker">
-            <span class="z-status-dot z-dot-safe"></span>
-            Hypermedia resources
-          </p>
-          <h2>One declaration. HAL for services, HTMX for people.</h2>
-          <p class="z-section-intro">
-            <code>resource(data, affordances)</code> returns one value the
-            runtime renders two ways, chosen by the request's
-            <code>Accept</code> header. A service asking for
-            <code>application/hal+json</code> gets a HAL document. A browser
-            asking for <code>text/html</code> gets HTMX controls built from the
-            same affordances. You declare what the resource can do once.
-          </p>
-        </div>
-
-        <div class="z-expert z-wf-compose">
-          <div class="z-code-card" aria-label="Hypermedia resource handler">
-            <div class="z-pane-title">
-              <span>order.ts</span><em>one shape, two renderings</em>
             </div>
-            <pre><code><span class="z-token-key">function</span> handler(req: Request): Response {
+          </details>
+
+          <details class="z-support-detail" id="hypermedia">
+            <summary>
+              <span>Hypermedia resources</span>
+              <em>show detail</em>
+            </summary>
+            <div class="z-support-body">
+              <ul class="z-check-list">
+                <li>
+                  <span><code>resource(data, affordances)</code> returns one
+                    value the runtime renders two ways, chosen by the request's
+                    <code>Accept</code> header. You declare what the resource
+                    can do once.</span>
+                </li>
+                <li>
+                  <span>HAL for services: your data plus <code>_links</code> for
+                    navigation and <code>_templates</code> for write actions.
+                    HTMX for people: a <code>&lt;dl&gt;</code> of the scalar
+                    data, then links and <code>hx-post</code> controls carrying
+                    <code>hx-target</code> and <code>hx-swap</code>.</span>
+                </li>
+                <li>
+                  <span>An affordance with no <code>method</code>, or with
+                    <code>GET</code> or <code>HEAD</code>, is a navigation link.
+                    Any other method is a write action. There is no second
+                    template to keep in sync.</span>
+                </li>
+              </ul>
+              <div class="z-code-card" aria-label="Hypermedia resource handler">
+                <div class="z-pane-title">
+                  <span>order.ts</span><em>one shape, two renderings</em>
+                </div>
+                <pre><code><span class="z-token-key">function</span> handler(req: Request): Response {
   <span class="z-token-key">const</span> order = { id: <span class="z-token-str">42</span>, total: <span class="z-token-str">1999</span>, status: <span class="z-token-str">"pending"</span> };
   <span class="z-token-key">return</span> resource(order, {
     self: { href: <span class="z-token-str">"/orders/42"</span> },
     pay: { href: <span class="z-token-str">"/orders/42/pay"</span>, method: <span class="z-token-str">"POST"</span>, title: <span class="z-token-str">"Pay now"</span>,
            target: <span class="z-token-str">"#order"</span>, swap: <span class="z-token-str">"outerHTML"</span> },
-    cancel: { href: <span class="z-token-str">"/orders/42"</span>, method: <span class="z-token-str">"DELETE"</span>,
-              title: <span class="z-token-str">"Cancel"</span> },
+    cancel: { href: <span class="z-token-str">"/orders/42"</span>, method: <span class="z-token-str">"DELETE"</span> },
   });
 }
 
 <span class="z-muted"># same handler, two clients</span>
-<span class="z-cmd">$</span> zttp serve order.ts -p 3000
-<span class="z-cmd">$</span> curl -H <span class="z-str">'Accept: application/hal+json'</span> \
-    localhost:3000/orders/42
+<span class="z-cmd">$</span> curl -H <span class="z-str">'Accept: application/hal+json'</span> localhost:3000/orders/42
 <span class="z-cmd">$</span> curl -H <span class="z-str">'Accept: text/html'</span> -H <span class="z-str">'HX-Request: true'</span> \
     localhost:3000/orders/42</code></pre>
-          </div>
-          <div class="z-expert-copy">
-            <p>
-              Each affordance is keyed by its link relation.
-              <code>href</code> is required; <code>method</code>,
-              <code>title</code>, <code>target</code>, <code>swap</code>, and
-              <code>fields</code> are optional. An affordance with no
-              <code>method</code>, or with <code>GET</code> or
-              <code>HEAD</code>, is a navigation link. Any other method is a
-              write action. The rendering follows from that shape - there is no
-              second template to keep in sync.
-            </p>
-            <ul class="z-check-list">
-              <li>
-                <span>HAL: your data plus <code>_links</code> for navigation and
-                  <code>_templates</code> for write actions, with
-                  <code>fields</code> as <code>properties</code>.</span>
-              </li>
-              <li>
-                <span>HTMX: a <code>&lt;dl&gt;</code> of the scalar data, then
-                  <code>&lt;a&gt;</code> links and
-                  <code>&lt;button hx-post&gt;</code> controls carrying
-                  <code>hx-target</code> and <code>hx-swap</code>. Without
-                  <code>HX-Request</code>, the same fragment arrives wrapped in a
-                  page that loads htmx.</span>
-              </li>
-              <li>
-                <span><code>follow(order, "pay")</code> from
-                  <code>zttp:workflow</code> dispatches an affordance by
-                  relation, resolved to a proven bundle route at compile
-                  time.</span>
-              </li>
-            </ul>
-          </div>
+              </div>
+              <p class="z-support-note">
+                Start from the scaffold with
+                <code>zttp init my-app --template htmx</code>. For a live
+                walkthrough of HATEOAS and HAL on an order whose affordances
+                change with its state, open the
+                <a
+                  href="https://github.com/srdjan/zttp/blob/main/docs/hypermedia-explainer.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >interactive explainer</a>. This is a v1 beta primitive.
+              </p>
+            </div>
+          </details>
         </div>
+      </section>
 
-        <p class="z-expert-note">
-          Start from the scaffold with
-          <code>zttp init my-app --template htmx</code>. For a live walkthrough
-          of HATEOAS and HAL on an order whose affordances change with its
-          state, open the
-          <a
-            href="https://github.com/srdjan/zttp/blob/main/docs/hypermedia-explainer.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >interactive explainer</a>.
+      <section class="z-section z-final-cta" id="install">
+        <p class="z-section-kicker">Start proving</p>
+        <h2>
+          Install zttp. Break a proof on purpose.
+        </h2>
+        <p>
+          The quickest demo is one unsupported feature. Add <code>while</code>
+          or <code>try/catch</code> and watch the compiler name the proof it
+          cannot discharge. Then ask <code>zttp expert</code> for the same
+          change and watch the veto, the salvage, and the compiler-authored fix.
         </p>
 
-        <div class="z-calm-strip" aria-label="Hypermedia boundaries">
-          <span><i class="z-status-dot z-dot-safe"></i>one affordance
-            declaration, two renderings</span>
-          <span><i class="z-status-dot z-dot-idle"></i>negotiated by
-            <code>Accept</code>, not by route</span>
-          <span><i class="z-status-dot z-dot-review"></i>v1 beta hypermedia
-            primitive</span>
+        <div class="z-install-card" aria-label="Install command">
+          <span class="z-prompt">$</span>
+          <code
+            id="install-cmd-cta"
+            data-command="curl -fsSL https://raw.githubusercontent.com/srdjan/zttp/main/install.sh | sh"
+          >curl -fsSL
+            https://raw.githubusercontent.com/srdjan/zttp/main/install.sh |
+            sh</code>
+          <button type="button" id="copy-install-cta">Copy</button>
         </div>
-      </section>
 
-      <section class="z-section z-compare" id="compare">
-        <div class="z-heading-wide">
-          <div>
-            <p class="z-section-kicker">Positioning</p>
-            <h2>The trade that makes compile-time proof work.</h2>
-          </div>
-          <p>
-            zttp gives up the full JavaScript and npm surface so the compiler
-            can enumerate handler paths, capabilities, and declared guarantees
-            before deploy.
-          </p>
-        </div>
-        <div class="z-table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Capability</th>
-                <th>Node / Deno / Bun</th>
-                <th>Serverless platforms</th>
-                <th>Static type checks</th>
-                <th>zttp</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Runs TypeScript handlers</td>
-                <td>✓</td>
-                <td>✓</td>
-                <td>partial</td>
-                <td>✓</td>
-              </tr>
-              <tr>
-                <td>Compile-time path and guarantee proofs</td>
-                <td>-</td>
-                <td>-</td>
-                <td>limited</td>
-                <td>✓</td>
-              </tr>
-              <tr>
-                <td>Guarantees enforced by default</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>✓</td>
-              </tr>
-              <tr>
-                <td>Durable workflows with proven-safe replay</td>
-                <td>-</td>
-                <td>partial</td>
-                <td>-</td>
-                <td>✓</td>
-              </tr>
-              <tr>
-                <td>HAL and HTMX from one declaration</td>
-                <td>libraries</td>
-                <td>-</td>
-                <td>-</td>
-                <td>✓</td>
-              </tr>
-              <tr>
-                <td>Compiler-guided agent</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>✓</td>
-              </tr>
-              <tr>
-                <td>Small self-contained Zig binary</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>✓</td>
-              </tr>
-              <tr>
-                <td>Proof ledger and witness replay</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>✓</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="z-compare-cards" aria-label="Mobile comparison">
-          <article>
-            <h3>Runs TypeScript handlers</h3><span>Node/Deno/Bun <b
-              >✓</b></span><span>Serverless <b>✓</b></span><span>Type checks
-              <b>partial</b></span><span
-              class="zttp"
-            >zttp <b>✓</b></span>
-          </article>
-          <article>
-            <h3>Compile-time path and guarantee proofs</h3><span>Node/Deno/Bun
-              <b>-</b></span><span>Serverless <b>-</b></span><span>Type checks
-              <b>limited</b></span><span
-              class="zttp"
-            >zttp <b>✓</b></span>
-          </article>
-          <article>
-            <h3>Guarantees enforced by default</h3><span>Node/Deno/Bun <b
-              >-</b></span><span>Serverless <b>-</b></span><span>Type checks
-              <b>-</b></span><span
-              class="zttp"
-            >zttp <b>✓</b></span>
-          </article>
-          <article>
-            <h3>Durable workflows with proven-safe replay</h3><span>Node/Deno/Bun
-              <b>-</b></span><span>Serverless <b>partial</b></span><span>Type
-              checks <b>-</b></span><span
-              class="zttp"
-            >zttp <b>✓</b></span>
-          </article>
-          <article>
-            <h3>HAL and HTMX from one declaration</h3><span>Node/Deno/Bun <b
-              >libraries</b></span><span>Serverless <b>-</b></span><span>Type
-              checks <b>-</b></span><span
-              class="zttp"
-            >zttp <b>✓</b></span>
-          </article>
-          <article>
-            <h3>Compiler-guided agent</h3><span>Node/Deno/Bun <b
-              >-</b></span><span>Serverless <b>-</b></span><span>Type checks
-              <b>-</b></span><span
-              class="zttp"
-            >zttp <b>✓</b></span>
-          </article>
-          <article>
-            <h3>Small Zig binary</h3><span>Node/Deno/Bun <b>-</b></span><span
-            >Serverless <b>-</b></span><span>Type checks <b>-</b></span><span
-              class="zttp"
-            >zttp <b>✓</b></span>
-          </article>
-          <article>
-            <h3>Proof ledger and witness replay</h3><span>Node/Deno/Bun <b
-              >-</b></span><span>Serverless <b>-</b></span><span>Type checks
-              <b>-</b></span><span
-              class="zttp"
-            >zttp <b>✓</b></span>
-          </article>
-        </div>
-      </section>
+        <ol class="z-first-run" aria-label="The first five minutes">
+          <li>
+            <strong><code>zttp init api --template api</code></strong>
+            <p>Scaffold a handler, a <code>zttp.json</code>, and zts defaults.</p>
+          </li>
+          <li>
+            <strong>Add <code>while</code> to the handler</strong>
+            <p>
+              Watch the compiler point at the file, the line, and the proof it
+              cannot discharge. No API key. Sixty seconds.
+            </p>
+          </li>
+          <li>
+            <strong><code>zttp expert "add auth to the webhook"</code></strong>
+            <p>
+              Watch it author inside the fence. This step needs an Anthropic or
+              OpenAI key.
+            </p>
+          </li>
+        </ol>
 
-      <section
-        class="z-section z-pillars"
-        id="runtime"
-        aria-labelledby="runtime-title"
-      >
-        <div class="z-section-heading">
-          <p class="z-section-kicker">Core idea</p>
-          <h2 id="runtime-title">Three claims, all concrete.</h2>
-        </div>
-        <div class="z-pillar-grid">
-          <article>
-            <span class="z-card-index">01</span>
-            <h3>Provable TypeScript</h3>
-            <p>
-              <code>zts</code> removes the features that hide control flow:
-              <code>while</code>, <code>try/catch</code>, <code>class</code>,
-              <code>var</code>. That buys the compiler 14 proof chips per
-              handler - every path returns, no secret leaks, safe-to-replay
-              durable runs.
-            </p>
-          </article>
-          <article>
-            <span class="z-card-index">02</span>
-            <h3>Compiler-in-the-loop agent</h3>
-            <p>
-              <code>zttp expert</code> writes a patch, runs the proof pass,
-              asks when the prompt is ambiguous, and rewrites until the compiler
-              accepts it.
-            </p>
-          </article>
-          <article>
-            <span class="z-card-index">03</span>
-            <h3>Small Zig binaries</h3>
-            <p>
-              <code>zttp deploy</code> emits a local self-contained binary.
-              Current public baseline: 4.8 MB and 7-15 ms typical cold start.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="z-section z-api-section">
-        <div class="z-api-copy">
-          <p class="z-section-kicker">CLI surface</p>
-          <h2>Five commands cover the proof loop.</h2>
-          <p>
-            Init a handler, prove it on save, test it, ask the compiler-guided
-            agent for edits, then deploy a signed local binary.
-          </p>
-          <div class="z-inline-links">
-            <a
-              href="https://github.com/srdjan/zttp/blob/main/docs/user-guide.md#first-project"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Getting started</a>
-            <a
-              href="https://github.com/srdjan/zttp/blob/main/docs/cli.md"
-              target="_blank"
-              rel="noopener noreferrer"
-            >CLI reference</a>
-            <a
-              href="https://github.com/srdjan/zttp/blob/main/docs/contracts-and-sandboxing.md"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Contracts and sandboxing</a>
-            <a
-              href="https://github.com/srdjan/zttp/tree/main/docs/virtual-modules"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Virtual modules</a>
-            <a
-              href="https://github.com/srdjan/zttp"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Source</a>
-            <a href="/deck">Deck</a>
-          </div>
-          <p class="z-legend-label">
-            Every deploy appends a contract verdict to
-            <code>proofs.jsonl</code>:
-          </p>
-          <div class="z-state-legend">
-            <span><i class="z-status-dot z-dot-safe"></i>safe</span>
-            <span><i
-                class="z-status-dot z-dot-review"
-              ></i>safe_with_additions</span>
-            <span><i class="z-status-dot z-dot-blocked"></i>blocked</span>
-            <span><i class="z-status-dot z-dot-idle"></i>needs_review</span>
-          </div>
-        </div>
         <div class="z-code-card" aria-label="zttp CLI workflow">
-          <pre><code><span class="z-muted"># scaffold: basic, api, or htmx</span>
+          <pre><code><span class="z-muted"># seven commands cover the loop</span>
 <span class="z-cmd">zttp</span> init api --template api && cd api
 <span class="z-cmd">zttp</span> dev
 
 <span class="z-muted"># run handler tests</span>
 <span class="z-cmd">zttp</span> test
 
-<span class="z-muted"># ask the compiler-guided agent for a patch</span>
+<span class="z-muted"># ask the fenced agent for a patch</span>
 <span class="z-cmd">zttp</span> expert <span class="z-str">"add health check"</span>
 
 <span class="z-muted"># build a signed local binary, then check what shipped</span>
@@ -1302,18 +1535,19 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 <span class="z-cmd">zttp</span> proofs show HEAD
 <span class="z-cmd">zttp</span> verify http://127.0.0.1:8080</code></pre>
         </div>
-      </section>
 
-      <section class="z-final-cta" id="install">
-        <p class="z-section-kicker">Start proving</p>
-        <h2>
-          Install zttp. Break a proof on purpose.
-        </h2>
-        <p>
-          The quickest demo is one unsupported feature. Add
-          <code>while</code> or <code>try/catch</code> and watch the compiler
-          point to the proof it cannot discharge.
+        <p class="z-legend-label">
+          Every deploy appends a contract verdict to <code>proofs.jsonl</code>:
         </p>
+        <div class="z-state-legend">
+          <span><i class="z-status-dot z-dot-safe"></i>safe</span>
+          <span><i
+              class="z-status-dot z-dot-review"
+            ></i>safe_with_additions</span>
+          <span><i class="z-status-dot z-dot-blocked"></i>blocked</span>
+          <span><i class="z-status-dot z-dot-idle"></i>needs_review</span>
+        </div>
+
         <div class="z-hero-actions center">
           <a
             class="z-button z-button-primary"
@@ -1342,12 +1576,27 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
         target="_blank"
         rel="noopener noreferrer"
       >Docs</a>
+      <a
+        href="https://github.com/srdjan/zttp/blob/main/STRATEGY.md"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Strategy</a>
+      <a
+        href="https://github.com/srdjan/zttp/blob/main/docs/essay.md"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Essay</a>
+      <a
+        href="https://github.com/srdjan/zttp/blob/main/docs/cli.md"
+        target="_blank"
+        rel="noopener noreferrer"
+      >CLI reference</a>
       <a href="/deck">Deck</a>
       <a href="https://ziglang.org" target="_blank" rel="noopener noreferrer"
       >Zig</a>
     </footer>
 
-    <script src="/script.js?v=8" defer></script>
-    <script src="/playground.js?v=7" defer></script>
+    <script src="/script.js?v=9" defer></script>
+    <script src="/playground.js?v=8" defer></script>
   </body>
 </html>

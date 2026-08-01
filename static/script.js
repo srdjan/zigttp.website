@@ -38,29 +38,33 @@ initMenuToggle(
   ".z-nav",
 );
 
-// Install command copy affordance.
-const copyInstall = document.getElementById("copy-install");
-const installCmd = document.getElementById("install-cmd");
-if (copyInstall && installCmd) {
-  const originalText = copyInstall.textContent;
+// Install command copy affordance. The command appears twice on the homepage:
+// once in the hero for visitors who arrive decided, once in the final CTA where
+// the nav Install link lands. Both cards are wired from the same markup shape.
+document.querySelectorAll(".z-install-card").forEach((card) => {
+  const button = card.querySelector("button");
+  const code = card.querySelector("code");
+  if (!button || !code) return;
 
-  copyInstall.addEventListener("click", async () => {
-    const command = (installCmd.dataset.command || installCmd.textContent)
+  const originalText = button.textContent;
+
+  button.addEventListener("click", async () => {
+    const command = (code.dataset.command || code.textContent)
       .replace(/\s+/g, " ")
       .trim();
     try {
       await navigator.clipboard.writeText(command);
-      copyInstall.textContent = "Copied";
+      button.textContent = "Copied";
     } catch {
       globalThis.prompt("Copy install command", command);
-      copyInstall.textContent = "Copy";
+      button.textContent = "Copy";
     }
 
     setTimeout(() => {
-      copyInstall.textContent = originalText;
+      button.textContent = originalText;
     }, 1500);
   });
-}
+});
 
 // Deck burger menu.
 initMenuToggle(

@@ -324,41 +324,6 @@
   z-index: 1;
 }
 
-.z-hero-field {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.z-hero-field::before,
-.z-hero-field::after {
-  content: "{ proof }";
-  position: absolute;
-  color: rgb(110 173 219 / 0.08);
-  font-family: var(--z-mono);
-  font-size: clamp(4rem, 10vw, 9rem);
-  font-weight: 700;
-  letter-spacing: 0;
-  white-space: nowrap;
-}
-
-.z-hero-field::before {
-  top: 8%;
-  right: 5%;
-  transform: rotate(-8deg);
-}
-
-.z-hero-field::after {
-  bottom: -3%;
-  left: 0;
-  color: rgb(37 99 235 / 0.035);
-  content: "safe_with_additions";
-  font-size: clamp(2.8rem, 7vw, 6.5rem);
-  transform: rotate(5deg);
-}
-
 .z-eyebrow,
 .z-section-kicker {
   display: inline-flex;
@@ -529,14 +494,6 @@
   background: var(--z-accent-soft);
 }
 
-.z-hero-note {
-  max-width: 42rem;
-  margin: 0.95rem 0 0;
-  color: var(--z-muted);
-  font-size: 0.88rem;
-  font-weight: 650;
-}
-
 .z-product-shot {
   min-width: 0;
   transform: rotate(1deg);
@@ -550,146 +507,11 @@
   text-align: center;
 }
 
-.z-studio-mock {
-  display: grid;
-  grid-template-columns: 190px minmax(0, 1fr);
-  min-height: 490px;
-  overflow: hidden;
-  border: 1px solid rgb(42 103 150 / 0.28);
-  border-radius: var(--z-radius-lg);
-  background: var(--z-terminal);
-  box-shadow: var(--z-shadow);
-  color: #e8edf1;
-  font-family: var(--z-mono);
-}
-
-.z-studio-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 0.52rem;
-  border-right: 1px solid rgb(255 255 255 / 0.08);
-  background: #10141a;
-  padding: 1rem 0.78rem;
-}
-
-.z-sidebar-title,
-.z-sidebar-row {
-  display: flex;
-  justify-content: space-between;
-  color: #96a0ac;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.z-surface,
-.z-proof-item {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.55rem;
-  align-items: center;
-  border-radius: 13px;
-  padding: 0.58rem;
-}
-
-.z-surface.active {
-  background: rgb(217 238 233 / 0.1);
-}
-
-.z-surface strong,
-.z-proof-item strong {
-  display: block;
-  overflow: hidden;
-  color: #f6f8fb;
-  font-size: 0.76rem;
-  line-height: 1.1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.z-surface small,
-.z-proof-item small {
-  display: block;
-  overflow: hidden;
-  color: #96a0ac;
-  font-size: 0.66rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.z-sidebar-spacer {
-  flex: 1;
-  min-height: 0.6rem;
-}
-
-.z-proof-item > span {
-  display: grid;
-  place-items: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 8px;
-  background: rgb(47 138 79 / 0.18);
-  color: #7fd59b;
-  font-weight: 900;
-}
-
-.z-studio-main {
-  min-width: 0;
-  background:
-    radial-gradient(circle at 88% 8%, rgb(37 99 235 / 0.16), transparent 16rem),
-    var(--z-terminal);
-}
-
-.z-studio-tabs {
-  display: flex;
-  gap: 0.35rem;
-  align-items: center;
-  overflow: hidden;
-  border-bottom: 1px solid rgb(255 255 255 / 0.08);
-  padding: 0.85rem 0.9rem 0;
-}
-
-.z-studio-tabs span {
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-bottom: 0;
-  border-radius: 12px 12px 0 0;
-  background: rgb(255 255 255 / 0.04);
-  color: #9da7b3;
-  font-size: 0.68rem;
-  font-weight: 800;
-  padding: 0.46rem 0.68rem;
-  white-space: nowrap;
-}
-
-.z-studio-tabs span.active {
-  background: var(--z-terminal-2);
-  color: #f6f8fb;
-}
-
-.z-studio-tabs span:last-child {
-  margin-left: auto;
-}
-
-.z-studio-panes {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
-  gap: 0.8rem;
-  min-width: 0;
-  padding: 0.9rem;
-}
-
-.z-code-pane,
-.z-verdict-pane,
 .z-code-card {
   min-width: 0;
   border: 1px solid rgb(255 255 255 / 0.08);
   border-radius: var(--z-radius-md);
   background: var(--z-terminal-2);
-}
-
-.z-code-pane.focused {
-  box-shadow: inset 0 0 0 1px rgb(217 238 233 / 0.18);
 }
 
 .z-pane-title {
@@ -708,16 +530,12 @@
   font-style: normal;
 }
 
-.z-code-pane pre,
-.z-verdict-pane pre,
 .z-code-card pre {
   margin: 0;
   overflow: auto;
   padding: 0.9rem;
 }
 
-.z-code-pane code,
-.z-verdict-pane code,
 .z-code-card code {
   color: #d8dee8;
   font-size: 0.72rem;
@@ -750,59 +568,6 @@
 .z-agent {
   color: #8ab4ff;
   font-weight: 700;
-}
-
-.z-verdict-pane {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.z-verdict {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 0.9rem;
-  border-radius: 18px;
-  padding: 1rem;
-}
-
-.z-verdict-safe {
-  background: rgb(47 138 79 / 0.16);
-  color: #9be7b0;
-}
-
-.z-verdict span {
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-}
-
-.z-verdict strong {
-  font-size: 2rem;
-  letter-spacing: 0;
-}
-
-.z-verdict-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.4rem;
-  padding: 0 0.9rem 0.9rem;
-}
-
-.z-verdict-grid span {
-  color: #8e99a6;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.z-verdict-grid strong {
-  margin-bottom: 0.25rem;
-  color: #f4f7fb;
-  font-size: 0.78rem;
 }
 
 .z-section {
@@ -850,13 +615,11 @@
 
 .z-heading-wide h2,
 .z-section-heading h2,
-.z-api-copy h2,
 .z-final-cta h2 {
   font-size: 4.7rem;
 }
 
 .z-heading-wide p,
-.z-api-copy p,
 .z-final-cta p {
   margin: 0;
   color: var(--z-ink-soft);
@@ -864,8 +627,7 @@
   line-height: 1.68;
 }
 
-.z-contrast-grid,
-.z-pillar-grid {
+.z-contrast-grid {
   display: grid;
   gap: 1rem;
 }
@@ -874,8 +636,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.z-contrast-grid article,
-.z-pillar-grid article {
+.z-contrast-grid article {
   border: 1px solid var(--z-line);
   border-radius: var(--z-radius-md);
   background: rgb(255 253 248 / 0.76);
@@ -887,7 +648,9 @@
 }
 
 .z-contrast-grid span {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 0.65rem;
   color: var(--z-accent-dark);
   font-family: var(--z-mono);
@@ -897,8 +660,7 @@
   text-transform: uppercase;
 }
 
-.z-contrast-grid p,
-.z-pillar-grid p {
+.z-contrast-grid p {
   margin: 0;
   color: var(--z-muted);
   font-size: 0.96rem;
@@ -961,13 +723,6 @@
   display: none;
 }
 
-.z-api-section {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(420px, 1fr);
-  gap: 3rem;
-  align-items: center;
-}
-
 /* Expert agent: inverted two-column (terminal left, copy right) so this
    flagship beat reads differently from the prose-left sections around it. */
 .z-expert {
@@ -985,136 +740,6 @@
     transparent 16rem
   ),
     var(--z-terminal);
-}
-
-/* Compiler-in-the-loop: the loop diagram leads, while the transcript stays
-   available on demand for visitors who want the full compiler exchange. */
-.z-loop {
-  margin: 0 0 3.25rem;
-}
-
-.z-loop-head {
-  margin: 0 0 1.4rem;
-  color: var(--z-muted);
-  font-family: var(--z-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.z-loop-flow {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1.6rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.z-loop-step {
-  position: relative;
-  padding: 1.15rem;
-  border-radius: var(--z-radius-md);
-  background: var(--z-paper);
-  box-shadow: 0 1px 0 rgb(35 29 21 / 0.04), 0 14px 34px rgb(35 29 21 / 0.07);
-}
-
-/* Forward connector between steps, sitting in the column gap. */
-.z-loop-step:not(:last-child)::after {
-  content: "→";
-  position: absolute;
-  top: 50%;
-  right: -1.08rem;
-  transform: translateY(-50%);
-  color: var(--z-line-strong);
-  font-weight: 900;
-}
-
-/* The step that hands off to Proven reads as a gate, not just another arrow.
-   Keyed off the proven step's class, so adding or removing a step can't
-   silently misplace the gate. */
-.z-loop-step:has(+ .z-loop-step-proven)::after {
-  content: "✓";
-  color: var(--z-accent-dark);
-}
-
-.z-loop-num {
-  display: block;
-  margin-bottom: 0.6rem;
-  color: var(--z-accent-dark);
-  font-family: var(--z-mono);
-  font-size: 0.75rem;
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.05em;
-}
-
-.z-loop-step strong {
-  display: block;
-  margin-bottom: 0.4rem;
-  color: var(--z-ink);
-  font-size: 1.02rem;
-  letter-spacing: 0;
-  text-wrap: balance;
-}
-
-.z-loop-step p {
-  margin: 0;
-  color: var(--z-muted);
-  font-size: 0.85rem;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.z-loop-step-proven {
-  background:
-    radial-gradient(
-    circle at 80% 0%,
-    rgb(110 173 219 / 0.28),
-    transparent 11rem
-  ),
-    var(--z-accent-soft);
-  box-shadow:
-    0 1px 0 rgb(42 103 150 / 0.12),
-    0 18px 40px rgb(42 103 150 / 0.16);
-}
-
-.z-loop-step-proven .z-status-dot {
-  display: block;
-  margin-bottom: 0.6rem;
-}
-
-.z-loop-cycle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  margin-top: 1.25rem;
-  color: var(--z-muted);
-  font-family: var(--z-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.04em;
-}
-
-.z-loop-cycle::before {
-  content: "↺";
-  font-size: 1.05rem;
-  line-height: 1;
-  color: var(--z-accent-dark);
-}
-
-.z-expert-contrast {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 2.5rem;
-}
-
-/* Differentiate the two outcomes by weight, not color alone: the dot plus the
-   label carry the meaning, the surface treatment reinforces it. */
-.z-expert-contrast span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .z-contrast-weak {
@@ -1163,25 +788,10 @@
   margin: 1.25rem 0 0;
 }
 
-/* Durable workflows: reuses .z-expert (compose row), .z-loop (failure ladder),
-   .z-pillar-grid (compile-time trio), and .z-contrast-grid (before/after). Only
-   the inter-block spacing is section-specific; every visual treatment is shared. */
-.z-wf-compose {
-  margin-bottom: 3.5rem;
-}
-
-/* Reuses .z-section-intro's type treatment; only the margin flips to sit above
-   the trio grid instead of under a heading. */
-.z-wf-lead {
-  margin: 0 0 1.4rem;
-}
-
-.z-workflows .z-calm-strip {
-  margin-top: 1.75rem;
-  margin-bottom: 0;
-}
-
-.z-expert-terminal summary {
+/* Disclosure chrome, shared by every collapsed block on the page: the runtime
+   capability cards and the runtime comparison table. The summary sits on the
+   dark slab, so its colors are the terminal light-ink pair. */
+.z-support-detail > summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1195,11 +805,11 @@
   list-style: none;
 }
 
-.z-expert-terminal summary::-webkit-details-marker {
+.z-support-detail > summary::-webkit-details-marker {
   display: none;
 }
 
-.z-expert-terminal summary::after {
+.z-support-detail > summary::after {
   content: "+";
   display: grid;
   flex-shrink: 0;
@@ -1211,11 +821,11 @@
   color: #9da7b3;
 }
 
-.z-expert-terminal[open] summary::after {
+.z-support-detail[open] > summary::after {
   content: "-";
 }
 
-.z-expert-terminal summary em {
+.z-support-detail > summary em {
   margin-left: auto;
   color: #8e99a6;
   font-style: normal;
@@ -1266,41 +876,6 @@
 .z-code-card code {
   font-size: 0.83rem;
   line-height: 1.78;
-}
-
-.z-pillar-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.z-pillar-grid article {
-  min-height: 18rem;
-  padding: 1.2rem;
-}
-
-.z-card-index {
-  display: block;
-  margin-bottom: 4.5rem;
-  color: var(--z-accent-dark);
-  font-family: var(--z-mono);
-  font-size: 0.78rem;
-  font-weight: 900;
-}
-
-.z-pillar-grid h3 {
-  margin: 0 0 0.7rem;
-  color: var(--z-ink);
-  font-size: 1.2rem;
-  letter-spacing: 0;
-  line-height: 1.05;
-}
-
-.z-pillar-grid code {
-  color: var(--z-accent-dark);
-  font-size: 0.86em;
-}
-
-.z-api-copy {
-  max-width: 30rem;
 }
 
 .z-inline-links {
@@ -1420,17 +995,816 @@
 .z-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.75rem;
   border-top: 1px solid var(--z-line);
   color: var(--z-muted);
   padding-top: 1.5rem;
   padding-bottom: 3rem;
 }
 
+/* ---------------------------------------------------------------------------
+   The agent-compiler components.
+
+   Two conventions run through this block and carry meaning on their own:
+   the dark terminal slab is the compiler's territory (machine-authored, no
+   model call) while cream paper is the model's, and a solid border marks what
+   holds by construction while a dashed border marks what is still open and
+   measured. Both reuse surfaces and tokens that already existed.
+   ------------------------------------------------------------------------- */
+
+/* --- the fence and the convergence gap --- */
+.z-fence {
+  container-type: inline-size;
+  margin: 3rem 0 0;
+}
+
+.z-fence-gate {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.1rem;
+}
+
+.z-fence-draft,
+.z-fence-check {
+  border-radius: var(--z-radius-sm);
+  font-family: var(--z-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.45rem 0.7rem;
+}
+
+.z-fence-draft {
+  border: 1px solid var(--z-line-strong);
+  background: var(--z-paper);
+  color: var(--z-muted);
+}
+
+/* The gate sits on the dark slab: the compiler is the machine half of the
+   page's surface grammar. */
+.z-fence-check {
+  background: var(--z-terminal);
+  color: #e8edf1;
+}
+
+.z-fence-arrow::before {
+  content: "->" / "";
+  color: var(--z-line-strong);
+  font-family: var(--z-mono);
+  font-weight: 900;
+}
+
+.z-fence-gate-label {
+  color: var(--z-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Dashed: the provable set is the open frontier. The gap band below keeps a
+   floor on its padding at every width, because a diagram that closes would
+   claim the convergence result the project explicitly refuses to claim. */
+.z-fence-provable {
+  position: relative;
+  border: 1.5px dashed var(--z-accent-dark);
+  border-radius: var(--z-radius-lg);
+  padding: 1.4rem;
+}
+
+.z-fence-set-label {
+  display: block;
+  color: var(--z-accent-dark);
+  font-family: var(--z-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.z-fence-gap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: clamp(1.1rem, 4cqi, 2.6rem) 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgb(42 103 150 / 0.06) 0 6px,
+    transparent 6px 14px
+  );
+}
+
+.z-fence-gap span {
+  border-radius: var(--z-radius-pill, 999px);
+  background: var(--z-bg);
+  color: var(--z-muted);
+  font-family: var(--z-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  text-align: center;
+}
+
+/* Solid: contained by construction. */
+.z-fence-agent {
+  border: 2px solid var(--z-accent-dark);
+  border-radius: var(--z-radius-md);
+  background: var(--z-paper);
+  box-shadow: var(--z-shadow-sm);
+  padding: 1.15rem;
+}
+
+.z-fence-claim {
+  margin: 0.5rem 0 0;
+  color: var(--z-ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.z-fence figcaption {
+  margin-top: 0.9rem;
+  color: var(--z-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.z-fence figcaption a {
+  color: var(--z-accent-dark);
+}
+
+@container (max-width: 560px) {
+  .z-fence-gate {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* --- the restricted constructs, each one an expandable proof --- */
+.z-boundary-why {
+  margin-top: 3.25rem;
+}
+
+.z-boundary-why h3 {
+  margin: 0 0 1rem;
+  color: var(--z-muted);
+  font-family: var(--z-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.z-boundary-why > p {
+  max-width: 58rem;
+  margin: 0 0 1rem;
+  color: var(--z-ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+.z-cuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.z-cuts li {
+  flex: 1 1 15rem;
+}
+
+.z-cuts details {
+  height: 100%;
+  border: 1px solid var(--z-line);
+  border-radius: var(--z-radius-md);
+  background: var(--z-paper);
+}
+
+.z-cuts summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  color: var(--z-ink);
+  font-family: var(--z-mono);
+  font-size: 0.85rem;
+  font-weight: 800;
+  list-style: none;
+  padding: 0.7rem 0.85rem;
+}
+
+.z-cuts summary::-webkit-details-marker {
+  display: none;
+}
+
+.z-cuts summary::after {
+  content: "+";
+  color: var(--z-accent-dark);
+  font-weight: 900;
+}
+
+.z-cuts details[open] summary::after {
+  content: "-";
+}
+
+.z-cuts s {
+  color: var(--z-red);
+  text-decoration-thickness: 2px;
+}
+
+.z-cuts p {
+  margin: 0;
+  border-top: 1px solid var(--z-line);
+  color: var(--z-muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  padding: 0.75rem 0.85rem;
+  text-wrap: pretty;
+}
+
+.z-boundary-guard {
+  max-width: 46rem;
+  margin: 2rem 0 0;
+  border-left: 3px solid var(--z-accent-dark);
+  color: var(--z-ink);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.5;
+  padding-left: 1.1rem;
+  text-wrap: pretty;
+}
+
+/* --- the veto and the model-free repair lane --- */
+.z-lane {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0 0 3rem;
+}
+
+.z-lane-track {
+  border-radius: var(--z-radius-lg);
+  padding: 1.15rem;
+}
+
+.z-lane-model {
+  border: 1px solid var(--z-line);
+  background: var(--z-paper-muted);
+}
+
+/* The compiler lane is dark because that is what the surface means here: this
+   half of the loop runs with no model in it. */
+.z-lane-compiler {
+  background: var(--z-terminal);
+}
+
+.z-lane-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.9rem;
+  font-family: var(--z-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.z-lane-model .z-lane-tag {
+  color: var(--z-muted);
+}
+
+.z-lane-compiler .z-lane-tag {
+  color: #7fd59b;
+}
+
+.z-lane-steps {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.z-lane-model .z-lane-steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.z-lane-compiler .z-lane-steps {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.z-lane-steps li {
+  position: relative;
+  border-radius: var(--z-radius-md);
+  padding: 0.95rem;
+}
+
+.z-lane-model .z-lane-steps li {
+  background: var(--z-paper);
+  box-shadow: 0 1px 0 rgb(35 29 21 / 0.04), 0 10px 26px rgb(35 29 21 / 0.06);
+}
+
+.z-lane-compiler .z-lane-steps li {
+  background: var(--z-terminal-2);
+}
+
+/* Forward connector in the column gap. The empty alternative text keeps the
+   glyph out of the accessibility tree: the sequence is already an ordered list
+   and the veto states its branch in words. */
+.z-lane-steps li:not(:last-child)::after {
+  content: "->" / "";
+  position: absolute;
+  top: 50%;
+  right: -1rem;
+  transform: translateY(-50%);
+  font-family: var(--z-mono);
+  font-weight: 900;
+}
+
+.z-lane-model .z-lane-steps li:not(:last-child)::after {
+  color: var(--z-line-strong);
+}
+
+.z-lane-compiler .z-lane-steps li:not(:last-child)::after {
+  color: #4d5866;
+}
+
+.z-lane-steps strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+
+.z-lane-model .z-lane-steps strong {
+  color: var(--z-ink);
+}
+
+.z-lane-compiler .z-lane-steps strong {
+  color: #f4f7fb;
+}
+
+.z-lane-steps p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.z-lane-model .z-lane-steps p {
+  color: var(--z-muted);
+}
+
+.z-lane-compiler .z-lane-steps p {
+  color: #a8b2be;
+}
+
+/* The veto is where a draft leaves the model lane. The colored edge is
+   reinforcement; the step's own sentence carries the branch. */
+.z-lane-veto {
+  border-left: 3px solid var(--z-red);
+}
+
+.z-lane-veto strong {
+  color: var(--z-red);
+}
+
+.z-lane-note {
+  max-width: 60rem;
+  margin: 0.4rem 0 0;
+  color: var(--z-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.z-feedback-card {
+  margin-top: 2.5rem;
+}
+
+.z-sample-caption {
+  margin: 0 0 1rem;
+  color: var(--z-muted);
+  font-family: var(--z-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.z-sample-caption a {
+  color: var(--z-accent-dark);
+}
+
+/* --- the evidence ledger --- */
+.z-evidence-lead {
+  max-width: 58rem;
+  margin: 0 0 2rem;
+  color: var(--z-ink-soft);
+  font-size: 1rem;
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+.z-ledger {
+  border-radius: var(--z-radius-lg);
+  background: var(--z-terminal);
+  box-shadow: var(--z-shadow-md);
+  padding: 1.6rem;
+}
+
+.z-ledger-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+}
+
+.z-ledger-head h3 {
+  margin: 0;
+  color: #f4f7fb;
+  font-size: 1.2rem;
+  letter-spacing: 0;
+}
+
+.z-ledger-stamp {
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 999px;
+  color: #8e99a6;
+  font-family: var(--z-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  text-transform: uppercase;
+}
+
+/* Rows, not equal columns: three columns would give the unmeasured tier the
+   same visual mass as the tier that holds. */
+.z-ledger-tier {
+  border-top: 2px solid transparent;
+  padding: 1.1rem 0;
+}
+
+.z-ledger-tier + .z-ledger-tier {
+  border-top-color: rgb(255 255 255 / 0.08);
+}
+
+.z-ledger-tier h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-family: var(--z-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* The tier name is the heading text and the definition restates it in words,
+   so the grade never depends on the dot's color. */
+.z-ledger-tier[data-tier="construction"] h4 {
+  color: #7fd59b;
+}
+
+.z-ledger-tier[data-tier="thin"] h4 {
+  color: #e8c06b;
+}
+
+.z-ledger-tier[data-tier="unmeasured"] h4 {
+  color: #8ab4ff;
+}
+
+.z-tier-def {
+  margin: 0.3rem 0 0.9rem;
+  color: #8e99a6;
+  font-size: 0.82rem;
+}
+
+.z-tier-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.z-tier-items li {
+  flex: 1 1 16rem;
+}
+
+.z-tier-items details {
+  height: 100%;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: var(--z-radius-sm);
+  background: var(--z-terminal-2);
+}
+
+.z-tier-items summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: #e8edf1;
+  cursor: pointer;
+  font-family: var(--z-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  list-style: none;
+  padding: 0.6rem 0.75rem;
+}
+
+.z-tier-items summary::-webkit-details-marker {
+  display: none;
+}
+
+.z-tier-items summary::after {
+  content: "+";
+  color: #8e99a6;
+  font-weight: 900;
+}
+
+.z-tier-items details[open] summary::after {
+  content: "-";
+}
+
+.z-tier-items p {
+  margin: 0;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  color: #a8b2be;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  padding: 0.7rem 0.75rem;
+  text-wrap: pretty;
+}
+
+.z-evidence-rule {
+  max-width: 58rem;
+  margin: 1.75rem 0 0;
+  color: var(--z-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* --- refusals --- */
+.z-refusals-head {
+  margin: 3rem 0 1.1rem;
+  color: var(--z-muted);
+  font-family: var(--z-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.z-refusals {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.z-refusals li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  border-top: 1px solid var(--z-line);
+  padding: 1rem 0;
+}
+
+.z-refusals li:last-child {
+  border-bottom: 1px solid var(--z-line);
+}
+
+/* The tag word carries the refused/deferred distinction; the color only
+   reinforces it. */
+.z-refusal-tag {
+  border-radius: 999px;
+  font-family: var(--z-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.28rem 0.6rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.z-refusal-tag[data-kind="refused"] {
+  background: rgb(196 63 95 / 0.1);
+  color: #a63149;
+}
+
+.z-refusal-tag[data-kind="deferred"] {
+  background: rgb(154 106 0 / 0.1);
+  color: #7d5600;
+}
+
+.z-refusals strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--z-ink);
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+
+.z-refusals p {
+  margin: 0;
+  color: var(--z-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.z-evidence-weapon {
+  max-width: 50rem;
+  margin: 2.5rem 0 1.5rem;
+  border-left: 3px solid var(--z-accent-dark);
+  color: var(--z-ink);
+  font-size: 1.05rem;
+  font-weight: 650;
+  line-height: 1.55;
+  padding-left: 1.1rem;
+  text-wrap: pretty;
+}
+
+/* --- proof carrier: the runtime, compressed to disclosures --- */
+.z-support-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.z-support-detail {
+  align-self: start;
+  border-radius: var(--z-radius-md);
+  background: var(--z-terminal);
+}
+
+.z-support-body {
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+  padding: 1.1rem;
+}
+
+.z-support-body .z-check-list {
+  margin-top: 0;
+}
+
+.z-support-body .z-check-list li {
+  color: #a8b2be;
+}
+
+.z-support-body .z-check-list code {
+  color: #8ab4ff;
+}
+
+.z-support-body .z-code-card {
+  margin-top: 1.25rem;
+  border-color: rgb(255 255 255 / 0.12);
+}
+
+.z-support-note {
+  margin: 1rem 0 0;
+  color: #8e99a6;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.z-support-note code {
+  color: #8ab4ff;
+}
+
+.z-support-note a {
+  color: #8ab4ff;
+}
+
+.z-compare-details {
+  margin-top: 3rem;
+}
+
+.z-compare-details .z-table-wrap {
+  margin: 0;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 0 0 var(--z-radius-md) var(--z-radius-md);
+}
+
+/* --- the first five minutes --- */
+.z-first-run {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 62rem;
+  margin: 2rem auto 0;
+  padding: 0;
+  text-align: left;
+  list-style: none;
+  counter-reset: z-first-run;
+}
+
+.z-first-run li {
+  border: 1px solid var(--z-terminal-3);
+  border-radius: var(--z-radius-md);
+  background: rgb(255 255 255 / 0.03);
+  counter-increment: z-first-run;
+  padding: 1rem;
+}
+
+.z-first-run li::before {
+  content: counter(z-first-run);
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #7fd59b;
+  font-family: var(--z-mono);
+  font-size: 0.75rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.z-first-run strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #f4f7fb;
+  font-size: 0.92rem;
+  letter-spacing: 0;
+}
+
+.z-first-run strong code {
+  color: #8ab4ff;
+  font-size: 0.95em;
+}
+
+.z-first-run p {
+  margin: 0;
+  max-width: none;
+  color: #a8b2be;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.z-first-run p code {
+  color: #8ab4ff;
+}
+
+/* The closing slab now carries the install command, the CLI listing and the
+   verdict legend, so the light-surface components inside it flip to the
+   terminal ink pair. */
+.z-final-cta .z-install-card {
+  max-width: 44rem;
+  margin: 2rem auto 0;
+  border-color: var(--z-terminal-3);
+  background: rgb(255 255 255 / 0.04);
+}
+
+.z-final-cta .z-install-card code {
+  color: #e8edf1;
+}
+
+.z-final-cta .z-install-card button {
+  border-color: rgb(255 255 255 / 0.22);
+  background: rgb(255 255 255 / 0.06);
+  color: #e8edf1;
+}
+
+.z-final-cta .z-code-card {
+  max-width: 62rem;
+  margin: 2rem auto 0;
+  text-align: left;
+}
+
+.z-final-cta .z-legend-label {
+  margin: 2rem 0 0.75rem;
+  color: #8e99a6;
+  font-size: 0.85rem;
+}
+
+.z-final-cta .z-legend-label code {
+  color: #8ab4ff;
+}
+
+.z-final-cta .z-state-legend {
+  justify-content: center;
+  color: #a8b2be;
+}
+
+.z-final-cta .z-hero-actions.center {
+  margin-top: 2.5rem;
+}
+
 @media (max-width: 1080px) {
   .z-hero,
-  .z-api-section,
   .z-expert,
   .z-heading-wide {
     grid-template-columns: 1fr;
@@ -1441,13 +1815,8 @@
     order: -1;
   }
 
-  .z-loop-flow,
-  .z-expert-contrast {
+  .z-contrast-grid {
     grid-template-columns: 1fr;
-  }
-
-  .z-loop-step:not(:last-child)::after {
-    display: none;
   }
 
   .z-hero {
@@ -1460,8 +1829,21 @@
     transform: none;
   }
 
-  .z-pillar-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Lanes lose their connectors and stack: the ordered lists still read as two
+     named sequences, and the veto keeps stating its branch in words. */
+  .z-lane-model .z-lane-steps,
+  .z-lane-compiler .z-lane-steps {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .z-lane-steps li:not(:last-child)::after {
+    display: none;
+  }
+
+  .z-support-grid,
+  .z-first-run {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1529,7 +1911,6 @@
   .z-hero-copy,
   .z-hero-actions,
   .z-hero-lede,
-  .z-hero-note,
   .z-install-card {
     width: 100%;
     max-width: calc(100vw - 2rem);
@@ -1588,10 +1969,6 @@
     white-space: normal;
   }
 
-  .z-hero-note {
-    overflow-wrap: anywhere;
-  }
-
   .z-install-card {
     max-width: 100%;
     grid-template-columns: auto minmax(0, 1fr);
@@ -1612,29 +1989,10 @@
   }
 
   .z-product-shot,
-  .z-studio-mock {
+  .z-code-card {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-  }
-
-  .z-studio-mock {
-    grid-template-columns: 1fr;
-    min-height: 0;
-    border-radius: 20px;
-  }
-
-  .z-studio-sidebar {
-    display: none;
-  }
-
-  .z-studio-panes {
-    grid-template-columns: 1fr;
-  }
-
-  .z-code-pane,
-  .z-verdict-pane {
-    max-width: 100%;
     overflow: hidden;
   }
 
@@ -1657,7 +2015,6 @@
 
   .z-heading-wide h2,
   .z-section-heading h2,
-  .z-api-copy h2,
   .z-final-cta h2 {
     font-size: 2.75rem;
   }
@@ -1666,8 +2023,7 @@
     white-space: normal;
   }
 
-  .z-contrast-grid,
-  .z-pillar-grid {
+  .z-contrast-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1702,7 +2058,21 @@
     padding: 1rem;
   }
 
-  .z-compare-cards h3 {
+  .z-ledger,
+  .z-lane-track {
+    padding: 1rem;
+  }
+
+  .z-refusals li {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .z-refusal-tag {
+    justify-self: start;
+  }
+
+  .z-compare-cards h4 {
     grid-column: 1 / -1;
     margin: 0 0 0.25rem;
     color: var(--z-ink);
@@ -1734,14 +2104,6 @@
     color: var(--z-accent-dark);
   }
 
-  .z-pillar-grid article {
-    min-height: auto;
-  }
-
-  .z-card-index {
-    margin-bottom: 2.25rem;
-  }
-
   .z-final-cta {
     border-radius: 24px;
     margin-bottom: 3rem;
@@ -1750,10 +2112,6 @@
   .z-footer {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .z-footer div {
-    justify-content: flex-start;
   }
 
   .zp-tab,
@@ -1803,7 +2161,6 @@
 
   .z-heading-wide h2,
   .z-section-heading h2,
-  .z-api-copy h2,
   .z-final-cta h2 {
     font-size: 2.45rem;
   }
@@ -1820,14 +2177,6 @@
     font-size: 0.78rem;
   }
 
-  .z-studio-tabs span {
-    max-width: 9rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .z-code-pane code,
-  .z-verdict-pane code,
   .z-code-card code {
     font-size: 0.68rem;
   }
@@ -2540,16 +2889,85 @@ button.zp-chip {
 }
 
 /* --- why row --- */
+/* The blocked state stacks: the diagnostic line, what the agent loop would do
+   with it, the repair affordance, and the typed plan once it is requested. */
 .zp-why {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.45rem;
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
   margin: 0;
   padding: 0.85rem 1.15rem;
   border-top: 1px solid rgb(255 255 255 / 0.06);
   background: rgb(196 63 95 / 0.1);
   font-size: 0.73rem;
+}
+
+.zp-why-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.zp-veto-note {
+  margin: 0;
+  color: #e8edf1;
+  font-weight: 700;
+}
+
+/* Reuses the certificate-copy button recipe. */
+.zp-repair {
+  border: 1px solid rgb(110 173 219 / 0.45);
+  border-radius: 999px;
+  background: rgb(110 173 219 / 0.14);
+  color: #cbd7e3;
+  cursor: pointer;
+  font-family: var(--z-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.4rem 0.75rem;
+}
+
+.zp-repair:hover {
+  background: rgb(110 173 219 / 0.26);
+  color: #f4f7fb;
+}
+
+/* The plan is the compiler's territory, so it takes the accent tint rather
+   than the red of the diagnostic above it. */
+.zp-plan {
+  display: grid;
+  gap: 0.3rem;
+  width: 100%;
+  border: 1px solid rgb(110 173 219 / 0.3);
+  border-radius: var(--z-radius-sm);
+  background: rgb(110 173 219 / 0.1);
+  padding: 0.65rem 0.75rem;
+}
+
+.zp-plan-tag {
+  color: #8ab4ff;
+  font-family: var(--z-mono);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.zp-plan-line {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.5rem;
+}
+
+.zp-plan-key {
+  color: #a8b2be;
+  font-family: var(--z-mono);
+}
+
+.zp-plan-val {
+  color: #cbd7e3;
+  font-family: var(--z-mono);
 }
 
 .zp-why-code {

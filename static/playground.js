@@ -49,6 +49,29 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
     "",
   ].join("\n");
 
+  // Each perturbation has one known inverse, so the repair the card offers is
+  // a replay of the typed repair plan the compiler composes for that
+  // diagnostic - not live synthesis. The demo runs entirely in this page, so
+  // "zero model calls" is literally true of it. Keep `intent` and `edit` in
+  // step with the repair intents the analyzer emits for these rules.
+  const REPAIR_PLANS = {
+    datenow: {
+      property: "deterministic",
+      intent: "hoist-nondeterminism",
+      edit: "drop Date.now(); take the timestamp from the request",
+    },
+    secret: {
+      property: "no_secret_leakage",
+      intent: "redact-sink",
+      edit: 'drop env("SECRET_KEY") from the response body',
+    },
+    while: {
+      property: "deterministic",
+      intent: "remove-back-edge",
+      edit: "drop the while loop; zts has no back-edges",
+    },
+  };
+
   // Derive the three perturbation variants from whichever seed is active.
   function variantsFor(seed) {
     return {
@@ -468,15 +491,61 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
     const d = errors[0];
     why.hidden = false;
     why.textContent = "";
-    why.appendChild(el("span", "zp-status-dot z-dot-blocked"));
-    why.appendChild(el("code", "zp-why-code", d.code));
-    why.appendChild(el("span", "zp-why-msg", d.message));
+    const row = el("div", "zp-why-row");
+    row.appendChild(el("span", "zp-status-dot z-dot-blocked"));
+    row.appendChild(el("code", "zp-why-code", d.code));
+    row.appendChild(el("span", "zp-why-msg", d.message));
     if (d.line) {
-      why.appendChild(el("code", "zp-why-loc", "handler.ts:" + d.line));
+      row.appendChild(el("code", "zp-why-loc", "handler.ts:" + d.line));
     }
     if (d.suggestion) {
-      why.appendChild(el("span", "zp-why-fix", "fix: " + d.suggestion));
+      row.appendChild(el("span", "zp-why-fix", "fix: " + d.suggestion));
     }
+    why.appendChild(row);
+
+    // The playground reports the analyzer's verdict. The veto is what the
+    // agent loop does with that verdict, so it is stated as a consequence
+    // rather than renamed on the card.
+    why.appendChild(
+      el(
+        "p",
+        "zp-veto-note",
+        "In zttp expert, this draft would never touch disk.",
+      ),
+    );
+
+    // Offer the repair only for a perturbation whose inverse is known.
+    if (activePerturb && REPAIR_PLANS[activePerturb]) {
+      const btn = el(
+        "button",
+        "zp-repair",
+        "Compiler repair: apply typed plan",
+      );
+      btn.type = "button";
+      btn.addEventListener("click", applyCompilerRepair);
+      why.appendChild(btn);
+    }
+  }
+
+  // Render the typed repair plan the compiler would compose for the active
+  // diagnostic. Labelled as a replay so the card never implies the plan was
+  // synthesised in the browser.
+  function renderPlan(plan) {
+    const box = el("div", "zp-plan");
+    box.appendChild(el("span", "zp-plan-tag", "typed repair plan (replay)"));
+    const rows = [
+      ["property", plan.property],
+      ["intent", plan.intent],
+      ["edit", plan.edit],
+      ["model calls", "0"],
+    ];
+    rows.forEach(([k, v]) => {
+      const line = el("div", "zp-plan-line");
+      line.appendChild(el("span", "zp-plan-key", k));
+      line.appendChild(el("span", "zp-plan-val", v));
+      box.appendChild(line);
+    });
+    cardWhy.appendChild(box);
   }
 
   function renderTrade(props) {
@@ -692,6 +761,28 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
     });
   });
 
+  // Show the plan, hold it long enough to read, then land the edit. The hold
+  // goes through demoTimers/demoRunId like every other scheduled beat, so a
+  // visitor who starts typing mid-repair cancels it instead of having the
+  // editor rewritten under them. engage() runs first and bumps demoRunId, so
+  // the id is captured after it.
+  const REPAIR_APPLY_MS = 900;
+
+  function applyCompilerRepair() {
+    const plan = activePerturb && REPAIR_PLANS[activePerturb];
+    if (!plan) return;
+    engage();
+    const runId = demoRunId;
+    renderPlan(plan);
+    setStatus("applying typed repair plan...", "");
+    demoTimers.push(setTimeout(() => {
+      if (runId !== demoRunId) return;
+      applyPerturb(null);
+      setStatus("edit recorded: compiler-authored", "");
+      demoTimers = [];
+    }, REPAIR_APPLY_MS));
+  }
+
   // --- seed tabs ----------------------------------------------------------
   // Switch the editor between the no-Spec default and the Spec<...> example.
   // Both prove the same properties; only the declared-Spec chip row differs.
@@ -735,10 +826,12 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
   // a passive scroll-by sees the card move on its own. Any interaction - or a
   // reduced-motion preference - cancels it.
   const DEMO_INJECT_MS = 1400;
-  const DEMO_HOLD_MS = 1900;
-  // Delay after the perturbation is injected before the proof trace unfurls.
+  // Offsets from the injection, in order: the proof trace unfurls, the typed
+  // repair plan appears, then the compiler-authored edit lands. The demo ends
+  // green on the seed, which is also its own reset.
   const DEMO_TRACE_OPEN_MS = 560;
-  const DEMO_REVERT_MS = DEMO_INJECT_MS + DEMO_HOLD_MS;
+  const DEMO_PLAN_MS = 1500;
+  const DEMO_REPAIR_MS = 2400;
   let userEngaged = false;
   let demoTimers = [];
   let demoRunId = 0;
@@ -794,14 +887,22 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
       openChipKey = "deterministic";
       renderLens("properties");
     }, DEMO_INJECT_MS + DEMO_TRACE_OPEN_MS));
+    // Then the payoff the thesis turns on: the compiler writes the fix.
+    demoTimers.push(setTimeout(() => {
+      if (runId !== demoRunId) return;
+      const plan = REPAIR_PLANS.datenow;
+      if (plan) renderPlan(plan);
+      setStatus("applying typed repair plan...", "");
+    }, DEMO_INJECT_MS + DEMO_PLAN_MS));
     demoTimers.push(setTimeout(() => {
       if (runId !== demoRunId) return;
       clearHints();
       openChipKey = null;
       applyPerturb(null);
+      setStatus("edit recorded: compiler-authored", "");
       demoTimers = [];
       setDemoState(manual ? "sample reset" : "auto demo complete");
-    }, DEMO_REVERT_MS));
+    }, DEMO_INJECT_MS + DEMO_REPAIR_MS));
   }
 
   function autoDemo() {

@@ -2,3 +2,4 @@
 codedb.snapshot
 .codegraph
 static/zts_compiler_pipeline.mp4
+.playwright-mcp/
