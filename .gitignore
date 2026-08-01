@@ -3,3 +3,4 @@ codedb.snapshot
 .codegraph
 .playwright-mcp/
 node_modules/
+.claude/settings.local.json
