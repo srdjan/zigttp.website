@@ -60,3 +60,21 @@
   reach the install CTA
 - Guardrail: no new routes, framework, or server behavior; the announcement
   stays on the existing homepage path
+
+## Iteration 4: Lean Homepage
+
+- What changed:
+  - Reduced the homepage to five content sections and four navigation choices
+  - Rewrote the hero around pre-disk proof and one primary action
+  - Merged the boundary and agent narratives into one four-step write path
+  - Reduced evidence and runtime copy to graded rows and one proof carrier
+  - Moved technical depth into native disclosures and repository docs
+  - Reduced installation to one command and the first CLI workflow
+  - Removed homepage selectors that no longer match markup
+  - Fixed the playground diagnostic panel hiding and pre-boot source highlight
+- Primary metric: a first-time visitor can explain zttp after the hero and live
+  proof
+- Guardrails: the real analyzer, no-JavaScript proof preview, routes, and
+  security policy remain unchanged
+- Verification: Deno formatting and checks, desktop and mobile browser review,
+  live proof failure, mobile navigation, disclosures, and no-JavaScript fallback

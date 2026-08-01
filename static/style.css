@@ -1152,7 +1152,7 @@ code {
 
   .deck-dots {
     width: 100%;
-    justify-content: center;
+    justify-content: safe center;
   }
 
   .deck-controls {

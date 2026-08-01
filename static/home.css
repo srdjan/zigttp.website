@@ -177,8 +177,7 @@
 }
 
 .z-nav-links a,
-.z-footer a,
-.z-inline-links a {
+.z-footer a {
   transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
 }
 
@@ -187,7 +186,7 @@
   font-weight: 750;
 }
 
-.z-nav-cta {
+.z-nav-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -201,7 +200,7 @@
   font-weight: 650;
 }
 
-.z-nav-cta:hover {
+.z-nav-primary:hover {
   border-color: var(--z-accent-dark);
   background: var(--z-accent-soft);
 }
@@ -242,76 +241,10 @@
 
 .z-hero,
 .z-section,
-.z-release-banner,
-.z-footer,
-.z-final-cta {
+.z-footer {
   max-width: var(--z-max);
   margin: 0 auto;
   padding-inline: 1.25rem;
-}
-
-.z-release-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem;
-  margin-top: 1.25rem;
-  border-top: 1px solid var(--z-line);
-  border-bottom: 1px solid var(--z-line);
-  background: rgb(255 253 248 / 0.58);
-  padding-top: 0.9rem;
-  padding-bottom: 0.9rem;
-}
-
-.z-release-banner div {
-  display: grid;
-  gap: 0.22rem;
-  min-width: 0;
-}
-
-.z-release-banner span {
-  color: var(--z-accent-dark);
-  font-family: var(--z-mono);
-  font-size: 0.7rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.z-release-banner strong {
-  color: var(--z-ink);
-  font-size: 1rem;
-  letter-spacing: 0;
-  line-height: 1.25;
-  overflow-wrap: anywhere;
-}
-
-.z-release-banner p {
-  margin: 0;
-  color: var(--z-muted);
-  font-size: 0.92rem;
-  line-height: 1.45;
-  overflow-wrap: anywhere;
-}
-
-.z-release-banner code {
-  color: var(--z-accent-dark);
-  font-size: 0.86em;
-}
-
-.z-release-banner a {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.75rem;
-  border: 1px solid var(--z-line-strong);
-  border-radius: 999px;
-  background: var(--z-paper);
-  color: var(--z-ink-soft);
-  font-size: 0.86rem;
-  font-weight: 800;
-  padding: 0.52rem 0.9rem;
 }
 
 .z-hero {
@@ -321,7 +254,7 @@
   gap: 3.25rem;
   align-items: center;
   max-width: 1280px;
-  min-height: min(860px, calc(100svh - 108px));
+  min-height: min(760px, calc(100svh - 72px));
   overflow: hidden;
   padding-top: 4.25rem;
   padding-bottom: 3.5rem;
@@ -607,8 +540,8 @@
 }
 
 .z-section {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
 }
 
 .z-heading-wide {
@@ -652,7 +585,7 @@
 .z-heading-wide h2,
 .z-section-heading h2,
 .z-final-cta h2 {
-  font-size: 4.7rem;
+  font-size: 3.8rem;
 }
 
 .z-heading-wide p,
@@ -661,287 +594,6 @@
   color: var(--z-ink-soft);
   font-size: 1.05rem;
   line-height: 1.68;
-}
-
-.z-contrast-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-.z-contrast-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.z-contrast-grid article {
-  border: 1px solid var(--z-line);
-  border-radius: var(--z-radius-md);
-  background: rgb(255 253 248 / 0.76);
-  box-shadow: 0 12px 36px rgb(35 29 21 / 0.05);
-}
-
-.z-contrast-grid article {
-  padding: 1.15rem;
-}
-
-.z-contrast-grid span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.65rem;
-  color: var(--z-accent-dark);
-  font-family: var(--z-mono);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.z-contrast-grid p {
-  margin: 0;
-  color: var(--z-muted);
-  font-size: 0.96rem;
-  line-height: 1.6;
-}
-
-.z-table-wrap {
-  overflow: hidden;
-  border: 1px solid var(--z-line-strong);
-  border-radius: var(--z-radius-lg);
-  background: rgb(255 253 248 / 0.84);
-  box-shadow: var(--z-shadow);
-}
-
-.z-table-wrap table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.92rem;
-}
-
-.z-table-wrap th,
-.z-table-wrap td {
-  border-bottom: 1px solid var(--z-line);
-  padding: 1rem;
-  text-align: left;
-}
-
-.z-table-wrap tr:last-child td {
-  border-bottom: 0;
-}
-
-.z-table-wrap th {
-  color: var(--z-muted);
-  font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.z-table-wrap td:first-child {
-  color: var(--z-ink);
-  font-weight: 750;
-}
-
-.z-table-wrap th:last-child,
-.z-table-wrap td:last-child {
-  background: var(--z-accent-soft);
-  color: var(--z-accent-dark);
-  font-weight: 850;
-}
-
-/* De-emphasize the competitor columns so the proven zttp column carries
-   the eye. The first column (capability) and last column (zttp) keep their
-   weight; the middle three read as muted. */
-.z-table-wrap td:not(:first-child):not(:last-child) {
-  color: var(--z-muted);
-}
-
-.z-compare-cards {
-  display: none;
-}
-
-/* Expert agent: inverted two-column (terminal left, copy right) so this
-   flagship beat reads differently from the prose-left sections around it. */
-.z-expert {
-  display: grid;
-  grid-template-columns: minmax(420px, 1fr) minmax(0, 0.82fr);
-  gap: 3rem;
-  align-items: center;
-}
-
-.z-expert-terminal {
-  background:
-    radial-gradient(
-    circle at 12% 0%,
-    rgb(110 173 219 / 0.22),
-    transparent 16rem
-  ),
-    var(--z-terminal);
-}
-
-.z-contrast-weak {
-  background: rgb(246 240 230 / 0.6);
-}
-
-.z-contrast-weak p {
-  color: var(--z-muted);
-}
-
-.z-contrast-strong {
-  border-color: var(--z-accent);
-  background:
-    radial-gradient(
-    circle at 88% 0%,
-    rgb(110 173 219 / 0.18),
-    transparent 13rem
-  ),
-    var(--z-accent-soft);
-  box-shadow: var(--z-shadow-md);
-}
-
-.z-expert-note {
-  max-width: 60rem;
-  margin-top: 1.75rem;
-  color: var(--z-muted);
-  font-size: 0.92rem;
-  line-height: 1.6;
-  text-wrap: pretty;
-}
-
-.z-expert-note code {
-  color: var(--z-accent-dark);
-}
-
-.z-expert-note a {
-  color: var(--z-accent-dark);
-  border-bottom: 1px solid rgb(42 103 150 / 0.4);
-}
-
-.z-expert-note a:hover {
-  border-bottom-color: var(--z-accent-dark);
-}
-
-.z-expert-trust {
-  margin: 1.25rem 0 0;
-}
-
-/* Disclosure chrome, shared by every collapsed block on the page: the runtime
-   capability cards and the runtime comparison table. The summary sits on the
-   dark slab, so its colors are the terminal light-ink pair. */
-.z-support-detail > summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.9rem 1rem;
-  color: #e8edf1;
-  cursor: pointer;
-  font-family: var(--z-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
-  list-style: none;
-}
-
-.z-support-detail > summary::-webkit-details-marker {
-  display: none;
-}
-
-.z-support-detail > summary::after {
-  content: "+";
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  width: 1.35rem;
-  height: 1.35rem;
-  border: 1px solid rgb(255 255 255 / 0.16);
-  border-radius: 999px;
-  color: #9da7b3;
-}
-
-.z-support-detail[open] > summary::after {
-  content: "-";
-}
-
-.z-support-detail > summary em {
-  margin-left: auto;
-  color: #8e99a6;
-  font-style: normal;
-  font-weight: 700;
-}
-
-.z-check-list {
-  display: grid;
-  gap: 0.75rem;
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.z-check-list li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.65rem;
-  color: var(--z-ink-soft);
-  font-weight: 650;
-}
-
-.z-check-list li::before {
-  content: "✓";
-  display: grid;
-  place-items: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 8px;
-  background: var(--z-accent-soft);
-  color: var(--z-accent-dark);
-  font-size: 0.8rem;
-  font-weight: 900;
-}
-
-.z-code-card {
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 82% 0%, rgb(37 99 235 / 0.16), transparent 14rem),
-    var(--z-terminal);
-  box-shadow: var(--z-shadow);
-}
-
-.z-code-card pre {
-  padding: 1.25rem;
-}
-
-.z-code-card code {
-  font-size: 0.83rem;
-  line-height: 1.78;
-}
-
-.z-inline-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  margin-top: 1.2rem;
-}
-
-.z-inline-links a {
-  border-bottom: 1px solid var(--z-line-strong);
-  color: var(--z-accent-dark);
-  font-weight: 800;
-}
-
-.z-state-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-  margin-top: 1.5rem;
-  color: var(--z-muted);
-  font-size: 0.86rem;
-  font-weight: 800;
-}
-
-.z-state-legend span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
 }
 
 .z-calm-strip {
@@ -971,41 +623,292 @@
   box-shadow: none;
 }
 
-/* Dark closing slab: a deliberate punctuation against the cream sections, using
-   the same terminal ink as the studio mock and playground so the page ends on a
-   strong, on-brand beat instead of one more soft panel. */
+.z-workflow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.z-workflow li {
+  position: relative;
+  min-height: 10.5rem;
+  border: 1px solid var(--z-line);
+  border-radius: var(--z-radius-md);
+  background: rgb(255 253 248 / 0.72);
+  padding: 1.1rem;
+}
+
+.z-workflow li:not(:last-child)::after {
+  content: "->" / "";
+  position: absolute;
+  top: 50%;
+  right: -0.84rem;
+  z-index: 1;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: var(--z-bg);
+  color: var(--z-line-strong);
+  font-family: var(--z-mono);
+  font-weight: 900;
+  padding: 0.18rem;
+}
+
+.z-workflow li[data-state="repair"] {
+  border-color: rgb(196 63 95 / 0.42);
+}
+
+.z-workflow li[data-state="write"] {
+  border-color: rgb(43 133 81 / 0.42);
+  background: rgb(233 247 236 / 0.72);
+}
+
+.z-workflow span {
+  display: block;
+  margin-bottom: 1.4rem;
+  color: var(--z-muted);
+  font-family: var(--z-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.z-workflow strong {
+  display: block;
+  color: var(--z-ink);
+  font-size: 1.05rem;
+  letter-spacing: 0;
+}
+
+.z-workflow p {
+  margin: 0.45rem 0 0;
+  color: var(--z-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.z-workflow-caption {
+  max-width: 52rem;
+  margin: 1.2rem 0 0;
+  color: var(--z-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.z-workflow-caption code {
+  color: var(--z-accent-dark);
+}
+
+.z-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.z-page-detail {
+  align-self: start;
+  border: 1px solid var(--z-line);
+  border-radius: var(--z-radius-md);
+  background: rgb(255 253 248 / 0.72);
+}
+
+.z-page-detail summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.25rem;
+  cursor: pointer;
+  color: var(--z-ink);
+  font-family: var(--z-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  list-style: none;
+  padding: 0.75rem 0.9rem;
+}
+
+.z-page-detail summary::-webkit-details-marker {
+  display: none;
+}
+
+.z-page-detail summary::after {
+  content: "+";
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--z-line);
+  border-radius: 999px;
+  color: var(--z-accent-dark);
+}
+
+.z-page-detail[open] summary::after {
+  content: "-";
+}
+
+.z-page-detail > div {
+  border-top: 1px solid var(--z-line);
+  color: var(--z-muted);
+  padding: 0.95rem;
+}
+
+.z-page-detail p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.z-page-detail p + p {
+  margin-top: 0.75rem;
+}
+
+.z-page-detail a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-top: 0.65rem;
+  color: var(--z-accent-dark);
+  font-weight: 800;
+}
+
+.z-comparison strong {
+  color: var(--z-ink);
+}
+
+.z-detail-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+}
+
+.z-detail-links a {
+  margin-top: 0;
+}
+
+.z-evidence-levels {
+  border-top: 1px solid var(--z-line);
+}
+
+.z-evidence-levels article {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.42fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: baseline;
+  border-bottom: 1px solid var(--z-line);
+  padding: 1.1rem 0;
+}
+
+.z-evidence-levels h3 {
+  margin: 0;
+  font-family: var(--z-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.z-evidence-levels [data-tier="construction"] h3 {
+  color: var(--z-green);
+}
+
+.z-evidence-levels [data-tier="thin"] h3 {
+  color: #8a6200;
+}
+
+.z-evidence-levels [data-tier="unmeasured"] h3 {
+  color: var(--z-accent-dark);
+}
+
+.z-evidence-levels p {
+  margin: 0;
+  color: var(--z-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.z-proof-carrier {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.55fr);
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2.4rem;
+  border: 1px solid var(--z-terminal-3);
+  border-radius: var(--z-radius-lg);
+  background:
+    radial-gradient(circle at 82% 0%, rgb(110 173 219 / 0.2), transparent
+    18rem),
+    var(--z-terminal);
+  box-shadow: var(--z-shadow-md);
+  padding: 1.6rem;
+}
+
+.z-proof-carrier .z-section-kicker {
+  margin-bottom: 0.7rem;
+  color: #7fd59b;
+}
+
+.z-proof-carrier h3 {
+  margin: 0;
+  color: #f4f7fb;
+  font-size: 1.8rem;
+  letter-spacing: 0;
+}
+
+.z-proof-carrier p:not(.z-section-kicker) {
+  max-width: 43rem;
+  margin: 0.65rem 0 0;
+  color: #a8b2be;
+  line-height: 1.6;
+}
+
+.z-proof-carrier code {
+  color: #8ab4ff;
+}
+
+.z-proof-carrier ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.z-proof-carrier li {
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: var(--z-radius-sm);
+  background: var(--z-terminal-2);
+  color: #d8dee8;
+  font-family: var(--z-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.7rem 0.8rem;
+}
+
 .z-final-cta {
   margin-bottom: 4rem;
   border: 1px solid var(--z-terminal-3);
   border-radius: var(--z-radius-lg);
   background:
-    radial-gradient(
-    circle at 80% 0%,
-    rgb(110 173 219 / 0.3),
-    transparent 22rem
-  ),
+    radial-gradient(circle at 80% 0%, rgb(110 173 219 / 0.3), transparent
+    22rem),
     var(--z-terminal);
   box-shadow: var(--z-shadow-lg);
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
   text-align: center;
 }
 
 .z-final-cta h2 {
-  color: #f4f7fb;
   max-width: 54rem;
   margin-inline: auto;
+  color: #f4f7fb;
 }
 
-.z-final-cta h2 code {
-  display: inline-block;
-  color: inherit;
-  font-size: 0.78em;
-  letter-spacing: 0;
-  white-space: nowrap;
-}
-
-.z-final-cta p {
+.z-final-cta > p {
   max-width: 40rem;
   margin: 1rem auto 0;
   color: #aeb7c2;
@@ -1016,7 +919,6 @@
   color: #7fd59b;
 }
 
-/* Secondary CTA reads as a light outline on the dark slab. */
 .z-final-cta .z-button-secondary {
   border-color: rgb(255 255 255 / 0.22);
   background: rgb(255 255 255 / 0.04);
@@ -1028,775 +930,6 @@
   background: rgb(110 173 219 / 0.3);
 }
 
-.z-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem 1.75rem;
-  border-top: 1px solid var(--z-line);
-  color: var(--z-muted);
-  padding-top: 1.5rem;
-  padding-bottom: 3rem;
-}
-
-/* ---------------------------------------------------------------------------
-   The agent-compiler components.
-
-   Two conventions run through this block and carry meaning on their own:
-   the dark terminal slab is the compiler's territory (machine-authored, no
-   model call) while cream paper is the model's, and a solid border marks what
-   holds by construction while a dashed border marks what is still open and
-   measured. Both reuse surfaces and tokens that already existed.
-   ------------------------------------------------------------------------- */
-
-/* --- the fence and the convergence gap --- */
-.z-fence {
-  container-type: inline-size;
-  margin: 3rem 0 0;
-}
-
-.z-fence-gate {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.1rem;
-}
-
-.z-fence-draft,
-.z-fence-check {
-  border-radius: var(--z-radius-sm);
-  font-family: var(--z-mono);
-  font-size: 0.72rem;
-  font-weight: 800;
-  padding: 0.45rem 0.7rem;
-}
-
-.z-fence-draft {
-  border: 1px solid var(--z-line-strong);
-  background: var(--z-paper);
-  color: var(--z-muted);
-}
-
-/* The gate sits on the dark slab: the compiler is the machine half of the
-   page's surface grammar. */
-.z-fence-check {
-  background: var(--z-terminal);
-  color: #e8edf1;
-}
-
-.z-fence-arrow::before {
-  content: "->" / "";
-  color: var(--z-line-strong);
-  font-family: var(--z-mono);
-  font-weight: 900;
-}
-
-.z-fence-gate-label {
-  color: var(--z-muted);
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-
-/* Dashed: the provable set is the open frontier. The gap band below keeps a
-   floor on its padding at every width, because a diagram that closes would
-   claim the convergence result the project explicitly refuses to claim. */
-.z-fence-provable {
-  position: relative;
-  border: 1.5px dashed var(--z-accent-dark);
-  border-radius: var(--z-radius-lg);
-  padding: 1.4rem;
-}
-
-.z-fence-set-label {
-  display: block;
-  color: var(--z-accent-dark);
-  font-family: var(--z-mono);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.z-fence-gap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 3.25rem;
-  padding: clamp(1.1rem, 4cqi, 2.6rem) 0;
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgb(42 103 150 / 0.06) 0 6px,
-    transparent 6px 14px
-  );
-}
-
-.z-fence-gap span {
-  border-radius: var(--z-radius-pill, 999px);
-  background: var(--z-bg);
-  color: var(--z-muted);
-  font-family: var(--z-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 0.3rem 0.75rem;
-  text-align: center;
-}
-
-/* Solid: contained by construction. */
-.z-fence-agent {
-  border: 2px solid var(--z-accent-dark);
-  border-radius: var(--z-radius-md);
-  background: var(--z-paper);
-  box-shadow: var(--z-shadow-sm);
-  padding: 1.15rem;
-}
-
-.z-fence-claim {
-  margin: 0.5rem 0 0;
-  color: var(--z-ink-soft);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-
-.z-fence figcaption {
-  margin-top: 0.9rem;
-  color: var(--z-muted);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-.z-fence figcaption a {
-  color: var(--z-accent-dark);
-}
-
-@container (max-width: 560px) {
-  .z-fence-gate {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-}
-
-/* --- the restricted constructs, each one an expandable proof --- */
-.z-boundary-why {
-  margin-top: 3.25rem;
-}
-
-.z-boundary-why h3 {
-  margin: 0 0 1rem;
-  color: var(--z-muted);
-  font-family: var(--z-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.z-boundary-why > p {
-  max-width: 58rem;
-  margin: 0 0 1rem;
-  color: var(--z-ink-soft);
-  font-size: 0.98rem;
-  line-height: 1.62;
-  text-wrap: pretty;
-}
-
-.z-cuts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin: 1.6rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.z-cuts li {
-  flex: 1 1 15rem;
-}
-
-.z-cuts details {
-  height: 100%;
-  border: 1px solid var(--z-line);
-  border-radius: var(--z-radius-md);
-  background: var(--z-paper);
-}
-
-.z-cuts summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  color: var(--z-ink);
-  font-family: var(--z-mono);
-  font-size: 0.85rem;
-  font-weight: 800;
-  list-style: none;
-  padding: 0.7rem 0.85rem;
-}
-
-.z-cuts summary::-webkit-details-marker {
-  display: none;
-}
-
-.z-cuts summary::after {
-  content: "+";
-  color: var(--z-accent-dark);
-  font-weight: 900;
-}
-
-.z-cuts details[open] summary::after {
-  content: "-";
-}
-
-.z-cuts s {
-  color: var(--z-red);
-  text-decoration-thickness: 2px;
-}
-
-.z-cuts p {
-  margin: 0;
-  border-top: 1px solid var(--z-line);
-  color: var(--z-muted);
-  font-size: 0.85rem;
-  line-height: 1.55;
-  padding: 0.75rem 0.85rem;
-  text-wrap: pretty;
-}
-
-.z-boundary-guard {
-  max-width: 46rem;
-  margin: 2rem 0 0;
-  border-left: 3px solid var(--z-accent-dark);
-  color: var(--z-ink);
-  font-size: 1.05rem;
-  font-weight: 700;
-  line-height: 1.5;
-  padding-left: 1.1rem;
-  text-wrap: pretty;
-}
-
-/* --- the veto and the model-free repair lane --- */
-.z-lane {
-  display: grid;
-  gap: 1.1rem;
-  margin: 0 0 3rem;
-}
-
-.z-lane-track {
-  border-radius: var(--z-radius-lg);
-  padding: 1.15rem;
-}
-
-.z-lane-model {
-  border: 1px solid var(--z-line);
-  background: var(--z-paper-muted);
-}
-
-/* The compiler lane is dark because that is what the surface means here: this
-   half of the loop runs with no model in it. */
-.z-lane-compiler {
-  background: var(--z-terminal);
-}
-
-.z-lane-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin-bottom: 0.9rem;
-  font-family: var(--z-mono);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.z-lane-model .z-lane-tag {
-  color: var(--z-muted);
-}
-
-.z-lane-compiler .z-lane-tag {
-  color: #7fd59b;
-}
-
-.z-lane-steps {
-  display: grid;
-  gap: 1.4rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.z-lane-model .z-lane-steps {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.z-lane-compiler .z-lane-steps {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.z-lane-steps li {
-  position: relative;
-  border-radius: var(--z-radius-md);
-  padding: 0.95rem;
-}
-
-.z-lane-model .z-lane-steps li {
-  background: var(--z-paper);
-  box-shadow: 0 1px 0 rgb(35 29 21 / 0.04), 0 10px 26px rgb(35 29 21 / 0.06);
-}
-
-.z-lane-compiler .z-lane-steps li {
-  background: var(--z-terminal-2);
-}
-
-/* Forward connector in the column gap. The empty alternative text keeps the
-   glyph out of the accessibility tree: the sequence is already an ordered list
-   and the veto states its branch in words. */
-.z-lane-steps li:not(:last-child)::after {
-  content: "->" / "";
-  position: absolute;
-  top: 50%;
-  right: -1rem;
-  transform: translateY(-50%);
-  font-family: var(--z-mono);
-  font-weight: 900;
-}
-
-.z-lane-model .z-lane-steps li:not(:last-child)::after {
-  color: var(--z-line-strong);
-}
-
-.z-lane-compiler .z-lane-steps li:not(:last-child)::after {
-  color: #4d5866;
-}
-
-.z-lane-steps strong {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-size: 1rem;
-  letter-spacing: 0;
-}
-
-.z-lane-model .z-lane-steps strong {
-  color: var(--z-ink);
-}
-
-.z-lane-compiler .z-lane-steps strong {
-  color: #f4f7fb;
-}
-
-.z-lane-steps p {
-  margin: 0;
-  font-size: 0.84rem;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.z-lane-model .z-lane-steps p {
-  color: var(--z-muted);
-}
-
-.z-lane-compiler .z-lane-steps p {
-  color: #a8b2be;
-}
-
-/* The veto is where a draft leaves the model lane. The colored edge is
-   reinforcement; the step's own sentence carries the branch. */
-.z-lane-veto {
-  border-left: 3px solid var(--z-red);
-}
-
-.z-lane-veto strong {
-  color: var(--z-red);
-}
-
-.z-lane-note {
-  max-width: 60rem;
-  margin: 0.4rem 0 0;
-  color: var(--z-muted);
-  font-size: 0.92rem;
-  line-height: 1.6;
-  text-wrap: pretty;
-}
-
-.z-feedback-card {
-  margin-top: 2.5rem;
-}
-
-.z-sample-caption {
-  margin: 0 0 1rem;
-  color: var(--z-muted);
-  font-family: var(--z-mono);
-  font-size: 0.76rem;
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-.z-sample-caption a {
-  color: var(--z-accent-dark);
-}
-
-/* --- the evidence ledger --- */
-.z-evidence-lead {
-  max-width: 58rem;
-  margin: 0 0 2rem;
-  color: var(--z-ink-soft);
-  font-size: 1rem;
-  line-height: 1.62;
-  text-wrap: pretty;
-}
-
-.z-ledger {
-  border-radius: var(--z-radius-lg);
-  background: var(--z-terminal);
-  box-shadow: var(--z-shadow-md);
-  padding: 1.6rem;
-}
-
-.z-ledger-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-  border-bottom: 1px solid rgb(255 255 255 / 0.08);
-  margin-bottom: 1.4rem;
-  padding-bottom: 1rem;
-}
-
-.z-ledger-head h3 {
-  margin: 0;
-  color: #f4f7fb;
-  font-size: 1.2rem;
-  letter-spacing: 0;
-}
-
-.z-ledger-stamp {
-  border: 1px solid rgb(255 255 255 / 0.16);
-  border-radius: 999px;
-  color: #8e99a6;
-  font-family: var(--z-mono);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  padding: 0.25rem 0.65rem;
-  text-transform: uppercase;
-}
-
-/* Rows, not equal columns: three columns would give the unmeasured tier the
-   same visual mass as the tier that holds. */
-.z-ledger-tier {
-  border-top: 2px solid transparent;
-  padding: 1.1rem 0;
-}
-
-.z-ledger-tier + .z-ledger-tier {
-  border-top-color: rgb(255 255 255 / 0.08);
-}
-
-.z-ledger-tier h4 {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0;
-  font-family: var(--z-mono);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-/* The tier name is the heading text and the definition restates it in words,
-   so the grade never depends on the dot's color. */
-.z-ledger-tier[data-tier="construction"] h4 {
-  color: #7fd59b;
-}
-
-.z-ledger-tier[data-tier="thin"] h4 {
-  color: #e8c06b;
-}
-
-.z-ledger-tier[data-tier="unmeasured"] h4 {
-  color: #8ab4ff;
-}
-
-.z-tier-def {
-  margin: 0.3rem 0 0.9rem;
-  color: #8e99a6;
-  font-size: 0.82rem;
-}
-
-.z-tier-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.z-tier-items li {
-  flex: 1 1 16rem;
-}
-
-.z-tier-items details {
-  height: 100%;
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: var(--z-radius-sm);
-  background: var(--z-terminal-2);
-}
-
-.z-tier-items summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
-  color: #e8edf1;
-  cursor: pointer;
-  font-family: var(--z-mono);
-  font-size: 0.76rem;
-  font-weight: 700;
-  list-style: none;
-  padding: 0.6rem 0.75rem;
-}
-
-.z-tier-items summary::-webkit-details-marker {
-  display: none;
-}
-
-.z-tier-items summary::after {
-  content: "+";
-  color: #8e99a6;
-  font-weight: 900;
-}
-
-.z-tier-items details[open] summary::after {
-  content: "-";
-}
-
-.z-tier-items p {
-  margin: 0;
-  border-top: 1px solid rgb(255 255 255 / 0.1);
-  color: #a8b2be;
-  font-size: 0.8rem;
-  line-height: 1.55;
-  padding: 0.7rem 0.75rem;
-  text-wrap: pretty;
-}
-
-.z-evidence-rule {
-  max-width: 58rem;
-  margin: 1.75rem 0 0;
-  color: var(--z-muted);
-  font-size: 0.92rem;
-  line-height: 1.6;
-  text-wrap: pretty;
-}
-
-/* --- refusals --- */
-.z-refusals-head {
-  margin: 3rem 0 1.1rem;
-  color: var(--z-muted);
-  font-family: var(--z-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.z-refusals {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.z-refusals li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 1rem;
-  align-items: start;
-  border-top: 1px solid var(--z-line);
-  padding: 1rem 0;
-}
-
-.z-refusals li:last-child {
-  border-bottom: 1px solid var(--z-line);
-}
-
-/* The tag word carries the refused/deferred distinction; the color only
-   reinforces it. */
-.z-refusal-tag {
-  border-radius: 999px;
-  font-family: var(--z-mono);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  padding: 0.28rem 0.6rem;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.z-refusal-tag[data-kind="refused"] {
-  background: rgb(196 63 95 / 0.1);
-  color: #a63149;
-}
-
-.z-refusal-tag[data-kind="deferred"] {
-  background: rgb(154 106 0 / 0.1);
-  color: #7d5600;
-}
-
-.z-refusals strong {
-  display: block;
-  margin-bottom: 0.25rem;
-  color: var(--z-ink);
-  font-size: 1rem;
-  letter-spacing: 0;
-}
-
-.z-refusals p {
-  margin: 0;
-  color: var(--z-muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
-  text-wrap: pretty;
-}
-
-.z-evidence-weapon {
-  max-width: 50rem;
-  margin: 2.5rem 0 1.5rem;
-  border-left: 3px solid var(--z-accent-dark);
-  color: var(--z-ink);
-  font-size: 1.05rem;
-  font-weight: 650;
-  line-height: 1.55;
-  padding-left: 1.1rem;
-  text-wrap: pretty;
-}
-
-/* --- proof carrier: the runtime, compressed to disclosures --- */
-.z-support-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.z-support-detail {
-  align-self: start;
-  border-radius: var(--z-radius-md);
-  background: var(--z-terminal);
-}
-
-.z-support-body {
-  border-top: 1px solid rgb(255 255 255 / 0.08);
-  padding: 1.1rem;
-}
-
-.z-support-body .z-check-list {
-  margin-top: 0;
-}
-
-.z-support-body .z-check-list li {
-  color: #a8b2be;
-}
-
-.z-support-body .z-check-list code {
-  color: #8ab4ff;
-}
-
-.z-support-body .z-code-card {
-  margin-top: 1.25rem;
-  border-color: rgb(255 255 255 / 0.12);
-}
-
-.z-support-note {
-  margin: 1rem 0 0;
-  color: #8e99a6;
-  font-size: 0.84rem;
-  line-height: 1.55;
-  text-wrap: pretty;
-}
-
-.z-support-note code {
-  color: #8ab4ff;
-}
-
-.z-support-note a {
-  color: #8ab4ff;
-}
-
-.z-compare-details {
-  margin-top: 3rem;
-}
-
-.z-compare-details .z-table-wrap {
-  margin: 0;
-  border-top: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 0 0 var(--z-radius-md) var(--z-radius-md);
-}
-
-/* --- the first five minutes --- */
-.z-first-run {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  max-width: 62rem;
-  margin: 2rem auto 0;
-  padding: 0;
-  text-align: left;
-  list-style: none;
-  counter-reset: z-first-run;
-}
-
-.z-first-run li {
-  border: 1px solid var(--z-terminal-3);
-  border-radius: var(--z-radius-md);
-  background: rgb(255 255 255 / 0.03);
-  counter-increment: z-first-run;
-  padding: 1rem;
-}
-
-.z-first-run li::before {
-  content: counter(z-first-run);
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #7fd59b;
-  font-family: var(--z-mono);
-  font-size: 0.75rem;
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
-}
-
-.z-first-run strong {
-  display: block;
-  margin-bottom: 0.35rem;
-  color: #f4f7fb;
-  font-size: 0.92rem;
-  letter-spacing: 0;
-}
-
-.z-first-run strong code {
-  color: #8ab4ff;
-  font-size: 0.95em;
-}
-
-.z-first-run p {
-  margin: 0;
-  max-width: none;
-  color: #a8b2be;
-  font-size: 0.84rem;
-  line-height: 1.5;
-}
-
-.z-first-run p code {
-  color: #8ab4ff;
-}
-
-/* The closing slab now carries the install command, the CLI listing and the
-   verdict legend, so the light-surface components inside it flip to the
-   terminal ink pair. */
 .z-final-cta .z-install-card {
   max-width: 44rem;
   margin: 2rem auto 0;
@@ -1814,44 +947,65 @@
   color: #e8edf1;
 }
 
-.z-final-cta .z-code-card {
-  max-width: 62rem;
-  margin: 2rem auto 0;
+.z-first-proof {
+  max-width: 44rem;
+  margin: 1rem auto 0;
+  border: 1px solid var(--z-terminal-3);
+  border-radius: var(--z-radius-md);
+  background: var(--z-terminal-2);
   text-align: left;
 }
 
-.z-final-cta .z-legend-label {
-  margin: 2rem 0 0.75rem;
-  color: #8e99a6;
-  font-size: 0.85rem;
+.z-first-proof pre {
+  margin: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--z-terminal-3);
+  padding: 1rem;
 }
 
-.z-final-cta .z-legend-label code {
+.z-first-proof code {
+  color: #d8dee8;
+  font-size: 0.82rem;
+  line-height: 1.75;
+}
+
+.z-first-proof p {
+  margin: 0;
+  color: #8e99a6;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  padding: 0.85rem 1rem;
+}
+
+.z-first-proof p code {
   color: #8ab4ff;
 }
 
-.z-final-cta .z-state-legend {
-  justify-content: center;
-  color: #a8b2be;
+.z-final-cta .z-hero-actions.center {
+  margin-top: 2rem;
 }
 
-.z-final-cta .z-hero-actions.center {
-  margin-top: 2.5rem;
+.z-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.75rem;
+  border-top: 1px solid var(--z-line);
+  color: var(--z-muted);
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.z-page-detail summary:focus-visible,
+.z-nav-primary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--z-accent-dark) 42%, transparent);
+  outline-offset: 3px;
 }
 
 @media (max-width: 1080px) {
   .z-hero,
-  .z-expert,
   .z-heading-wide {
-    grid-template-columns: 1fr;
-  }
-
-  /* Lead with the heading, not the terminal, when the expert section stacks. */
-  .z-expert .z-expert-copy {
-    order: -1;
-  }
-
-  .z-contrast-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1865,20 +1019,15 @@
     transform: none;
   }
 
-  /* Lanes lose their connectors and stack: the ordered lists still read as two
-     named sequences, and the veto keeps stating its branch in words. */
-  .z-lane-model .z-lane-steps,
-  .z-lane-compiler .z-lane-steps {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+  .z-workflow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .z-lane-steps li:not(:last-child)::after {
+  .z-workflow li:nth-child(2)::after {
     display: none;
   }
 
-  .z-support-grid,
-  .z-first-run {
+  .z-proof-carrier {
     grid-template-columns: 1fr;
   }
 }
@@ -1890,10 +1039,6 @@
 
   .js .z-menu-button {
     display: grid;
-  }
-
-  .z-nav-cta {
-    display: none;
   }
 
   .js .z-nav-links {
@@ -1941,41 +1086,28 @@
     border-bottom: 0;
   }
 
+  .z-nav-primary {
+    margin-top: 0.4rem;
+  }
+
   .z-brand small {
     display: none;
   }
 
   .z-hero,
   .z-section,
-  .z-release-banner,
-  .z-footer,
-  .z-final-cta {
+  .z-footer {
     width: 100%;
     max-width: 100vw;
     padding-inline: 1rem;
   }
 
-  .z-release-banner {
-    align-items: flex-start;
-    flex-direction: column;
-    margin-top: 0;
-  }
-
-  .z-release-banner div,
   .z-hero-copy,
   .z-hero-actions,
   .z-hero-lede,
   .z-install-card {
     width: 100%;
     max-width: calc(100vw - 2rem);
-  }
-
-  .z-release-banner code {
-    word-break: break-word;
-  }
-
-  .z-release-banner a {
-    width: 100%;
   }
 
   .z-hero {
@@ -2002,9 +1134,9 @@
   }
 
   .z-hero-lede {
+    max-width: 100%;
     margin-top: 1rem;
     font-size: 1rem;
-    max-width: 100%;
     overflow-wrap: anywhere;
   }
 
@@ -2012,10 +1144,6 @@
     display: grid;
     grid-template-columns: 1fr;
     margin-top: 1.25rem;
-  }
-
-  .z-hero-actions.center {
-    justify-content: stretch;
   }
 
   .z-button {
@@ -2065,99 +1193,36 @@
   }
 
   .z-section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
   .z-heading-wide h2,
   .z-section-heading h2,
   .z-final-cta h2 {
-    font-size: 2.75rem;
+    font-size: 2.65rem;
   }
 
-  .z-final-cta h2 code {
-    white-space: normal;
-  }
-
-  .z-contrast-grid {
+  .z-workflow,
+  .z-detail-grid {
     grid-template-columns: 1fr;
   }
 
-  .z-expert {
-    gap: 1.5rem;
+  .z-workflow li {
+    min-height: 0;
   }
 
-  .z-expert .z-expert-copy {
-    order: 0;
-  }
-
-  .z-expert-terminal {
-    order: -1;
-  }
-
-  .z-table-wrap {
+  .z-workflow li:not(:last-child)::after {
     display: none;
   }
 
-  .z-compare-cards {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .z-compare-cards article {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
-    border: 1px solid var(--z-line);
-    border-radius: var(--z-radius-md);
-    background: rgb(255 253 248 / 0.76);
-    padding: 1rem;
-  }
-
-  .z-ledger,
-  .z-lane-track {
-    padding: 1rem;
-  }
-
-  .z-refusals li {
+  .z-evidence-levels article {
     grid-template-columns: 1fr;
-    gap: 0.55rem;
+    gap: 0.4rem;
   }
 
-  .z-refusal-tag {
-    justify-self: start;
-  }
-
-  .z-compare-cards h4 {
-    grid-column: 1 / -1;
-    margin: 0 0 0.25rem;
-    color: var(--z-ink);
-    font-size: 1.05rem;
-    letter-spacing: 0;
-  }
-
-  .z-compare-cards span {
-    display: grid;
-    gap: 0.25rem;
-    border-radius: 14px;
-    background: var(--z-paper-muted);
-    color: var(--z-muted);
-    font-size: 0.7rem;
-    font-weight: 850;
-    padding: 0.65rem 0.5rem;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .z-compare-cards b {
-    color: var(--z-ink-soft);
-    font-size: 0.86rem;
-    text-transform: none;
-  }
-
-  .z-compare-cards .zttp {
-    background: var(--z-accent-soft);
-    color: var(--z-accent-dark);
+  .z-proof-carrier {
+    padding: 1.15rem;
   }
 
   .z-final-cta {
@@ -2182,9 +1247,6 @@
     min-height: 2.75rem;
   }
 
-  /* 16px on the editor and its highlight overlay stops iOS Safari from
-     zooming the viewport when the field gains focus. Both layers must match
-     or the syntax overlay drifts out of alignment with the caret. */
   .zp-src,
   .zp-highlight {
     font-size: 16px;
@@ -2224,15 +1286,7 @@
   .z-heading-wide h2,
   .z-section-heading h2,
   .z-final-cta h2 {
-    font-size: 2.45rem;
-  }
-
-  .z-button {
-    width: 100%;
-  }
-
-  .z-hero-actions {
-    width: 100%;
+    font-size: 2.35rem;
   }
 
   .z-product-shot figcaption {
@@ -2634,6 +1688,11 @@
   border-bottom: 1px solid rgb(255 255 255 / 0.06);
 }
 
+.zp-lensbar[hidden],
+.zp-lens[hidden] {
+  display: none;
+}
+
 .zp-lensbar button {
   padding: 0.45rem 0.7rem;
   border: 0;
@@ -3018,6 +2077,10 @@ button.zp-chip {
   border-top: 1px solid rgb(255 255 255 / 0.06);
   background: rgb(196 63 95 / 0.1);
   font-size: 0.73rem;
+}
+
+.zp-why[hidden] {
+  display: none;
 }
 
 .zp-why-row {

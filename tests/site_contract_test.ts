@@ -103,12 +103,39 @@ Deno.test("playground load failure cannot retain a proven verdict", async () => 
     playground.includes('cardVerdict.textContent = "UNAVAILABLE"'),
     "the unavailable state must replace the proven verdict",
   );
+  assert(
+    playground.includes(
+      'setProofDetailsVisible(state === "static" || state === "live")',
+    ),
+    "loading and unavailable states must hide stale proof details",
+  );
+});
+
+Deno.test("playground static enhancement stays visible and truthful", async () => {
+  const [playground, homeCss] = await Promise.all([
+    source("static/playground.js"),
+    source("static/home.css"),
+  ]);
+  const staticSequence = playground.indexOf(
+    'syncHighlight();\n  setPlaygroundState("static");',
+  );
+  const lazyObserver = playground.lastIndexOf("new IntersectionObserver");
+
+  assert(
+    /\.zp-why\[hidden\]\s*\{[^}]*display:\s*none;?[^}]*\}/.test(homeCss),
+    "hidden diagnostics must remain out of layout after a proven rerender",
+  );
+  assert(
+    staticSequence !== -1 && staticSequence < lazyObserver,
+    "the highlighted source must be seeded before static state and lazy boot",
+  );
 });
 
 Deno.test("deck navigation exposes current and announced state", async () => {
-  const [deck, script] = await Promise.all([
+  const [deck, script, sharedCss] = await Promise.all([
     source("static/deck.html"),
     source("static/script.js"),
+    source("static/style.css"),
   ]);
 
   assert(
@@ -122,5 +149,18 @@ Deno.test("deck navigation exposes current and announced state", async () => {
   assert(
     script.includes("#slide-"),
     "deck navigation must preserve the active slide in the URL",
+  );
+  assert(
+    deck.includes('href="/#workflow"') &&
+      !deck.includes('href="/#expert"') &&
+      !deck.includes('href="/#ship"'),
+    "deck links must target current homepage sections",
+  );
+  assert(
+    /@media \(max-width: 480px\)[\s\S]*?\.deck-dots\s*\{[^}]*justify-content:\s*safe center;/
+      .test(
+        sharedCss,
+      ),
+    "overflowing mobile deck dots must keep their leading controls reachable",
   );
 });

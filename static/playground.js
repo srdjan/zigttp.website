@@ -627,7 +627,15 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
 
   // --- lens switching -----------------------------------------------------
   const lensTabs = [...card.querySelectorAll(".zp-lensbar [data-lens]")];
+  const lensBar = card.querySelector(".zp-lensbar");
   const lensPanes = [...card.querySelectorAll(".zp-lens")];
+
+  function setProofDetailsVisible(visible) {
+    if (lensBar) lensBar.hidden = !visible;
+    lensPanes.forEach((pane) => {
+      pane.hidden = !visible || pane.getAttribute("data-lens") !== activeLens;
+    });
+  }
 
   function selectLensTab(btn) {
     engage();
@@ -930,6 +938,7 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
   function setPlaygroundState(state) {
     section.dataset.state = state;
     card.classList.toggle("zp-live", state === "live");
+    setProofDetailsVisible(state === "static" || state === "live");
 
     const interactive = state === "live";
     editor.toggleAttribute("readonly", !interactive);
@@ -1004,6 +1013,9 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
 
   if (retryButton) retryButton.addEventListener("click", boot);
 
+  // Seed the overlay before the lazy analyzer boot. Once `.zp-js` hides the
+  // raw textarea text, the pre-rendered source must already be visible here.
+  syncHighlight();
   setPlaygroundState("static");
 
   // Lazy-load: only fetch the wasm once the section nears the viewport.
