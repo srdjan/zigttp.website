@@ -83,16 +83,21 @@ turned up that the audit did not.
   variable 11, TS7053 implicit-any index 6, TS7034 implicit-any inference 6, and
   7 others. No genuine runtime bug was among them. This needs its own scoped
   plan, most likely one file at a time.
-- **002 Step 3, the `Shift+Tab` discoverability hint, was not added.** No
-  existing CSS class fits: `.zp-editor` children are absolutely positioned,
-  `.zp-editor-col` has no padding, the toolbar containers are center-aligned
-  flex, and the one class that fits layout is `.zp-demo-state`, which is a live
-  region and a JS hook. Adding the hint needs a new selector, which the plan
-  forbade without sign-off. The keyboard-trap and read-only fixes landed
-  complete; only the microcopy is outstanding.
-- **`.claude/settings.local.json` is still unignored.** Plan 013 required
-  operator confirmation before adding any `.claude/` rule. Inspected key names
-  only: one top-level `skillOverrides`, no credential-shaped keys, 130 bytes.
+- ~~**002 Step 3, the `Shift+Tab` discoverability hint.**~~ RESOLVED 2026-08-01,
+  differently than the plan assumed. No existing CSS class fits (`.zp-editor`
+  children are absolutely positioned, `.zp-editor-col` has no padding, the
+  toolbar containers are center-aligned flex, and `.zp-demo-state` is a live
+  region and a JS hook), so the question became whether indent-on-Tab was worth
+  its cost at all. It was not: the seed ships correctly indented and visitors
+  perturb it with buttons. The whole keydown handler was removed, which deletes
+  the trap, the `readonly` bypass, and the need for a hint together. See commit
+  `b04c402`.
+- ~~**`.claude/settings.local.json` unignored.**~~ RESOLVED 2026-08-01. It was
+  covered only by the machine's global ignore, the same gap `node_modules` had.
+  The specific file is now in the repository `.gitignore`, not the whole
+  `.claude/` directory, so project skills under `.claude/skills/` stay
+  committable. Contents were benign: one top-level `skillOverrides` key, no
+  credential-shaped keys. See commit `0b2e017`.
 
 **New findings, discovered during execution, not in the original audit:**
 
