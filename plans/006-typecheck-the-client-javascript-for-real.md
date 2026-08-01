@@ -1,5 +1,28 @@
 # Plan 006: The client JavaScript is actually type-checked
 
+> **SUPERSEDED 2026-08-01 by plans 014, 015, and 016. Do not execute this
+> plan.**
+>
+> The finding was real and the ceiling was right; the scope was wrong. This plan
+> asked one executor to enable `checkJs`, clear every resulting diagnostic in
+> both client files, and wire the gate, in one pass. Execution stopped at its
+> own Step 1 decision point: 173 diagnostics against a ceiling of 40.
+>
+> Two facts measured afterwards reshaped the work, and neither was known when
+> this plan was written. `// @ts-check` enables checking for a single file with
+> the global flag off, so the migration can proceed one file at a time behind a
+> real gate. And adding the DOM lib breaks nothing already checked, so the 24
+> spurious `cannot find name 'document'` diagnostics were configuration noise
+> rather than work.
+>
+> The replacement is three plans: 014 takes `static/script.js` (34 diagnostics)
+> and proves the mechanism, 015 takes `static/playground.js` (139), and 016
+> flips the global flag once both are clean so new files are checked by default.
+>
+> Kept for the record because its Current state section and its house-rule
+> constraints still hold, and because the shape of its failure is the reason the
+> replacement is split three ways.
+
 > **Executor instructions**: Follow this plan step by step. Run every
 > verification command and confirm the expected result before moving on. Touch
 > only the files listed as in scope. If any STOP condition occurs, stop and

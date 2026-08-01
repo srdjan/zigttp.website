@@ -20,7 +20,7 @@ plans cite.
 | 003  | Tighten CSP to what the site actually loads           | P1       | S      | —          | DONE                                                 |
 | 004  | One failing enhancement cannot kill the rest          | P2       | S      | —          | DONE                                                 |
 | 005  | One `verify` task and a CI gate                       | P1       | S      | —          | DONE                                                 |
-| 006  | Type-check the client JavaScript for real             | P1       | S+     | 005        | BLOCKED (Step 1 decision point: 178 diagnostics)     |
+| 006  | Type-check the client JavaScript for real             | P1       | S+     | 005        | SUPERSEDED by 014, 015, 016                          |
 | 007  | Test playground behavior, not source text             | P2       | M      | 005        | DONE (harness is 103 lines, past the ~80-line guard) |
 | 008  | Serve validators so HTML can revalidate               | P2       | M      | 005        | DONE (Step 3 cache dropped: serves stale under dev)  |
 | 009  | `aria-label`s land on elements that can carry them    | P3       | S      | —          | DONE                                                 |
@@ -28,6 +28,9 @@ plans cite.
 | 011  | One truth for agent guidance                          | P2       | S      | 005, 010   | DONE                                                 |
 | 012  | Sitemap `lastmod` reflects the content                | P3       | S      | —          | DONE                                                 |
 | 013  | `.gitignore` protects a fresh clone                   | P3       | S      | 010        | DONE                                                 |
+| 014  | Type-check `static/script.js`                         | P2       | M      | —          | TODO                                                 |
+| 015  | Type-check `static/playground.js`                     | P2       | L      | 014        | TODO                                                 |
+| 016  | Check JavaScript by default                           | P3       | S      | 014, 015   | TODO                                                 |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (reason) | REJECTED (reason)
 
@@ -51,6 +54,10 @@ Status values: TODO | IN PROGRESS | DONE | BLOCKED (reason) | REJECTED (reason)
   `static/deck.html`.
 - **012 should land last** among content-changing plans, so the date it records
   does not go stale immediately.
+- **014, 015, 016 are strictly sequential** and replace 006. 014 adds the `lib`
+  array that 015 depends on and proves the per-file pragma mechanism on the
+  smaller file. 016 flips the global flag and is only safe once both files are
+  already clean; running it first is precisely what stopped 006.
 
 ## Decisions resolved
 
@@ -75,14 +82,21 @@ turned up that the audit did not.
 
 **Needs a decision:**
 
-- **006 is blocked, not failed.** Enabling `checkJs` surfaces 140 diagnostics
-  with Deno's default lib and 178 with the browser lib configured, against the
-  plan's "roughly 40" ceiling, so the executor stopped and reverted the flag as
-  instructed. Breakdown of the 178: TS7006 implicit-any parameter 58, TS18047
-  possibly-null 58, TS2339 property-does-not-exist 33, TS7005 implicit-any
-  variable 11, TS7053 implicit-any index 6, TS7034 implicit-any inference 6, and
-  7 others. No genuine runtime bug was among them. This needs its own scoped
-  plan, most likely one file at a time.
+- ~~**006 is blocked, not failed.**~~ RESOLVED 2026-08-01 by splitting it.
+  Enabling `checkJs` surfaced far more than the plan's "roughly 40" ceiling, so
+  the executor stopped and reverted the flag as instructed. Re-measured
+  independently at commit `874afb0` with the DOM lib configured: 34 diagnostics
+  in `static/script.js` and 139 in `static/playground.js`, 173 total. No genuine
+  runtime bug among them. 006 is now SUPERSEDED by plans 014, 015, and 016.
+
+  Two facts found while re-measuring reshaped the work and were not known when
+  006 was written. `// @ts-check` enables checking for one file with the global
+  flag off, and an unpragma'd file stays unchecked, so the migration can proceed
+  file by file behind a real gate. And adding
+  `"lib": ["deno.window", "dom", "dom.iterable", "esnext"]` leaves `main.ts` and
+  both test files checking clean, with `@b-fuze/deno-dom` coexisting with
+  `lib.dom`, so the 24 `cannot find name 'document'` diagnostics were
+  configuration noise rather than work.
 - ~~**002 Step 3, the `Shift+Tab` discoverability hint.**~~ RESOLVED 2026-08-01,
   differently than the plan assumed. No existing CSS class fits (`.zp-editor`
   children are absolutely positioned, `.zp-editor-col` has no padding, the
@@ -141,22 +155,22 @@ Fourteen audit findings became thirteen plans. A11Y-01 and BUG-02 are merged
 into plan 002 because both defects live in the same eight-line handler, and two
 plans editing identical lines is a broken handoff.
 
-| Finding                                                                   | Plan |
-| ------------------------------------------------------------------------- | ---- |
-| BUG-01 playground fails open on a null or throwing analyzer result        | 001  |
-| A11Y-01 Tab key traps keyboard focus in the editor                        | 002  |
-| BUG-02 Tab handler writes through `readonly`                              | 002  |
-| SEC-01 CSP grants `'unsafe-inline'` and an unused CDN                     | 003  |
-| BUG-03 a thrown `IntersectionObserver` constructor aborts deck navigation | 004  |
-| CI-01 nothing runs the test suite                                         | 005  |
-| VERIFY-01 `deno check` on `.js` is a silent no-op                         | 006  |
-| TEST-01 contract tests grep source text instead of running behavior       | 007  |
-| PERF-01 HTML re-downloads in full on every navigation                     | 008  |
-| A11Y-02 `aria-label` on role-less divs is discarded                       | 009  |
-| DEBT-01 139KB of unreferenced media ships with every deploy               | 010  |
-| DOC-01 `AGENTS.md` contradicts `CLAUDE.md` and the code                   | 011  |
-| SEO-01 sitemap `lastmod` predates the content                             | 012  |
-| DX-01 repository `.gitignore` does not cover `node_modules`               | 013  |
+| Finding                                                                   | Plan                    |
+| ------------------------------------------------------------------------- | ----------------------- |
+| BUG-01 playground fails open on a null or throwing analyzer result        | 001                     |
+| A11Y-01 Tab key traps keyboard focus in the editor                        | 002                     |
+| BUG-02 Tab handler writes through `readonly`                              | 002                     |
+| SEC-01 CSP grants `'unsafe-inline'` and an unused CDN                     | 003                     |
+| BUG-03 a thrown `IntersectionObserver` constructor aborts deck navigation | 004                     |
+| CI-01 nothing runs the test suite                                         | 005                     |
+| VERIFY-01 `deno check` on `.js` is a silent no-op                         | 014, 015, 016 (was 006) |
+| TEST-01 contract tests grep source text instead of running behavior       | 007                     |
+| PERF-01 HTML re-downloads in full on every navigation                     | 008                     |
+| A11Y-02 `aria-label` on role-less divs is discarded                       | 009                     |
+| DEBT-01 139KB of unreferenced media ships with every deploy               | 010                     |
+| DOC-01 `AGENTS.md` contradicts `CLAUDE.md` and the code                   | 011                     |
+| SEO-01 sitemap `lastmod` predates the content                             | 012                     |
+| DX-01 repository `.gitignore` does not cover `node_modules`               | 013                     |
 
 ## Findings considered and rejected
 
