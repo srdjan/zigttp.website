@@ -34,8 +34,8 @@ step, no framework.
 - `static/playground.js` - drives the homepage proof playground: loads the wasm
   analyzer, runs it on editor input, renders the proof card. The section
   degrades to a static pre-rendered card without it.
-- `static/zts-analyzer.*.wasm` - the zts analyzer compiled to WebAssembly.
-  Built in the zttp repo by `zig build wasm` and published here by its
+- `static/zts-analyzer.*.wasm` - the zts analyzer compiled to WebAssembly. Built
+  in the zttp repo by `zig build wasm` and published here by its
   `scripts/build-wasm-playground.sh`; the content hash in the filename is
   patched into `playground.js`. Do not hand-edit.
 - `static/*.mp4`, `*.png`, `*.jpg` - media. Cache-busted via

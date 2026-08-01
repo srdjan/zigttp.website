@@ -27,16 +27,15 @@ no framework.
   remove rather than comment out.
 - `static/home.css` - homepage-scoped styles, including the `.zp-*`
   proof-playground component.
-- `static/script.js` - progressive enhancement only.
-  The page must work without JS. On the homepage the no-JS contract is concrete:
-  the playground editor ships `readonly` with a pre-rendered proof card, and
-  `playground.js` adds the `zp-js` class to upgrade it to an editable,
-  syntax-highlighted state.
+- `static/script.js` - progressive enhancement only. The page must work without
+  JS. On the homepage the no-JS contract is concrete: the playground editor
+  ships `readonly` with a pre-rendered proof card, and `playground.js` adds the
+  `zp-js` class to upgrade it to an editable, syntax-highlighted state.
 - `static/playground.js` - drives the homepage proof playground: loads the wasm
   analyzer, runs it on editor input, renders the proof card. The section
   degrades to a static pre-rendered card without it.
-- `static/zts-analyzer.*.wasm` - the zts analyzer compiled to WebAssembly.
-  Built in the zttp repo by `zig build wasm` and published here by its
+- `static/zts-analyzer.*.wasm` - the zts analyzer compiled to WebAssembly. Built
+  in the zttp repo by `zig build wasm` and published here by its
   `scripts/build-wasm-playground.sh`; the content hash in the filename is
   patched into `playground.js`. Do not hand-edit.
 - `static/*.mp4`, `*.png`, `*.jpg` - media. Cache-busted via

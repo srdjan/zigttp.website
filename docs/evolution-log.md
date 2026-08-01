@@ -28,9 +28,8 @@
 - What changed:
   - Added a `#playground` section below the hero: a code editor beside a proof
     card
-  - The card runs the real zts analyzer, compiled to WebAssembly and served
-    from `static/`, so the verdict matches `zttp dev` rather than
-    approximating it
+  - The card runs the real zts analyzer, compiled to WebAssembly and served from
+    `static/`, so the verdict matches `zttp dev` rather than approximating it
   - Three perturbation buttons (inject `Date.now()`, leak a secret, add a
     `while` loop) flip the card red and back for visitors who do not type
   - Proof card carries four lenses: Properties, Trade, Handover, Caller view
