@@ -58,6 +58,29 @@ Deno.test("canonical routes retain redirect, cache, and security contracts", asy
     csp.includes("'wasm-unsafe-eval'"),
     "the playground needs wasm compilation to stay permitted",
   );
+  assert(
+    !csp.includes("media-src"),
+    "the policy must not grant media the site does not serve",
+  );
+});
+
+Deno.test("every static image is referenced by a document", async () => {
+  const documents = (await Promise.all([
+    source("static/index.html"),
+    source("static/deck.html"),
+    source("static/404.html"),
+    source("static/manifest.json"),
+  ])).join("\n");
+
+  for await (
+    const entry of Deno.readDir(new URL("../static", import.meta.url))
+  ) {
+    if (!/\.(png|jpe?g|ico)$/.test(entry.name)) continue;
+    assert(
+      documents.includes(entry.name),
+      `static/${entry.name} is not referenced by any document`,
+    );
+  }
 });
 
 function responseIsRedirectTo(response: Response, location: string): boolean {

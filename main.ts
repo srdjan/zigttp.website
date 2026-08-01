@@ -4,7 +4,6 @@ const CONTENT_SECURITY_POLICY = [
   "style-src 'self' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data:",
-  "media-src 'self'",
   "connect-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
@@ -35,8 +34,6 @@ const CONTENT_TYPES: Record<string, string> = {
   ".wasm": "application/wasm",
   ".txt": "text/plain; charset=utf-8",
   ".xml": "application/xml; charset=utf-8",
-  ".mp4": "video/mp4",
-  ".mov": "video/quicktime",
 };
 
 function getContentType(path: string): string {
