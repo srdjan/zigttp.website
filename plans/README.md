@@ -25,7 +25,7 @@ plans cite.
 | 008  | Serve validators so HTML can revalidate               | P2       | M      | 005        | DONE (Step 3 cache dropped: serves stale under dev)  |
 | 009  | `aria-label`s land on elements that can carry them    | P3       | S      | —          | DONE                                                 |
 | 010  | Remove unreferenced media and its server support      | P3       | S      | 003        | DONE                                                 |
-| 011  | One truth for agent guidance                          | P2       | S      | 005, 010   | TODO                                                 |
+| 011  | One truth for agent guidance                          | P2       | S      | 005, 010   | DONE                                                 |
 | 012  | Sitemap `lastmod` reflects the content                | P3       | S      | —          | TODO                                                 |
 | 013  | `.gitignore` protects a fresh clone                   | P3       | S      | 010        | DONE (`.claude/settings.local.json` awaits operator) |
 
