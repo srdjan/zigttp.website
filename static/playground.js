@@ -737,7 +737,8 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
   editor.addEventListener("scroll", syncScroll);
   editor.addEventListener("focus", engage);
   editor.addEventListener("keydown", (e) => {
-    if (e.key !== "Tab") return;
+    if (e.key !== "Tab" || e.shiftKey) return;
+    if (editor.readOnly) return;
     e.preventDefault();
     const s = editor.selectionStart, end = editor.selectionEnd;
     editor.value = editor.value.slice(0, s) + "  " + editor.value.slice(end);
