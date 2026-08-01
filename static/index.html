@@ -161,7 +161,7 @@
             <a class="z-button z-button-primary" href="#playground"
             >Break a proof</a>
           </div>
-          <div class="z-install-card" aria-label="Install command">
+          <div class="z-install-card" role="group" aria-label="Install command">
             <span class="z-prompt">$</span>
             <code
               id="install-cmd"
@@ -174,10 +174,7 @@
         </div>
 
         <figure class="z-product-shot">
-          <div
-            class="z-code-card"
-            aria-label="One zttp expert session: a vetoed draft, then a compiler-authored repair"
-          >
+          <div class="z-code-card">
             <div class="z-pane-title">
               <span>zttp expert</span><em>one write path</em>
             </div>
@@ -215,7 +212,11 @@
           </p>
         </div>
 
-        <div class="z-calm-strip" aria-label="Playground trust boundaries">
+        <div
+          class="z-calm-strip"
+          role="group"
+          aria-label="Playground trust boundaries"
+        >
           <span><i class="z-status-dot z-dot-safe"></i>Real analyzer</span>
           <span><i class="z-status-dot z-dot-idle"></i>Local source</span>
           <span><i class="z-status-dot z-dot-review"></i>Typed verdict</span>
@@ -680,7 +681,7 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
           compiler points to the failed property and source line.
         </p>
 
-        <div class="z-install-card" aria-label="Install command">
+        <div class="z-install-card" role="group" aria-label="Install command">
           <span class="z-prompt">$</span>
           <code
             id="install-cmd-cta"

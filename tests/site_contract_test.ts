@@ -122,6 +122,27 @@ Deno.test("homepage and deck are usable before enhancement", async () => {
   );
 });
 
+Deno.test("labelled regions use a role that can carry a name", async () => {
+  const home = await source("static/index.html");
+
+  assert(
+    !/<div\s+class="z-code-card"\s+aria-label=/.test(home),
+    "the product shot must be named by its figure, not by a role-less div",
+  );
+  assert(
+    home.includes("<figcaption"),
+    "the product shot must carry a figcaption",
+  );
+  assert(
+    home.match(/class="z-install-card"\s+role="group"/g)?.length === 2,
+    "both install cards must group their command under one nameable role",
+  );
+  assert(
+    /class="z-calm-strip"\s+role="group"/.test(home),
+    "the calm strip must carry a role that permits its name",
+  );
+});
+
 Deno.test("playground load failure cannot retain a proven verdict", async () => {
   const [home, playground] = await Promise.all([
     source("static/index.html"),
