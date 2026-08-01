@@ -19,7 +19,7 @@ plans cite.
 | 002  | Editor keydown respects `readonly` and releases focus | P1       | S      | —          | DONE (Step 3 hint deferred, no existing class fits)  |
 | 003  | Tighten CSP to what the site actually loads           | P1       | S      | —          | DONE                                                 |
 | 004  | One failing enhancement cannot kill the rest          | P2       | S      | —          | DONE                                                 |
-| 005  | One `verify` task and a CI gate                       | P1       | S      | —          | TODO                                                 |
+| 005  | One `verify` task and a CI gate                       | P1       | S      | —          | DONE                                                 |
 | 006  | Type-check the client JavaScript for real             | P1       | S+     | 005        | TODO                                                 |
 | 007  | Test playground behavior, not source text             | P2       | M      | 005        | TODO                                                 |
 | 008  | Serve validators so HTML can revalidate               | P2       | M      | 005        | TODO                                                 |

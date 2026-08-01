@@ -6,7 +6,8 @@
     "dev": "deno run --allow-net --allow-read --watch main.ts",
     "start": "deno run --allow-net --allow-read main.ts",
     "test": "deno test --allow-read",
-    "deploy": "deployctl deploy --prod"
+    "verify": "deno fmt --check && deno lint && deno check main.ts tests/site_contract_test.ts && deno task test",
+    "deploy": "deno task verify && deployctl deploy --prod"
   },
   "compilerOptions": {
     "strict": true
