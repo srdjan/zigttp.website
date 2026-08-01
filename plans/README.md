@@ -67,6 +67,69 @@ Plan **006** has an internal decision point rather than an upfront one: if
 enabling `checkJs` surfaces more than roughly 40 diagnostics, it stops and
 reports rather than opening an unbounded edit.
 
+## Open after execution
+
+Executed 2026-08-01 on branch `advisor/execute-backlog`, fourteen commits on top
+of `c963fcb`. Twelve plans DONE, one BLOCKED. What is left, and what execution
+turned up that the audit did not.
+
+**Needs a decision:**
+
+- **006 is blocked, not failed.** Enabling `checkJs` surfaces 140 diagnostics
+  with Deno's default lib and 178 with the browser lib configured, against the
+  plan's "roughly 40" ceiling, so the executor stopped and reverted the flag as
+  instructed. Breakdown of the 178: TS7006 implicit-any parameter 58, TS18047
+  possibly-null 58, TS2339 property-does-not-exist 33, TS7005 implicit-any
+  variable 11, TS7053 implicit-any index 6, TS7034 implicit-any inference 6, and
+  7 others. No genuine runtime bug was among them. This needs its own scoped
+  plan, most likely one file at a time.
+- **002 Step 3, the `Shift+Tab` discoverability hint, was not added.** No
+  existing CSS class fits: `.zp-editor` children are absolutely positioned,
+  `.zp-editor-col` has no padding, the toolbar containers are center-aligned
+  flex, and the one class that fits layout is `.zp-demo-state`, which is a live
+  region and a JS hook. Adding the hint needs a new selector, which the plan
+  forbade without sign-off. The keyboard-trap and read-only fixes landed
+  complete; only the microcopy is outstanding.
+- **`.claude/settings.local.json` is still unignored.** Plan 013 required
+  operator confirmation before adding any `.claude/` rule. Inspected key names
+  only: one top-level `skillOverrides`, no credential-shaped keys, 130 bytes.
+
+**New findings, discovered during execution, not in the original audit:**
+
+- **`deno run --watch` does not watch `static/`.** It watches the module graph,
+  so an edit to a static asset never triggers a restart. This is why plan 008's
+  in-memory cache had to be dropped: with the cache, `deno task dev` served a
+  stale body and a stale ETag indefinitely. Without it, every request re-reads
+  from disk and dev is correct. Any future caching in `main.ts` must solve this
+  first. The ETag and 304 half of plan 008 landed and is verified.
+- **The homepage scroll-spy observation band is too narrow to be useful.** With
+  `rootMargin: -56px 0px -60% 0px` and `threshold: 0.3`, a section taller than
+  about 40 percent of the viewport can never reach the threshold. `#playground`
+  at 960px in a 751px viewport never activates its nav link. Pre-existing, out
+  of plan 004's scope, and worth its own small plan.
+- **Neither install card is distinguishable from the other by name.** Both are
+  now `role="group"` labelled "Install command", so a screen-reader user hears
+  two identically-named groups each containing a "Copy" button. Correct as far
+  as plan 009 went, incomplete as a wayfinding solution.
+
+**Accepted deviations, disclosed by the executors:**
+
+- Plan 007's harness is 103 code lines against a "roughly 80" STOP guard. The
+  overage is the four form-control property shims deno-dom does not implement.
+  The guard existed to signal that Option B restructuring was needed, and Option
+  B was not authorized, so stopping would have left the plan undone with no path
+  forward. The seven behavior tests were independently confirmed to fail when
+  their fixes are reverted.
+- `deno.lock` is now tracked. It is outside plan 007's literal in-scope list,
+  but it pins the integrity hash of the project's first dependency and CI needs
+  it.
+- The test harness evaluates `static/playground.js` through `new Function` with
+  injected globals. The interpolated string is the project's own source read
+  from disk inside a test; there is no untrusted input path.
+
+**Never executed:** the GitHub Actions workflow added by plan 005 has not run,
+because nothing was pushed. Confirm it goes green on the first push.
+
 ## Findings map
 
 Fourteen audit findings became thirteen plans. A11Y-01 and BUG-02 are merged
