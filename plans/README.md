@@ -15,7 +15,7 @@ plans cite.
 
 | Plan | Title                                                 | Priority | Effort | Depends on | Status |
 | ---- | ----------------------------------------------------- | -------- | ------ | ---------- | ------ |
-| 001  | Playground fails closed on analyzer failure           | P1       | S      | —          | TODO   |
+| 001  | Playground fails closed on analyzer failure           | P1       | S      | —          | DONE   |
 | 002  | Editor keydown respects `readonly` and releases focus | P1       | S      | —          | TODO   |
 | 003  | Tighten CSP to what the site actually loads           | P1       | S      | —          | TODO   |
 | 004  | One failing enhancement cannot kill the rest          | P2       | S      | —          | TODO   |

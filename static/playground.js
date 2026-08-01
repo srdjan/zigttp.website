@@ -711,12 +711,19 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
   function runAnalysis() {
     if (!wasm) return;
     const t0 = performance.now();
-    const result = analyze(editor.value);
-    const elapsed = performance.now() - t0;
-    if (result) {
-      render(result);
-      setStatus("proved in " + fmtMs(elapsed), "");
+    let result = null;
+    try {
+      result = analyze(editor.value);
+    } catch (err) {
+      console.error("playground: analyzer call failed", err);
     }
+    const elapsed = performance.now() - t0;
+    if (!result) {
+      setPlaygroundState("unavailable");
+      return;
+    }
+    render(result);
+    setStatus("proved in " + fmtMs(elapsed), "");
   }
 
   function scheduleAnalysis() {

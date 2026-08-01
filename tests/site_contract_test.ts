@@ -111,6 +111,20 @@ Deno.test("playground load failure cannot retain a proven verdict", async () => 
   );
 });
 
+Deno.test("a failed analysis cannot retain a proven verdict", async () => {
+  const playground = await source("static/playground.js");
+
+  assert(
+    /function runAnalysis\(\)[\s\S]*?if \(!result\) \{\s*setPlaygroundState\("unavailable"\);/
+      .test(playground),
+    "a null analyzer result must drive the card to the unavailable state",
+  );
+  assert(
+    /function runAnalysis\(\)[\s\S]*?catch \(err\) \{/.test(playground),
+    "a throwing analyzer call must be caught rather than left uncaught",
+  );
+});
+
 Deno.test("playground static enhancement stays visible and truthful", async () => {
   const [playground, homeCss] = await Promise.all([
     source("static/playground.js"),
