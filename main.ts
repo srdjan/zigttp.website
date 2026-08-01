@@ -54,7 +54,7 @@ function permanentRedirect(location: string): Response {
   });
 }
 
-Deno.serve({ port: 8000 }, async (req: Request) => {
+export async function handleRequest(req: Request): Promise<Response> {
   const url = new URL(req.url);
   let path = url.pathname;
 
@@ -84,14 +84,14 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
     const file = await Deno.readFile(`./static${path}`);
     return new Response(file, { headers });
   } catch {
-    // Custom 404: serve index.html with 404 status
+    // Custom 404: keep the status while giving visitors a clear recovery path.
     try {
-      const index = await Deno.readFile("./static/index.html");
-      return new Response(index, {
+      const notFound = await Deno.readFile("./static/404.html");
+      return new Response(notFound, {
         status: 404,
         headers: {
           ...SECURITY_HEADERS,
-          "content-type": "text/html; charset=utf-8",
+          "content-type": getContentType("/404.html"),
           "cache-control": "no-cache",
         },
       });
@@ -99,4 +99,6 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
       return new Response("Not Found", { status: 404 });
     }
   }
-});
+}
+
+if (import.meta.main) Deno.serve({ port: 8000 }, handleRequest);

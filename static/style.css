@@ -169,6 +169,14 @@ code {
   padding: 10px;
 }
 
+.no-js .nav-burger {
+  display: none;
+}
+
+.no-js .nav-links {
+  display: flex;
+}
+
 .nav-burger span {
   display: block;
   width: 22px;
@@ -311,6 +319,7 @@ code {
   flex: 1;
   position: relative;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .deck-slide {
@@ -343,6 +352,43 @@ code {
   flex-direction: column;
   padding: clamp(16px, 4%, 48px) clamp(16px, 4%, 8%) clamp(12px, 3%, 32px);
   overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+.no-js .deck-page {
+  height: auto;
+  overflow: auto;
+}
+
+.no-js .deck {
+  display: block;
+  height: auto;
+}
+
+.no-js .deck-viewport {
+  overflow: visible;
+}
+
+.no-js .deck-slide {
+  position: relative;
+  display: flex;
+  height: auto;
+  min-height: min(760px, calc(100svh - var(--nav-height)));
+  border-bottom: 1px solid var(--border);
+  animation: none;
+}
+
+.no-js .deck-slide-inner {
+  height: auto;
+  min-height: inherit;
+  overflow: visible;
+}
+
+.no-js .deck-nav {
+  display: none;
 }
 
 .deck-tag {
@@ -651,6 +697,13 @@ code {
   color: var(--green);
 }
 
+.deck-command-input,
+.deck-command-output {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
 .deck-security-layout {
   display: flex;
   flex-direction: column;
@@ -955,7 +1008,7 @@ code {
 }
 
 .deck-nav {
-  height: 48px;
+  min-height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -967,22 +1020,42 @@ code {
 
 .deck-dots {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.deck-dots::-webkit-scrollbar {
+  display: none;
 }
 
 .deck-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 4px;
+  position: relative;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  flex: 0 0 44px;
+  scroll-snap-align: center;
   border: none;
   cursor: pointer;
-  background: var(--bg-elevated);
-  transition: width 0.3s ease, background-color 0.3s ease;
+  background: transparent;
   padding: 0;
 }
 
-.deck-dot.active {
+.deck-dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-dim) 32%, transparent);
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.deck-dot.active::before {
   width: 24px;
   background: var(--accent);
 }
@@ -1001,7 +1074,9 @@ code {
 
 .deck-prev,
 .deck-next {
-  padding: 4px 12px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
   font-family: var(--font-mono);
   font-size: 12px;
   cursor: pointer;
@@ -1041,6 +1116,22 @@ code {
   .container {
     padding: 0 20px;
   }
+
+  .no-js .nav-inner {
+    height: auto;
+    min-height: var(--nav-height);
+    flex-wrap: wrap;
+    padding-block: 4px;
+  }
+
+  .no-js .nav-links {
+    order: 2;
+    width: 100%;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 6px 0 10px;
+    white-space: nowrap;
+  }
 }
 
 /* --------------------------------------------------------
@@ -1049,6 +1140,23 @@ code {
 @media (max-width: 480px) {
   .container {
     padding: 0 16px;
+  }
+
+  .deck-nav {
+    min-height: 104px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 16px;
+  }
+
+  .deck-dots {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .deck-controls {
+    gap: 8px;
   }
 }
 

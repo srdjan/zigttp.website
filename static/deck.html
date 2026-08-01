@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -90,7 +90,7 @@
     }
     </script>
 
-    <link rel="stylesheet" href="/style.css?v=15">
+    <link rel="stylesheet" href="/style.css?v=19">
   </head>
   <body class="deck-page">
     <nav class="nav">
@@ -933,6 +933,7 @@
             class="deck-dot active"
             data-dot="0"
             aria-label="Go to slide 1"
+            aria-current="step"
           >
           </button>
           <button class="deck-dot" data-dot="1" aria-label="Go to slide 2">
@@ -959,15 +960,26 @@
           </button>
         </div>
         <div class="deck-controls">
-          <span class="deck-counter">1 / 12</span>
-          <button class="deck-prev" disabled aria-label="Previous slide">
+          <span
+            class="deck-counter"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >1 / 12</span>
+          <button
+            class="deck-prev"
+            type="button"
+            disabled
+            aria-label="Previous slide"
+          >
             &#8592;
           </button>
-          <button class="deck-next" aria-label="Next slide">&#8594;</button>
+          <button class="deck-next" type="button" aria-label="Next slide"
+          >&#8594;</button>
         </div>
       </nav>
     </main>
 
-    <script src="/script.js?v=8" defer></script>
+    <script src="/script.js?v=12" defer></script>
   </body>
 </html>

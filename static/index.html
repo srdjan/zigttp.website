@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,8 +105,8 @@
     }
     </script>
 
-    <link rel="stylesheet" href="/style.css?v=15">
-    <link rel="stylesheet" href="/home.css?v=21">
+    <link rel="stylesheet" href="/style.css?v=19">
+    <link rel="stylesheet" href="/home.css?v=25">
   </head>
   <body class="zttp-home">
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -150,23 +150,6 @@
     </header>
 
     <main id="main">
-      <aside class="z-release-banner" aria-label="Release announcement">
-        <div>
-          <span>v0.18.0</span>
-          <strong>The receipt now signs the sandbox policy.</strong>
-          <p>
-            A <code>runtime_policy_sha256</code> claim pins the exact egress,
-            env, cache, and SQL allowlist the sandbox enforces, and startup
-            fails closed on a mismatch.
-          </p>
-        </div>
-        <a
-          href="https://github.com/srdjan/zttp/releases/tag/v0.18.0"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Read the release notes</a>
-      </aside>
-
       <section class="z-hero" id="hero">
         <div class="z-hero-copy">
           <p class="z-eyebrow">
@@ -175,12 +158,10 @@
           </p>
           <h1>The agent writes only what the compiler can prove.</h1>
           <p class="z-hero-lede">
-            One system, three parts built against each other: a restricted
-            TypeScript the compiler can decide, a proof engine total over that
-            language, and a coding agent that authors inside the fence. Every
-            draft is simulated before it touches disk. A draft that adds
-            violations is vetoed. When the agent fails, the compiler writes the
-            fix itself.
+            A restricted TypeScript, a total proof engine, and a coding agent
+            share one write path. Every draft is proved before it touches disk.
+            Red drafts are vetoed; when the agent fails, the compiler writes the
+            fix.
           </p>
           <div class="z-hero-actions">
             <a class="z-button z-button-primary" href="#playground"
@@ -230,6 +211,23 @@
           </figcaption>
         </figure>
       </section>
+
+      <aside class="z-release-banner" aria-label="Release announcement">
+        <div>
+          <span>v0.18.0</span>
+          <strong>The receipt now signs the sandbox policy.</strong>
+          <p>
+            A <code>runtime_policy_sha256</code> claim pins the exact egress,
+            env, cache, and SQL allowlist the sandbox enforces, and startup
+            fails closed on a mismatch.
+          </p>
+        </div>
+        <a
+          href="https://github.com/srdjan/zttp/releases/tag/v0.18.0"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Read the release notes</a>
+      </aside>
 
       <section class="z-section z-playground" id="playground">
         <p class="z-section-kicker">
@@ -327,6 +325,9 @@
                 <button type="button" class="zp-demo-replay">
                   Replay sample flip
                 </button>
+                <button type="button" class="zp-retry" hidden>
+                  Retry proof engine
+                </button>
               </div>
             </div>
             <div
@@ -371,7 +372,7 @@ function handler(req: Request): Response &amp; Guarantees {
                   class="z-status-dot z-dot-safe zp-live-dot"
                   aria-hidden="true"
                 ></span>
-                <span class="zp-status">compiled from source</span>
+                <span class="zp-status">pre-rendered proof preview</span>
               </span>
             </div>
 
@@ -1596,7 +1597,7 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
       >Zig</a>
     </footer>
 
-    <script src="/script.js?v=9" defer></script>
-    <script src="/playground.js?v=8" defer></script>
+    <script src="/script.js?v=12" defer></script>
+    <script src="/playground.js?v=10" defer></script>
   </body>
 </html>

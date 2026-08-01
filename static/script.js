@@ -1,3 +1,7 @@
+// Keep the document in its usable no-JavaScript state until this controller
+// has actually loaded. A blocked script must not expose inert controls.
+document.documentElement.classList.replace("no-js", "js");
+
 // Menu toggle: the button opens/closes the menu; a link click, Escape, or a
 // click outside `outsideSelector` closes it. Shared by the homepage nav and
 // the deck burger, which differ only in selectors and whether the button
@@ -82,7 +86,7 @@ const spySections = [...spyLinks].map((link) =>
   document.querySelector(link.getAttribute("href"))
 ).filter(Boolean);
 
-if (spySections.length) {
+if (spySections.length && "IntersectionObserver" in globalThis) {
   const linkForId = new Map();
   spyLinks.forEach((link) => {
     const id = link.getAttribute("href").slice(1);
@@ -110,17 +114,6 @@ if (spySections.length) {
   spySections.forEach((section) => scrollSpy.observe(section));
 }
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  link.addEventListener("click", (e) => {
-    const target = document.querySelector(link.getAttribute("href"));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  });
-});
-
 // Slide deck navigation
 const deck = document.getElementById("deck");
 if (deck) {
@@ -131,35 +124,63 @@ if (deck) {
   const prevBtn = deck.querySelector(".deck-prev");
   const nextBtn = deck.querySelector(".deck-next");
   const total = slides.length;
-  let currentSlide = 0;
-  let animating = false;
+  let currentSlide = -1;
+
+  const slideIndexFromHash = (hash) => {
+    const match = /^#slide-(\d+)$/.exec(hash);
+    if (!match) return null;
+    const index = Number(match[1]) - 1;
+    return index >= 0 && index < total ? index : null;
+  };
 
   const updateButtons = () => {
     prevBtn.disabled = currentSlide === 0;
     nextBtn.disabled = currentSlide === total - 1;
   };
 
-  const go = (next) => {
-    if (next < 0 || next >= total || next === currentSlide || animating) return;
-    viewport.style.setProperty("--slide-dir", next > currentSlide ? 1 : -1);
+  const go = (next, syncUrl = true) => {
+    if (next < 0 || next >= total || next === currentSlide) return;
+    viewport.style.setProperty(
+      "--slide-dir",
+      currentSlide < 0 || next > currentSlide ? 1 : -1,
+    );
 
-    slides[currentSlide].classList.remove("active");
-    dots[currentSlide].classList.remove("active");
+    if (currentSlide >= 0) {
+      slides[currentSlide].classList.remove("active");
+      slides[currentSlide].setAttribute("aria-hidden", "true");
+      dots[currentSlide].classList.remove("active");
+      dots[currentSlide].removeAttribute("aria-current");
+    }
 
     currentSlide = next;
     const slide = slides[currentSlide];
     slide.classList.add("active");
+    slide.removeAttribute("aria-hidden");
     dots[currentSlide].classList.add("active");
+    dots[currentSlide].setAttribute("aria-current", "step");
+    dots[currentSlide].scrollIntoView({ block: "nearest", inline: "center" });
     counter.textContent = (currentSlide + 1) + " / " + total;
     updateButtons();
 
-    animating = true;
-    slide.addEventListener("animationend", () => {
-      animating = false;
-    }, { once: true });
+    if (syncUrl) {
+      const hash = "#slide-" + (currentSlide + 1);
+      if (globalThis.location.hash !== hash) {
+        globalThis.history.pushState(null, "", hash);
+      }
+    }
   };
 
+  slides.forEach((slide, index) => {
+    slide.setAttribute("role", "group");
+    slide.setAttribute("aria-roledescription", "slide");
+    slide.setAttribute("aria-label", (index + 1) + " of " + total);
+    slide.classList.remove("active");
+    slide.setAttribute("aria-hidden", "true");
+  });
+
   dots.forEach((dot, i) => {
+    dot.classList.remove("active");
+    dot.removeAttribute("aria-current");
     dot.addEventListener("click", () => go(i));
   });
 
@@ -167,11 +188,12 @@ if (deck) {
   nextBtn.addEventListener("click", () => go(currentSlide + 1));
 
   document.addEventListener("keydown", (e) => {
-    const tag = document.activeElement && document.activeElement.tagName;
+    const active = document.activeElement;
     if (
-      e.key === " " &&
-      (tag === "BUTTON" || tag === "INPUT" || tag === "TEXTAREA")
-    ) return;
+      e.key === " " && active?.closest("button, a, input, textarea, select")
+    ) {
+      return;
+    }
     if (e.key === "ArrowRight" || e.key === " ") {
       e.preventDefault();
       go(currentSlide + 1);
@@ -186,4 +208,29 @@ if (deck) {
       go(total - 1);
     }
   });
+
+  let pointerStart = null;
+  viewport.addEventListener("pointerdown", (e) => {
+    if (e.target.closest("button, a, input, textarea, select")) return;
+    pointerStart = { x: e.clientX, y: e.clientY };
+  });
+  viewport.addEventListener("pointerup", (e) => {
+    if (!pointerStart) return;
+    const dx = e.clientX - pointerStart.x;
+    const dy = e.clientY - pointerStart.y;
+    pointerStart = null;
+    if (Math.abs(dx) < 50 || Math.abs(dx) <= Math.abs(dy)) return;
+    go(currentSlide + (dx < 0 ? 1 : -1));
+  });
+  viewport.addEventListener("pointercancel", () => {
+    pointerStart = null;
+  });
+
+  const restoreFromUrl = () => {
+    const index = slideIndexFromHash(globalThis.location.hash);
+    go(index ?? 0, false);
+  };
+  globalThis.addEventListener("hashchange", restoreFromUrl);
+  globalThis.addEventListener("popstate", restoreFromUrl);
+  restoreFromUrl();
 }

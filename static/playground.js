@@ -244,6 +244,7 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
   const cardTrade = card.querySelector(".zp-trade");
   const cardCert = card.querySelector(".zp-cert");
   const cardStatus = card.querySelector(".zp-status");
+  const cardLiveDot = card.querySelector(".zp-live-dot");
 
   const reduceMotion = globalThis.matchMedia &&
     globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -837,6 +838,7 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
   let demoRunId = 0;
   const demoState = section.querySelector(".zp-demo-state");
   const demoReplay = section.querySelector(".zp-demo-replay");
+  const retryButton = section.querySelector(".zp-retry");
 
   function setDemoState(text) {
     if (demoState) demoState.textContent = text;
@@ -925,23 +927,44 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
     if (s.className !== cls) s.className = cls;
   }
 
-  let booted = false;
-  async function boot() {
-    if (booted) return;
-    booted = true;
-    editor.value = activeSeed;
-    syncHighlight();
-    if (typeof WebAssembly === "undefined") {
-      setStatus("playground needs WebAssembly", "zp-status-warn");
-      setDemoState("WebAssembly unavailable");
+  function setPlaygroundState(state) {
+    section.dataset.state = state;
+    card.classList.toggle("zp-live", state === "live");
+
+    const interactive = state === "live";
+    editor.toggleAttribute("readonly", !interactive);
+    perturbBtns.forEach((button) => (button.disabled = !interactive));
+    seedTabs.forEach((button) => (button.disabled = !interactive));
+    if (demoReplay) demoReplay.disabled = !interactive;
+    if (retryButton) retryButton.hidden = state !== "unavailable";
+
+    if (state === "static") {
+      setStatus("pre-rendered proof preview", "");
+      setDemoState("static proof preview");
       return;
     }
-    setStatus("loading proof engine...", "");
-    setDemoState("loading proof engine");
-    try {
-      await loadWasm();
-    } catch (err) {
-      console.error("playground: proof engine failed to load", err);
+
+    if (state === "loading") {
+      cardHead.className = "zp-head zp-loading";
+      cardVerdict.textContent = "LOADING";
+      cardCount.textContent = "proof pending";
+      if (cardLiveDot) {
+        cardLiveDot.className = "z-status-dot z-dot-idle zp-live-dot";
+      }
+      setStatus("loading proof engine...", "");
+      setDemoState("loading proof engine");
+      return;
+    }
+
+    if (state === "unavailable") {
+      clearDemoTimers();
+      cardHead.className = "zp-head zp-unavailable";
+      cardVerdict.textContent = "UNAVAILABLE";
+      cardCount.textContent = "proof not run";
+      if (cardLiveDot) {
+        cardLiveDot.className = "z-status-dot z-dot-idle zp-live-dot";
+      }
+      cardWhy.hidden = true;
       setStatus(
         "proof engine unavailable - install zttp to try it locally",
         "zp-status-warn",
@@ -949,12 +972,39 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
       setDemoState("proof engine unavailable");
       return;
     }
-    card.classList.add("zp-live");
-    editor.removeAttribute("readonly");
+
+    if (cardLiveDot) {
+      cardLiveDot.className = "z-status-dot z-dot-safe zp-live-dot";
+    }
+  }
+
+  async function boot() {
+    if (
+      section.dataset.state === "loading" || section.dataset.state === "live"
+    ) return;
+    editor.value = activeSeed;
+    syncHighlight();
+    setPlaygroundState("loading");
+    if (typeof WebAssembly === "undefined") {
+      setPlaygroundState("unavailable");
+      return;
+    }
+    try {
+      await loadWasm();
+    } catch (err) {
+      console.error("playground: proof engine failed to load", err);
+      setPlaygroundState("unavailable");
+      return;
+    }
+    setPlaygroundState("live");
     runAnalysis();
     setDemoState("proof engine ready");
     autoDemo();
   }
+
+  if (retryButton) retryButton.addEventListener("click", boot);
+
+  setPlaygroundState("static");
 
   // Lazy-load: only fetch the wasm once the section nears the viewport.
   if ("IntersectionObserver" in globalThis) {
