@@ -9,6 +9,9 @@
     "verify": "deno fmt --check && deno lint && deno check main.ts tests/site_contract_test.ts && deno task test",
     "deploy": "deno task verify && deployctl deploy --prod"
   },
+  "imports": {
+    "@b-fuze/deno-dom": "jsr:@b-fuze/deno-dom@^0.1.56"
+  },
   "compilerOptions": {
     "strict": true
   }

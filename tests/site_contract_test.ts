@@ -187,32 +187,6 @@ Deno.test("labelled regions use a role that can carry a name", async () => {
   );
 });
 
-Deno.test("playground load failure cannot retain a proven verdict", async () => {
-  const [home, playground] = await Promise.all([
-    source("static/index.html"),
-    source("static/playground.js"),
-  ]);
-
-  assert(
-    home.includes("zp-retry"),
-    "the playground must expose a retry control",
-  );
-  assert(
-    playground.includes('setPlaygroundState("unavailable")'),
-    "load failures must enter the unavailable state",
-  );
-  assert(
-    playground.includes('cardVerdict.textContent = "UNAVAILABLE"'),
-    "the unavailable state must replace the proven verdict",
-  );
-  assert(
-    playground.includes(
-      'setProofDetailsVisible(state === "static" || state === "live")',
-    ),
-    "loading and unavailable states must hide stale proof details",
-  );
-});
-
 Deno.test("a failed analysis cannot retain a proven verdict", async () => {
   const playground = await source("static/playground.js");
 
@@ -240,23 +214,16 @@ Deno.test("the editor never traps keyboard focus and never writes when read-only
   );
 });
 
-Deno.test("playground static enhancement stays visible and truthful", async () => {
-  const [playground, homeCss] = await Promise.all([
-    source("static/playground.js"),
-    source("static/home.css"),
-  ]);
-  const staticSequence = playground.indexOf(
-    'syncHighlight();\n  setPlaygroundState("static");',
-  );
-  const lazyObserver = playground.lastIndexOf("new IntersectionObserver");
+// The source-order half of this contract now lives in
+// tests/playground_behavior_test.ts, which boots the section for real. What
+// remains is a stylesheet rule, and there is no mechanism here for computed
+// layout, so it stays a source contract.
+Deno.test("hidden diagnostics stay out of layout", async () => {
+  const homeCss = await source("static/home.css");
 
   assert(
     /\.zp-why\[hidden\]\s*\{[^}]*display:\s*none;?[^}]*\}/.test(homeCss),
     "hidden diagnostics must remain out of layout after a proven rerender",
-  );
-  assert(
-    staticSequence !== -1 && staticSequence < lazyObserver,
-    "the highlighted source must be seeded before static state and lazy boot",
   );
 });
 

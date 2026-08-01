@@ -21,7 +21,7 @@ plans cite.
 | 004  | One failing enhancement cannot kill the rest          | P2       | S      | —          | DONE                                                 |
 | 005  | One `verify` task and a CI gate                       | P1       | S      | —          | DONE                                                 |
 | 006  | Type-check the client JavaScript for real             | P1       | S+     | 005        | BLOCKED (Step 1 decision point: 178 diagnostics)     |
-| 007  | Test playground behavior, not source text             | P2       | M      | 005        | TODO                                                 |
+| 007  | Test playground behavior, not source text             | P2       | M      | 005        | DONE (harness is 103 lines, past the ~80-line guard) |
 | 008  | Serve validators so HTML can revalidate               | P2       | M      | 005        | DONE (Step 3 cache dropped: serves stale under dev)  |
 | 009  | `aria-label`s land on elements that can carry them    | P3       | S      | —          | DONE                                                 |
 | 010  | Remove unreferenced media and its server support      | P3       | S      | 003        | DONE                                                 |
