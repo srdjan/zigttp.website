@@ -17,7 +17,7 @@ plans cite.
 | ---- | ----------------------------------------------------- | -------- | ------ | ---------- | --------------------------------------------------- |
 | 001  | Playground fails closed on analyzer failure           | P1       | S      | —          | DONE                                                |
 | 002  | Editor keydown respects `readonly` and releases focus | P1       | S      | —          | DONE (Step 3 hint deferred, no existing class fits) |
-| 003  | Tighten CSP to what the site actually loads           | P1       | S      | —          | TODO                                                |
+| 003  | Tighten CSP to what the site actually loads           | P1       | S      | —          | DONE                                                |
 | 004  | One failing enhancement cannot kill the rest          | P2       | S      | —          | DONE                                                |
 | 005  | One `verify` task and a CI gate                       | P1       | S      | —          | TODO                                                |
 | 006  | Type-check the client JavaScript for real             | P1       | S+     | 005        | TODO                                                |

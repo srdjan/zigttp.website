@@ -44,6 +44,20 @@ Deno.test("canonical routes retain redirect, cache, and security contracts", asy
     ),
     "the homepage must retain its anti-framing policy",
   );
+
+  const csp = home.headers.get("content-security-policy") ?? "";
+  assert(
+    !csp.includes("'unsafe-inline'"),
+    "the policy must not grant inline script execution",
+  );
+  assert(
+    !csp.includes("jsdelivr"),
+    "the policy must not grant a CDN the site does not load from",
+  );
+  assert(
+    csp.includes("'wasm-unsafe-eval'"),
+    "the playground needs wasm compilation to stay permitted",
+  );
 });
 
 function responseIsRedirectTo(response: Response, location: string): boolean {
