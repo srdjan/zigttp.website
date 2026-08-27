@@ -3,7 +3,7 @@
 // script: the section ships a pre-rendered proven card and a plain editor.
 //
 // WASM_URL is patched by scripts/build-wasm-playground.sh on every build.
-const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
+const WASM_URL = "/zts-analyzer.8cd61293fc20.wasm";
 
 (function () {
   "use strict";
@@ -17,16 +17,16 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
 
   // --- demo sources -------------------------------------------------------
   // Two seeds back the editor tabs. Both share one handler body, so they
-  // prove the same properties; they differ only in whether a Spec<...> is
+  // prove the same properties; they differ only in whether a Proof<T, P> is
   // declared - which is the whole point: every guarantee is enforced by
-  // default, and Spec<...> only narrows the *declared* set. Each variant
+  // default, and Proof<T, P> only narrows the *declared* set. Each variant
   // breaks exactly one proof so a passive visitor still watches the card
   // flip. RETURN_LINE is the shared anchor the variant edits target, so the
   // seeds and their variants cannot drift apart.
   const RETURN_LINE = "  return Response.json({ ok: true });";
 
   const SEED_DEFAULT = [
-    "// No Spec<...> here, so every guarantee is enforced by",
+    "// No Proof<T, P> here, so every guarantee is enforced by",
     "// default. Break one below and the card flips red.",
     "function handler(req: Request): Response {",
     RETURN_LINE,
@@ -34,16 +34,16 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
     "",
   ].join("\n");
 
-  const SEED_SPEC = [
-    'import type { Spec } from "zttp:types";',
-    "",
-    "// All guarantees are enforced by default. This Spec<...>",
+  const SEED_PROOF = [
+    "// All guarantees are enforced by default. This Proof<T, P>",
     "// narrows enforcement to these three; break one and the card flips red.",
-    "type Guarantees = Spec<",
-    '  "deterministic" | "no_secret_leakage" | "injection_safe"',
+    "structural Guardrails<T> = Proof<T,",
+    '  | "deterministic"',
+    '  | "no_secret_leakage"',
+    '  | "injection_safe"',
     ">;",
     "",
-    "function handler(req: Request): Response & Guarantees {",
+    "function handler(req: Request): Guardrails<Response> {",
     RETURN_LINE,
     "}",
     "",
@@ -87,10 +87,11 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
     };
   }
 
-  // The Spec<...> tab is first and active on load - it proves green, so the
-  // attract demo and first impression stay green. The no-Spec tab is strict
-  // (it enforces every guarantee, including unearned fault-coverage).
-  let activeSeed = SEED_SPEC;
+  // The Proof<T, P> tab is first and active on load - it proves green, so the
+  // attract demo and first impression stay green. The no-Proof tab is strict
+  // (it enforces every guarantee, including unearned fault-coverage), so it
+  // reports ZTS500 rather than a clean card.
+  let activeSeed = SEED_PROOF;
   let VARIANTS = variantsFor(activeSeed);
 
   // --- property model -----------------------------------------------------
@@ -288,16 +289,16 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
     renderLens(activeLens);
   }
 
-  function sourceDeclaresSpec(source) {
-    return /Spec\s*</.test(source.replace(/\/\/[^\n]*/g, ""));
+  function sourceDeclaresProof(source) {
+    return /Proof\s*</.test(source.replace(/\/\/[^\n]*/g, ""));
   }
 
   function proofSummary(provenCount, proof, source) {
     if (!proof) return "proof blocked before props";
-    const declaresSpec = sourceDeclaresSpec(source);
+    const declaresProof = sourceDeclaresProof(source);
     const specs = (proof && proof.declared_specs) || [];
     const specDiagnostics = (proof && proof.spec_diagnostics) || [];
-    if (declaresSpec && specs.length) {
+    if (declaresProof && specs.length) {
       const undischarged = new Set(specDiagnostics.map((d) => d.spec_name));
       const provenSpecs = specs.filter((s) => !undischarged.has(s)).length;
       return provenSpecs + "/" + specs.length + " specs | " +
@@ -464,15 +465,15 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
 
     const specWrap = cardSpecs;
     specWrap.textContent = "";
-    // Only show the declared-Spec row when the handler actually declares a
-    // Spec<...> (comments stripped first). With no Spec, every guarantee is
+    // Only show the declared-Proof row when the handler actually declares a
+    // Proof<T, P> (comments stripped first). With no Proof, every guarantee is
     // enforced by default and the analyzer reports the full active set - that
     // is not an author declaration, so the row stays empty. This is the whole
-    // point of the two tabs: default enforces all; Spec<...> narrows.
-    const declaresSpec = sourceDeclaresSpec(editor.value);
+    // point of the two tabs: default enforces all; Proof<T, P> narrows.
+    const declaresProof = sourceDeclaresProof(editor.value);
     const specs = (proof && proof.declared_specs) || [];
-    if (declaresSpec && specs.length) {
-      specWrap.appendChild(el("span", "zp-specs-label", "declared Spec<>"));
+    if (declaresProof && specs.length) {
+      specWrap.appendChild(el("span", "zp-specs-label", "declared Proof<>"));
       const undischarged = new Set(
         ((proof && proof.spec_diagnostics) || []).map((d) => d.spec_name),
       );
@@ -796,14 +797,14 @@ const WASM_URL = "/zts-analyzer.4ced20ee19da.wasm";
   }
 
   // --- seed tabs ----------------------------------------------------------
-  // Switch the editor between the no-Spec default and the Spec<...> example.
-  // Both prove the same properties; only the declared-Spec chip row differs.
+  // Switch the editor between the no-Proof default and the Proof<T, P> example.
+  // Both prove the same properties; only the declared-Proof chip row differs.
   // Switching resets any active perturbation and collapses an open trace.
   const seedTabs = [...section.querySelectorAll("[data-seed]")];
   const editorPanel = document.getElementById("zp-editor-panel");
 
   function selectSeed(which) {
-    activeSeed = which === "spec" ? SEED_SPEC : SEED_DEFAULT;
+    activeSeed = which === "proof" ? SEED_PROOF : SEED_DEFAULT;
     VARIANTS = variantsFor(activeSeed);
     activePerturb = null;
     perturbBtns.forEach((b) => {

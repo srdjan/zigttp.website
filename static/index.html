@@ -114,7 +114,7 @@
         <a class="z-brand" href="/" aria-label="zttp home">
           <img src="/logo-circle.jpeg" alt="" width="38" height="38">
           <span>zttp</span>
-          <small>v0.18.0</small>
+          <small>v0.19.0</small>
         </a>
         <button
           class="z-menu-button"
@@ -228,14 +228,14 @@
               <button
                 type="button"
                 class="zp-tab active"
-                data-seed="spec"
-                id="zp-seed-tab-spec"
+                data-seed="proof"
+                id="zp-seed-tab-proof"
                 role="tab"
                 aria-selected="true"
                 aria-controls="zp-editor-panel"
                 tabindex="0"
               >
-                With <code>Spec&lt;...&gt;</code>
+                With <code>Proof&lt;T, P&gt;</code>
               </button>
               <button
                 type="button"
@@ -247,7 +247,7 @@
                 aria-controls="zp-editor-panel"
                 tabindex="-1"
               >
-                No Spec (all enforced)
+                No Proof (all enforced)
               </button>
             </div>
             <div class="zp-toolbar">
@@ -302,7 +302,7 @@
               class="zp-editor"
               id="zp-editor-panel"
               role="tabpanel"
-              aria-labelledby="zp-seed-tab-spec"
+              aria-labelledby="zp-seed-tab-proof"
             >
               <pre
                 class="zp-highlight"
@@ -316,15 +316,15 @@
                 autocapitalize="off"
                 readonly
                 aria-label="Handler source code"
-              >import type { Spec } from "zttp:types";
-
-// All guarantees are enforced by default. This Spec&lt;...&gt;
+              >// All guarantees are enforced by default. This Proof&lt;T, P&gt;
 // narrows enforcement to these three; break one and the card flips red.
-type Guarantees = Spec&lt;
-  "deterministic" | "no_secret_leakage" | "injection_safe"
+structural Guardrails&lt;T&gt; = Proof&lt;T,
+  | "deterministic"
+  | "no_secret_leakage"
+  | "injection_safe"
 &gt;;
 
-function handler(req: Request): Response &amp; Guarantees {
+function handler(req: Request): Guardrails&lt;Response&gt; {
   return Response.json({ ok: true });
 }
 </textarea>
@@ -430,7 +430,7 @@ function handler(req: Request): Response &amp; Guarantees {
                 </li>
               </ul>
               <div class="zp-specs">
-                <span class="zp-specs-label">declared Spec&lt;&gt;</span>
+                <span class="zp-specs-label">declared Proof&lt;&gt;</span>
                 <span class="zp-spec on">deterministic</span>
                 <span class="zp-spec on">no_secret_leakage</span>
                 <span class="zp-spec on">injection_safe</span>
@@ -537,7 +537,8 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 
         <p class="z-workflow-caption">
           The session ledger records whether the model or compiler authored each
-          edit. <code>zttp expert</code> needs an Anthropic or OpenAI key.
+          edit. <code>zttp expert</code> needs a DeepSeek key, or
+          <code>--provider local</code> and a local MLX server.
         </p>
 
         <div class="z-detail-grid">
@@ -697,18 +698,19 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
 <span class="z-cmd">cd</span> api
 <span class="z-cmd">zttp</span> dev</code></pre>
           <p>
-            <code>zttp expert</code> needs an Anthropic or OpenAI key. The
-            compiler, CLI, and browser playground do not.
+            <code>zttp expert</code> needs a DeepSeek key, or
+            <code>--provider local</code> and a local MLX server. The compiler,
+            CLI, and browser playground do not.
           </p>
         </div>
 
         <div class="z-hero-actions center">
           <a
             class="z-button z-button-primary"
-            href="https://github.com/srdjan/zttp/releases/tag/v0.18.0"
+            href="https://github.com/srdjan/zttp/releases/tag/v0.19.0"
             target="_blank"
             rel="noopener noreferrer"
-          >Download v0.18.0</a>
+          >Download v0.19.0</a>
           <a
             class="z-button z-button-secondary"
             href="https://github.com/srdjan/zttp/blob/main/docs/user-guide.md#first-project"
@@ -743,6 +745,6 @@ Zttp-Attest: eyJhbGciOiJFZERTQS...</pre>
     </footer>
 
     <script src="/script.js?v=14" defer></script>
-    <script src="/playground.js?v=15" defer></script>
+    <script src="/playground.js?v=16" defer></script>
   </body>
 </html>

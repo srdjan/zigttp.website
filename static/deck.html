@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-      zttp v0.18.0 - TypeScript handlers proven at compile time
+      zttp v0.19.0 - TypeScript handlers proven at compile time
     </title>
     <meta
       name="description"
-      content="Slide deck for zttp v0.18.0: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
+      content="Slide deck for zttp v0.19.0: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f4f7f1">
@@ -31,11 +31,11 @@
     <meta property="og:url" content="https://zigttp.timok.com/deck">
     <meta
       property="og:title"
-      content="zttp v0.18.0 Presentation - TypeScript handlers proven at compile time"
+      content="zttp v0.19.0 Presentation - TypeScript handlers proven at compile time"
     >
     <meta
       property="og:description"
-      content="Slide deck for zttp v0.18.0: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
+      content="Slide deck for zttp v0.19.0: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -53,11 +53,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta
       name="twitter:title"
-      content="zttp v0.18.0 Presentation - TypeScript handlers proven at compile time"
+      content="zttp v0.19.0 Presentation - TypeScript handlers proven at compile time"
     >
     <meta
       name="twitter:description"
-      content="Slide deck for zttp v0.18.0: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
+      content="Slide deck for zttp v0.19.0: a restricted TypeScript runtime in pure Zig with compile-time proofs and a compiler-in-the-loop agent."
     >
     <meta
       name="twitter:image"
@@ -138,7 +138,7 @@
           <div class="deck-title-content">
             <h1 class="deck-hero-title">zttp</h1>
             <p class="deck-hero-subtitle">
-              v0.18.0: TypeScript handlers proven at compile time
+              v0.19.0: TypeScript handlers proven at compile time
             </p>
             <p class="deck-hero-caption">
               zts subset - compile-time proof - compiler-in-the-loop agent
@@ -150,7 +150,7 @@
               <span class="deck-stat-label">cold start</span>
             </div>
             <div>
-              <span class="deck-stat-value">4.8MB</span>
+              <span class="deck-stat-value">5.3MB</span>
               <span class="deck-stat-label">binary size</span>
             </div>
             <div>
@@ -165,7 +165,7 @@
           <div class="deck-slide-inner">
             <span class="deck-tag">The Product</span>
             <h2 class="deck-slide-title">
-              v0.18.0 tightens the proof loop end to end
+              v0.19.0 tightens the proof loop end to end
             </h2>
             <p class="deck-slide-subtitle">
               Install once. Edit your code. Run
@@ -545,7 +545,7 @@
               <div class="deck-card-header">
                 <span class="deck-card-header-icon">&#9654;</span>
                 <span class="deck-card-header-title"
-                >zttp CLI v0.18.0</span>
+                >zttp CLI v0.19.0</span>
               </div>
               <code class="deck-guard-code"
               >init &#8594; dev &#8594; test &#8594; expert &#8594;
@@ -617,7 +617,7 @@
                 | sh</code>
               <code class="deck-command-output"
               >Pre-built binaries for macOS and Linux (x86_64, aarch64) -
-                v0.18.0</code>
+                v0.19.0</code>
             </div>
           </div>
         </div>
@@ -682,8 +682,32 @@
                   <span class="deck-module-desc">Crash recovery</span>
                 </div>
                 <div class="deck-module-item">
-                  <code class="deck-module-name">zttp:compose</code>
-                  <span class="deck-module-desc">Guards + pipe</span>
+                  <code class="deck-module-name">zttp:fetch</code>
+                  <span class="deck-module-desc">Outbound HTTP</span>
+                </div>
+                <div class="deck-module-item">
+                  <code class="deck-module-name">zttp:workflow</code>
+                  <span class="deck-module-desc">Call + saga</span>
+                </div>
+                <div class="deck-module-item">
+                  <code class="deck-module-name">zttp:queue</code>
+                  <span class="deck-module-desc">Durable queue</span>
+                </div>
+                <div class="deck-module-item">
+                  <code class="deck-module-name">zttp:json</code>
+                  <span class="deck-module-desc">Parse + stringify</span>
+                </div>
+                <div class="deck-module-item">
+                  <code class="deck-module-name">zttp:result</code>
+                  <span class="deck-module-desc">Result combinators</span>
+                </div>
+                <div class="deck-module-item">
+                  <code class="deck-module-name">zttp:collections</code>
+                  <span class="deck-module-desc">Dict operations</span>
+                </div>
+                <div class="deck-module-item">
+                  <code class="deck-module-name">zttp:bytes</code>
+                  <span class="deck-module-desc">Byte strings</span>
                 </div>
                 <div class="deck-module-item">
                   <code class="deck-module-name">zttp:router</code>
@@ -732,7 +756,7 @@
               </div>
             </div>
             <p class="deck-footnote deck-footnote--pushed">
-              20 modules implemented in Zig - zero interpretation overhead.
+              26 modules implemented in Zig - zero interpretation overhead.
             </p>
           </div>
         </div>
@@ -765,7 +789,7 @@
               </div>
               <div class="deck-cmp-row">
                 <div class="deck-cmp-label">Binary</div>
-                <div class="deck-cmp-hero">4.8MB</div>
+                <div class="deck-cmp-hero">5.3MB</div>
                 <div class="deck-cmp-other">~80MB</div>
                 <div class="deck-cmp-other">~130MB</div>
                 <div class="deck-cmp-other">~90MB</div>
@@ -919,7 +943,7 @@
               <div class="deck-summary-row">
                 <code class="deck-summary-label">Native performance</code>
                 <span class="deck-summary-value"
-                >~7ms cold start - 4.8MB - ~13MB baseline</span>
+                >~7ms cold start - 5.3MB - ~13MB baseline</span>
               </div>
             </div>
           </div>
